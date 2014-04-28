@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FrbaCommerce.Common
 {
-    public class Class1
+    class Visibilidad
     {
     }
 }

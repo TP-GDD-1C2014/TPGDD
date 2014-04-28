@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
+//Hace referencia a la carpeta "Login", en donde se ubica la form LoginForm
+using FrbaCommerce.Login;
+
 namespace FrbaCommerce
 {
     static class Program
@@ -15,7 +18,7 @@ namespace FrbaCommerce
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new LoginForm());
         }
     }
 }
