@@ -9,14 +9,14 @@ namespace FrbaCommerce.Common
     {
         public int Cod_Publicacion { get; set; }
         public int Cod_Visibilidad { get; set; }
-        public int ID_Vendedor { get; set; }
+        public int ID_Vendedor { get; set; } //ID_User
         public string Descripcion { get; set; }
         public int Stock { get; set; }
         public DateTime Fecha_Inicio { get; set; }
         public DateTime Fecha_Vto { get; set; }
         public float Precio { get; set; }
-        public int Estado_Publicacion { get; set; }
-        public int Tipo_Publicacion { get; set; }
+        public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada }
+        public enum Tipo_Publicacion { Inmediata = 0, Subasta }
         public int Permiso_Preguntas { get; set; }
         public int Stock_Inicial { get; set; }
     }

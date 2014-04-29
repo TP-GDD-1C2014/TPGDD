@@ -47,12 +47,22 @@
   <ItemGroup>
     <Compile Include="Calificacion.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="ConexionBD.cs" />
     <Compile Include="Empresa.cs" />
+    <Compile Include="Facturacion.cs" />
+    <Compile Include="Funcionalidad.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Operacion.cs" />
+    <Compile Include="Pregunta.cs" />
     <Compile Include="Publicacion.cs" />
     <Compile Include="Rol.cs" />
+    <Compile Include="Rubro.cs" />
     <Compile Include="Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Visibilidad.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

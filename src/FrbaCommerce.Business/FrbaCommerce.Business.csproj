@@ -71,6 +71,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FrbaCommerce.Common\FrbaCommerce.Common.csproj">
+      <Project>{19B21226-2E60-48AF-B0D5-B276CE7BA045}</Project>
+      <Name>FrbaCommerce.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
