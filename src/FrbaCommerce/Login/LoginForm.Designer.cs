@@ -102,6 +102,7 @@
             this.Controls.Add(this.Password_Label);
             this.Controls.Add(this.Username_Label);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login - MercadoNegro";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);

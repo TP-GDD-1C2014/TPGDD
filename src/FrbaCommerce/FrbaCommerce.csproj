@@ -85,9 +85,9 @@
     <Compile Include="Calificar Vendedor\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\BDSQL.cs" />
     <Compile Include="Clases\Calificacion.cs" />
     <Compile Include="Clases\Cliente.cs" />
-    <Compile Include="Clases\ConexionBD.cs" />
     <Compile Include="Clases\Empresa.cs" />
     <Compile Include="Clases\Facturacion.cs" />
     <Compile Include="Clases\Funcionalidad.cs" />

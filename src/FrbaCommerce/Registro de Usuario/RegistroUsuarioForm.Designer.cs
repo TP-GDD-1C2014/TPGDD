@@ -40,9 +40,9 @@
             this.Usuario_Label.AutoSize = true;
             this.Usuario_Label.Location = new System.Drawing.Point(57, 36);
             this.Usuario_Label.Name = "Usuario_Label";
-            this.Usuario_Label.Size = new System.Drawing.Size(43, 13);
+            this.Usuario_Label.Size = new System.Drawing.Size(55, 13);
             this.Usuario_Label.TabIndex = 0;
-            this.Usuario_Label.Text = "Usuario";
+            this.Usuario_Label.Text = "Username";
             // 
             // textBox1
             // 
@@ -59,6 +59,7 @@
             this.Contrasenia_Label.Size = new System.Drawing.Size(61, 13);
             this.Contrasenia_Label.TabIndex = 2;
             this.Contrasenia_Label.Text = "Contraseña";
+            this.Contrasenia_Label.Click += new System.EventHandler(this.Contrasenia_Label_Click);
             // 
             // Rol_Label
             // 
@@ -87,6 +88,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.Usuario_Label);
             this.Name = "RegistroUsuarioForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registro de Usuario";
             this.Load += new System.EventHandler(this.RegistroUsuarioForm_Load);
             this.ResumeLayout(false);

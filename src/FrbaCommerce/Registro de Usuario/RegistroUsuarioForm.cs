@@ -20,5 +20,10 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
 
         }
+
+        private void Contrasenia_Label_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
