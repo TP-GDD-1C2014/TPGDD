@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FrbaCommerce
+namespace FrbaCommerce.Clases
 {
     public class Usuario
     {
