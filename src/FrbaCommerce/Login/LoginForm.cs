@@ -12,10 +12,15 @@ using FrbaCommerce.Registro_de_Usuario;
 
 
 
+
+
 namespace FrbaCommerce.Login
 {
     public partial class LoginForm : Form
     {
+        public const int CANTIDAD_MAXIMA_INTENTOS = 3;
+
+
         public LoginForm()
         {
             InitializeComponent();
@@ -38,12 +43,13 @@ namespace FrbaCommerce.Login
 
         private void Login_Button_Click(object sender, EventArgs e)
         {
-            // Consultar en la base de datos y verificar la password, y con esto ver si loguea o no (en este caso sumar +1 cantidad_intentos)
+            // Consultar en la base de datos y verificar la password
             string username = Username_TextBox.Text;
             string password = Password_TextBox.Text;
 
-            if (!username.Equals("") || !password.Equals(""))
+            if (!username.Equals("") && !password.Equals(""))
             {
+                //los campos no estan vacios
                 Usuario usuarioLogin = new Usuario(username, password);
 
                 if (usuarioLogin.verificarContrasenia())
@@ -55,6 +61,7 @@ namespace FrbaCommerce.Login
 
                     //Segun el rol (Ó LOS ROLES!!) que tenga, abrir la AMB correspondiente
 
+
                 }
                 else
                 {
@@ -63,6 +70,12 @@ namespace FrbaCommerce.Login
 
                     // la idea aca es meter la cantidad restante de intentos
                     MessageBox.Show("ERRROR: Usuario o contraseña incorrecta, le quedan X intentos");
+
+                    if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
+                    {
+                        //superó la cantidad maxima de intentos
+                        usuarioLogin.inhabilitarUsuario();
+                    }
 
                 }
 
@@ -79,6 +92,11 @@ namespace FrbaCommerce.Login
 
             RegistroUsuarioForm formRegistro = new RegistroUsuarioForm();
             formRegistro.Show();
+        }
+
+        private void Limpiar_Button_Click(object sender, EventArgs e)
+        {
+            Common.Interfaz.limpiarInterfaz(this);
         }
     }
 }

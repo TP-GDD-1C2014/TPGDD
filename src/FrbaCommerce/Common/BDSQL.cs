@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms;
 
-namespace FrbaCommerce.Clases
+namespace FrbaCommerce.Common
 {
     class BDSQL
     {
@@ -23,6 +23,7 @@ namespace FrbaCommerce.Clases
                 stringConexion = ConfigurationManager.AppSettings["ConnectionString"];
                 conexion.ConnectionString = stringConexion;
                 conexion.Open();
+                
             }
             catch (SqlException)
             {

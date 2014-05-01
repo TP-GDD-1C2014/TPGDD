@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FrbaCommerce.Common;
 
 namespace FrbaCommerce.Clases
 {
@@ -25,6 +26,11 @@ namespace FrbaCommerce.Clases
         public Boolean verificarContrasenia()
         {
             //verificar contraseña con la base de datos
+            BDSQL.iniciarConexion();
+            //bla bla bla
+            BDSQL.cerrarConexion();
+
+
 
             //dummy
             return true;
@@ -39,6 +45,20 @@ namespace FrbaCommerce.Clases
         {
             // sumar + 1 Intentos_Login
         }
+
+        public int cantidadIntentosFallidos()
+        {
+            //consultar a la base de datos y devolver un int
+
+            //dummy
+            return 0;
+        }
+
+        public void inhabilitarUsuario()
+        {
+            //conectar a la base de datos y cambiar el campo Habilitado a 0
+        }
+
 
     }
 }

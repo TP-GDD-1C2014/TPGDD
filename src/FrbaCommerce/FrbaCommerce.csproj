@@ -85,7 +85,7 @@
     <Compile Include="Calificar Vendedor\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clases\BDSQL.cs" />
+    <Compile Include="Common\BDSQL.cs" />
     <Compile Include="Clases\Calificacion.cs" />
     <Compile Include="Clases\Cliente.cs" />
     <Compile Include="Clases\Empresa.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Clases\Rubro.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Visibilidad.cs" />
+    <Compile Include="Common\Interfaz.cs" />
     <Compile Include="Comprar-Ofertar\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
