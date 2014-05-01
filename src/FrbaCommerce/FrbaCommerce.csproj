@@ -84,6 +84,20 @@
     <Compile Include="Calificar Vendedor\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\Calificacion.cs" />
+    <Compile Include="Clases\Cliente.cs" />
+    <Compile Include="Clases\ConexionBD.cs" />
+    <Compile Include="Clases\Empresa.cs" />
+    <Compile Include="Clases\Facturacion.cs" />
+    <Compile Include="Clases\Funcionalidad.cs" />
+    <Compile Include="Clases\Item.cs" />
+    <Compile Include="Clases\Operacion.cs" />
+    <Compile Include="Clases\Pregunta.cs" />
+    <Compile Include="Clases\Publicacion.cs" />
+    <Compile Include="Clases\Rol.cs" />
+    <Compile Include="Clases\Rubro.cs" />
+    <Compile Include="Clases\Usuario.cs" />
+    <Compile Include="Clases\Visibilidad.cs" />
     <Compile Include="Comprar-Ofertar\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,16 +184,6 @@
     <Compile Include="Registro de Usuario\RegistroUsuarioForm.Designer.cs">
       <DependentUpon>RegistroUsuarioForm.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FrbaCommerce.Business\FrbaCommerce.Business.csproj">
-      <Project>{E24815A9-32BB-4782-AAF6-AC31C350C95C}</Project>
-      <Name>FrbaCommerce.Business</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FrbaCommerce.Common\FrbaCommerce.Common.csproj">
-      <Project>{19B21226-2E60-48AF-B0D5-B276CE7BA045}</Project>
-      <Name>FrbaCommerce.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
