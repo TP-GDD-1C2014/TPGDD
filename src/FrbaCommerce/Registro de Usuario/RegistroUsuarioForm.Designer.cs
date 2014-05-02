@@ -37,6 +37,10 @@
             this.Registrar_Button = new System.Windows.Forms.Button();
             this.Limpiar_Button = new System.Windows.Forms.Button();
             this.Rol_Combo = new System.Windows.Forms.ComboBox();
+            this.Tipo_Doc_TextBox = new System.Windows.Forms.TextBox();
+            this.Razon_Social_TextBox = new System.Windows.Forms.TextBox();
+            this.Tipo_Doc_Label = new System.Windows.Forms.Label();
+            this.Razon_Social_Label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Username_Label
@@ -119,11 +123,49 @@
             this.Rol_Combo.TabIndex = 8;
             this.Rol_Combo.SelectedIndexChanged += new System.EventHandler(this.Rol_Combo_SelectedIndexChanged);
             // 
+            // Tipo_Doc_TextBox
+            // 
+            this.Tipo_Doc_TextBox.Location = new System.Drawing.Point(199, 170);
+            this.Tipo_Doc_TextBox.Name = "Tipo_Doc_TextBox";
+            this.Tipo_Doc_TextBox.Size = new System.Drawing.Size(100, 20);
+            this.Tipo_Doc_TextBox.TabIndex = 9;
+            this.Tipo_Doc_TextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // Razon_Social_TextBox
+            // 
+            this.Razon_Social_TextBox.Location = new System.Drawing.Point(199, 170);
+            this.Razon_Social_TextBox.Name = "Razon_Social_TextBox";
+            this.Razon_Social_TextBox.Size = new System.Drawing.Size(100, 20);
+            this.Razon_Social_TextBox.TabIndex = 10;
+            // 
+            // Tipo_Doc_Label
+            // 
+            this.Tipo_Doc_Label.AutoSize = true;
+            this.Tipo_Doc_Label.Location = new System.Drawing.Point(59, 170);
+            this.Tipo_Doc_Label.Name = "Tipo_Doc_Label";
+            this.Tipo_Doc_Label.Size = new System.Drawing.Size(99, 13);
+            this.Tipo_Doc_Label.TabIndex = 11;
+            this.Tipo_Doc_Label.Text = "Tipo de documento";
+            this.Tipo_Doc_Label.Click += new System.EventHandler(this.Tipo_Doc_Label_Click);
+            // 
+            // Razon_Social_Label
+            // 
+            this.Razon_Social_Label.AutoSize = true;
+            this.Razon_Social_Label.Location = new System.Drawing.Point(59, 170);
+            this.Razon_Social_Label.Name = "Razon_Social_Label";
+            this.Razon_Social_Label.Size = new System.Drawing.Size(68, 13);
+            this.Razon_Social_Label.TabIndex = 12;
+            this.Razon_Social_Label.Text = "Razon social";
+            // 
             // RegistroUsuarioForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(394, 332);
+            this.Controls.Add(this.Razon_Social_Label);
+            this.Controls.Add(this.Tipo_Doc_Label);
+            this.Controls.Add(this.Razon_Social_TextBox);
+            this.Controls.Add(this.Tipo_Doc_TextBox);
             this.Controls.Add(this.Rol_Combo);
             this.Controls.Add(this.Limpiar_Button);
             this.Controls.Add(this.Registrar_Button);
@@ -153,5 +195,9 @@
         private System.Windows.Forms.Button Registrar_Button;
         private System.Windows.Forms.Button Limpiar_Button;
         private System.Windows.Forms.ComboBox Rol_Combo;
+        private System.Windows.Forms.TextBox Tipo_Doc_TextBox;
+        private System.Windows.Forms.TextBox Razon_Social_TextBox;
+        private System.Windows.Forms.Label Tipo_Doc_Label;
+        private System.Windows.Forms.Label Razon_Social_Label;
     }
 }

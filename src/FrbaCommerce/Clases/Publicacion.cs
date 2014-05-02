@@ -19,6 +19,7 @@ namespace FrbaCommerce.Clases
         public enum Tipo_Publicacion { Inmediata = 0, Subasta }
         public int Permiso_Preguntas { get; set; }
         public int Stock_Inicial { get; set; }
+
         private List<Rubro> Rubros = new List<Rubro>();
 
         public void agregarRubro(Rubro rubro)
