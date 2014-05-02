@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FrbaCommerce.Clases
 {
-    class Rol
+    public class Rol
     {
         public int ID_Rol { get; set; } // Es necesario para consultar con otras tablas donde sea FK
         public string Nombre { get; set; }

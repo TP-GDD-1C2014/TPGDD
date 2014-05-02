@@ -65,7 +65,9 @@ namespace FrbaCommerce.Registro_de_Usuario
             //Mostrar los Strings de cada rol que se encuentren en la base de datos
             //anexo del dummy, debera ser SWTICH para mas de 2(dos) roles
 
-              if (Rol_Combo.SelectedItem == "Cliente")
+           
+
+              if (((string) Rol_Combo.SelectedItem).Equals("Cliente"))
                 {
                     Tipo_Doc_Label.Visible       = true;
                     Tipo_Doc_TextBox.Visible     = true;

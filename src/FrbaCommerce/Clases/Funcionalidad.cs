@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FrbaCommerce.Clases
 {
-    class Funcionalidad
+    public class Funcionalidad
     {
         //chequear si va la ID de la funcionalidad (mismo caso que RUBRO)
         public string Nombre { get; set; }

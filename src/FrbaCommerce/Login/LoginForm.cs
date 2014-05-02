@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Registro_de_Usuario;
 using System.Security.Cryptography;
+using System.Data.SqlClient;
 
 
 namespace FrbaCommerce.Login
@@ -40,28 +41,35 @@ namespace FrbaCommerce.Login
 
         private void Login_Button_Click(object sender, EventArgs e)
         {
-            // Consultar en la base de datos y verificar la password
-            string username = Username_TextBox.Text;
-
-            // Hasheamos el password (????)
-            UTF8Encoding encoderHash = new UTF8Encoding();
-            SHA256Managed hasher = new SHA256Managed();
-            byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Password_TextBox.Text));
-            string password = bytesDeHasheoToString(bytesDeHasheo);
-
-            if (!username.Equals("") && !password.Equals(""))
+            if (!Username_TextBox.Text.Equals("") && !Password_TextBox.Text.Equals(""))
             {
                 //los campos no estan vacios
+
+                // Consultar en la base de datos y verificar la password
+                string username = Username_TextBox.Text;
+
+                // Hasheamos el password (????)
+                UTF8Encoding encoderHash = new UTF8Encoding();
+                SHA256Managed hasher = new SHA256Managed();
+                byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Password_TextBox.Text));
+                string password = bytesDeHasheoToString(bytesDeHasheo);
+
                 Usuario usuarioLogin = new Usuario(username, password);
 
                 if (usuarioLogin.verificarContrasenia())
                 {
-                    //Login correcto, seteamos intentos fallidos en 0
-                    usuarioLogin.ResetearIntentosFallidos();
-                    usuarioLogin.ObtenerRoles();
-                    //Segun el rol (Ó LOS ROLES!!) que tenga, abrir la ABM correspondiente
-
-
+                        //Login correcto, seteamos intentos fallidos en 0
+                        usuarioLogin.ResetearIntentosFallidos();
+                        if (usuarioLogin.obtenerRoles())
+                        {
+                            // mostrar roles en combobox
+                        }
+                        else
+                        {
+                            MessageBox.Show("El usuario no tiene roles asignados");
+                            // no tiene roles
+                        };
+                        //Segun el rol (Ó LOS ROLES!!) que tenga, abrir la ABM correspondiente
                 }
                 else
                 {
