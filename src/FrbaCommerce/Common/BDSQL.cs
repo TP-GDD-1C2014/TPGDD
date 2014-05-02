@@ -11,25 +11,21 @@ namespace FrbaCommerce.Common
 {
     class BDSQL
     {
-
         static SqlConnection conexion = new SqlConnection();
         static string stringConexion;
 
         public static SqlConnection iniciarConexion()
         {
-
             try
             {
                 stringConexion = ConfigurationManager.AppSettings["ConnectionString"];
                 conexion.ConnectionString = stringConexion;
                 conexion.Open();
-                
             }
             catch (SqlException)
             {
                 MessageBox.Show("Error en la conexión a la base de datos");
             }
-
             return conexion;
         }
 
@@ -42,9 +38,23 @@ namespace FrbaCommerce.Common
             catch (SqlException)
             {
                 MessageBox.Show("Error al desconectar la base de datos");
-            }
-                
+            }   
         }
+        
+        // Iniciar transaccion, no probado
+        public static SqlTransaction iniciarTransaccion(SqlTransaction objTransaccion)
+        {
+            try
+            {
+                objTransaccion = conexion.BeginTransaction();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("No se pudo inicializar la transacción");
+            }
+            return objTransaccion;
+        }
+        
 
     }
 }

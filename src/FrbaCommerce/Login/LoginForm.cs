@@ -8,10 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Registro_de_Usuario;
-
-
-
-
+using System.Security.Cryptography;
 
 
 namespace FrbaCommerce.Login
@@ -39,13 +36,18 @@ namespace FrbaCommerce.Login
         private void label1_Click_1(object sender, EventArgs e)
         {
 
-        }
+        }        
 
         private void Login_Button_Click(object sender, EventArgs e)
         {
             // Consultar en la base de datos y verificar la password
             string username = Username_TextBox.Text;
-            string password = Password_TextBox.Text;
+
+            // Hasheamos el password (????)
+            UTF8Encoding encoderHash = new UTF8Encoding();
+            SHA256Managed hasher = new SHA256Managed();
+            byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Password_TextBox.Text));
+            string password = bytesDeHasheoToString(bytesDeHasheo);
 
             if (!username.Equals("") && !password.Equals(""))
             {
@@ -54,12 +56,10 @@ namespace FrbaCommerce.Login
 
                 if (usuarioLogin.verificarContrasenia())
                 {
-                    //se logueo correctamente
-
-                    //reseteando intentos fallidos
+                    //Login correcto, seteamos intentos fallidos en 0
                     usuarioLogin.ResetearIntentosFallidos();
-
-                    //Segun el rol (Ó LOS ROLES!!) que tenga, abrir la AMB correspondiente
+                    usuarioLogin.ObtenerRoles();
+                    //Segun el rol (Ó LOS ROLES!!) que tenga, abrir la ABM correspondiente
 
 
                 }
@@ -97,6 +97,17 @@ namespace FrbaCommerce.Login
         private void Limpiar_Button_Click(object sender, EventArgs e)
         {
             Common.Interfaz.limpiarInterfaz(this);
+        }
+
+        //funcion para transformar lo hasheado a string
+        private string bytesDeHasheoToString(byte[] array)
+        {
+            StringBuilder salida = new StringBuilder("");
+            for (int i = 0; i < array.Length; i++)
+            {
+                salida.Append(array[i].ToString("X2"));
+            }
+            return salida.ToString();
         }
     }
 }

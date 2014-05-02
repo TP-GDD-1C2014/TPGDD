@@ -16,6 +16,9 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
             InitializeComponent();
 
+            // Empezamos transacción
+            
+
             //dummy (borrar dps!)
             Rol_Combo.Items.Add("Cliente");
             Rol_Combo.Items.Add("Empresa");
