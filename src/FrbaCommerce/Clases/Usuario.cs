@@ -37,8 +37,8 @@ namespace FrbaCommerce.Clases
                 SqlConnection conexion = BDSQL.iniciarConexion();
 
                 // Armamos el query con los parámetros
-                SqlCommand queryLogin = new SqlCommand("SELECT (Usuario, Password) FROM MERCADONEGRO.Usuarios WHERE Usuario = @Usuario AND PASSWORD = @Password", conexion);
-                queryLogin.Parameters.AddWithValue("@Usuario", this.Username);
+                SqlCommand queryLogin = new SqlCommand("SELECT Username, Password FROM MERCADONEGRO.Usuarios WHERE Username = @Username AND PASSWORD = @Password", conexion);
+                queryLogin.Parameters.AddWithValue("@Username", this.Username);
                 queryLogin.Parameters.AddWithValue("@Password", this.Password);
 
                 // Ejecutamos el query
@@ -47,16 +47,15 @@ namespace FrbaCommerce.Clases
                 // Recibimos el resultado
                 SqlDataReader lector = queryLogin.ExecuteReader();
 
-                // Cerramos
-                BDSQL.cerrarConexion();
-
                 // Chequeamos si hubo coincidencias
                 if (lector.HasRows)
                 {
+                    BDSQL.cerrarConexion();
                     return true;
                 }
                 else
                 {
+                    BDSQL.cerrarConexion();
                     return false;
                 }
             }
