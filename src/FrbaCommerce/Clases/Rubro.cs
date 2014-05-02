@@ -7,13 +7,8 @@ namespace FrbaCommerce.Clases
 {
     class Rubro
     {
-        private List<string> rubros = new List<string>();
-
-        public void agregarRubro(string rubro)
-        {
-            this.rubros.Add(rubro);
-
-        }
+        public int ID_Rubro { get; set; } //chequear mismo caso que funcionalidad
+        public string Descripcion { get; set; }
 
     }
 }

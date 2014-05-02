@@ -10,5 +10,13 @@ namespace FrbaCommerce.Clases
         public string Nombre { get; set; }
         public int Habilitado { get; set; }
 
+        private List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+
+        public void agregarFuncionalidades(Funcionalidad funcionalidad)
+        {
+            this.funcionalidades.Add(funcionalidad);
+
+        }
+
     }
 }

@@ -7,6 +7,7 @@ namespace FrbaCommerce.Clases
 {
     class Calificacion
     {
+        public int Cod_Calificacion { get; set; }
         public int Puntaje { get; set; }
         public string Descripcion { get; set; }
     }
