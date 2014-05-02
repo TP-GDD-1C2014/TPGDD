@@ -23,6 +23,12 @@ namespace FrbaCommerce.Registro_de_Usuario
             Rol_Combo.DropDownStyle = ComboBoxStyle.DropDown;
 
             //dummy adicionales x rol
+            OcultarAdicionales();
+        }
+
+        //funcion para ocultar controles adiocionales (especificos x rol)
+        private void OcultarAdicionales()
+        {
             Tipo_Doc_Label.Visible = false;
             Tipo_Doc_TextBox.Visible = false;
             Razon_Social_Label.Visible = false;
@@ -48,10 +54,7 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
             Common.Interfaz.limpiarInterfaz(this);
             Rol_Combo.Text = "";
-            Tipo_Doc_Label.Visible = false;
-            Tipo_Doc_TextBox.Visible = false;
-            Razon_Social_Label.Visible = false;
-            Razon_Social_TextBox.Visible = false;
+            OcultarAdicionales();
         }
 
         private void Rol_Combo_SelectedIndexChanged(object sender, EventArgs e)
