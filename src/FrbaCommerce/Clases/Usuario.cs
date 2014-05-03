@@ -33,109 +33,96 @@ namespace FrbaCommerce.Clases
         {
             try
             {
-                // Conectamos
-                SqlConnection conexion = BDSQL.iniciarConexion();
-
-                // Armamos el query con los parámetros
-                SqlCommand queryLogin = new SqlCommand("SELECT Username, Password FROM MERCADONEGRO.Usuarios WHERE Username = @Username AND PASSWORD = @Password", conexion);
-                queryLogin.Parameters.AddWithValue("@Username", this.Username);
-                queryLogin.Parameters.AddWithValue("@Password", this.Password);
-
-                // Ejecutamos el query
-                queryLogin.ExecuteNonQuery();
-
-                // Recibimos el resultado
-                SqlDataReader lector = queryLogin.ExecuteReader();
-
-                // Chequeamos si hubo coincidencias
-                if (lector.HasRows)
-                {
-                    BDSQL.cerrarConexion();
-                    return true;
-                }
-                else
-                {
-                    BDSQL.cerrarConexion();
-                    return false;
-                }
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@Username", this.Username);
+                BDSQL.agregarParametro(listaParametros, "@Password", this.Password);
+                SqlDataReader lector = BDSQL.ejecutarReader("SELECT Username, Password FROM MERCADONEGRO.Usuarios WHERE Username = @Username AND PASSWORD = @Password", listaParametros, BDSQL.iniciarConexion());
+                Boolean res = lector.HasRows;
+                BDSQL.cerrarConexion();
+                return res;
             }
             catch (SqlException)
             {
-                MessageBox.Show("Error en verificar contraseña");
+                MessageBox.Show("Error en verificarContrasenia()");
+                BDSQL.cerrarConexion();
                 return false;
             }
         }
 
         public void ResetearIntentosFallidos()
         {
-            // Conectamos
-            SqlConnection conexion = BDSQL.iniciarConexion();
-
-            // Armamos el query
-            SqlCommand queryResetearIntentos = new SqlCommand("UPDATE MERCADONEGRO.Usuarios SET Intentos_Login = 0 WHERE Username = @Username", conexion);
-            queryResetearIntentos.Parameters.AddWithValue("@Username", Username);
-
-            // Ejecutamos el query
-            queryResetearIntentos.ExecuteNonQuery();
-
-            // Cerramos
-            BDSQL.cerrarConexion();
+            try
+            {
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@Username", this.Username);
+                BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Intentos_Login = 0 WHERE Username = @Username", listaParametros, BDSQL.iniciarConexion());
+                BDSQL.cerrarConexion();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Error en ResetearIntentosFallidos()");
+                BDSQL.cerrarConexion();
+            }
         }
 
         public void sumarIntentoFallido()
         {
-            // Conectamos
-            SqlConnection conexion = BDSQL.iniciarConexion();
-
-            // Armamos el query
-            SqlCommand querySumarIntento = new SqlCommand("UPDATE MERCADONEGRO.Usuarios SET Intentos_Login = (Intentos_Login+1) WHERE Username = @Username", conexion);
-            querySumarIntento.Parameters.AddWithValue("@Username", Username);
-
-            // Ejecutamos el query
-            querySumarIntento.ExecuteNonQuery();
-
-            // Cerramos
-            BDSQL.cerrarConexion();
+            try
+            {
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@Username", this.Username);
+                BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Intentos_Login = (Intentos_Login+1) WHERE Username = @Username", listaParametros, BDSQL.iniciarConexion());
+                BDSQL.cerrarConexion();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Error en sumarIntentoFallido()");
+                BDSQL.cerrarConexion();
+            }
         }
 
-        public int cantidadIntentosFallidos()
+        public int cantidadIntentosFallidos() // Retorna -1 si falla el SELECT o por CATCH
         {
-            // Conectamos
-            SqlConnection conexion = BDSQL.iniciarConexion();
+            try
+            {
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@Username", this.Username);
+                SqlDataReader lector = BDSQL.ejecutarReader("SELECT Intentos_Login FROM MERCADONEGRO.Usuarios WHERE Username = @Username", listaParametros, BDSQL.iniciarConexion());
 
-            // Armamos el query
-            SqlCommand queryCantidadIntentos = new SqlCommand("SELECT Intentos_Login FROM MERCADONEGRO.Usuario WHERE Username = @Username", conexion);
-            queryCantidadIntentos.Parameters.AddWithValue("@Username", Username);
-
-            // Ejecutamos el query
-            queryCantidadIntentos.ExecuteNonQuery();
-
-            // Recibimos el resultado
-            SqlDataReader lector = queryCantidadIntentos.ExecuteReader();
-
-            // Cerramos
-            BDSQL.cerrarConexion();
-
-            return lector.GetInt32(0); // No sabíamos si poner Int16, Int32 o Int64
+                if (lector.HasRows)
+                {
+                    int resultado = lector.GetInt32(0);
+                    BDSQL.cerrarConexion();
+                    return resultado;
+                }
+                else
+                {
+                    BDSQL.cerrarConexion();
+                    return -1;
+                }
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Error en cantidadIntentosFallidos()");
+                BDSQL.cerrarConexion();
+                return -1;
+            }
         }
 
         public void inhabilitarUsuario()
         {
-            // Conectar a la base de datos y cambiar el campo Habilitado a 0
-            // NO contempla la inhabilitación de Rol
-
-            // Conectamos
-            SqlConnection conexion = BDSQL.iniciarConexion();
-
-            // Armamos el query
-            SqlCommand queryInhabilitar = new SqlCommand("UPDATE MERCADONEGRO.Usuarios SET Habilitado = 0 WHERE Username = @Username", conexion);
-            queryInhabilitar.Parameters.AddWithValue("@Username", Username);
-
-            // Ejecutamos el query
-            queryInhabilitar.ExecuteNonQuery();
-
-            // Cerramos
-            BDSQL.cerrarConexion();
+            try
+            {
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@Username", this.Username);
+                BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Habilitado = 0 WHERE Username = @Username", listaParametros, BDSQL.iniciarConexion());
+                BDSQL.cerrarConexion();
+            }
+            catch (SqlException)
+            {
+                MessageBox.Show("Error en inhabilitarUsuario()");
+                BDSQL.cerrarConexion();
+            }
         }
 
         public void agregarRol(Rol rol)
@@ -146,27 +133,17 @@ namespace FrbaCommerce.Clases
 
         public Boolean obtenerRoles()
         {
-            // Conectamos
-            SqlConnection conexion = BDSQL.iniciarConexion();
-
-            // Chequeamos la tabla Roles_Usuarios
-            SqlCommand queryRolesUsuario = new SqlCommand("SELECT (ID_Rol) FROM MERCADONEGRO.Roles_Usuarios WHERE ID_User = @ID_User", conexion);
-            queryRolesUsuario.Parameters.AddWithValue("@ID_User", ID_User);
-            SqlDataReader lectorRolesUsuario = queryRolesUsuario.ExecuteReader();
-
+            List<SqlParameter> listaParametros1 = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros1, "@ID_User", this.ID_User);
+            SqlDataReader lectorRolesUsuario = BDSQL.ejecutarReader("SELECT ID_Rol FROM MERCADONEGRO.Roles_Usuarios WHERE ID_User = @ID_User", listaParametros1, BDSQL.iniciarConexion());
             if (lectorRolesUsuario.HasRows)
             {
-                // El usuario tiene roles
                 while (lectorRolesUsuario.Read())
                 {
-                    // Para cada ID_Rol asociado a ID_User, busca en la tabla Roles los campos Nombre y Habilitado...
-                    SqlCommand queryRoles = new SqlCommand("SELECT (Nombre, Habilitado) FROM MERCADONEGRO.Roles WHERE ID_Rol = @ID_Rol", conexion);
-                    queryRoles.Parameters.AddWithValue("@ID_Rol", lectorRolesUsuario.GetInt32(0));
-
-                    SqlDataReader lectorRoles = queryRoles.ExecuteReader();
-
-                    // Con el ID_Rol, el Nombre y el Habilitado obtenidos creamos un nuevo objeto y lo agregamos a la colección de la clase
-                    Rol nuevoRol = new Rol(lectorRolesUsuario.GetInt32(0), lectorRoles.GetString(0), lectorRoles.GetInt32(1)); // Otro Int32 que no sabemos si esta bien
+                    List<SqlParameter> listaParametros2 = new List<SqlParameter>();
+                    BDSQL.agregarParametro(listaParametros2, "@ID_Rol", lectorRolesUsuario.GetInt32(0));
+                    SqlDataReader lectorRoles = BDSQL.ejecutarReader("SELECT Nombre, Habilitado FROM MERCADONEGRO.Roles WHERE ID_Rol = @ID_Rol", listaParametros2, BDSQL.iniciarConexion());
+                    Rol nuevoRol = new Rol(lectorRolesUsuario.GetInt32(0), lectorRoles.GetString(0), lectorRoles.GetInt32(1));
                     this.agregarRol(nuevoRol);
                 }
                 BDSQL.cerrarConexion();

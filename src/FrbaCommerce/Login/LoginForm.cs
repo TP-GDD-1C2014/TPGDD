@@ -43,12 +43,7 @@ namespace FrbaCommerce.Login
         {
             if (!Username_TextBox.Text.Equals("") && !Password_TextBox.Text.Equals(""))
             {
-                //los campos no estan vacios
-
-                // Consultar en la base de datos y verificar la password
                 string username = Username_TextBox.Text;
-
-                // Hasheamos el password (????)
                 UTF8Encoding encoderHash = new UTF8Encoding();
                 SHA256Managed hasher = new SHA256Managed();
                 byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Password_TextBox.Text));
@@ -58,10 +53,10 @@ namespace FrbaCommerce.Login
 
                 if (usuarioLogin.verificarContrasenia())
                 {
-                        //Login correcto, seteamos intentos fallidos en 0
                         usuarioLogin.ResetearIntentosFallidos();
                         if (usuarioLogin.obtenerRoles())
                         {
+                            // SEGUIR A PARTIR DE ACA (ALAN) <----
                             // mostrar roles en combobox
                         }
                         else

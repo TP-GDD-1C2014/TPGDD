@@ -41,7 +41,35 @@ namespace FrbaCommerce.Common
             }   
         }
         
-        // Iniciar transaccion, no probado
+        public static void agregarParametro(List<SqlParameter> lista, string parametro, object valor) {
+            lista.Add(new SqlParameter(parametro, valor));
+        }
+
+        public static SqlDataReader ejecutarReader(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA SELECT
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = conexion;
+            comando.CommandText = stringQuery;
+            foreach (SqlParameter parametro in parametros)
+            {
+                comando.Parameters.Add(parametro);
+            }
+            return comando.ExecuteReader();
+        }
+
+        public static int ejecutarQuery(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA UPDATE, INSERT, DELETE
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = conexion;
+            comando.CommandText = stringQuery;
+            foreach (SqlParameter parametro in parametros)
+            {
+                comando.Parameters.Add(parametro);
+            }
+            return comando.ExecuteNonQuery();
+        }
+
+        // Iniciar transaccion
         public static SqlTransaction iniciarTransaccion(SqlTransaction objTransaccion)
         {
             try
