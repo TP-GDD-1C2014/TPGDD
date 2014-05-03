@@ -7,17 +7,6 @@ CREATE SCHEMA MERCADONEGRO AUTHORIZATION gd
 GO
 
 
------------------------------------------------Funciones------------------------------------------------
-
-/* FUNCION AGREGAR FUNCIONALIDAD X ROL*/
-
-GO
-CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol varchar(255), @func varchar(255)) AS
-BEGIN
-	INSERT INTO MERCADONEGRO.Funcionalidad_Rol (ID_Rol, ID_Funcionalidad)
-		VALUES ((SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE Nombre = @rol),
-		        (SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE Nombre = @func))
-END
 
 ---------------------------------------------Tablas iniciales-------------------------------------------
 
@@ -238,6 +227,19 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	FOREIGN KEY (Tipo_Operacion)  REFERENCES MERCADONEGRO.Apto_Calificar(Tipo_Operacion)
 )
 
+-----------------------------------------------Funciones------------------------------------------------
+
+/* FUNCION AGREGAR FUNCIONALIDAD X ROL*/
+
+GO
+CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol varchar(255), @func varchar(255)) AS
+BEGIN
+	INSERT INTO MERCADONEGRO.Funcionalidad_Rol (ID_Rol, ID_Funcionalidad)
+		VALUES ((SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE Nombre = @rol),
+		        (SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE Nombre = @func))
+END
+
+
 
 ----------------------------------------------------Datos Iniciales-----------------------------------------------
 
@@ -268,3 +270,6 @@ INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Empresa', 1);
 /* ejemplo de ejecucion */
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Administrador', @func = 'AdministrarRoles';
+EXEC MERCADONEGRO.AgregarFuncionalidad
+	@rol = 'Administrador', @func = 'AdministrarClientes';
+
