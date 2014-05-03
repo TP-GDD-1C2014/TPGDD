@@ -160,8 +160,8 @@ CREATE TABLE MERCADONEGRO.Usuarios
 	Habilitado BIT DEFAULT 1 NOT NULL,
 	Primera_Vez BIT DEFAULT 1 NOT NULL,
 	Cant_Publi_Gratuitas TINYINT NULL,
-	Reputacion TINYINT NOT NULL,
-	Ventas_Sin_Rendir TINYINT
+	Reputacion TINYINT  NULL, /*Solo vendedores*/
+	Ventas_Sin_Rendir TINYINT NULL, /*Solo vendedores*/
 	
 	PRIMARY KEY(ID_User)
 )
@@ -178,8 +178,8 @@ CREATE TABLE MERCADONEGRO.Roles
 
 CREATE TABLE MERCADONEGRO.Funcionalidad_Rol 
 ( 
-	ID_Funcionalidad NUMERIC(18,0), 
-	ID_Rol NUMERIC(18,0), 
+	ID_Funcionalidad NUMERIC(18,0) NOT NULL, 
+	ID_Rol NUMERIC(18,0)NOT NULL, 
 	
 	PRIMARY KEY (ID_Funcionalidad, ID_Rol), 
 	FOREIGN KEY (ID_Funcionalidad) REFERENCES MERCADONEGRO.Funcionalidades(ID_Funcionalidad), 
@@ -189,11 +189,36 @@ CREATE TABLE MERCADONEGRO.Funcionalidad_Rol
 	
 CREATE TABLE MERCADONEGRO.Roles_Usuarios 
 ( 
-	ID_User NUMERIC(18,0),
-	ID_Rol NUMERIC(18,0),
+	ID_User NUMERIC(18,0) NOT NULL,
+	ID_Rol NUMERIC(18,0) NOT NULL,
 	
 	PRIMARY KEY (ID_User, ID_Rol), 
 	FOREIGN KEY (ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User), 
 	FOREIGN KEY (ID_Rol) REFERENCES MERCADONEGRO.Roles(ID_Rol) 
 	
+)
+
+CREATE TABLE MERCADONEGRO.Apto_Calificar
+(
+	Tipo_Operacion NVARCHAR(255)NOT NULL,
+	
+	PRIMARY KEY (Tipo_Operacion)
+	/*FOREIGN KEY() REFERENCES*/
+)
+
+CREATE TABLE MERCADONEGRO.Operaciones
+(
+	ID_Operacion NUMERIC(18,0) IDENTITY,
+	ID_Vendedor NUMERIC(18,0) NOT NULL,
+	ID_Comprador NUMERIC(18,0) NOT NULL,
+	Cod_Publicacion NUMERIC(18,0) NOT NULL,
+	Tipo_Operacion NVARCHAR(255) NOT NULL,
+	Fecha_Operacion DATETIME NOT NULL,
+	Operacion_Facturada BIT DEFAULT 0 NOT NULL, 
+	
+	PRIMARY KEY (ID_Operacion),
+	FOREIGN KEY (ID_Vendedor) REFERENCES MERCADONEGRO.Usuarios(ID_User),
+	FOREIGN KEY (ID_Comprador) REFERENCES MERCADONEGRO.Usuarios(ID_User),
+	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
+	FOREIGN KEY (Tipo_Operacion) REFERENCES MERCADONEGRO.Apto_Calificar(Tipo_Operacion)
 )
