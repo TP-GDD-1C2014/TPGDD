@@ -93,7 +93,7 @@ CREATE TABLE MERCADONEGRO.Items
 	ID_Item			 NUMERIC(18,0) IDENTITY,
 	ID_Facturacion   NUMERIC(18,0) NOT NULL, 
 	Cantidad_Vendida NUMERIC(18,0) NOT NULL,
-	Descripcion		 NVARCHAR(255) NOT NULL, /* UNIQUE??? */
+	Descripcion		 NVARCHAR(255) NOT NULL, /* UNIQUE???. PARA MI NO (NAZA) */
 	Precio_Unitario  NUMERIC(18,2) NOT NULL,
 	
 	PRIMARY KEY (ID_Item),
@@ -131,9 +131,10 @@ CREATE TABLE MERCADONEGRO.Empresas
 	Ciudad			NVARCHAR(50)  NULL,
 	Mail			NVARCHAR(50)  NOT NULL,
 	Nombre_Contacto NVARCHAR(50)  NULL,
-	Fecha_Creacion DATETIME		  NOT NULL,
-	
-	UNIQUE		(Razon_Social, CUIT),
+	Fecha_Creacion  DATETIME	  NOT NULL,
+
+	UNIQUE		(Razon_Social), /* aca separé la razon y el cuit porque no pueden repetirse en ningun momento */
+	UNIQUE		(CUIT),
 	PRIMARY KEY (ID_User),
 )
 
@@ -151,7 +152,8 @@ CREATE TABLE MERCADONEGRO.Clientes
 	Fecha_Nacimiento DATETIME	   NOT NULL,
 	CUIL			 NVARCHAR(50)  NULL,
 	
-	UNIQUE		(Telefono), /* Num_Doc unique? */
+	UNIQUE		(Telefono),
+	UNIQUE		(Tipo_Doc, Num_Doc),
 	PRIMARY KEY (ID_User)
 )
 
