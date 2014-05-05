@@ -22,6 +22,7 @@ namespace FrbaCommerce.Login
         public LoginForm()
         {
             InitializeComponent();
+
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -61,7 +62,8 @@ namespace FrbaCommerce.Login
                         }
                         else
                         {
-                            MessageBox.Show("El usuario no tiene roles asignados");
+                            MessageBox.Show("El usuario no tiene roles asignados", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                       
                             // no tiene roles
                         };
                         //Segun el rol (Ó LOS ROLES!!) que tenga, abrir la ABM correspondiente
@@ -72,7 +74,7 @@ namespace FrbaCommerce.Login
                     usuarioLogin.sumarIntentoFallido();
 
                     // la idea aca es meter la cantidad restante de intentos
-                    MessageBox.Show("ERRROR: Usuario o contraseña incorrecta, le quedan X intentos");
+                    MessageBox.Show("Usuario o contraseña incorrecta, le quedan X intentos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
                     {
@@ -85,7 +87,8 @@ namespace FrbaCommerce.Login
             }
             else
             {
-                MessageBox.Show("Por favor, complete los campos correspondientes");
+
+                MessageBox.Show("Por favor, ingrese los campos correspondientes", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -111,6 +114,16 @@ namespace FrbaCommerce.Login
                 salida.Append(array[i].ToString("X2"));
             }
             return salida.ToString();
+        }
+
+        private void Username_TextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Password_TextBox_TextChanged(object sender, EventArgs e)
+        {
+            Password_TextBox.PasswordChar = '*';
         }
     }
 }
