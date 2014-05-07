@@ -17,27 +17,19 @@ namespace FrbaCommerce.Login
     public partial class LoginForm : Form
     {
         public const int CANTIDAD_MAXIMA_INTENTOS = 3;
-
-
         public LoginForm()
         {
             InitializeComponent();
-
         }
-
         private void LoginForm_Load(object sender, EventArgs e)
         {
-
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void label1_Click_1(object sender, EventArgs e)
         {
-
         }        
 
         private void Login_Button_Click(object sender, EventArgs e)
@@ -49,36 +41,37 @@ namespace FrbaCommerce.Login
                 SHA256Managed hasher = new SHA256Managed();
                 byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Password_TextBox.Text));
                 string password = bytesDeHasheoToString(bytesDeHasheo);
-
                 Usuario usuarioLogin = new Usuario(username, password);
-
                 if (usuarioLogin.verificarContrasenia())
                 {
                         usuarioLogin.ResetearIntentosFallidos();
                         if (usuarioLogin.obtenerRoles())
                         {
-                            // SEGUIR A PARTIR DE ACA (ALAN) <----
-                            // mostrar roles en combobox
+                            if (usuarioLogin.Roles.Count() == 1) // Como tiene un solo rol, entra directo
+                            {
+                                this.Hide();
+                                SeleccionFuncionalidades formSeleccionFuncionalidades = new SeleccionFuncionalidades(usuarioLogin);
+                                formSeleccionFuncionalidades.Show();
+                            }
+                            else // Tiene más de un rol, tiene que seleccionar
+                            {
+                                this.Hide();
+                                SeleccionRoles formSeleccionRoles = new SeleccionRoles(usuarioLogin);
+                                formSeleccionRoles.Show();
+                            }
                         }
                         else
                         {
                             MessageBox.Show("El usuario no tiene roles asignados", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                       
-                            // no tiene roles
                         };
-                        //Segun el rol (Ó LOS ROLES!!) que tenga, abrir la ABM correspondiente
                 }
                 else
                 {
-                    // login incorrecto, se suma + 1 lo intentos fallidos
                     usuarioLogin.sumarIntentoFallido();
-
-                    // la idea aca es meter la cantidad restante de intentos
-                    MessageBox.Show("Usuario o contraseña incorrecta, le quedan X intentos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Usuario o contraseña incorrecta, le quedan" + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + "intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
                     {
-                        //superó la cantidad maxima de intentos
                         usuarioLogin.inhabilitarUsuario();
                     }
 
@@ -87,15 +80,13 @@ namespace FrbaCommerce.Login
             }
             else
             {
-
-                MessageBox.Show("Por favor, ingrese los campos correspondientes", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Por favor, ingrese los datos solicitados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         private void RegistrarUsuario_Button_Click(object sender, EventArgs e)
         {
             this.Hide();
-
             RegistroUsuarioForm formRegistro = new RegistroUsuarioForm();
             formRegistro.Show();
         }
@@ -105,7 +96,6 @@ namespace FrbaCommerce.Login
             Common.Interfaz.limpiarInterfaz(this);
         }
 
-        //funcion para transformar lo hasheado a string
         private string bytesDeHasheoToString(byte[] array)
         {
             StringBuilder salida = new StringBuilder("");
@@ -118,12 +108,19 @@ namespace FrbaCommerce.Login
 
         private void Username_TextBox_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void Password_TextBox_TextChanged(object sender, EventArgs e)
         {
             Password_TextBox.PasswordChar = '*';
+        }
+
+        private void label1_Click_2(object sender, EventArgs e)
+        {
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
         }
     }
 }

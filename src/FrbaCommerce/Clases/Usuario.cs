@@ -11,9 +11,7 @@ namespace FrbaCommerce.Clases
 {
     public class Usuario
     {
-        public int ID_User { get; set; } // Lo agregamos para consultar con las tablas donde es FK
-        public List<Rol> Roles { get; set; } // Lo agregamos para ejecutar el método obtenerRoles() y chequear las tablas Roles_Usuario y Roles
-
+        public int ID_User { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public int Intentos_Login { get; set; }
@@ -22,6 +20,8 @@ namespace FrbaCommerce.Clases
         public int Cant_Publi_Gratuitas { get; set; }
         public float Reputacion { get; set; }
         public int Ventas_Sin_Rendir { get; set; }
+
+        public List<Rol> Roles { get; set; } 
 
         public Usuario(string username, string password)
         {
@@ -79,6 +79,14 @@ namespace FrbaCommerce.Clases
                 MessageBox.Show("Error en sumarIntentoFallido()");
                 BDSQL.cerrarConexion();
             }
+        }
+
+        public int intentosFallidos()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Username", this.Username);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Intentos_Login FROM MERCADONEGRO.Usuarios WHERE Username = @Username", listaParametros, BDSQL.iniciarConexion());
+            return lector.GetInt32(0);
         }
 
         public int cantidadIntentosFallidos() // Retorna -1 si falla el SELECT o por CATCH
