@@ -11,23 +11,29 @@ namespace FrbaCommerce.Login
 {
     public partial class SeleccionRoles : Form
     {
-        public class Item
+        public class itemComboBox
         {
-            public int idRol { get; set; }
-            public string nombreRol { get; set; }
-            public int habilitado { get; set; }
+            public string Nombre_Rol { get; set; }
+            public int ID_Rol { get; set; }
 
-            public Item(int idRol, string nombreRol, int habilitado)
+            public itemComboBox(string nombre, int id)
             {
-                idRol = this.idRol;
-                nombreRol = this.nombreRol;
-                habilitado = this.habilitado;
+                Nombre_Rol = nombre;
+                ID_Rol = id;
+            }
+            public override string ToString()
+            {
+                return Nombre_Rol;
             }
         }
 
         public SeleccionRoles(Clases.Usuario usuario)
         {
             InitializeComponent();
+            comboBox_Roles.DisplayMember = "Nombre_Rol";
+            comboBox_Roles.ValueMember = "ID_Rol";
+            comboBox_Roles.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            comboBox_Roles.DropDownStyle = ComboBoxStyle.DropDownList;
             llenarComboBox(usuario);
         }
 
@@ -35,8 +41,10 @@ namespace FrbaCommerce.Login
         {
             for (int i = 0; i < usuario.Roles.Count; i++)
             {
-                comboBox1.Items.Add(new Item(usuario.Roles[i].ID_Rol, usuario.Roles[i].Nombre, usuario.Roles[i].Habilitado));
-                MessageBox.Show((comboBox1.SelectedItem as Item).nombreRol.ToString()); // <-- SEGUIR ACA (ALAN)
+                if (usuario.Roles[i].Habilitado != 0) // TOMANDO EN CUENTA QUE 1 ES HABILITADO
+                {
+                    comboBox_Roles.Items.Add(new itemComboBox(usuario.Roles[i].Nombre, usuario.Roles[i].ID_Rol));
+                }
             }
         }
 
@@ -50,6 +58,12 @@ namespace FrbaCommerce.Login
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            itemComboBox seleccion = comboBox_Roles.SelectedItem as itemComboBox;
+            MessageBox.Show("Has seleccionado el rol " + seleccion.ID_Rol.ToString());
         }
     }
 }

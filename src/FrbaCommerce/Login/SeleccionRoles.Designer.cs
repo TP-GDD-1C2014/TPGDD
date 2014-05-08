@@ -28,19 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox_Roles = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.continuar_Boton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // comboBox_Roles
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 38);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(288, 21);
-            this.comboBox1.TabIndex = 0;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox_Roles.FormattingEnabled = true;
+            this.comboBox_Roles.Location = new System.Drawing.Point(12, 38);
+            this.comboBox_Roles.Name = "comboBox_Roles";
+            this.comboBox_Roles.Size = new System.Drawing.Size(288, 21);
+            this.comboBox_Roles.TabIndex = 0;
+            this.comboBox_Roles.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -52,23 +52,24 @@
             this.label1.Text = "Por favor, escoja un rol:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // button1
+            // continuar_Boton
             // 
-            this.button1.Location = new System.Drawing.Point(215, 74);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 30);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Continuar >>";
-            this.button1.UseVisualStyleBackColor = true;
+            this.continuar_Boton.Location = new System.Drawing.Point(215, 74);
+            this.continuar_Boton.Name = "continuar_Boton";
+            this.continuar_Boton.Size = new System.Drawing.Size(85, 30);
+            this.continuar_Boton.TabIndex = 2;
+            this.continuar_Boton.Text = "Continuar >>";
+            this.continuar_Boton.UseVisualStyleBackColor = true;
+            this.continuar_Boton.Click += new System.EventHandler(this.button1_Click);
             // 
             // SeleccionRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(312, 116);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.continuar_Boton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboBox_Roles);
             this.Name = "SeleccionRoles";
             this.Text = "Ingreso - MercadoNegro";
             this.ResumeLayout(false);
@@ -78,9 +79,9 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox_Roles;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button continuar_Boton;
 
     }
 }

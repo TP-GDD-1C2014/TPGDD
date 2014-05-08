@@ -41,7 +41,7 @@ namespace FrbaCommerce.Login
                 SHA256Managed hasher = new SHA256Managed();
                 byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Password_TextBox.Text));
                 string password = bytesDeHasheoToString(bytesDeHasheo);
-                Usuario usuarioLogin = new Usuario(username, password);
+                Usuario usuarioLogin = new Usuario(0, username, password);
                 if (usuarioLogin.verificarContrasenia())
                 {
                         usuarioLogin.ResetearIntentosFallidos();
