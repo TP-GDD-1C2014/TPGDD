@@ -7,7 +7,7 @@ namespace FrbaCommerce.Clases
 {
     public class Rol
     {
-        public int ID_Rol { get; set; } // Es necesario para consultar con otras tablas donde sea FK
+        public int ID_Rol { get; set; }
         public string Nombre { get; set; }
         public int Habilitado { get; set; }
 

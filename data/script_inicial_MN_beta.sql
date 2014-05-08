@@ -50,7 +50,7 @@ CREATE TABLE MERCADONEGRO.Preguntas
 
 CREATE TABLE MERCADONEGRO.Calificaciones
 (
-	Cod_Calificacion NUMERIC(18,0) IDENTITY,  /*  chequear identity para los que se inserten despues de la migracion*/
+	Cod_Calificacion NUMERIC(18,0) IDENTITY,  
 	Puntaje			 TINYINT	   NULL,
 	Descripcion		 NVARCHAR(255) NULL,
 	
@@ -87,28 +87,30 @@ CREATE TABLE MERCADONEGRO.Publicaciones
 	FOREIGN KEY (Cod_Visibilidad) REFERENCES MERCADONEGRO.Visibilidades(Cod_Visibilidad)
 )
 
-CREATE TABLE MERCADONEGRO.Facturaciones
-(
-	ID_Facturacion    NUMERIC(18,0) IDENTITY,
-	Cod_Publicacion	  NUMERIC(18,0) NOT NULL,
-	Forma_Pago		  NVARCHAR(255) NOT NULL,
-	Total_Facturacion NUMERIC(18,2) NOT NULL,
-	
-	PRIMARY KEY (ID_Facturacion),
-	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion)
-)
-
 CREATE TABLE MERCADONEGRO.Items
 (
-	ID_Item			 NUMERIC(18,0) IDENTITY,
-	ID_Facturacion   NUMERIC(18,0) NOT NULL, 
+	ID_Item			 NUMERIC(18,0) IDENTITY, 
 	Cantidad_Vendida NUMERIC(18,0) NOT NULL,
 	Descripcion		 NVARCHAR(255) NOT NULL, /* UNIQUE???. PARA MI NO (NAZA) */
 	Precio_Unitario  NUMERIC(18,2) NOT NULL,
 	
-	PRIMARY KEY (ID_Item),
-	FOREIGN KEY (ID_Facturacion) REFERENCES MERCADONEGRO.Facturaciones(ID_Facturacion)
+	UNIQUE		(Descripcion),
+	PRIMARY KEY (ID_Item)
 )
+
+CREATE TABLE MERCADONEGRO.Facturaciones
+(
+	ID_Facturacion    NUMERIC(18,0) IDENTITY,
+	Cod_Publicacion	  NUMERIC(18,0) NOT NULL,
+	ID_Item			  NUMERIC(18,0) NOT NULL,
+	Forma_Pago		  NVARCHAR(255) NOT NULL,
+	Total_Facturacion NUMERIC(18,2) NOT NULL,
+	
+	PRIMARY KEY (ID_Facturacion),
+	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
+	FOREIGN KEY (ID_Item)		  REFERENCES MERCADONEGRO.Items(ID_Item),
+)
+
 
 CREATE TABLE MERCADONEGRO.Pregunta_Publicacion
 (
@@ -130,6 +132,22 @@ CREATE TABLE MERCADONEGRO.Rubro_Publicacion
 	FOREIGN KEY (ID_Rubro)		  REFERENCES MERCADONEGRO.Rubros(ID_Rubro)
 )
 
+CREATE TABLE MERCADONEGRO.Usuarios
+(
+	ID_User				 NUMERIC(18,0)	   IDENTITY,
+	Username			 NVARCHAR(100)	   NOT NULL,
+	Password			 NVARCHAR(100)	   NOT NULL,
+	Intentos_Login		 TINYINT DEFAULT 0 NOT NULL, 
+	Habilitado			 BIT DEFAULT 1	   NOT NULL,
+	Primera_Vez			 BIT DEFAULT 1     NOT NULL,
+	Cant_Publi_Gratuitas TINYINT		   NULL,
+	Reputacion			 FLOAT			   NULL, /*Solo vendedores*/
+	Ventas_Sin_Rendir	 TINYINT		   NULL, /*Solo vendedores*/
+	
+	PRIMARY KEY(ID_User)
+)
+
+
 CREATE TABLE MERCADONEGRO.Empresas
 (
 	ID_User		    NUMERIC(18,0),
@@ -146,6 +164,7 @@ CREATE TABLE MERCADONEGRO.Empresas
 	UNIQUE		(Razon_Social), /* aca separé la razon y el cuit porque no pueden repetirse en ningun momento */
 	UNIQUE		(CUIT),
 	PRIMARY KEY (ID_User),
+	FOREIGN KEY (ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
 )
 
 CREATE TABLE MERCADONEGRO.Clientes
@@ -164,23 +183,10 @@ CREATE TABLE MERCADONEGRO.Clientes
 	
 	UNIQUE		(Telefono),
 	UNIQUE		(Tipo_Doc, Num_Doc),
-	PRIMARY KEY (ID_User)
+	PRIMARY KEY (ID_User),
+	FOREIGN KEY (ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
 )
 
-CREATE TABLE MERCADONEGRO.Usuarios
-(
-	ID_User				 NUMERIC(18,0)	   IDENTITY,
-	Username			 NVARCHAR(100)	   NOT NULL,
-	Password			 NVARCHAR(100)	   NOT NULL,
-	Intentos_Login		 TINYINT DEFAULT 0 NOT NULL, 
-	Habilitado			 BIT DEFAULT 1	   NOT NULL,
-	Primera_Vez			 BIT DEFAULT 1     NOT NULL,
-	Cant_Publi_Gratuitas TINYINT		   NULL,
-	Reputacion			 TINYINT		   NULL, /*Solo vendedores*/
-	Ventas_Sin_Rendir	 TINYINT		   NULL, /*Solo vendedores*/
-	
-	PRIMARY KEY(ID_User)
-)
 
 CREATE TABLE MERCADONEGRO.Roles
 (
@@ -216,7 +222,7 @@ CREATE TABLE MERCADONEGRO.Roles_Usuarios
 
 CREATE TABLE MERCADONEGRO.Apto_Calificar
 (
-	Tipo_Operacion NVARCHAR(255) NOT NULL,
+	Tipo_Operacion NVARCHAR(255),
 	
 	PRIMARY KEY (Tipo_Operacion)
 
@@ -330,3 +336,31 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'ListadoEstadistico';
 		
 
+/* MIGRANDO TABLA DE CALIFICACIONES */
+
+PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
+
+SET IDENTITY_INSERT MERCADONEGRO.Calificaciones ON
+INSERT INTO MERCADONEGRO.Calificaciones (Cod_Calificacion,Puntaje,Descripcion)
+	SELECT gd_esquema.Maestra.Calificacion_Codigo, gd_esquema.Maestra.Calificacion_Cant_Estrellas, gd_esquema.Maestra.Calificacion_Descripcion
+	FROM gd_esquema.Maestra
+	WHERE gd_esquema.Maestra.Calificacion_Codigo IS NOT NULL
+SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
+
+
+/* MIGRANDO TABLA DE VISIBILIDADES */
+
+/* 
+
+PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
+
+INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) /* NO PUSE EL CODIGO DE LA VISIBILIDAD DE LA TABLA MAESTRA */
+	SELECT  DISTINCT gd_esquema.Maestra.Publicacion_Visibilidad_Desc, gd_esquema.Maestra.Publicacion_Visibilidad_Precio, gd_esquema.Maestra.Publicacion_Visibilidad_Porcentaje
+		FROM gd_esquema.Maestra
+			WHERE gd_esquema.Maestra.Publicacion_Visibilidad_Cod IS NOT NULL
+				ORDER BY gd_esquema.Maestra.Publicacion_Visibilidad_Precio DESC
+
+*/ 
+				
+
+/* MIGRANDO TABLA PUBLICACIONES */
