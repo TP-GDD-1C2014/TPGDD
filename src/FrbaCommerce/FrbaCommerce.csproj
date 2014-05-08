@@ -131,6 +131,12 @@
     <Compile Include="Generar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar Publicacion\GenerarPubliForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\GenerarPubliForm.designer.cs">
+      <DependentUpon>GenerarPubliForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gestion de Preguntas\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,12 @@
     <Compile Include="Login\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Login\PantallaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\PantallaPrincipal.Designer.cs">
+      <DependentUpon>PantallaPrincipal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login\SeleccionFuncionalidades.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,8 +190,14 @@
     <EmbeddedResource Include="ABM Rol\EditorDeRoles.resx">
       <DependentUpon>EditorDeRoles.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\GenerarPubliForm.resx">
+      <DependentUpon>GenerarPubliForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\PantallaPrincipal.resx">
+      <DependentUpon>PantallaPrincipal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\SeleccionFuncionalidades.resx">
       <DependentUpon>SeleccionFuncionalidades.cs</DependentUpon>

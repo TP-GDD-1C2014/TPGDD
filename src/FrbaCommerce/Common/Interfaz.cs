@@ -24,5 +24,10 @@ namespace FrbaCommerce.Common
 
         }
 
+        public static void mostrarForm(Form formNueva, Form viejaForm)
+        {
+            formNueva.Show();
+            viejaForm.Hide();
+        }
     }
 }
