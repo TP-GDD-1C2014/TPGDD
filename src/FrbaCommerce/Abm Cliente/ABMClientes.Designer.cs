@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(292, 273);
             this.Name = "ABMClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AMB Clientes - MercadoNegro";
+            this.Text = "ABM Clientes - MercadoNegro";
             this.ResumeLayout(false);
 
         }
