@@ -348,5 +348,19 @@ INSERT INTO MERCADONEGRO.Calificaciones (Cod_Calificacion,Puntaje,Descripcion)
 SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
 
 
+/* MIGRANDO TABLA DE VISIBILIDADES */
 
+/* 
 
+PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
+
+INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) /* NO PUSE EL CODIGO DE LA VISIBILIDAD DE LA TABLA MAESTRA */
+	SELECT  DISTINCT gd_esquema.Maestra.Publicacion_Visibilidad_Desc, gd_esquema.Maestra.Publicacion_Visibilidad_Precio, gd_esquema.Maestra.Publicacion_Visibilidad_Porcentaje
+		FROM gd_esquema.Maestra
+			WHERE gd_esquema.Maestra.Publicacion_Visibilidad_Cod IS NOT NULL
+				ORDER BY gd_esquema.Maestra.Publicacion_Visibilidad_Precio DESC
+
+*/ 
+				
+
+/* MIGRANDO TABLA PUBLICACIONES */
