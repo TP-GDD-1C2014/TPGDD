@@ -1,12 +1,3 @@
-USE [GD1C2014]
-
-IF  EXISTS (SELECT * FROM sys.schemas WHERE name = N'MERCADONEGRO')
-DROP SCHEMA [MERCADONEGRO]
-GO
-
-CREATE SCHEMA MERCADONEGRO AUTHORIZATION gd
-GO
-
 -----------------------------------------------Funciones Y Stored Procedures------------------------------------------------
 
 /* FUNCION AGREGAR FUNCIONALIDAD X ROL*/

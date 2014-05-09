@@ -1,13 +1,3 @@
-USE [GD1C2014]
-
-IF  EXISTS (SELECT * FROM sys.schemas WHERE name = N'MERCADONEGRO')
-DROP SCHEMA [MERCADONEGRO]
-GO
-
-CREATE SCHEMA MERCADONEGRO AUTHORIZATION gd
-GO
-
-
 ----------------------------------------------------Datos Iniciales-----------------------------------------------
 
 PRINT 'Creando valores por defecto...'
