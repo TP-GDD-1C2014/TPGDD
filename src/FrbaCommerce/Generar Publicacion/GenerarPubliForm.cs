@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
+using System.Data.SqlClient;
 
 namespace FrbaCommerce.Generar_Publicacion
 {
     public partial class GenerarPubliForm : Form
     {
+
         public GenerarPubliForm()
         {
             InitializeComponent();
@@ -105,33 +107,41 @@ namespace FrbaCommerce.Generar_Publicacion
         private void Guardar_button_Click(object sender, EventArgs e)
         {
             //Controlar que se completen todos los datos
+            if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !PrecioTotal_textBox.Text.Equals("") && !PrecioUnit_textBox.Text.Equals(""))
+            {
+                //Configurar publicación a ser creada
+                int visibilidad = Convert.ToInt32(Visibilidad_ComboBox.Text);
+                //Conseguir la ID_Vendedor
+                
+                string descripcion = Descrip_TextBox.Text;
+                int stock;
+                stock = Convert.ToInt32(Stock_TextBox.Text);
+                stock = int.Parse(Stock_TextBox.Text);
+                DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
+                Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
+                Tipo_Publicacion tipoPubli = (Tipo_Publicacion)Enum.Parse(typeof(Tipo_Publicacion), TipoPubli_ComboBox.Text);
+                int precioTotal = Convert.ToInt32(PrecioTotal_textBox.Text);
+                /* Alternativa?
+                int precioTotal;
+                precioTotal = int.Parse(PrecioTotal_textBox.Text);
+                int precioUnit; */
+                int precioUnit = Convert.ToInt32(PrecioUnit_textBox.Text);
 
-            int visibilidad = Convert.ToInt32(Visibilidad_ComboBox.Text);
-            string descripcion = Descrip_TextBox.Text;
-            int stock;
-            stock = Convert.ToInt32(Stock_TextBox.Text);
-            stock = int.Parse(Stock_TextBox.Text);
-            DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
+                //Publicacion publiNueva = new Publicacion(visibilidad, vendedor, descripcion, stock, fechaFin, estado, tipoPubli, precioTotal, precioUnit);
 
-            //Employee.JobType = (JobType)Enum.Parse(typeof(JobType), comboBox1.SelectedValue);
-            Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
-            Tipo_Publicacion tipoPubli = (Tipo_Publicacion)Enum.Parse(typeof(Tipo_Publicacion), TipoPubli_ComboBox.Text);
+                //Insertar publicacion en la tabla publicaciones
+                //publiNueva.agregarPublicacion();
+            }
 
-            //int precioTotal;
-            int precioTotal = Convert.ToInt32(PrecioTotal_textBox.Text);
-            //precioTotal = int.Parse(PrecioTotal_textBox.Text);
-            //int precioUnit;
-            int precioUnit = Convert.ToInt32(PrecioUnit_textBox.Text);
-            //precioUnit = int.Parse(PrecioUnit_textBox.Text);
-
-
-            Publicacion generarPubli = new Publicacion(visibilidad, descripcion, stock, fechaFin, estado, tipoPubli, precioTotal, precioUnit);
-
-
-            //Insertar publicacion en la tabla publicaciones
+            
         }
 
         private void permitirPreg_combobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GenerarPubliForm_Load(object sender, EventArgs e)
         {
 
         }

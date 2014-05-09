@@ -54,7 +54,7 @@
             // 
             this.Descrip_TextBox.Location = new System.Drawing.Point(144, 51);
             this.Descrip_TextBox.Name = "Descrip_TextBox";
-            this.Descrip_TextBox.Size = new System.Drawing.Size(259, 20);
+            this.Descrip_TextBox.Size = new System.Drawing.Size(215, 20);
             this.Descrip_TextBox.TabIndex = 0;
             this.Descrip_TextBox.TextChanged += new System.EventHandler(this.Descrip_TextBox_TextChanged);
             // 
@@ -82,7 +82,7 @@
             this.Visibilidad_ComboBox.FormattingEnabled = true;
             this.Visibilidad_ComboBox.Location = new System.Drawing.Point(144, 24);
             this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
-            this.Visibilidad_ComboBox.Size = new System.Drawing.Size(213, 21);
+            this.Visibilidad_ComboBox.Size = new System.Drawing.Size(215, 21);
             this.Visibilidad_ComboBox.TabIndex = 3;
             this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             // 
@@ -254,6 +254,7 @@
             this.Controls.Add(this.Descrip_TextBox);
             this.Name = "GenerarPubliForm";
             this.Text = "Generar Publicación";
+            this.Load += new System.EventHandler(this.GenerarPubliForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
