@@ -90,6 +90,38 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 				THEN (1)
 		   END
 	FROM MERCADONEGRO.Usuarios	
+	
+	
+/* MIGRANDO TABLA CLIENTES */
+
+PRINT 'MIGRANDO TABLA CLIENTES'
+
+INSERT INTO MERCADONEGRO.Clientes (ID_User,
+								   Num_Doc,
+								   Nombre,
+								   Apellido,
+								   Mail,
+								   Direccion,
+								   Codigo_Postal,
+								   Fecha_Nacimiento)
+
+	SELECT DISTINCT MERCADONEGRO.Usuarios.ID_User, 
+					gd_esquema.Maestra.Publ_Cli_Dni, 
+					gd_esquema.Maestra.Publ_Cli_Nombre, 
+					gd_esquema.Maestra.Publ_Cli_Apeliido,
+					gd_esquema.Maestra.Publ_Cli_Mail,
+					gd_esquema.Maestra.Publ_Cli_Dom_Calle
+					+ ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Nro_Calle)
+					+ ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Piso)
+					+ ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Depto),
+					gd_esquema.Maestra.Publ_Cli_Cod_Postal,
+					gd_esquema.Maestra.Publ_Cli_Fecha_Nac
+					
+	FROM MERCADONEGRO.Usuarios
+	INNER JOIN gd_esquema.Maestra
+	ON gd_esquema.Maestra.Publ_Cli_Dni IS NOT NULL
+	 
+
 
 /* MIGRANDO TABLA PUBLICACIONES */
 
