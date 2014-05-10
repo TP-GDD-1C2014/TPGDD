@@ -34,8 +34,62 @@ INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaj
 	WHERE Publicacion_Visibilidad_Cod IS NOT NULL
 	ORDER BY Publicacion_Visibilidad_Precio DESC
 
+/*MIGRANDO TABLA USUARIOS */
 
-			
+PRINT 'MIGRANDO TABLA DE USUARIOS'
+
+INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
+
+	SELECT DISTINCT
+					/*De esta manera podra generar un username y password acorde para tanto clientes como empresas*/
+					CASE WHEN Publ_Empresa_Cuit IS NULL 
+						 
+						 THEN CASE WHEN Cli_Dni IS NULL
+								   THEN (Publ_Cli_Apeliido+Publ_Cli_Nombre)
+							       WHEN Cli_Dni IS NOT NULL
+							       THEN Cli_Apeliido+Cli_Nombre
+						      END
+						  
+						 WHEN Publ_Empresa_Cuit IS NOT NULL  
+						 THEN Publ_Empresa_Razon_Social
+					END,
+					CASE WHEN Publ_Empresa_Cuit IS NULL 
+						 THEN CASE WHEN Cli_Dni IS NULL
+								   THEN convert(nvarchar(100), Publ_Cli_Dni)
+								   WHEN Cli_Dni IS NOT NULL
+								   THEN convert(nvarchar(100), Cli_Dni)
+							  END
+						 WHEN Publ_Empresa_Cuit IS NOT NULL 
+						 THEN convert(nvarchar(100), Publ_Empresa_Cuit)
+					END,
+					0,
+					1,
+					1,
+					0,
+					0,
+					0
+					
+FROM gd_esquema.Maestra
+
+/*TODO UPDATE para la reputacion*/	
+
+/* MIGRANDO Roles_Usuario*/	
+
+PRINT 'MIGRANDO TABLA ROLES_USUARIOS'
+
+
+	
+INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
+
+	SELECT ID_User,
+		   CASE WHEN Username LIKE'admin'
+				THEN (0)
+				WHEN Username LIKE'Razon%'
+				THEN (2)
+				WHEN Username NOT LIKE 'Razon%'
+				THEN (1)
+		   END
+	FROM MERCADONEGRO.Usuarios	
 
 /* MIGRANDO TABLA PUBLICACIONES */
 

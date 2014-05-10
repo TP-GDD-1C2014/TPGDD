@@ -19,7 +19,7 @@ INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('Facturar');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('ListadoEstadistico');
 
 
-INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Administrador', 1);
+INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Administrador General', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Cliente', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Empresa', 1);
 
@@ -28,31 +28,31 @@ PRINT 'Agregando func ADMIN'
 -------------------/* Asignacion de Funcionalidades */-------------------
 /* ADMIN */ 
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarRoles';
+	@rol = 'Administrador General', @func = 'AdministrarRoles';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarClientes';
+	@rol = 'Administrador General', @func = 'AdministrarClientes';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarEmpresas';	
+	@rol = 'Administrador General', @func = 'AdministrarEmpresas';	
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarRubros';
+	@rol = 'Administrador General', @func = 'AdministrarRubros';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarVisibilidades';
+	@rol = 'Administrador General', @func = 'AdministrarVisibilidades';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'GenerarPublicacion';
+	@rol = 'Administrador General', @func = 'GenerarPublicacion';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'EditarPublicacion';		
+	@rol = 'Administrador General', @func = 'EditarPublicacion';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'GestionarPreguntas';
+	@rol = 'Administrador General', @func = 'GestionarPreguntas';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'ComprarOfertar';
+	@rol = 'Administrador General', @func = 'ComprarOfertar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'Calificar';
+	@rol = 'Administrador General', @func = 'Calificar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'HistorialOperaciones';	
+	@rol = 'Administrador General', @func = 'HistorialOperaciones';	
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'Facturar';		
+	@rol = 'Administrador General', @func = 'Facturar';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'ListadoEstadistico';				
+	@rol = 'Administrador General', @func = 'ListadoEstadistico';				
 		
 /* Cliente */
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -86,3 +86,12 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'ListadoEstadistico';
 		
+
+----------------- /*AGREGANDO USUARIOS INICIALES*/ ------------------------
+
+INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir) 
+	VALUES ('admin','w23e',0,1,0,0,0,0);
+
+/*EXEC MERCADONEGRO.AgregarRol
+	@iduser = 0, @idrol = 0;
+*/			
