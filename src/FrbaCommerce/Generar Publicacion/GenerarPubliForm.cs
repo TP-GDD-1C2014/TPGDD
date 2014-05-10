@@ -13,23 +13,123 @@ namespace FrbaCommerce.Generar_Publicacion
 {
     public partial class GenerarPubliForm : Form
     {
+        //Combobox Visibilidad (numeric(18,0) )
+        public class visibilidadComboBox
+        {
+            public string Nombre_Visibilidad { get; set; }
+            public int Cod_Visibilidad { get; set; }
 
-        public GenerarPubliForm()
+            public visibilidadComboBox(string nombre, int cod)
+            {
+                Nombre_Visibilidad = nombre;
+                Cod_Visibilidad = cod;
+            }
+            public override string ToString()
+            {
+                return Nombre_Visibilidad;
+            }
+        }
+
+        //Combobox Estado (tinyint)
+        public class estadoComboBox
+        {
+            public string Nombre_Estado { get; set; }
+            public int Cod_Estado { get; set; }
+
+            public estadoComboBox(string nombre, int cod)
+            {
+                Nombre_Estado = nombre;
+                Cod_Estado = cod;
+            }
+            public override string ToString()
+            {
+                return Nombre_Estado;
+            }
+        }
+
+        //Combobox Tipo (tinyint)
+        public class tipoComboBox
+        {
+            public string Nombre_Tipo { get; set; }
+            public int Cod_Tipo { get; set; }
+
+            public tipoComboBox(string nombre, int cod)
+            {
+                Nombre_Tipo = nombre;
+                Cod_Tipo = cod;
+            }
+            public override string ToString()
+            {
+                return Nombre_Tipo;
+            }
+        }
+
+        //Combobox Preguntas (bit)
+        public class preguntasComboBox
+        {
+            public string Permiso_Pregunta { get; set; }
+            public int Cod_Pregunta { get; set; }
+
+            public preguntasComboBox(string nombre, int cod)
+            {
+                Permiso_Pregunta = nombre;
+                Cod_Pregunta = cod;
+            }
+            public override string ToString()
+            {
+                return Permiso_Pregunta;
+            }
+        }
+        public GenerarPubliForm(Clases.Publicacion publicacion)
         {
             InitializeComponent();
 
-            //dummy (BORRAR DSP)
-            TipoPubli_ComboBox.Items.Add("Compra Inmediata");
-            TipoPubli_ComboBox.Items.Add("Subasta");
-            TipoPubli_ComboBox.Sorted = true;
-            TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDown;
-            permitirPreg_combobox.Items.Add("Sí");
-            permitirPreg_combobox.Items.Add("No");
-            permitirPreg_combobox.Sorted = true;
-            permitirPreg_combobox.DropDownStyle = ComboBoxStyle.DropDown;
+            //Configurar los ComboBox
+            Visibilidad_ComboBox.DisplayMember = "Nombre_Visibilidad";
+            Visibilidad_ComboBox.ValueMember = "Cod_Visibilidad";
+            Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
+            Visibilidad_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            llenarVisibComboBox(publicacion);
 
+            Estado_ComboBox.DisplayMember = "Nombre_Estado";
+            Estado_ComboBox.ValueMember = "Cod_Estado";
+            Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
+            Estado_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            llenarEstadoComboBox(publicacion);
+
+            TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
+            TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
+            TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
+            TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            llenarTipoComboBox(publicacion);
+   
+            List<preguntasComboBox> listaRespuestas = new List<preguntasComboBox>();
+            listaRespuestas.Add(new preguntasComboBox("No",0));
+            listaRespuestas.Add(new preguntasComboBox("Si",1));
+            permitirPreg_combobox.DisplayMember = "Permiso_Pregunta";
+            permitirPreg_combobox.ValueMember = "Cod_Pregunta";
+            permitirPreg_combobox.DataSource = listaRespuestas;
+            permitirPreg_combobox.SelectedIndexChanged += new System.EventHandler(this.permitirPreg_combobox_SelectedIndexChanged);
 
             OcultarAdicionales();
+        }
+
+        //TODO Llenar ComboBox de Visibilidad
+        public void llenarVisibComboBox(Clases.Publicacion publicacion)
+        {       
+
+        }
+
+        //TODO Llenar ComboBox de Estado
+        public void llenarEstadoComboBox(Clases.Publicacion publicacion)
+        {
+
+        }
+
+        //TODO Llenar ComboBox de Tipo
+        public void llenarTipoComboBox(Clases.Publicacion publicacion)
+        {
+
         }
 
         private void OcultarAdicionales()
@@ -110,6 +210,8 @@ namespace FrbaCommerce.Generar_Publicacion
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !PrecioTotal_textBox.Text.Equals("") && !PrecioUnit_textBox.Text.Equals(""))
             {
                 //Configurar publicación a ser creada
+
+                //TODO Conseguir la Cod_Visibilidad a partir de su nombre
                 int visibilidad = Convert.ToInt32(Visibilidad_ComboBox.Text);
                 //Conseguir la ID_Vendedor
                 
@@ -118,7 +220,9 @@ namespace FrbaCommerce.Generar_Publicacion
                 stock = Convert.ToInt32(Stock_TextBox.Text);
                 stock = int.Parse(Stock_TextBox.Text);
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
+                //TODO Conseguir la Estado_Public a partir de su nombre
                 Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
+                //TODO Conseguir la Tipo_Public a partir de su nombre
                 Tipo_Publicacion tipoPubli = (Tipo_Publicacion)Enum.Parse(typeof(Tipo_Publicacion), TipoPubli_ComboBox.Text);
                 int precioTotal = Convert.ToInt32(PrecioTotal_textBox.Text);
                 /* Alternativa?

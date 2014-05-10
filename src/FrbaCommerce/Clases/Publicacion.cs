@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace FrbaCommerce.Clases
 {
+    //Duda: se pueden agregar mas estados/tipos de publicacion???
     public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada };
     public enum Tipo_Publicacion { Inmediata = 0, Subasta }
 
@@ -65,7 +66,7 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", this.Stock_Inicial);
 
             //Configurar parámetros del INSERT
-            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones SELECT *", listaParametros, BDSQL.iniciarConexion());
+            //BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones SELECT ...", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
         }
     }
