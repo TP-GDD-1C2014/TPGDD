@@ -3,7 +3,7 @@
 PRINT 'Creando valores por defecto...'
 
 -- ///// Agregar las que sean necesarias /////
-
+/* FUNCIONALIDADES */
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarClientes');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarEmpresas');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarRoles');
@@ -18,7 +18,7 @@ INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('HistorialOperaciones'
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('Facturar');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('ListadoEstadistico');
 
-
+/* ROLES */
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Administrador General', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Cliente', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Empresa', 1);

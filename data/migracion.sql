@@ -22,36 +22,51 @@ SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
 
  
 
-PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
+PRINT 'MIGRANDO TABLA DE VISIBILIDADES';
 
-INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) /* NO PUSE EL CODIGO DE LA VISIBILIDAD DE LA TABLA MAESTRA */
+INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) 
+/* NO PUSE EL CODIGO DE LA VISIBILIDAD DE LA TABLA MAESTRA */
 
-	SELECT  DISTINCT Publicacion_Visibilidad_Desc,
+	SELECT  DISTINCT 
+					 Publicacion_Visibilidad_Desc,
 					 Publicacion_Visibilidad_Precio,
 					 Publicacion_Visibilidad_Porcentaje			
 					 
 	FROM gd_esquema.Maestra
 	WHERE Publicacion_Visibilidad_Cod IS NOT NULL
 	ORDER BY Publicacion_Visibilidad_Precio DESC
-
+	
 /*MIGRANDO TABLA USUARIOS */
 
 PRINT 'MIGRANDO TABLA DE USUARIOS'
 
-INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
+INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,
+								  Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
 
 	SELECT DISTINCT
-					/*De esta manera podra generar un username y password acorde para tanto clientes como empresas*/
+					/*De esta manera podra generar un username y password acorde tanto para los
+					clientes como empresas*/
 					CASE WHEN Publ_Empresa_Cuit IS NULL 
 						 
 						 THEN CASE WHEN Cli_Dni IS NULL
 								   THEN (Publ_Cli_Apeliido+Publ_Cli_Nombre)
+								   
+								  /* stored procedure InsertarCliente */
+								  
 							       WHEN Cli_Dni IS NOT NULL
 							       THEN Cli_Apeliido+Cli_Nombre
+							       
+							       
+							       /* stored procedure InsertarCliente */
+								   
 						      END
 						  
 						 WHEN Publ_Empresa_Cuit IS NOT NULL  
 						 THEN Publ_Empresa_Razon_Social
+						 
+						    /* stored procedure InsertarEmpresa */
+								   
+						 
 					END,
 					CASE WHEN Publ_Empresa_Cuit IS NULL 
 						 THEN CASE WHEN Cli_Dni IS NULL
@@ -91,12 +106,13 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 		   END
 	FROM MERCADONEGRO.Usuarios	
 	
-	
+/*	
 /* MIGRANDO TABLA CLIENTES */
 
 PRINT 'MIGRANDO TABLA CLIENTES'
 
 INSERT INTO MERCADONEGRO.Clientes (ID_User,
+								   Tipo_Doc,
 								   Num_Doc,
 								   Nombre,
 								   Apellido,
@@ -105,7 +121,8 @@ INSERT INTO MERCADONEGRO.Clientes (ID_User,
 								   Codigo_Postal,
 								   Fecha_Nacimiento)
 
-	SELECT DISTINCT MERCADONEGRO.Usuarios.ID_User, 
+	SELECT DISTINCT MERCADONEGRO.Usuarios.ID_User,
+					'DU',
 					gd_esquema.Maestra.Publ_Cli_Dni, 
 					gd_esquema.Maestra.Publ_Cli_Nombre, 
 					gd_esquema.Maestra.Publ_Cli_Apeliido,
@@ -116,10 +133,10 @@ INSERT INTO MERCADONEGRO.Clientes (ID_User,
 					+ ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Depto),
 					gd_esquema.Maestra.Publ_Cli_Cod_Postal,
 					gd_esquema.Maestra.Publ_Cli_Fecha_Nac
-					
-	FROM MERCADONEGRO.Usuarios
-	INNER JOIN gd_esquema.Maestra
-	ON gd_esquema.Maestra.Publ_Cli_Dni IS NOT NULL
+			
+	FROM gd_esquema.Maestra
+	INNER JOIN MERCADONEGRO.Usuarios
+	ON 
 	 
 
 
@@ -204,3 +221,5 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 	WHERE	Publicacion_Cod IS NOT NULL AND Publ_Cli_Dni IS NOT NULL
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF*/
+
+*/
