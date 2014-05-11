@@ -40,6 +40,7 @@ INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaj
 
 PRINT 'MIGRANDO TABLA DE USUARIOS'
 
+
 INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,
 								  Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
 
@@ -51,21 +52,13 @@ INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,
 						 THEN CASE WHEN Cli_Dni IS NULL
 								   THEN (Publ_Cli_Apeliido+Publ_Cli_Nombre)
 								   
-								  /* stored procedure InsertarCliente */
-								  
 							       WHEN Cli_Dni IS NOT NULL
 							       THEN Cli_Apeliido+Cli_Nombre
-							       
-							       
-							       /* stored procedure InsertarCliente */
-								   
+							   
 						      END
 						  
 						 WHEN Publ_Empresa_Cuit IS NOT NULL  
-						 THEN Publ_Empresa_Razon_Social
-						 
-						    /* stored procedure InsertarEmpresa */
-								   
+						 THEN Publ_Empresa_Razon_Social								   
 						 
 					END,
 					CASE WHEN Publ_Empresa_Cuit IS NULL 
@@ -86,10 +79,90 @@ INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,
 					
 FROM gd_esquema.Maestra
 
+
+
+-----------------------------------TABLA TEMPORAL USUARIOS EN GENERAL---------------------------------
+CREATE TABLE #UsuariosGeneral (
+			ID_User					NUMERIC(18,0),
+			tipoDoc_CUIT			NVARCHAR(50),
+			nroDoc					NUMERIC(18,0), --SOLO PARA CLIENTES
+			nombre_nombreContacto	NVARCHAR(255), --Recordatorio: para la emoresa cambiarlo a 50
+			apellido_razSoc			NVARCHAR(255),
+			mail					NVARCHAR(255), --Recordatorio: para la empresa cambiarlo a 50
+			telefono				NUMERIC(18,0),
+			direccion				NVARCHAR(255),
+			codPostal				NVARCHAR(50),
+			fechNac_fechCrea		DATETIME,
+			ciudad					NVARCHAR(50), --SOLO PARA EMPRESAS
+			)
+			
+INSERT INTO #UsuariosGeneral(ID_User,tipoDoc_CUIT, nroDoc, nombre_nombreContacto, apellido_razSoc,
+							 mail, direccion, codPostal,fechNac_fechCrea)
+							 
+		SELECT DISTINCT MERCADONEGRO.Usuarios.ID_User, 
+						CASE WHEN Maestra.Cli_Dni IS NULL
+								THEN Maestra.Publ_Empresa_Cuit
+							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
+								THEN 'DNI'
+						END,
+						 Maestra.Cli_Dni,
+						CASE WHEN Maestra.Cli_Dni IS NULL
+								THEN ''
+							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
+								THEN Maestra.Cli_Nombre
+						END,
+						 CASE WHEN Maestra.Cli_Dni IS NULL
+								THEN Maestra.Publ_Empresa_Razon_Social
+							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
+								THEN Maestra.Cli_Apeliido
+						END,
+						CASE WHEN Maestra.Cli_Dni IS NULL
+								THEN Maestra.Publ_Empresa_Mail
+							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
+								THEN Maestra.Cli_Mail
+						END,
+						CASE WHEN Maestra.Cli_Dni IS NULL
+								THEN Maestra.Publ_Empresa_Dom_Calle
+										+ ' ' + CONVERT(nvarchar(255),Maestra.Publ_Empresa_Nro_Calle)
+										+ ' ' + CONVERT(nvarchar(255),Maestra.Publ_Empresa_Piso)
+										+ ' ' + CONVERT(nvarchar(255),Maestra.Publ_Empresa_Depto)
+							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
+								THEN Maestra.Cli_Dom_Calle
+										+ ' ' + CONVERT(nvarchar(255),Maestra.Cli_Nro_Calle)
+										+ ' ' + CONVERT(nvarchar(255),Maestra.Cli_Piso)
+										+ ' ' + CONVERT(nvarchar(255),Maestra.Cli_Depto)
+						END,
+						CASE WHEN Maestra.Cli_Dni IS NULL
+								THEN Maestra.Publ_Empresa_Cod_Postal
+							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
+								THEN Maestra.Cli_Cod_Postal
+						END,
+						CASE WHEN Maestra.Cli_Dni IS NULL
+								THEN Maestra.Publ_Empresa_Fecha_Creacion
+							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
+								THEN Maestra.Cli_Fecha_Nac
+						END 
+						 
+		FROM MERCADONEGRO.Usuarios, gd_esquema.Maestra
+			WHERE MERCADONEGRO.Usuarios.Username = Maestra.Publ_Empresa_Razon_Social 
+			OR MERCADONEGRO.Usuarios.Username = (Maestra.Cli_Apeliido 
+														+ Maestra.Cli_Nombre)
+					
+
+
+			
+--PRUEBA
+SELECT * FROM #UsuariosGeneral 
+
+DELETE #UsuariosGeneral
+
+DROP TABLE #UsuariosGeneral
+
+
 /*TODO UPDATE para la reputacion*/	
 
 /* MIGRANDO Roles_Usuario*/	
-
+/*
 PRINT 'MIGRANDO TABLA ROLES_USUARIOS'
 
 
@@ -105,7 +178,7 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 				THEN (1)
 		   END
 	FROM MERCADONEGRO.Usuarios	
-	
+*/	
 /*	
 /* MIGRANDO TABLA CLIENTES */
 
