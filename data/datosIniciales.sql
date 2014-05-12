@@ -92,6 +92,6 @@ SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
 INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir) 
 	VALUES (0,'admin','w23e',0,1,0,0,0,0);--TODO ver si ultimas tres columnas podrian ir NULL
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
-/*EXEC MERCADONEGRO.AgregarRol
-	@iduser = 0, @idrol = 0;
-*/			
+
+EXEC MERCADONEGRO.AgregarRol
+	@iduser = 0, @idrol = 0;			

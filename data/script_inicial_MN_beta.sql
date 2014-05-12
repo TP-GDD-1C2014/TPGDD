@@ -364,9 +364,10 @@ SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
 INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir) 
 	VALUES (0,'admin','w23e',0,1,0,0,0,0);--TODO ver si ultimas tres columnas podrian ir NULL
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
-/*EXEC MERCADONEGRO.AgregarRol
+
+EXEC MERCADONEGRO.AgregarRol
 	@iduser = 0, @idrol = 0;
-*/			
+			
 
 
 ------------------------MIGRACION-----------------------------
@@ -416,7 +417,8 @@ CREATE TABLE #UsuariosTemp
 (
 	iduser NUMERIC(18,0) IDENTITY(1,1),
 	username NVARCHAR(255) NOT NULL,
-	pass NVARCHAR(255) NOT NULL
+	pass NVARCHAR(255) NOT NULL,
+	rol int
 	PRIMARY KEY (iduser)
 	
 )
@@ -428,7 +430,8 @@ INSERT INTO  #UsuariosTemp
 	SELECT DISTINCT	
 	
 		Publ_Cli_Apeliido+Publ_Cli_Nombre    AS username,
-		CONVERT(nvarchar(255), Publ_Cli_Dni) AS pass
+		CONVERT(nvarchar(255), Publ_Cli_Dni) AS pass,
+		1									 AS rol
 		
 	FROM gd_esquema.Maestra
 	WHERE Publ_Cli_Dni IS NOT NULL
@@ -438,7 +441,8 @@ INSERT INTO  #UsuariosTemp
 	SELECT DISTINCT 
 	
 		'RazonSocialNro'+ SUBSTRING(Publ_Empresa_Razon_Social,17,2) AS username,
-		CONVERT(nvarchar(255), Publ_Empresa_Cuit)				    AS pass
+		CONVERT(nvarchar(255), Publ_Empresa_Cuit)				    AS pass,
+		2															AS rol
 		
 	FROM gd_esquema.Maestra
 	WHERE Publ_Empresa_Cuit IS NOT NULL
@@ -460,23 +464,21 @@ SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 
 
 /* MIGRANDO Roles_Usuario*/	
-/*
+
 PRINT 'MIGRANDO TABLA ROLES_USUARIOS'
 
-
-	
 INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 
-	SELECT ID_User,
-		   CASE WHEN Username LIKE'admin'
+	SELECT #UsuariosTemp.iduser,
+		   CASE WHEN #UsuariosTemp.rol = 0 --Admin
 				THEN (0)
-				WHEN Username LIKE'Razon%'
-				THEN (2)
-				WHEN Username NOT LIKE 'Razon%'
+				WHEN #UsuariosTemp.rol = 1 --Cliente
 				THEN (1)
+				WHEN #UsuariosTemp.rol = 2 -- Empresa
+				THEN (2)
 		   END
-	FROM MERCADONEGRO.Usuarios	
-*/	
+	FROM #UsuariosTemp
+--SELECT * FROM MERCADONEGRO.Roles_Usuarios
 	
 /* MIGRANDO TABLA CLIENTES */
 --select * from MERCADONEGRO.Clientes
@@ -538,7 +540,7 @@ INSERT INTO MERCADONEGRO.Empresas (ID_User,
 
 /* MIGRANDO TABLA PUBLICACIONES */
 
-/*PRINT 'MIGRANDO TABLA PUBLICACIONES'
+PRINT 'MIGRANDO TABLA PUBLICACIONES'
 
 -------------DE LOS CLIENTES------------
 
@@ -578,9 +580,6 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 	WHERE	Publicacion_Cod IS NOT NULL AND Publ_Cli_Dni IS NOT NULL
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
-*/
 
 -----------------------------DROPS-----------------------------
 DROP TABLE #UsuariosTemp
-
-

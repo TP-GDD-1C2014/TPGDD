@@ -45,7 +45,8 @@ CREATE TABLE #UsuariosTemp
 (
 	iduser NUMERIC(18,0) IDENTITY(1,1),
 	username NVARCHAR(255) NOT NULL,
-	pass NVARCHAR(255) NOT NULL
+	pass NVARCHAR(255) NOT NULL,
+	rol int
 	PRIMARY KEY (iduser)
 	
 )
@@ -57,7 +58,8 @@ INSERT INTO  #UsuariosTemp
 	SELECT DISTINCT	
 	
 		Publ_Cli_Apeliido+Publ_Cli_Nombre    AS username,
-		CONVERT(nvarchar(255), Publ_Cli_Dni) AS pass
+		CONVERT(nvarchar(255), Publ_Cli_Dni) AS pass,
+		1									 AS rol
 		
 	FROM gd_esquema.Maestra
 	WHERE Publ_Cli_Dni IS NOT NULL
@@ -67,7 +69,8 @@ INSERT INTO  #UsuariosTemp
 	SELECT DISTINCT 
 	
 		'RazonSocialNro'+ SUBSTRING(Publ_Empresa_Razon_Social,17,2) AS username,
-		CONVERT(nvarchar(255), Publ_Empresa_Cuit)				    AS pass
+		CONVERT(nvarchar(255), Publ_Empresa_Cuit)				    AS pass,
+		2															AS rol
 		
 	FROM gd_esquema.Maestra
 	WHERE Publ_Empresa_Cuit IS NOT NULL
@@ -89,23 +92,21 @@ SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 
 
 /* MIGRANDO Roles_Usuario*/	
-/*
+
 PRINT 'MIGRANDO TABLA ROLES_USUARIOS'
 
-
-	
 INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 
-	SELECT ID_User,
-		   CASE WHEN Username LIKE'admin'
+	SELECT #UsuariosTemp.iduser,
+		   CASE WHEN #UsuariosTemp.rol = 0 --Admin
 				THEN (0)
-				WHEN Username LIKE'Razon%'
-				THEN (2)
-				WHEN Username NOT LIKE 'Razon%'
+				WHEN #UsuariosTemp.rol = 1 --Cliente
 				THEN (1)
+				WHEN #UsuariosTemp.rol = 2 -- Empresa
+				THEN (2)
 		   END
-	FROM MERCADONEGRO.Usuarios	
-*/	
+	FROM #UsuariosTemp
+--SELECT * FROM MERCADONEGRO.Roles_Usuarios
 	
 /* MIGRANDO TABLA CLIENTES */
 --select * from MERCADONEGRO.Clientes
