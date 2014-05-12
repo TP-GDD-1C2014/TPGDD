@@ -36,130 +36,57 @@ INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaj
 	WHERE Publicacion_Visibilidad_Cod IS NOT NULL
 	ORDER BY Publicacion_Visibilidad_Precio DESC
 	
-/*MIGRANDO TABLA USUARIOS */
-
-PRINT 'MIGRANDO TABLA DE USUARIOS'
 
 
-INSERT INTO MERCADONEGRO.Usuarios(Username,Password,Intentos_Login,Habilitado,
-								  Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
-
-	SELECT DISTINCT
-					/*De esta manera podra generar un username y password acorde tanto para los
-					clientes como empresas*/
-					CASE WHEN Publ_Empresa_Cuit IS NULL 
-						 
-						 THEN CASE WHEN Cli_Dni IS NULL
-								   THEN (Publ_Cli_Apeliido+Publ_Cli_Nombre)
-								   
-							       WHEN Cli_Dni IS NOT NULL
-							       THEN Cli_Apeliido+Cli_Nombre
-							   
-						      END
-						  
-						 WHEN Publ_Empresa_Cuit IS NOT NULL  
-						 THEN Publ_Empresa_Razon_Social								   
-						 
-					END,
-					CASE WHEN Publ_Empresa_Cuit IS NULL 
-						 THEN CASE WHEN Cli_Dni IS NULL
-								   THEN convert(nvarchar(100), Publ_Cli_Dni)
-								   WHEN Cli_Dni IS NOT NULL
-								   THEN convert(nvarchar(100), Cli_Dni)
-							  END
-						 WHEN Publ_Empresa_Cuit IS NOT NULL 
-						 THEN convert(nvarchar(100), Publ_Empresa_Cuit)
-					END,
-					0,
-					1,
-					1,
-					0,
-					0,
-					0
-					
-FROM gd_esquema.Maestra
+--------------------------Vistas-----------------------------
 
 
+CREATE TABLE #UsuariosTemp
+(
+	iduser NUMERIC(18,0) IDENTITY(1,1),
+	username NVARCHAR(255) NOT NULL,
+	pass NVARCHAR(255) NOT NULL
+	PRIMARY KEY (iduser)
+	
+)
 
------------------------------------TABLA TEMPORAL USUARIOS EN GENERAL---------------------------------
-CREATE TABLE #UsuariosGeneral (
-			ID_User					NUMERIC(18,0),
-			tipoDoc_CUIT			NVARCHAR(50),
-			nroDoc					NUMERIC(18,0), --SOLO PARA CLIENTES
-			nombre_nombreContacto	NVARCHAR(255), --Recordatorio: para la emoresa cambiarlo a 50
-			apellido_razSoc			NVARCHAR(255),
-			mail					NVARCHAR(255), --Recordatorio: para la empresa cambiarlo a 50
-			telefono				NUMERIC(18,0),
-			direccion				NVARCHAR(255),
-			codPostal				NVARCHAR(50),
-			fechNac_fechCrea		DATETIME,
-			ciudad					NVARCHAR(50), --SOLO PARA EMPRESAS
-			)
-			
-INSERT INTO #UsuariosGeneral(ID_User,tipoDoc_CUIT, nroDoc, nombre_nombreContacto, apellido_razSoc,
-							 mail, direccion, codPostal,fechNac_fechCrea)
-							 
-		SELECT DISTINCT MERCADONEGRO.Usuarios.ID_User, 
-						CASE WHEN Maestra.Cli_Dni IS NULL
-								THEN Maestra.Publ_Empresa_Cuit
-							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
-								THEN 'DNI'
-						END,
-						 Maestra.Cli_Dni,
-						CASE WHEN Maestra.Cli_Dni IS NULL
-								THEN ''
-							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
-								THEN Maestra.Cli_Nombre
-						END,
-						 CASE WHEN Maestra.Cli_Dni IS NULL
-								THEN Maestra.Publ_Empresa_Razon_Social
-							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
-								THEN Maestra.Cli_Apeliido
-						END,
-						CASE WHEN Maestra.Cli_Dni IS NULL
-								THEN Maestra.Publ_Empresa_Mail
-							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
-								THEN Maestra.Cli_Mail
-						END,
-						CASE WHEN Maestra.Cli_Dni IS NULL
-								THEN Maestra.Publ_Empresa_Dom_Calle
-										+ ' ' + CONVERT(nvarchar(255),Maestra.Publ_Empresa_Nro_Calle)
-										+ ' ' + CONVERT(nvarchar(255),Maestra.Publ_Empresa_Piso)
-										+ ' ' + CONVERT(nvarchar(255),Maestra.Publ_Empresa_Depto)
-							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
-								THEN Maestra.Cli_Dom_Calle
-										+ ' ' + CONVERT(nvarchar(255),Maestra.Cli_Nro_Calle)
-										+ ' ' + CONVERT(nvarchar(255),Maestra.Cli_Piso)
-										+ ' ' + CONVERT(nvarchar(255),Maestra.Cli_Depto)
-						END,
-						CASE WHEN Maestra.Cli_Dni IS NULL
-								THEN Maestra.Publ_Empresa_Cod_Postal
-							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
-								THEN Maestra.Cli_Cod_Postal
-						END,
-						CASE WHEN Maestra.Cli_Dni IS NULL
-								THEN Maestra.Publ_Empresa_Fecha_Creacion
-							  WHEN Maestra.Publ_Empresa_Razon_Social IS NULL
-								THEN Maestra.Cli_Fecha_Nac
-						END 
-						 
-		FROM MERCADONEGRO.Usuarios, gd_esquema.Maestra
-			WHERE MERCADONEGRO.Usuarios.Username = Maestra.Publ_Empresa_Razon_Social 
-			OR MERCADONEGRO.Usuarios.Username = (Maestra.Cli_Apeliido 
-														+ Maestra.Cli_Nombre)
-					
+--select * from #UsuariosTemp
 
 
-			
---PRUEBA
-SELECT * FROM #UsuariosGeneral 
+INSERT INTO  #UsuariosTemp 
+	SELECT DISTINCT	
+	
+		Publ_Cli_Apeliido+Publ_Cli_Nombre    AS username,
+		CONVERT(nvarchar(255), Publ_Cli_Dni) AS pass
+		
+	FROM gd_esquema.Maestra
+	WHERE Publ_Cli_Dni IS NOT NULL
+	
+	UNION 
+	
+	SELECT DISTINCT 
+	
+		'RazonSocialNro'+ SUBSTRING(Publ_Empresa_Razon_Social,17,2) AS username,
+		CONVERT(nvarchar(255), Publ_Empresa_Cuit)				    AS pass
+		
+	FROM gd_esquema.Maestra
+	WHERE Publ_Empresa_Cuit IS NOT NULL
+	
+	
 
-DELETE #UsuariosGeneral
+SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
 
-DROP TABLE #UsuariosGeneral
+INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
+	SELECT iduser,username,pass,0,0,0
+	FROM #UsuariosTemp
+	
+SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
+--select * from MERCADONEGRO.Usuarios order by ID_User	
 
 
-/*TODO UPDATE para la reputacion*/	
+
+
+
 
 /* MIGRANDO Roles_Usuario*/	
 /*
@@ -179,10 +106,11 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 		   END
 	FROM MERCADONEGRO.Usuarios	
 */	
-/*	
+	
 /* MIGRANDO TABLA CLIENTES */
-
+--select * from MERCADONEGRO.Clientes
 PRINT 'MIGRANDO TABLA CLIENTES'
+
 
 INSERT INTO MERCADONEGRO.Clientes (ID_User,
 								   Tipo_Doc,
@@ -194,24 +122,48 @@ INSERT INTO MERCADONEGRO.Clientes (ID_User,
 								   Codigo_Postal,
 								   Fecha_Nacimiento)
 
-	SELECT DISTINCT MERCADONEGRO.Usuarios.ID_User,
+	SELECT DISTINCT	#UsuariosTemp.iduser,
 					'DU',
-					gd_esquema.Maestra.Publ_Cli_Dni, 
-					gd_esquema.Maestra.Publ_Cli_Nombre, 
-					gd_esquema.Maestra.Publ_Cli_Apeliido,
+					gd_esquema.Maestra.Publ_Cli_Dni,		
+					gd_esquema.Maestra.Publ_Cli_Nombre,	
+					gd_esquema.Maestra.Publ_Cli_Apeliido,  
 					gd_esquema.Maestra.Publ_Cli_Mail,
-					gd_esquema.Maestra.Publ_Cli_Dom_Calle
-					+ ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Nro_Calle)
-					+ ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Piso)
-					+ ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Depto),
+					gd_esquema.Maestra.Publ_Cli_Dom_Calle 
+									   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Nro_Calle)
+									   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Piso)
+									   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Depto),
 					gd_esquema.Maestra.Publ_Cli_Cod_Postal,
-					gd_esquema.Maestra.Publ_Cli_Fecha_Nac
+					gd_esquema.Maestra.Publ_Cli_Fecha_Nac 
 			
-	FROM gd_esquema.Maestra
-	INNER JOIN MERCADONEGRO.Usuarios
-	ON 
-	 
+	FROM #UsuariosTemp, gd_esquema.Maestra
+	WHERE Publ_Cli_Dni IS NOT NULL AND (#UsuariosTemp.username = gd_esquema.Maestra.Publ_Cli_Apeliido+gd_esquema.Maestra.Publ_Cli_Nombre)
 
+--select * from MERCADONEGRO.Empresas
+
+PRINT 'MIGRANDO TABLA EMPRESAS'
+
+
+INSERT INTO MERCADONEGRO.Empresas (ID_User,
+								   Razon_Social,
+								   CUIT,
+								   Direccion,
+								   Codigo_Postal,
+								   Mail,
+								   Fecha_Creacion)
+
+	SELECT DISTINCT	#UsuariosTemp.iduser,
+					gd_esquema.Maestra.Publ_Empresa_Razon_Social,
+					gd_esquema.Maestra.Publ_Empresa_Cuit,
+					gd_esquema.Maestra.Publ_Empresa_Dom_Calle 
+										   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Empresa_Nro_Calle)
+									       + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Empresa_Piso)
+										   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Empresa_Depto),
+					gd_esquema.Maestra.Publ_Empresa_Cod_Postal,
+					gd_esquema.Maestra.Publ_Empresa_Mail,
+					gd_esquema.Maestra.Publ_Empresa_Fecha_Creacion 
+			
+	FROM #UsuariosTemp,gd_esquema.Maestra
+	WHERE Publ_Empresa_Cuit  IS NOT NULL AND (#UsuariosTemp.username = 'RazonSocialNro'+ RIGHT(Publ_Empresa_Razon_Social,2))
 
 /* MIGRANDO TABLA PUBLICACIONES */
 
@@ -256,43 +208,6 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
 
-/*----------DE LAS EMPRESAS-------------
+-----------------------------DROPS-----------------------------
+DROP TABLE #UsuariosTemp
 
-SET IDENTITY_INSERT MERCADONEGRO.Publicaciones ON
-
-INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
-										Cod_Visibilidad,
-										ID_Vendedor,
-										Descripcion,
-										Stock,
-										Fecha_Inicial,
-										Fecha_Vencimiento,
-										Precio,
-										Estado_Publicacion,
-										Tipo_Publicacion,
-										Permisos_Preguntas,
-										Stock_Inicial)
-										
-	SELECT DISTINCT Publicacion_Cod, 
-					Publicacion_Visibilidad_Cod - 10002,
-					Publ_Em
-					Publicacion_Descripcion,
-					Publicacion_Stock,
-					Publicacion_Fecha,
-					Publicacion_Fecha_Venc,
-					Publicacion_Precio, 
-					CASE Publicacion_Estado
-						WHEN 'Publicada' THEN 0
-						END, 
-					CASE Publicacion_Tipo
-						WHEN 'Compra Inmediata' THEN 0
-						WHEN 'Subasta' THEN 1
-						END, 
-					0, --Permiso de preguntas (cambiar esto si es necesario)
-					Publicacion_Stock
-	FROM	gd_esquema.Maestra
-	WHERE	Publicacion_Cod IS NOT NULL AND Publ_Cli_Dni IS NOT NULL
-	
-SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF*/
-
-*/

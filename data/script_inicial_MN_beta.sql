@@ -7,18 +7,6 @@ GO
 CREATE SCHEMA MERCADONEGRO AUTHORIZATION gd
 GO
 
------------------------------------------------Funciones------------------------------------------------
-
-/* FUNCION AGREGAR FUNCIONALIDAD X ROL*/
-
-CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
-BEGIN
-	INSERT INTO MERCADONEGRO.Funcionalidad_Rol (ID_Rol, ID_Funcionalidad)
-		VALUES ((SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE Nombre = @rol),
-		        (SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE Nombre = @func))
-END
-GO
-
 ---------------------------------------------Tablas iniciales-------------------------------------------
 
 CREATE TABLE MERCADONEGRO.Rubros 
@@ -135,9 +123,9 @@ CREATE TABLE MERCADONEGRO.Rubro_Publicacion
 
 CREATE TABLE MERCADONEGRO.Usuarios
 (
-	ID_User				 NUMERIC(18,0)	   IDENTITY,
-	Username			 NVARCHAR(100)	   NOT NULL,
-	Password			 NVARCHAR(100)	   NOT NULL,
+	ID_User				 NUMERIC(18,0) IDENTITY(1,1),
+	Username			 NVARCHAR(255)	   NOT NULL,
+	Password			 NVARCHAR(255)	   NOT NULL,
 	Intentos_Login		 TINYINT DEFAULT 0 NOT NULL, 
 	Habilitado			 BIT DEFAULT 1	   NOT NULL,
 	Primera_Vez			 BIT DEFAULT 1     NOT NULL,
@@ -145,6 +133,7 @@ CREATE TABLE MERCADONEGRO.Usuarios
 	Reputacion			 FLOAT			   NULL, /*Solo vendedores*/
 	Ventas_Sin_Rendir	 TINYINT		   NULL, /*Solo vendedores*/
 	
+	UNIQUE (Username),
 	PRIMARY KEY(ID_User)
 )
 
@@ -178,20 +167,24 @@ CREATE TABLE MERCADONEGRO.Clientes
 	Mail			 NVARCHAR(255) NOT NULL,
 	Telefono		 NUMERIC(18,0) NULL,
 	Direccion		 NVARCHAR(255) NOT NULL,
-	Codigo_Postal	 NVARCHAR(255) NOT NULL,
+	Codigo_Postal	 NVARCHAR(50)  NOT NULL,
 	Fecha_Nacimiento DATETIME	   NOT NULL,
-	CUIL			 NVARCHAR(50)  NULL,
+	--CUIL			 NVARCHAR(50)  NULL,
 	
-	UNIQUE		(Telefono),
-	UNIQUE		(Tipo_Doc, Num_Doc),
+	--UNIQUE (Telefono),
+	UNIQUE (Tipo_Doc,Num_Doc),
+	
 	PRIMARY KEY (ID_User),
 	FOREIGN KEY (ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
 )
 
+CREATE UNIQUE NONCLUSTERED INDEX idx_telefono_notnull
+ON MERCADONEGRO.Clientes(Telefono)
+WHERE Telefono IS NOT NULL;
 
 CREATE TABLE MERCADONEGRO.Roles
 (
-	ID_Rol	   NUMERIC(18,0) IDENTITY,
+	ID_Rol	   NUMERIC(18,0) IDENTITY(0,1),
 	Nombre	   NVARCHAR(255) NOT NULL,
 	Habilitado BIT			 NOT NULL
 	
@@ -246,13 +239,43 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	FOREIGN KEY (Tipo_Operacion)  REFERENCES MERCADONEGRO.Apto_Calificar(Tipo_Operacion)
 )
 
+-----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
+GO
+/* FUNCION AGREGAR FUNCIONALIDAD X ROL*/
 
+CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
+BEGIN
+	INSERT INTO MERCADONEGRO.Funcionalidad_Rol (ID_Rol, ID_Funcionalidad)
+		VALUES ((SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE Nombre = @rol),
+		        (SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE Nombre = @func))
+END
+GO
+
+CREATE PROCEDURE MERCADONEGRO.AgregarRol(@iduser numeric(18,0), @idrol numeric(18,0)) AS
+BEGIN
+	INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
+		VALUES ((SELECT ID_User FROM MERCADONEGRO.Usuarios WHERE ID_User = @iduser),
+				(SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE ID_Rol = @idrol))
+END 
+GO
+/*
+CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
+											  @numDoc numeric(18,0), @nombre nvarchar(255),
+											  @apellido nvarchar(255), @mail nvarchar(255),
+											  @direccion nvarchar(255), @codPostal nvarchar(50),
+											  @fechaNacimiento datetime)
+BEGIN
+	INSERT INTO MERCADONEGRO.Cliente(ID_User, Tipo_Doc, Num_Doc, Nombre, Apellido, Mail, Direccion,
+									 Codigo_Postal, Fecha_Nacimiento) 
+			VALUES((SELECT ID_User FROM MERCADONEGRO.usuarios WHERE Num_Doc = @numDoc),
+					(SELECT */
+					
 ----------------------------------------------------Datos Iniciales-----------------------------------------------
 
 PRINT 'Creando valores por defecto...'
 
 -- ///// Agregar las que sean necesarias /////
-
+/* FUNCIONALIDADES */
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarClientes');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarEmpresas');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarRoles');
@@ -267,8 +290,8 @@ INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('HistorialOperaciones'
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('Facturar');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('ListadoEstadistico');
 
-
-INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Administrador', 1);
+/* ROLES */
+INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Administrador General', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Cliente', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Empresa', 1);
 
@@ -277,31 +300,31 @@ PRINT 'Agregando func ADMIN'
 -------------------/* Asignacion de Funcionalidades */-------------------
 /* ADMIN */ 
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarRoles';
+	@rol = 'Administrador General', @func = 'AdministrarRoles';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarClientes';
+	@rol = 'Administrador General', @func = 'AdministrarClientes';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarEmpresas';	
+	@rol = 'Administrador General', @func = 'AdministrarEmpresas';	
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarRubros';
+	@rol = 'Administrador General', @func = 'AdministrarRubros';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'AdministrarVisibilidades';
+	@rol = 'Administrador General', @func = 'AdministrarVisibilidades';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'GenerarPublicacion';
+	@rol = 'Administrador General', @func = 'GenerarPublicacion';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'EditarPublicacion';		
+	@rol = 'Administrador General', @func = 'EditarPublicacion';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'GestionarPreguntas';
+	@rol = 'Administrador General', @func = 'GestionarPreguntas';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'ComprarOfertar';
+	@rol = 'Administrador General', @func = 'ComprarOfertar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'Calificar';
+	@rol = 'Administrador General', @func = 'Calificar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'HistorialOperaciones';	
+	@rol = 'Administrador General', @func = 'HistorialOperaciones';	
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'Facturar';		
+	@rol = 'Administrador General', @func = 'Facturar';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador', @func = 'ListadoEstadistico';				
+	@rol = 'Administrador General', @func = 'ListadoEstadistico';				
 		
 /* Cliente */
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -335,7 +358,19 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'ListadoEstadistico';
 		
----------------------------------MIGRACION------------------------------------
+
+----------------- /*AGREGANDO USUARIOS INICIALES*/ ------------------------
+SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
+INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir) 
+	VALUES (0,'admin','w23e',0,1,0,0,0,0);--TODO ver si ultimas tres columnas podrian ir NULL
+SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
+/*EXEC MERCADONEGRO.AgregarRol
+	@iduser = 0, @idrol = 0;
+*/			
+
+
+------------------------MIGRACION-----------------------------
+
 /* MIGRANDO TABLA DE CALIFICACIONES */
 
 PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
@@ -358,24 +393,152 @@ SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
 
  
 
-PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
+PRINT 'MIGRANDO TABLA DE VISIBILIDADES';
 
-INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) /* NO PUSE EL CODIGO DE LA VISIBILIDAD DE LA TABLA MAESTRA */
+INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) 
+/* NO PUSE EL CODIGO DE LA VISIBILIDAD DE LA TABLA MAESTRA */
 
-	SELECT  DISTINCT Publicacion_Visibilidad_Desc,
+	SELECT  DISTINCT 
+					 Publicacion_Visibilidad_Desc,
 					 Publicacion_Visibilidad_Precio,
 					 Publicacion_Visibilidad_Porcentaje			
 					 
 	FROM gd_esquema.Maestra
 	WHERE Publicacion_Visibilidad_Cod IS NOT NULL
 	ORDER BY Publicacion_Visibilidad_Precio DESC
+	
 
 
+--------------------------Vistas-----------------------------
+
+
+CREATE TABLE #UsuariosTemp
+(
+	iduser NUMERIC(18,0) IDENTITY(1,1),
+	username NVARCHAR(255) NOT NULL,
+	pass NVARCHAR(255) NOT NULL
+	PRIMARY KEY (iduser)
+	
+)
+
+--select * from #UsuariosTemp
+
+
+INSERT INTO  #UsuariosTemp 
+	SELECT DISTINCT	
+	
+		Publ_Cli_Apeliido+Publ_Cli_Nombre    AS username,
+		CONVERT(nvarchar(255), Publ_Cli_Dni) AS pass
+		
+	FROM gd_esquema.Maestra
+	WHERE Publ_Cli_Dni IS NOT NULL
+	
+	UNION 
+	
+	SELECT DISTINCT 
+	
+		'RazonSocialNro'+ SUBSTRING(Publ_Empresa_Razon_Social,17,2) AS username,
+		CONVERT(nvarchar(255), Publ_Empresa_Cuit)				    AS pass
+		
+	FROM gd_esquema.Maestra
+	WHERE Publ_Empresa_Cuit IS NOT NULL
+	
+	
+
+SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
+
+INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
+	SELECT iduser,username,pass,0,0,0
+	FROM #UsuariosTemp
+	
+SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
+--select * from MERCADONEGRO.Usuarios order by ID_User	
+
+
+
+
+
+
+/* MIGRANDO Roles_Usuario*/	
+/*
+PRINT 'MIGRANDO TABLA ROLES_USUARIOS'
+
+
+	
+INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
+
+	SELECT ID_User,
+		   CASE WHEN Username LIKE'admin'
+				THEN (0)
+				WHEN Username LIKE'Razon%'
+				THEN (2)
+				WHEN Username NOT LIKE 'Razon%'
+				THEN (1)
+		   END
+	FROM MERCADONEGRO.Usuarios	
+*/	
+	
+/* MIGRANDO TABLA CLIENTES */
+--select * from MERCADONEGRO.Clientes
+PRINT 'MIGRANDO TABLA CLIENTES'
+
+
+INSERT INTO MERCADONEGRO.Clientes (ID_User,
+								   Tipo_Doc,
+								   Num_Doc,
+								   Nombre,
+								   Apellido,
+								   Mail,
+								   Direccion,
+								   Codigo_Postal,
+								   Fecha_Nacimiento)
+
+	SELECT DISTINCT	#UsuariosTemp.iduser,
+					'DU',
+					gd_esquema.Maestra.Publ_Cli_Dni,		
+					gd_esquema.Maestra.Publ_Cli_Nombre,	
+					gd_esquema.Maestra.Publ_Cli_Apeliido,  
+					gd_esquema.Maestra.Publ_Cli_Mail,
+					gd_esquema.Maestra.Publ_Cli_Dom_Calle 
+									   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Nro_Calle)
+									   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Piso)
+									   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Cli_Depto),
+					gd_esquema.Maestra.Publ_Cli_Cod_Postal,
+					gd_esquema.Maestra.Publ_Cli_Fecha_Nac 
 			
+	FROM #UsuariosTemp, gd_esquema.Maestra
+	WHERE Publ_Cli_Dni IS NOT NULL AND (#UsuariosTemp.username = gd_esquema.Maestra.Publ_Cli_Apeliido+gd_esquema.Maestra.Publ_Cli_Nombre)
+
+--select * from MERCADONEGRO.Empresas
+
+PRINT 'MIGRANDO TABLA EMPRESAS'
+
+
+INSERT INTO MERCADONEGRO.Empresas (ID_User,
+								   Razon_Social,
+								   CUIT,
+								   Direccion,
+								   Codigo_Postal,
+								   Mail,
+								   Fecha_Creacion)
+
+	SELECT DISTINCT	#UsuariosTemp.iduser,
+					gd_esquema.Maestra.Publ_Empresa_Razon_Social,
+					gd_esquema.Maestra.Publ_Empresa_Cuit,
+					gd_esquema.Maestra.Publ_Empresa_Dom_Calle 
+										   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Empresa_Nro_Calle)
+									       + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Empresa_Piso)
+										   + ' ' + CONVERT(nvarchar(255),gd_esquema.Maestra.Publ_Empresa_Depto),
+					gd_esquema.Maestra.Publ_Empresa_Cod_Postal,
+					gd_esquema.Maestra.Publ_Empresa_Mail,
+					gd_esquema.Maestra.Publ_Empresa_Fecha_Creacion 
+			
+	FROM #UsuariosTemp,gd_esquema.Maestra
+	WHERE Publ_Empresa_Cuit  IS NOT NULL AND (#UsuariosTemp.username = 'RazonSocialNro'+ RIGHT(Publ_Empresa_Razon_Social,2))
 
 /* MIGRANDO TABLA PUBLICACIONES */
 
-PRINT 'MIGRANDO TABLA PUBLICACIONES'
+/*PRINT 'MIGRANDO TABLA PUBLICACIONES'
 
 -------------DE LOS CLIENTES------------
 
@@ -415,42 +578,9 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 	WHERE	Publicacion_Cod IS NOT NULL AND Publ_Cli_Dni IS NOT NULL
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
+*/
 
-/*----------DE LAS EMPRESAS-------------
+-----------------------------DROPS-----------------------------
+DROP TABLE #UsuariosTemp
 
-SET IDENTITY_INSERT MERCADONEGRO.Publicaciones ON
 
-INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
-										Cod_Visibilidad,
-										ID_Vendedor,
-										Descripcion,
-										Stock,
-										Fecha_Inicial,
-										Fecha_Vencimiento,
-										Precio,
-										Estado_Publicacion,
-										Tipo_Publicacion,
-										Permisos_Preguntas,
-										Stock_Inicial)
-										
-	SELECT DISTINCT Publicacion_Cod, 
-					Publicacion_Visibilidad_Cod - 10002,
-					Publ_Em
-					Publicacion_Descripcion,
-					Publicacion_Stock,
-					Publicacion_Fecha,
-					Publicacion_Fecha_Venc,
-					Publicacion_Precio, 
-					CASE Publicacion_Estado
-						WHEN 'Publicada' THEN 0
-						END, 
-					CASE Publicacion_Tipo
-						WHEN 'Compra Inmediata' THEN 0
-						WHEN 'Subasta' THEN 1
-						END, 
-					0, --Permiso de preguntas (cambiar esto si es necesario)
-					Publicacion_Stock
-	FROM	gd_esquema.Maestra
-	WHERE	Publicacion_Cod IS NOT NULL AND Publ_Cli_Dni IS NOT NULL
-	
-SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF*/

@@ -123,9 +123,9 @@ CREATE TABLE MERCADONEGRO.Rubro_Publicacion
 
 CREATE TABLE MERCADONEGRO.Usuarios
 (
-	ID_User				 NUMERIC(18,0)	   IDENTITY(0,1),
-	Username			 NVARCHAR(100)	   NOT NULL,
-	Password			 NVARCHAR(100)	   NOT NULL,
+	ID_User				 NUMERIC(18,0) IDENTITY(1,1),
+	Username			 NVARCHAR(255)	   NOT NULL,
+	Password			 NVARCHAR(255)	   NOT NULL,
 	Intentos_Login		 TINYINT DEFAULT 0 NOT NULL, 
 	Habilitado			 BIT DEFAULT 1	   NOT NULL,
 	Primera_Vez			 BIT DEFAULT 1     NOT NULL,
@@ -133,6 +133,7 @@ CREATE TABLE MERCADONEGRO.Usuarios
 	Reputacion			 FLOAT			   NULL, /*Solo vendedores*/
 	Ventas_Sin_Rendir	 TINYINT		   NULL, /*Solo vendedores*/
 	
+	UNIQUE (Username),
 	PRIMARY KEY(ID_User)
 )
 
@@ -159,23 +160,27 @@ CREATE TABLE MERCADONEGRO.Empresas
 CREATE TABLE MERCADONEGRO.Clientes
 (
 	ID_User			 NUMERIC(18,0),
-	Tipo_Doc		 NVARCHAR(50)  DEFAULT 'DU' NOT NULL,
+	Tipo_Doc		 NVARCHAR(50)  NOT NULL,
 	Num_Doc			 NUMERIC(18,0) NOT NULL,
 	Nombre			 NVARCHAR(255) NOT NULL,
 	Apellido		 NVARCHAR(255) NOT NULL,
 	Mail			 NVARCHAR(255) NOT NULL,
 	Telefono		 NUMERIC(18,0) NULL,
 	Direccion		 NVARCHAR(255) NOT NULL,
-	Codigo_Postal	 NVARCHAR(50) NOT NULL,
+	Codigo_Postal	 NVARCHAR(50)  NOT NULL,
 	Fecha_Nacimiento DATETIME	   NOT NULL,
-	CUIL			 NVARCHAR(50)  NULL,
+	--CUIL			 NVARCHAR(50)  NULL,
 	
-	UNIQUE		(Telefono),
-	UNIQUE		(Tipo_Doc, Num_Doc),
+	--UNIQUE (Telefono),
+	UNIQUE (Tipo_Doc,Num_Doc),
+	
 	PRIMARY KEY (ID_User),
 	FOREIGN KEY (ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
 )
 
+CREATE UNIQUE NONCLUSTERED INDEX idx_telefono_notnull
+ON MERCADONEGRO.Clientes(Telefono)
+WHERE Telefono IS NOT NULL;
 
 CREATE TABLE MERCADONEGRO.Roles
 (
