@@ -1,5 +1,5 @@
 -----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
-
+GO
 /* FUNCION AGREGAR FUNCIONALIDAD X ROL*/
 
 CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
@@ -28,3 +28,4 @@ BEGIN
 									 Codigo_Postal, Fecha_Nacimiento) 
 			VALUES((SELECT ID_User FROM MERCADONEGRO.usuarios WHERE Num_Doc = @numDoc),
 					(SELECT */
+					

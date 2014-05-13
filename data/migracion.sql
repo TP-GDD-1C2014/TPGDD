@@ -165,12 +165,67 @@ INSERT INTO MERCADONEGRO.Empresas (ID_User,
 			
 	FROM #UsuariosTemp,gd_esquema.Maestra
 	WHERE Publ_Empresa_Cuit  IS NOT NULL AND (#UsuariosTemp.username = 'RazonSocialNro'+ RIGHT(Publ_Empresa_Razon_Social,2))
-
+GO
 /* MIGRANDO TABLA PUBLICACIONES */
 
 PRINT 'MIGRANDO TABLA PUBLICACIONES'
+GO
+--------------------VISTA DE CLIENTES Y EMPRESAS---------------
 
--------------DE LOS CLIENTES------------
+CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
+		MERCADONEGRO.Usuarios.ID_User AS ID_User, 
+		Publicacion_Cod, 
+		Publicacion_Visibilidad_Cod - 10002 AS Cod_Visibilidad,
+		Publicacion_Descripcion,
+		Publicacion_Stock,
+		Publicacion_Fecha,
+		Publicacion_Fecha_Venc,
+		Publicacion_Precio, 
+		CASE Publicacion_Estado
+			WHEN 'Publicada' 
+			THEN 0
+		END AS Estado_Publicacion, 
+			CASE Publicacion_Tipo
+				WHEN 'Compra Inmediata' 
+				THEN 1 
+				WHEN 'Subasta' 
+				THEN 0
+		END AS Tipo_Publicacion, 
+		1 AS Permisos_Preguntas--Permiso de preguntas (cambiar esto si es necesario)
+					
+	FROM	gd_esquema.Maestra, MERCADONEGRO.Usuarios
+	WHERE	Publ_Cli_Dni IS NOT NULL AND MERCADONEGRO.Usuarios.Password = CONVERT(NVARCHAR(255), gd_esquema.Maestra.Publ_Cli_Dni)
+	
+	UNION
+	
+	SELECT DISTINCT
+		MERCADONEGRO.Usuarios.ID_User AS ID_User, 
+		Publicacion_Cod, 
+		Publicacion_Visibilidad_Cod - 10002 AS Cod_Visibilidad,
+		Publicacion_Descripcion,
+		Publicacion_Stock,
+		Publicacion_Fecha,
+		Publicacion_Fecha_Venc,
+		Publicacion_Precio, 
+		CASE Publicacion_Estado
+			WHEN 'Publicada' 
+			THEN 0
+		END AS Estado_Publicacion, 
+			CASE Publicacion_Tipo
+				WHEN 'Compra Inmediata' 
+				THEN 1 
+				WHEN 'Subasta' 
+				THEN 0
+		END AS Tipo_Publicacion, 
+		1 AS Permisos_Preguntas--Permiso de preguntas (cambiar esto si es necesario)
+					
+	FROM	gd_esquema.Maestra, MERCADONEGRO.Usuarios
+	WHERE	Publ_Empresa_Cuit IS NOT NULL AND MERCADONEGRO.Usuarios.Password = gd_esquema.Maestra.Publ_Empresa_Cuit
+	
+GO	
+
+
+--------------------INSERTANDO EN PUBLICACIONES---------------
 
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones ON
 
@@ -187,28 +242,17 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 										Permisos_Preguntas,
 										Stock_Inicial)
 										
-	SELECT DISTINCT Publicacion_Cod, 
-					Publicacion_Visibilidad_Cod - 10002,
-					Publ_Cli_Apeliido + Publ_Cli_Nombre,
-					Publicacion_Descripcion,
-					Publicacion_Stock,
-					Publicacion_Fecha,
-					Publicacion_Fecha_Venc,
-					Publicacion_Precio, 
-					CASE Publicacion_Estado
-						WHEN 'Publicada' THEN 0
-						END, 
-					CASE Publicacion_Tipo
-						WHEN 'Compra Inmediata' THEN 0
-						WHEN 'Subasta' THEN 1
-						END, 
-					0, --Permiso de preguntas (cambiar esto si es necesario)
-					Publicacion_Stock
-	FROM	gd_esquema.Maestra
-	WHERE	Publicacion_Cod IS NOT NULL AND Publ_Cli_Dni IS NOT NULL
+	SELECT Publicacion_Cod, Cod_Visibilidad, ID_User, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc,
+			 Publicacion_Precio, Estado_Publicacion, Tipo_Publicacion, Permisos_Preguntas,Publicacion_Stock
+									
+	FROM	MERCADONEGRO.Vista_Publicaciones
+
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
+
+
 
 -----------------------------DROPS-----------------------------
 DROP TABLE #UsuariosTemp
 
+DROP VIEW MERCADONEGRO.Vista_Publicaciones

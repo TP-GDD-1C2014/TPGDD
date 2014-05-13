@@ -94,4 +94,5 @@ INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Intentos_Login,Habil
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 
 EXEC MERCADONEGRO.AgregarRol
-	@iduser = 0, @idrol = 0;			
+	@iduser = 0, @idrol = 0;
+			
