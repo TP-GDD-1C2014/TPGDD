@@ -214,9 +214,9 @@ CREATE TABLE MERCADONEGRO.Roles_Usuarios
 	
 )
 
-CREATE TABLE MERCADONEGRO.Apto_Calificar
+CREATE TABLE MERCADONEGRO.Aptos_Calificar
 (
-	Tipo_Operacion NVARCHAR(255),
+	Tipo_Operacion	   NVARCHAR(255),
 	
 	PRIMARY KEY (Tipo_Operacion)
 
@@ -236,6 +236,6 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
-	FOREIGN KEY (Tipo_Operacion)  REFERENCES MERCADONEGRO.Apto_Calificar(Tipo_Operacion)
+	FOREIGN KEY (Tipo_Operacion)  REFERENCES MERCADONEGRO.Aptos_Calificar(Tipo_Operacion)
 )
 
