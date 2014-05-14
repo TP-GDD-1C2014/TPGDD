@@ -80,7 +80,8 @@ namespace FrbaCommerce.Generar_Publicacion
                 return Permiso_Pregunta;
             }
         }
-        public GenerarPubliForm(Clases.Publicacion publicacion)
+        public GenerarPubliForm()
+        //Clases.Publicacion publicacion
         {
             InitializeComponent();
 
@@ -89,19 +90,29 @@ namespace FrbaCommerce.Generar_Publicacion
             Visibilidad_ComboBox.ValueMember = "Cod_Visibilidad";
             Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             Visibilidad_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            llenarVisibComboBox(publicacion);
+            //llenarVisibComboBox(publicacion);
 
+            List<estadoComboBox> listaEstados = new List<estadoComboBox>();
+            listaEstados.Add(new estadoComboBox("Borrador", 0));
+            listaEstados.Add(new estadoComboBox("Activa", 1));
+            listaEstados.Add(new estadoComboBox("Pausada", 2));
+            listaEstados.Add(new estadoComboBox("Finalizada", 3));
             Estado_ComboBox.DisplayMember = "Nombre_Estado";
             Estado_ComboBox.ValueMember = "Cod_Estado";
+            Estado_ComboBox.DataSource = listaEstados;
             Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
-            Estado_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            llenarEstadoComboBox(publicacion);
+            /*Estado_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            llenarEstadoComboBox(publicacion);*/
 
+            List<tipoComboBox> listaTipos = new List<tipoComboBox>();
+            listaTipos.Add(new tipoComboBox("Inmediata",0));
+            listaTipos.Add(new tipoComboBox("Subasta", 1));
             TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
+            TipoPubli_ComboBox.DataSource = listaTipos;
             TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
-            TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            llenarTipoComboBox(publicacion);
+            /*TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            llenarTipoComboBox(publicacion);*/
    
             List<preguntasComboBox> listaRespuestas = new List<preguntasComboBox>();
             listaRespuestas.Add(new preguntasComboBox("No",0));
@@ -115,22 +126,10 @@ namespace FrbaCommerce.Generar_Publicacion
         }
 
         //TODO Llenar ComboBox de Visibilidad
-        public void llenarVisibComboBox(Clases.Publicacion publicacion)
+        /*public void llenarVisibComboBox(Clases.Publicacion publicacion)
         {       
 
-        }
-
-        //TODO Llenar ComboBox de Estado
-        public void llenarEstadoComboBox(Clases.Publicacion publicacion)
-        {
-
-        }
-
-        //TODO Llenar ComboBox de Tipo
-        public void llenarTipoComboBox(Clases.Publicacion publicacion)
-        {
-
-        }
+        }*/
 
         private void OcultarAdicionales()
         {            
@@ -173,7 +172,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
         private void TipoPubli_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (((string)TipoPubli_ComboBox.SelectedItem).Equals("Compra Inmediata"))
+            if ((TipoPubli_ComboBox.ValueMember.Equals(0)))
             {
                 PrecioUnit_Label.Visible = true;
                 PrecioUnit_textBox.Visible = true;
@@ -209,32 +208,32 @@ namespace FrbaCommerce.Generar_Publicacion
             //Controlar que se completen todos los datos
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !PrecioTotal_textBox.Text.Equals("") && !PrecioUnit_textBox.Text.Equals(""))
             {
-                //Configurar publicación a ser creada
-
-                //TODO Conseguir la Cod_Visibilidad a partir de su nombre
+                 //TODO Conseguir la Cod_Visibilidad a partir de su nombre
                 int visibilidad = Convert.ToInt32(Visibilidad_ComboBox.Text);
-                //Conseguir la ID_Vendedor
+                //TODO Conseguir la ID_Vendedor
                 
                 string descripcion = Descrip_TextBox.Text;
                 int stock;
                 stock = Convert.ToInt32(Stock_TextBox.Text);
                 stock = int.Parse(Stock_TextBox.Text);
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
-                //TODO Conseguir la Estado_Public a partir de su nombre
-                Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
-                //TODO Conseguir la Tipo_Public a partir de su nombre
-                Tipo_Publicacion tipoPubli = (Tipo_Publicacion)Enum.Parse(typeof(Tipo_Publicacion), TipoPubli_ComboBox.Text);
+
+                var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
+                var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
+                //Alternativa 1: Estado_Publicacion estado = (Estado_Publicacion)Estado_ComboBox.
+                //Alternativa 2: Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
+
                 int precioTotal = Convert.ToInt32(PrecioTotal_textBox.Text);
-                /* Alternativa?
-                int precioTotal;
-                precioTotal = int.Parse(PrecioTotal_textBox.Text);
-                int precioUnit; */
                 int precioUnit = Convert.ToInt32(PrecioUnit_textBox.Text);
 
                 //Publicacion publiNueva = new Publicacion(visibilidad, vendedor, descripcion, stock, fechaFin, estado, tipoPubli, precioTotal, precioUnit);
 
                 //Insertar publicacion en la tabla publicaciones
                 //publiNueva.agregarPublicacion();
+            }
+            else
+            {
+                MessageBox.Show("Para continuar, ingrese todos los datos solicitados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             
