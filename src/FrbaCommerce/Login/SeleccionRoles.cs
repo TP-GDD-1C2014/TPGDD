@@ -62,10 +62,17 @@ namespace FrbaCommerce.Login
             }
             else
             {
-                itemComboBox seleccion = comboBox_Roles.SelectedItem as itemComboBox;
-                SeleccionFuncionalidades formFuncionalidades = new SeleccionFuncionalidades(usuario, seleccion.ID_Rol);
-                this.Hide();
-                formFuncionalidades.Show();
+                if (this.usuario.Roles[comboBox_Roles.SelectedIndex].funcionalidades.Count != 0)
+                {
+                    itemComboBox seleccion = comboBox_Roles.SelectedItem as itemComboBox;
+                    SeleccionFuncionalidades formFuncionalidades = new SeleccionFuncionalidades(usuario, seleccion.ID_Rol);
+                    this.Hide();
+                    formFuncionalidades.Show();
+                }
+                else
+                {
+                    MessageBox.Show("El rol seleccionado no posee funcionalidades.", "Error");
+                }
             }
         }
 

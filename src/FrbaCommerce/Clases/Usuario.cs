@@ -176,6 +176,7 @@ namespace FrbaCommerce.Clases
                     SqlDataReader lectorRoles = BDSQL.ejecutarReader("SELECT Nombre, Habilitado FROM MERCADONEGRO.Roles WHERE ID_Rol = @ID_Rol", listaParametros2, conexion);
                     lectorRoles.Read();
                     Rol nuevoRol = new Rol(Convert.ToInt32(lectorRolesUsuario["ID_Rol"]), lectorRoles["Nombre"].ToString(), Convert.ToInt32(lectorRoles["Habilitado"]));
+                    nuevoRol.obtenerFuncionalidades(conexion);
                     this.Roles.Add(nuevoRol);
                 }
                 BDSQL.cerrarConexion();

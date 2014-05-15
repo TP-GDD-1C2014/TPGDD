@@ -7,8 +7,11 @@ namespace FrbaCommerce.Clases
 {
     public class Funcionalidad
     {
-        //chequear si va la ID de la funcionalidad (mismo caso que RUBRO)
-        public string Nombre { get; set; }
+        public int ID_Funcionalidad { get; set; }
 
+        public Funcionalidad(int id)
+        {
+            this.ID_Funcionalidad = id;
+        }
     }
 }

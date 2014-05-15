@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+using FrbaCommerce.Common;
 
 namespace FrbaCommerce.Clases
 {
@@ -18,12 +21,21 @@ namespace FrbaCommerce.Clases
             this.Habilitado = habilitado;
         }
 
-        private List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+        public List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
 
-        public void agregarFuncionalidades(Funcionalidad funcionalidad)
+        public void obtenerFuncionalidades(SqlConnection conexion)
         {
-            this.funcionalidades.Add(funcionalidad);
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_Rol", this.ID_Rol);
+            SqlDataReader lectorFuncionalidades = BDSQL.ejecutarReader("SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidad_Rol WHERE ID_Rol = @ID_Rol", listaParametros, conexion);
+            if (lectorFuncionalidades.HasRows)
+            {
+                while (lectorFuncionalidades.Read())
+                {
+                    Funcionalidad funcionalidad = new Funcionalidad(Convert.ToInt32(lectorFuncionalidades["ID_Funcionalidad"]));
+                    this.funcionalidades.Add(funcionalidad);
+                }
+            }
         }
-
     }
 }
