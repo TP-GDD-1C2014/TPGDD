@@ -72,6 +72,7 @@
             this.Controls.Add(this.comboBox_Roles);
             this.Name = "SeleccionRoles";
             this.Text = "Ingreso - MercadoNegro";
+            this.Load += new System.EventHandler(this.SeleccionRoles_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

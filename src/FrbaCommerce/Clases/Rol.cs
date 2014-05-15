@@ -23,7 +23,6 @@ namespace FrbaCommerce.Clases
         public void agregarFuncionalidades(Funcionalidad funcionalidad)
         {
             this.funcionalidades.Add(funcionalidad);
-
         }
 
     }

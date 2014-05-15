@@ -20,6 +20,8 @@ namespace FrbaCommerce.Login
         public LoginForm()
         {
             InitializeComponent();
+            this.CenterToScreen();
+            this.AcceptButton = Login_Button;
         }
         private void LoginForm_Load(object sender, EventArgs e)
         {
@@ -50,7 +52,7 @@ namespace FrbaCommerce.Login
                             if (usuarioLogin.Roles.Count() == 1) // Como tiene un solo rol, entra directo
                             {
                                 this.Hide();
-                                SeleccionFuncionalidades formSeleccionFuncionalidades = new SeleccionFuncionalidades(usuarioLogin);
+                                SeleccionFuncionalidades formSeleccionFuncionalidades = new SeleccionFuncionalidades(usuarioLogin, usuarioLogin.Roles[0].ID_Rol);
                                 formSeleccionFuncionalidades.Show();
                             }
                             else // Tiene más de un rol, tiene que seleccionar

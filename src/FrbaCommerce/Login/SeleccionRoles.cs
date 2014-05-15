@@ -11,6 +11,8 @@ namespace FrbaCommerce.Login
 {
     public partial class SeleccionRoles : Form
     {
+        public Clases.Usuario usuario { get; set; }
+
         public class itemComboBox
         {
             public string Nombre_Rol { get; set; }
@@ -27,24 +29,43 @@ namespace FrbaCommerce.Login
             }
         }
 
-        public SeleccionRoles(Clases.Usuario usuario)
+        public SeleccionRoles(Clases.Usuario usuarioLogin)
         {
+            this.usuario = usuarioLogin;
             InitializeComponent();
+            this.CenterToScreen();
+            this.AcceptButton = continuar_Boton;
             comboBox_Roles.DisplayMember = "Nombre_Rol";
             comboBox_Roles.ValueMember = "ID_Rol";
             comboBox_Roles.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             comboBox_Roles.DropDownStyle = ComboBoxStyle.DropDownList;
-            llenarComboBox(usuario);
+            llenarComboBox();
         }
 
-        public void llenarComboBox(Clases.Usuario usuario)
+        public void llenarComboBox()
         {
-            for (int i = 0; i < usuario.Roles.Count; i++)
+            for (int i = 0; i < usuario.Roles.Count(); i++)
             {
                 if (usuario.Roles[i].Habilitado != 0) // TOMANDO EN CUENTA QUE 1 ES HABILITADO
                 {
                     comboBox_Roles.Items.Add(new itemComboBox(usuario.Roles[i].Nombre, usuario.Roles[i].ID_Rol));
                 }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            if (comboBox_Roles.SelectedIndex == -1)
+            {
+                MessageBox.Show("Debe seleccionar un rol.", "Error");
+            }
+            else
+            {
+                itemComboBox seleccion = comboBox_Roles.SelectedItem as itemComboBox;
+                SeleccionFuncionalidades formFuncionalidades = new SeleccionFuncionalidades(usuario, seleccion.ID_Rol);
+                this.Hide();
+                formFuncionalidades.Show();
             }
         }
 
@@ -60,10 +81,9 @@ namespace FrbaCommerce.Login
         {
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SeleccionRoles_Load(object sender, EventArgs e)
         {
-            itemComboBox seleccion = comboBox_Roles.SelectedItem as itemComboBox;
-            MessageBox.Show("Has seleccionado el rol " + seleccion.ID_Rol.ToString());
+
         }
     }
 }
