@@ -268,7 +268,7 @@
             this.Controls.Add(this.Confirmar_Button);
             this.Name = "ABMClientes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AMB Clientes - MercadoNegro";
+            this.Text = "ABM Clientes - MercadoNegro";
             this.ResumeLayout(false);
             this.PerformLayout();
 
