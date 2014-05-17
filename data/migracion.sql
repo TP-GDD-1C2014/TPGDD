@@ -23,7 +23,7 @@ SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
  
 
 PRINT 'MIGRANDO TABLA DE VISIBILIDADES';
-
+GO
 INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) 
 /* NO PUSE EL CODIGO DE LA VISIBILIDAD DE LA TABLA MAESTRA */
 
@@ -35,7 +35,7 @@ INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaj
 	FROM gd_esquema.Maestra
 	WHERE Publicacion_Visibilidad_Cod IS NOT NULL
 	ORDER BY Publicacion_Visibilidad_Precio DESC
-	
+GO	
 
 
 --------------------------Vistas-----------------------------
@@ -50,7 +50,7 @@ CREATE TABLE #UsuariosTemp
 	PRIMARY KEY (iduser)
 	
 )
-
+GO
 --select * from #UsuariosTemp
 
 
@@ -88,12 +88,10 @@ SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 
 
 
-
-
-
 /* MIGRANDO Roles_Usuario*/	
 
 PRINT 'MIGRANDO TABLA ROLES_USUARIOS'
+GO
 
 INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 
@@ -110,8 +108,10 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 	
 /* MIGRANDO TABLA CLIENTES */
 --select * from MERCADONEGRO.Clientes
-PRINT 'MIGRANDO TABLA CLIENTES'
 
+
+PRINT 'MIGRANDO TABLA CLIENTES'
+GO
 
 INSERT INTO MERCADONEGRO.Clientes (ID_User,
 								   Tipo_Doc,
@@ -141,8 +141,9 @@ INSERT INTO MERCADONEGRO.Clientes (ID_User,
 
 --select * from MERCADONEGRO.Empresas
 
-PRINT 'MIGRANDO TABLA EMPRESAS'
 
+PRINT 'MIGRANDO TABLA EMPRESAS'
+GO
 
 INSERT INTO MERCADONEGRO.Empresas (ID_User,
 								   Razon_Social,
@@ -165,13 +166,15 @@ INSERT INTO MERCADONEGRO.Empresas (ID_User,
 			
 	FROM #UsuariosTemp,gd_esquema.Maestra
 	WHERE Publ_Empresa_Cuit  IS NOT NULL AND (#UsuariosTemp.username = 'RazonSocialNro'+ RIGHT(Publ_Empresa_Razon_Social,2))
-GO
+
+
+
 /* MIGRANDO TABLA PUBLICACIONES */
 
 PRINT 'MIGRANDO TABLA PUBLICACIONES'
 GO
 --------------------VISTA DE CLIENTES Y EMPRESAS---------------
-
+		
 CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 		MERCADONEGRO.Usuarios.ID_User AS ID_User, 
 		Publicacion_Cod, 
@@ -221,9 +224,7 @@ CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 					
 	FROM	gd_esquema.Maestra, MERCADONEGRO.Usuarios
 	WHERE	Publ_Empresa_Cuit IS NOT NULL AND MERCADONEGRO.Usuarios.Password = gd_esquema.Maestra.Publ_Empresa_Cuit
-	
-GO	
-
+GO
 
 --------------------INSERTANDO EN PUBLICACIONES---------------
 
@@ -250,9 +251,8 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
 
+/* OPERACIONES 
 
-/* OPERACIONES */
-GO
 CREATE VIEW MERCADONEGRO.OperacionesVentas AS
 	SELECT DISTINCT gd_esquema.Maestra.Calificacion_Codigo AS codcalific,
 					MERCADONEGRO.Usuarios.ID_User AS comprador,
@@ -286,7 +286,7 @@ CREATE VIEW MERCADONEGRO.OperacionesOfertas AS
 	AND MERCADONEGRO.Publicaciones.Tipo_Publicacion = 0
 	AND gd_esquema.Maestra.Oferta_Fecha IS NOT NULL
 	
-	
+	*/
 --select * from MERCADONEGRO.OperacionesOfertas
 --drop view MERCADONEGRO.OperacionesOfertas
 --DROP VIEW MERCADONEGRO.OperacionesOfertas
@@ -294,7 +294,7 @@ CREATE VIEW MERCADONEGRO.OperacionesOfertas AS
 --select Publicacion_Cod, Compra_Fecha, Compra_Cantidad,Publicacion_Precio, Calificacion_Codigo, Item_Factura_Monto, Item_Factura_Cantidad from gd_esquema.Maestra WHERE Publicacion_Cod IS NOT NULL ORDER BY Publicacion_Cod
 --select Publicacion_Cod, SUM() from gd_esquema.Maestra group by Publicacion_Cod
 
-
+/*
 CREATE VIEW MERCADONEGRO.ItemsView AS
 	SELECT DISTINCT gd_esquema.Maestra.Item_Factura_Cantidad AS cant,
 					MERCADONEGRO.Publicaciones.Descripcion   AS descripcion,
@@ -312,13 +312,49 @@ CREATE VIEW MERCADONEGRO.ItemsView AS
 
 --CREATE VIEW MERCADONEGRO.FacturacionesView AS
 --	SELECT DISTINCT MERCADONEGRO.Publicaciones.Cod_Publicacion AS codpublic,
-					
+*/
 
 
-
-
+------------------------FACTURACIONES-------------------------------
+PRINT 'MIGRANDO LA TABLA FACTURACIONES'
 GO
+
+SET IDENTITY_INSERT MERCADONEGRO.Facturaciones ON
+
+INSERT INTO MERCADONEGRO.Facturaciones(Nro_Factura, Cod_Publicacion, Forma_Pago, Total_Facturacion, Factura_Fecha)
+	SELECT DISTINCT Factura_Nro, 
+					MERCADONEGRO.Publicaciones.Cod_Publicacion, 
+					Forma_Pago_Desc, 
+					Factura_Total,
+					Factura_Fecha
+				
+	FROM gd_esquema.Maestra, MERCADONEGRO.Publicaciones
+		WHERE gd_esquema.Maestra.Factura_Nro IS NOT NULL AND gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion
+	
+
+SET IDENTITY_INSERT MERCADONEGRO.Facturaciones OFF
+GO
+
+-----------------------ITEMS-------------------------------------
+PRINT 'MIGRANDO LA TABLA ITEMS'
+GO
+
+INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Precio_Item)
+		SELECT Nro_Factura, 
+			   Item_Factura_Cantidad, 
+			   Publicacion_Descripcion,
+			   Item_Factura_Monto
+			   
+		 
+		 FROM MERCADONEGRO.Facturaciones, gd_esquema.Maestra
+			WHERE MERCADONEGRO.Facturaciones.Nro_Factura = gd_esquema.Maestra.Factura_Nro
+GO
+
+
+
+
 -----------------------------DROPS-----------------------------
 DROP TABLE #UsuariosTemp
-
+GO
 DROP VIEW MERCADONEGRO.Vista_Publicaciones
+GO

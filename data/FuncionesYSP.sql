@@ -1,5 +1,4 @@
 -----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
-GO
 /* FUNCION AGREGAR FUNCIONALIDAD X ROL*/
 
 CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
@@ -28,4 +27,38 @@ BEGIN
 									 Codigo_Postal, Fecha_Nacimiento) 
 			VALUES((SELECT ID_User FROM MERCADONEGRO.usuarios WHERE Num_Doc = @numDoc),
 					(SELECT */
+	
+/*
+CREATE TRIGGER Trigger_InsertarFactura
+	ON MERCADONEGRO.Publicaciones
+	AFTER INSERT AS
+	SET NOCOUNT ON
+	
+	INSERT INTO MERCADONEGRO.Facturaciones
+	SELECT DISTINCT Factura_Nro, 
+					Cod_Publicacion, 
+					Forma_Pago_Desc, 
+					Factura_Total
+				
+	FROM gd_esquema.Maestra, MERCADONEGRO.Publicaciones
+		WHERE gd_esquema.Maestra.Factura_Nro IS NOT NULL AND gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion
+GO
+*/
+
 					
+				
+CREATE TRIGGER Trigger_InsertarItemAFactura
+	ON MERCADONEGRO.Facturaciones AFTER INSERT AS
+	SET NOCOUNT ON
+	
+	INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Precio_Item)
+		SELECT Nro_Factura, 
+			   Item_Factura_Cantidad, 
+			   Publicacion_Descripcion,
+			   Item_Factura_Monto
+			   
+		 
+		 FROM MERCADONEGRO.Facturaciones, gd_esquema.Maestra
+			WHERE MERCADONEGRO.Facturaciones.Nro_Factura = gd_esquema.Maestra.Factura_Nro
+GO		
+							

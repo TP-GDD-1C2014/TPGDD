@@ -76,30 +76,30 @@ CREATE TABLE MERCADONEGRO.Publicaciones
 	FOREIGN KEY (Cod_Visibilidad) REFERENCES MERCADONEGRO.Visibilidades(Cod_Visibilidad)
 )
 
+CREATE TABLE MERCADONEGRO.Facturaciones
+(
+	Nro_Factura		  NUMERIC(18,0) IDENTITY,
+	Cod_Publicacion	  NUMERIC(18,0) NOT NULL,
+	Forma_Pago		  NVARCHAR(255) NOT NULL,
+	Total_Facturacion NUMERIC(18,2) NOT NULL,
+	Factura_Fecha	  DATETIME,
+	
+	PRIMARY KEY (Nro_Factura),
+	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
+)
+
+
 CREATE TABLE MERCADONEGRO.Items
 (
 	ID_Item			 NUMERIC(18,0) IDENTITY, 
+	Nro_Factura		 NUMERIC(18,0) NOT NULL,
 	Cantidad_Vendida NUMERIC(18,0) NOT NULL,
 	Descripcion		 NVARCHAR(255) NOT NULL, /* UNIQUE???. PARA MI NO (NAZA) */
-	Precio_Unitario  NUMERIC(18,2) NOT NULL,
+	Precio_Item		 NUMERIC(18,2) NOT NULL,
 	
-	UNIQUE		(Descripcion),
-	PRIMARY KEY (ID_Item)
+	PRIMARY KEY (ID_Item),
+	FOREIGN KEY(Nro_Factura) REFERENCES MERCADONEGRO.Facturaciones(Nro_Factura)
 )
-
-CREATE TABLE MERCADONEGRO.Facturaciones
-(
-	ID_Facturacion    NUMERIC(18,0) IDENTITY,
-	Cod_Publicacion	  NUMERIC(18,0) NOT NULL,
-	ID_Item			  NUMERIC(18,0) NOT NULL,
-	Forma_Pago		  NVARCHAR(255) NOT NULL,
-	Total_Facturacion NUMERIC(18,2) NOT NULL,
-	
-	PRIMARY KEY (ID_Facturacion),
-	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
-	FOREIGN KEY (ID_Item)		  REFERENCES MERCADONEGRO.Items(ID_Item),
-)
-
 
 CREATE TABLE MERCADONEGRO.Pregunta_Publicacion
 (
@@ -236,6 +236,6 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
-	FOREIGN KEY (Tipo_Operacion)  REFERENCES MERCADONEGRO.Aptos_Calificar(Tipo_Operacion)
+	FOREIGN KEY (Tipo_Operacion)  REFERENCES MERCADONEGRO.Aptos_Calificar(Tipo_Operacion),
 )
-
+GO

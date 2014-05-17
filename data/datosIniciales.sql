@@ -98,4 +98,5 @@ SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 
 EXEC MERCADONEGRO.AgregarRol
 	@iduser = 0, @idrol = 0;
-			
+
+GO
