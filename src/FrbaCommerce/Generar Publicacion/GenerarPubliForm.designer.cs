@@ -66,7 +66,6 @@
             this.Visibilidad_Label.Size = new System.Drawing.Size(53, 13);
             this.Visibilidad_Label.TabIndex = 1;
             this.Visibilidad_Label.Text = "Visibilidad";
-            this.Visibilidad_Label.Click += new System.EventHandler(this.label1_Click);
             // 
             // Descripcion_Label
             // 
@@ -158,7 +157,7 @@
             // 
             // PrecioUnit_textBox
             // 
-            this.PrecioUnit_textBox.Location = new System.Drawing.Point(144, 183);
+            this.PrecioUnit_textBox.Location = new System.Drawing.Point(144, 184);
             this.PrecioUnit_textBox.Name = "PrecioUnit_textBox";
             this.PrecioUnit_textBox.Size = new System.Drawing.Size(71, 20);
             this.PrecioUnit_textBox.TabIndex = 14;
@@ -169,9 +168,9 @@
             this.PrecioUnit_Label.AutoSize = true;
             this.PrecioUnit_Label.Location = new System.Drawing.Point(15, 186);
             this.PrecioUnit_Label.Name = "PrecioUnit_Label";
-            this.PrecioUnit_Label.Size = new System.Drawing.Size(76, 13);
+            this.PrecioUnit_Label.Size = new System.Drawing.Size(78, 13);
             this.PrecioUnit_Label.TabIndex = 15;
-            this.PrecioUnit_Label.Text = "Precio Unitario";
+            this.PrecioUnit_Label.Text = "Precio por Item";
             // 
             // PrecioTotal_Label
             // 
@@ -191,7 +190,7 @@
             // 
             // Limpiar_button
             // 
-            this.Limpiar_button.Location = new System.Drawing.Point(82, 252);
+            this.Limpiar_button.Location = new System.Drawing.Point(254, 252);
             this.Limpiar_button.Name = "Limpiar_button";
             this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
             this.Limpiar_button.TabIndex = 19;
@@ -201,11 +200,11 @@
             // 
             // Guardar_button
             // 
-            this.Guardar_button.Location = new System.Drawing.Point(239, 252);
+            this.Guardar_button.Location = new System.Drawing.Point(73, 252);
             this.Guardar_button.Name = "Guardar_button";
             this.Guardar_button.Size = new System.Drawing.Size(105, 38);
             this.Guardar_button.TabIndex = 20;
-            this.Guardar_button.Text = "Guardar";
+            this.Guardar_button.Text = "Generar";
             this.Guardar_button.UseVisualStyleBackColor = true;
             this.Guardar_button.Click += new System.EventHandler(this.Guardar_button_Click);
             // 

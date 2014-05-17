@@ -6,10 +6,11 @@ using FrbaCommerce.Common;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using FrbaCommerce.Clases;
 
 namespace FrbaCommerce.Clases
 {
-    //Duda: se pueden agregar mas estados/tipos de publicacion???
+
     public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada };
     public enum Tipo_Publicacion { Inmediata = 0, Subasta }
 
@@ -30,17 +31,17 @@ namespace FrbaCommerce.Clases
 
         private List<Rubro> Rubros = new List<Rubro>();
 
-        public Publicacion(int visibilidad, string descripcion, int stock, System.DateTime fechaFin, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int precioTotal, int precioUnit)
+        public Publicacion(int visibilidad, string descripcion, int stock, System.DateTime fechaFin, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int precio, int permisoPreg)
         {
             this.Cod_Visibilidad = visibilidad;
             this.Descripcion = descripcion;
-            this.Stock_Inicial = stock;
+            this.Stock = stock;
             this.Fecha_Vto = fechaFin;
             this.Estado_Publicacion = estado;
             this.Tipo_Publicacion = tipoPubli;
-            this.Precio = precioTotal;
-            this.Precio = precioUnit;
-
+            this.Precio = precio;
+            this.Stock_Inicial = stock;
+            this.Permiso_Preguntas = permisoPreg;
         }
 
         public void agregarRubro(Rubro rubro)
@@ -49,24 +50,43 @@ namespace FrbaCommerce.Clases
 
         }
 
-        public void agregarPublicacion()
+        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, int estado, int tipoPubli, int precio, int permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", this.Cod_Publicacion);
-            BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", this.Cod_Visibilidad);
-            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", this.ID_Vendedor);
-            BDSQL.agregarParametro(listaParametros, "@Descripcion", this.Descripcion);
-            BDSQL.agregarParametro(listaParametros, "@Stock", this.Stock);
-            BDSQL.agregarParametro(listaParametros, "@Fecha_Vto", this.Fecha_Vto);
-            BDSQL.agregarParametro(listaParametros, "@Fecha_Inicio", this.Fecha_Inicio);
-            BDSQL.agregarParametro(listaParametros, "@Precio", this.Precio);
-            BDSQL.agregarParametro(listaParametros, "@Estado_Publicacion", this.Estado_Publicacion);
-            BDSQL.agregarParametro(listaParametros, "@Tipo_Publicacion", this.Tipo_Publicacion);
-            BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", this.Permiso_Preguntas);
-            BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", this.Stock_Inicial);
+            
+            //Se agrega automaticamente Cod_Publiciacion?
+            //BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", this.Cod_Publicacion);
 
-            //Configurar parámetros del INSERT
-            //BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones SELECT ...", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", idVendedor);
+            BDSQL.agregarParametro(listaParametros, "@Descripcion", descripcion);
+            BDSQL.agregarParametro(listaParametros, "@Stock", stock);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Vto", fechaVto);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Inicio", fechaInicio);
+            BDSQL.agregarParametro(listaParametros, "@Precio", precio);
+            BDSQL.agregarParametro(listaParametros, "@Estado_Publicacion", estado);
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Publicacion", tipoPubli);
+            BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", permisoPreg);
+            BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", stock);
+
+            //BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones(Cod_visibilidad,ID_Vendedor,Descripcion,Stock,Vecha_Vto,Fecha_Inic,Precio,Estado_Public,Tipo_Public,Permisos_Preguntas,Stock_Inicial) VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock,@Vecha_Vto,@Fecha_Inic,@Precio,@Estado_Public,@Tipo_Public,@Permisos_Preguntas,@Stock_Inicial)", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void agregarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, int estado, int tipoPubli)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", codPubli);
+            BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", idVendedor);
+            BDSQL.agregarParametro(listaParametros, "@Descripcion", descripcion);
+            BDSQL.agregarParametro(listaParametros, "@Stock", stock);
+            BDSQL.agregarParametro(listaParametros, "@Estado_Publicacion", estado);
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Publicacion", tipoPubli);
+            BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", stock);
+
+            //BDSQL.ejecutarQuery("SELECT Cod_Publicacion,Cod_Visibilidad,Descripcion,Stock,Estado_Public,Tipo_Public FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion=@Cod_Publicacion AND Cod_Visibilidad=Cod_Visibilidad AND ID_Vendedor=@ID_Vendedor AND Descripcion=@Descripcion AND Stock=@Stock AND Estado_Public=@Estado_Public AND Tipo_Public=@Tipo_Public", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
         }
     }

@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Abm_Cliente;
 using FrbaCommerce.Common;
+using FrbaCommerce.Generar_Publicacion;
+using FrbaCommerce.Editar_Publicacion;
 
 namespace FrbaCommerce.Login
 {
@@ -16,6 +18,8 @@ namespace FrbaCommerce.Login
         public PantallaPrincipal()
         {
             InitializeComponent();
+
+            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -27,6 +31,23 @@ namespace FrbaCommerce.Login
         {
            ABMClientes nuevaForm = new ABMClientes();
            Interfaz.mostrarForm(nuevaForm, this);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            GenerarPubliForm formGenerarPubli = new GenerarPubliForm();
+            Interfaz.mostrarForm(formGenerarPubli, this);
+        }
+
+        private void PantallaPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            BuscarPubliForm formBuscarPubli = new BuscarPubliForm();
+            Interfaz.mostrarForm(formBuscarPubli, this);
         }
     }
 }

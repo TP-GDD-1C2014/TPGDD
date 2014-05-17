@@ -9,16 +9,11 @@ using System.Windows.Forms;
 
 namespace FrbaCommerce.Editar_Publicacion
 {
-    public partial class BuscarPubliForm : Form
+    public partial class EditarPubliForm : Form
     {
-        public BuscarPubliForm()
+        public EditarPubliForm()
         {
             InitializeComponent();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }
