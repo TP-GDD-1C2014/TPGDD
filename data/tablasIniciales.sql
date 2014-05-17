@@ -214,13 +214,6 @@ CREATE TABLE MERCADONEGRO.Roles_Usuarios
 	
 )
 
-CREATE TABLE MERCADONEGRO.Aptos_Calificar
-(
-	Tipo_Operacion	   NVARCHAR(255),
-	
-	PRIMARY KEY (Tipo_Operacion)
-
-)
 
 CREATE TABLE MERCADONEGRO.Operaciones
 (
@@ -229,6 +222,7 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	ID_Comprador		NUMERIC(18,0) NOT NULL,
 	Cod_Publicacion		NUMERIC(18,0) NOT NULL,
 	Tipo_Operacion		NVARCHAR(255) NOT NULL,
+	Cod_Calificacion	NUMERIC(18,0) NULL,
 	Fecha_Operacion		DATETIME	  NOT NULL,
 	Operacion_Facturada BIT DEFAULT 0 NOT NULL, 
 	
@@ -236,6 +230,23 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
-	FOREIGN KEY (Tipo_Operacion)  REFERENCES MERCADONEGRO.Aptos_Calificar(Tipo_Operacion),
+	FOREIGN KEY (Cod_Calificacion) REFERENCES MERCADONEGRO.Calificaciones(Cod_Calificacion)
+)
+GO
+
+CREATE TABLE MERCADONEGRO.Subastas
+(
+	ID_Subasta			NUMERIC(18,0) IDENTITY,
+	ID_Vendedor			NUMERIC(18,0) NOT NULL,
+	ID_Comprador		NUMERIC(18,0) NOT NULL,
+	Cod_Publicacion		NUMERIC(18,0) NOT NULL,
+	Tipo_Operacion		NVARCHAR(255) NOT NULL,
+	Fecha_Oferta		DATETIME	  NOT NULL, 
+	
+	PRIMARY KEY (ID_Subasta),
+	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
+	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
+	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion)
+
 )
 GO

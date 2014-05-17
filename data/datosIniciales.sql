@@ -23,9 +23,6 @@ INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Administrador Gener
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Cliente', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Empresa', 1);
 
-/* OPERACIONES APTAS PARA CALIFICAR */
-INSERT INTO MERCADONEGRO.Aptos_Calificar(Tipo_Operacion) VALUES ('Compra Inmediata');
-INSERT INTO MERCADONEGRO.Aptos_Calificar(Tipo_Operacion) VALUES ('Subasta Ganada');
 
 PRINT 'Agregando func ADMIN'
 -------------------/* Asignacion de Funcionalidades */-------------------

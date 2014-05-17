@@ -45,7 +45,7 @@ CREATE TRIGGER Trigger_InsertarFactura
 GO
 */
 
-					
+		/*			
 				
 CREATE TRIGGER Trigger_InsertarItemAFactura
 	ON MERCADONEGRO.Facturaciones AFTER INSERT AS
@@ -61,4 +61,4 @@ CREATE TRIGGER Trigger_InsertarItemAFactura
 		 FROM MERCADONEGRO.Facturaciones, gd_esquema.Maestra
 			WHERE MERCADONEGRO.Facturaciones.Nro_Factura = gd_esquema.Maestra.Factura_Nro
 GO		
-							
+		*/					
