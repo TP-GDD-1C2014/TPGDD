@@ -338,7 +338,6 @@ GO
 PRINT 'MIGRANDO LA TABLA SUBASTAS'
 GO
 
-SET IDENTITY_INSERT MERCADONEGRO.Subastas ON
 
 INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor,ID_Comprador,Cod_Publicacion,Tipo_Operacion,Fecha_Oferta)
 	SELECT vendedor,ofertador, codpublic, tipo, fechaOferta
@@ -348,7 +347,6 @@ INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor,ID_Comprador,Cod_Publicacion,Tipo_
 	FROM MERCADONEGRO.Operaciones
 
 
-SET IDENTITY_INSERT MERCADONEGRO.Subastas OFF
 GO
 
 
