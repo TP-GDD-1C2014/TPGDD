@@ -105,23 +105,78 @@ CREATE VIEW MERCADONEGRO.CalificacionView
 			
 	FROM gd_esquema.Maestra, MERCADONEGRO.Usuarios
 	WHERE Calificacion_Codigo IS NOT NULL
-		AND (MERCADONEGRO.Usuarios.Password = CONVERT(nvarchar(255), gd_esquema.Maestra.Cli_Dni)
+		AND (MERCADONEGRO.Usuarios.Password = CONVERT(nvarchar(255), gd_esquema.Maestra.Publ_Cli_Dni)
 		OR MERCADONEGRO.Usuarios.Password = gd_esquema.Maestra.Publ_Empresa_Cuit)
 	
 	GROUP BY MERCADONEGRO.Usuarios.ID_User
 GO
-
+--select * from MERCADONEGRO.CalificacionView
+/*
 UPDATE MERCADONEGRO.Usuarios
-	SET Reputacion = (SELECT TOP 1 MERCADONEGRO.CalificacionView.promedio FROM MERCADONEGRO.CalificacionView,
-						MERCADONEGRO.Usuarios
-						WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser)
-	WHERE MERCADONEGRO.Usuarios.ID_User = (SELECT MERCADONEGRO.
+	SET Reputacion = (
+		SELECT  TOP 1MERCADONEGRO.CalificacionView.promedio 
+		FROM MERCADONEGRO.CalificacionView
+			JOIN MERCADONEGRO.Usuarios on MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+						)
+	FROM MERCADONEGRO.Usuarios,MERCADONEGRO.CalificacionView
+	WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+GO*/
 
+--select * from MERCADONEGRO.Usuarios
+/*UPDATE MERCADONEGRO.Usuarios
+	SET Reputacion = (
+		SELECT ALL MERCADONEGRO.CalificacionView.promedio 
+		FROM MERCADONEGRO.CalificacionView 
+			JOIN MERCADONEGRO.Usuarios on MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+						)
+	FROM MERCADONEGRO.Usuarios,MERCADONEGRO.CalificacionView
+	WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+	*/
 
-DROP VIEW MERCADONEGRO.CalificacionView
+-----------------
 
+-- Declare the variables to store the values returned by FETCH.
+DECLARE @Iduser numeric(18,0), @Promedio float;
 
+DECLARE contact_cursor CURSOR FOR
+SELECT iduser,promedio FROM MERCADONEGRO.CalificacionView
+ORDER BY iduser;
 
+OPEN contact_cursor;
+
+-- Perform the first fetch.
+FETCH NEXT FROM contact_cursor
+INTO @Iduser, @Promedio;
+
+-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+WHILE @@FETCH_STATUS = 0
+BEGIN
+   -- This is executed as long as the previous fetch succeeds.
+   UPDATE MERCADONEGRO.Usuarios
+   SET Reputacion = @Promedio
+		WHERE MERCADONEGRO.Usuarios.ID_User = @Iduser	
+   FETCH NEXT FROM contact_cursor
+	INTO @Iduser, @Promedio;
+END
+
+CLOSE contact_cursor;
+DEALLOCATE contact_cursor;
+GO
+-----------------------------
+/*UPDATE BC
+	SET cant_consultas = (
+		SELECT COUNT(*)
+		FROM mario_killers.Turno t1
+			JOIN mario_killers.Atencion on t1.id = Atencion.id
+		WHERE t1.persona = t2.persona
+			AND t2.horario >= t1.horario
+			--AND EXISTS (SELECT * FROM mario_killers.Atencion WHERE Atencion.id = t1.id)
+	)
+	FROM mario_killers.Bono_Consulta BC
+		JOIN mario_killers.Atencion a ON a.bono_consulta = BC.id
+		JOIN mario_killers.Turno t2 ON t2.id = a.id
+
+*/
 
 ----------------------MIGRANDO Roles_Usuario------------------------
 
@@ -402,4 +457,6 @@ GO
 DROP VIEW MERCADONEGRO.Vista_Publicaciones
 GO
 DROP VIEW MERCADONEGRO.SubastasView
+GO
+DROP VIEW MERCADONEGRO.CalificacionView
 GO

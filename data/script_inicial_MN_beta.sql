@@ -245,7 +245,10 @@ CREATE TABLE MERCADONEGRO.Subastas
 	
 	PRIMARY KEY (ID_Subasta),
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
-	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
+	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User)
+
+
+
 )
 GO
 -----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
@@ -413,7 +416,17 @@ EXEC MERCADONEGRO.AgregarRol
 GO
 ------------------------MIGRACION-----------------------------
 
-/* MIGRANDO TABLA DE CALIFICACIONES */
+
+-------------------MIGRANDO TABLA DE RUBROS---------------------
+PRINT 'MIGRANDO TABLA DE RUBROS'
+
+INSERT INTO MERCADONEGRO.Rubros(Descripcion)
+	SELECT DISTINCT gd_esquema.Maestra.Publicacion_Rubro_Descripcion
+		FROM gd_esquema.Maestra
+			WHERE gd_esquema.Maestra.Publicacion_Cod IS NOT NULL
+
+
+-----------------MIGRANDO TABLA DE CALIFICACIONES -------------------
 
 PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
 
@@ -428,9 +441,6 @@ INSERT INTO MERCADONEGRO.Calificaciones (Cod_Calificacion,Puntaje,Descripcion)
 	WHERE Calificacion_Codigo IS NOT NULL
 	
 SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
-
-
-
 
 
 -------------------------MIGRANDO TABLA DE VISIBILIDADES---------------------------
@@ -491,6 +501,9 @@ INSERT INTO  #UsuariosTemp
 	
 	
 
+---------------------------USUARIOS------------------------------
+PRINT 'MIGRANDO TABLAS USUARIOS'
+
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
 
 INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
@@ -499,7 +512,88 @@ INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Cant_Publi_Gratuitas
 	
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 --select * from MERCADONEGRO.Usuarios order by ID_User	
+GO
 
+
+CREATE VIEW MERCADONEGRO.CalificacionView
+	AS SELECT 
+			MERCADONEGRO.Usuarios.ID_User			AS iduser,
+			AVG(Calificacion_Cant_Estrellas)		AS promedio
+			
+	FROM gd_esquema.Maestra, MERCADONEGRO.Usuarios
+	WHERE Calificacion_Codigo IS NOT NULL
+		AND (MERCADONEGRO.Usuarios.Password = CONVERT(nvarchar(255), gd_esquema.Maestra.Publ_Cli_Dni)
+		OR MERCADONEGRO.Usuarios.Password = gd_esquema.Maestra.Publ_Empresa_Cuit)
+	
+	GROUP BY MERCADONEGRO.Usuarios.ID_User
+GO
+--select * from MERCADONEGRO.CalificacionView
+/*
+UPDATE MERCADONEGRO.Usuarios
+	SET Reputacion = (
+		SELECT  TOP 1MERCADONEGRO.CalificacionView.promedio 
+		FROM MERCADONEGRO.CalificacionView
+			JOIN MERCADONEGRO.Usuarios on MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+						)
+	FROM MERCADONEGRO.Usuarios,MERCADONEGRO.CalificacionView
+	WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+GO*/
+
+--select * from MERCADONEGRO.Usuarios
+/*UPDATE MERCADONEGRO.Usuarios
+	SET Reputacion = (
+		SELECT ALL MERCADONEGRO.CalificacionView.promedio 
+		FROM MERCADONEGRO.CalificacionView 
+			JOIN MERCADONEGRO.Usuarios on MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+						)
+	FROM MERCADONEGRO.Usuarios,MERCADONEGRO.CalificacionView
+	WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
+	*/
+
+-----------------
+
+-- Declare the variables to store the values returned by FETCH.
+DECLARE @Iduser numeric(18,0), @Promedio float;
+
+DECLARE contact_cursor CURSOR FOR
+SELECT iduser,promedio FROM MERCADONEGRO.CalificacionView
+ORDER BY iduser;
+
+OPEN contact_cursor;
+
+-- Perform the first fetch.
+FETCH NEXT FROM contact_cursor
+INTO @Iduser, @Promedio;
+
+-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+WHILE @@FETCH_STATUS = 0
+BEGIN
+   -- This is executed as long as the previous fetch succeeds.
+   UPDATE MERCADONEGRO.Usuarios
+   SET Reputacion = @Promedio
+		WHERE MERCADONEGRO.Usuarios.ID_User = @Iduser	
+   FETCH NEXT FROM contact_cursor
+	INTO @Iduser, @Promedio;
+END
+
+CLOSE contact_cursor;
+DEALLOCATE contact_cursor;
+GO
+-----------------------------
+/*UPDATE BC
+	SET cant_consultas = (
+		SELECT COUNT(*)
+		FROM mario_killers.Turno t1
+			JOIN mario_killers.Atencion on t1.id = Atencion.id
+		WHERE t1.persona = t2.persona
+			AND t2.horario >= t1.horario
+			--AND EXISTS (SELECT * FROM mario_killers.Atencion WHERE Atencion.id = t1.id)
+	)
+	FROM mario_killers.Bono_Consulta BC
+		JOIN mario_killers.Atencion a ON a.bono_consulta = BC.id
+		JOIN mario_killers.Turno t2 ON t2.id = a.id
+
+*/
 
 ----------------------MIGRANDO Roles_Usuario------------------------
 
@@ -519,7 +613,7 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 	FROM #UsuariosTemp
 --SELECT * FROM MERCADONEGRO.Roles_Usuarios
 	
-/* MIGRANDO TABLA CLIENTES */
+-----------------------MIGRANDO TABLA CLIENTES-------------------------
 --select * from MERCADONEGRO.Clientes
 
 
@@ -664,6 +758,17 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
 
+-----------------------MIGRANDO PUBLICACIONES_RUBROS------------------------
+PRINT 'MIGRANDO RUBRO_PUBLICACION'
+
+INSERT INTO MERCADONEGRO.Rubro_Publicacion(Cod_Publicacion, ID_Rubro)
+	SELECT DISTINCT MERCADONEGRO.Publicaciones.Cod_Publicacion,
+					MERCADONEGRO.Rubros.ID_Rubro
+					
+	FROM MERCADONEGRO.Publicaciones, MERCADONEGRO.Rubros, gd_esquema.Maestra
+		WHERE MERCADONEGRO.Publicaciones.Cod_Publicacion = gd_esquema.Maestra.Publicacion_Cod 
+			  AND MERCADONEGRO.Rubros.Descripcion = gd_esquema.Maestra.Publicacion_Rubro_Descripcion
+
 ------------------------FACTURACIONES-------------------------------
 PRINT 'MIGRANDO LA TABLA FACTURACIONES'
 GO
@@ -769,4 +874,6 @@ GO
 DROP VIEW MERCADONEGRO.Vista_Publicaciones
 GO
 DROP VIEW MERCADONEGRO.SubastasView
+GO
+DROP VIEW MERCADONEGRO.CalificacionView
 GO
