@@ -113,22 +113,22 @@
     <Compile Include="Comprar-Ofertar\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\BuscarPubli.cs">
+    <Compile Include="Editar Publicacion\BuscarPubliForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Editar Publicacion\BuscarPubli.Designer.cs">
-      <DependentUpon>BuscarPubli.cs</DependentUpon>
+    <Compile Include="Editar Publicacion\BuscarPubliForm.Designer.cs">
+      <DependentUpon>BuscarPubliForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarPubliForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editar Publicacion\EditarPubliForm.Designer.cs">
+      <DependentUpon>EditarPubliForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Facturar Publicaciones\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facturar Publicaciones\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Generar Publicacion\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Generar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\GenerarPubliForm.cs">
@@ -190,8 +190,8 @@
     <EmbeddedResource Include="ABM Rol\EditorDeRoles.resx">
       <DependentUpon>EditorDeRoles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\BuscarPubli.resx">
-      <DependentUpon>BuscarPubli.cs</DependentUpon>
+    <EmbeddedResource Include="Editar Publicacion\BuscarPubliForm.resx">
+      <DependentUpon>BuscarPubliForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\GenerarPubliForm.resx">
       <DependentUpon>GenerarPubliForm.cs</DependentUpon>

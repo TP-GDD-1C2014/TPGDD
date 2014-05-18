@@ -35,20 +35,20 @@
             this.EstadoPublic_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TipoPublic_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descrip_label = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Descrip_TextBox = new System.Windows.Forms.TextBox();
             this.stock_label = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.Stock_TextBox = new System.Windows.Forms.TextBox();
+            this.CodPubli_textBox = new System.Windows.Forms.TextBox();
             this.codPubli_label = new System.Windows.Forms.Label();
             this.estadoPubli_label = new System.Windows.Forms.Label();
             this.Estado_ComboBox = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.TipoPubli_ComboBox = new System.Windows.Forms.ComboBox();
             this.tipoPubli_label = new System.Windows.Forms.Label();
             this.limpiar_button = new System.Windows.Forms.Button();
             this.buscar_button = new System.Windows.Forms.Button();
             this.seleccionar_button = new System.Windows.Forms.Button();
             this.codVisib_label = new System.Windows.Forms.Label();
-            this.codVisib_comboBox = new System.Windows.Forms.ComboBox();
+            this.Visibilidad_ComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,12 +105,13 @@
             this.descrip_label.TabIndex = 1;
             this.descrip_label.Text = "Descripcion";
             // 
-            // textBox1
+            // Descrip_TextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(128, 65);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(215, 20);
-            this.textBox1.TabIndex = 2;
+            this.Descrip_TextBox.Location = new System.Drawing.Point(128, 65);
+            this.Descrip_TextBox.Name = "Descrip_TextBox";
+            this.Descrip_TextBox.Size = new System.Drawing.Size(215, 20);
+            this.Descrip_TextBox.TabIndex = 2;
+            this.Descrip_TextBox.TextChanged += new System.EventHandler(this.Descrip_TextBox_TextChanged);
             // 
             // stock_label
             // 
@@ -121,19 +122,21 @@
             this.stock_label.TabIndex = 3;
             this.stock_label.Text = "Stock";
             // 
-            // textBox2
+            // Stock_TextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(479, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(71, 20);
-            this.textBox2.TabIndex = 4;
+            this.Stock_TextBox.Location = new System.Drawing.Point(479, 12);
+            this.Stock_TextBox.Name = "Stock_TextBox";
+            this.Stock_TextBox.Size = new System.Drawing.Size(71, 20);
+            this.Stock_TextBox.TabIndex = 4;
+            this.Stock_TextBox.TextChanged += new System.EventHandler(this.Stock_TextBox_TextChanged);
             // 
-            // textBox3
+            // CodPubli_textBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(128, 12);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(71, 20);
-            this.textBox3.TabIndex = 5;
+            this.CodPubli_textBox.Location = new System.Drawing.Point(128, 12);
+            this.CodPubli_textBox.Name = "CodPubli_textBox";
+            this.CodPubli_textBox.Size = new System.Drawing.Size(71, 20);
+            this.CodPubli_textBox.TabIndex = 5;
+            this.CodPubli_textBox.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // codPubli_label
             // 
@@ -160,14 +163,16 @@
             this.Estado_ComboBox.Name = "Estado_ComboBox";
             this.Estado_ComboBox.Size = new System.Drawing.Size(149, 21);
             this.Estado_ComboBox.TabIndex = 10;
+            this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
             // 
-            // comboBox1
+            // TipoPubli_ComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(479, 65);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(149, 21);
-            this.comboBox1.TabIndex = 11;
+            this.TipoPubli_ComboBox.FormattingEnabled = true;
+            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(479, 65);
+            this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
+            this.TipoPubli_ComboBox.Size = new System.Drawing.Size(149, 21);
+            this.TipoPubli_ComboBox.TabIndex = 11;
+            this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             // 
             // tipoPubli_label
             // 
@@ -186,6 +191,7 @@
             this.limpiar_button.TabIndex = 20;
             this.limpiar_button.Text = "Limpiar";
             this.limpiar_button.UseVisualStyleBackColor = true;
+            this.limpiar_button.Click += new System.EventHandler(this.limpiar_button_Click);
             // 
             // buscar_button
             // 
@@ -195,6 +201,7 @@
             this.buscar_button.TabIndex = 21;
             this.buscar_button.Text = "Buscar";
             this.buscar_button.UseVisualStyleBackColor = true;
+            this.buscar_button.Click += new System.EventHandler(this.buscar_button_Click);
             // 
             // seleccionar_button
             // 
@@ -214,37 +221,39 @@
             this.codVisib_label.TabIndex = 23;
             this.codVisib_label.Text = "Codigo Visibilidad";
             // 
-            // codVisib_comboBox
+            // Visibilidad_ComboBox
             // 
-            this.codVisib_comboBox.FormattingEnabled = true;
-            this.codVisib_comboBox.Location = new System.Drawing.Point(128, 38);
-            this.codVisib_comboBox.Name = "codVisib_comboBox";
-            this.codVisib_comboBox.Size = new System.Drawing.Size(149, 21);
-            this.codVisib_comboBox.TabIndex = 24;
+            this.Visibilidad_ComboBox.FormattingEnabled = true;
+            this.Visibilidad_ComboBox.Location = new System.Drawing.Point(128, 38);
+            this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
+            this.Visibilidad_ComboBox.Size = new System.Drawing.Size(149, 21);
+            this.Visibilidad_ComboBox.TabIndex = 24;
+            this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             // 
             // BuscarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(665, 390);
-            this.Controls.Add(this.codVisib_comboBox);
+            this.ClientSize = new System.Drawing.Size(665, 430);
+            this.Controls.Add(this.Visibilidad_ComboBox);
             this.Controls.Add(this.codVisib_label);
             this.Controls.Add(this.seleccionar_button);
             this.Controls.Add(this.buscar_button);
             this.Controls.Add(this.limpiar_button);
             this.Controls.Add(this.tipoPubli_label);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.TipoPubli_ComboBox);
             this.Controls.Add(this.Estado_ComboBox);
             this.Controls.Add(this.estadoPubli_label);
             this.Controls.Add(this.codPubli_label);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.CodPubli_textBox);
+            this.Controls.Add(this.Stock_TextBox);
             this.Controls.Add(this.stock_label);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Descrip_TextBox);
             this.Controls.Add(this.descrip_label);
             this.Controls.Add(this.dataGridView1);
             this.Name = "BuscarPubliForm";
             this.Text = "Buscar Publicacion";
+            this.Load += new System.EventHandler(this.BuscarPubliForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -260,20 +269,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EstadoPublic_Column;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoPublic_Column;
         private System.Windows.Forms.Label descrip_label;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Descrip_TextBox;
         private System.Windows.Forms.Label stock_label;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox Stock_TextBox;
+        private System.Windows.Forms.TextBox CodPubli_textBox;
         private System.Windows.Forms.Label codPubli_label;
         private System.Windows.Forms.Label estadoPubli_label;
         private System.Windows.Forms.ComboBox Estado_ComboBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox TipoPubli_ComboBox;
         private System.Windows.Forms.Label tipoPubli_label;
         private System.Windows.Forms.Button limpiar_button;
         private System.Windows.Forms.Button buscar_button;
         private System.Windows.Forms.Button seleccionar_button;
         private System.Windows.Forms.Label codVisib_label;
-        private System.Windows.Forms.ComboBox codVisib_comboBox;
+        private System.Windows.Forms.ComboBox Visibilidad_ComboBox;
 
     }
 }
