@@ -1,6 +1,15 @@
 ------------------------MIGRACION-----------------------------
 
-/* MIGRANDO TABLA DE CALIFICACIONES */
+-------------------MIGRANDO TABLA DE RUBROS---------------------
+PRINT 'MIGRANDO TABLA DE RUBROS'
+
+INSERT INTO MERCADONEGRO.Rubros(Descripcion)
+	SELECT DISTINCT gd_esquema.Maestra.Publicacion_Rubro_Descripcion
+		FROM gd_esquema.Maestra
+			WHERE gd_esquema.Maestra.Publicacion_Cod IS NOT NULL
+
+
+-----------------MIGRANDO TABLA DE CALIFICACIONES -------------------
 
 PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
 
@@ -15,9 +24,6 @@ INSERT INTO MERCADONEGRO.Calificaciones (Cod_Calificacion,Puntaje,Descripcion)
 	WHERE Calificacion_Codigo IS NOT NULL
 	
 SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
-
-
-
 
 
 -------------------------MIGRANDO TABLA DE VISIBILIDADES---------------------------
@@ -78,6 +84,9 @@ INSERT INTO  #UsuariosTemp
 	
 	
 
+---------------------------USUARIOS------------------------------
+PRINT 'MIGRANDO TABLAS USUARIOS'
+
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
 
 INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir)
@@ -86,6 +95,32 @@ INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Cant_Publi_Gratuitas
 	
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 --select * from MERCADONEGRO.Usuarios order by ID_User	
+GO
+
+
+CREATE VIEW MERCADONEGRO.CalificacionView
+	AS SELECT 
+			MERCADONEGRO.Usuarios.ID_User			AS iduser,
+			AVG(Calificacion_Cant_Estrellas)		AS promedio
+			
+	FROM gd_esquema.Maestra, MERCADONEGRO.Usuarios
+	WHERE Calificacion_Codigo IS NOT NULL
+		AND (MERCADONEGRO.Usuarios.Password = CONVERT(nvarchar(255), gd_esquema.Maestra.Cli_Dni)
+		OR MERCADONEGRO.Usuarios.Password = gd_esquema.Maestra.Publ_Empresa_Cuit)
+	
+	GROUP BY MERCADONEGRO.Usuarios.ID_User
+GO
+
+UPDATE MERCADONEGRO.Usuarios
+	SET Reputacion = (SELECT TOP 1 MERCADONEGRO.CalificacionView.promedio FROM MERCADONEGRO.CalificacionView,
+						MERCADONEGRO.Usuarios
+						WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser)
+	WHERE MERCADONEGRO.Usuarios.ID_User = (SELECT MERCADONEGRO.
+
+
+DROP VIEW MERCADONEGRO.CalificacionView
+
+
 
 
 ----------------------MIGRANDO Roles_Usuario------------------------
@@ -106,7 +141,7 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 	FROM #UsuariosTemp
 --SELECT * FROM MERCADONEGRO.Roles_Usuarios
 	
-/* MIGRANDO TABLA CLIENTES */
+-----------------------MIGRANDO TABLA CLIENTES-------------------------
 --select * from MERCADONEGRO.Clientes
 
 
@@ -250,6 +285,17 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 
 	
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
+
+-----------------------MIGRANDO PUBLICACIONES_RUBROS------------------------
+PRINT 'MIGRANDO RUBRO_PUBLICACION'
+
+INSERT INTO MERCADONEGRO.Rubro_Publicacion(Cod_Publicacion, ID_Rubro)
+	SELECT DISTINCT MERCADONEGRO.Publicaciones.Cod_Publicacion,
+					MERCADONEGRO.Rubros.ID_Rubro
+					
+	FROM MERCADONEGRO.Publicaciones, MERCADONEGRO.Rubros, gd_esquema.Maestra
+		WHERE MERCADONEGRO.Publicaciones.Cod_Publicacion = gd_esquema.Maestra.Publicacion_Cod 
+			  AND MERCADONEGRO.Rubros.Descripcion = gd_esquema.Maestra.Publicacion_Rubro_Descripcion
 
 ------------------------FACTURACIONES-------------------------------
 PRINT 'MIGRANDO LA TABLA FACTURACIONES'
