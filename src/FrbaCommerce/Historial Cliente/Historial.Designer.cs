@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Abm_Rubro
+﻿namespace FrbaCommerce.Historial_Cliente
 {
-    partial class Form1
+    partial class Historial
     {
         /// <summary>
         /// Required designer variable.

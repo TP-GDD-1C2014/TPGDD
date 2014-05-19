@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaCommerce.Gestion_de_Preguntas
+namespace FrbaCommerce.Comprar_Ofertar
 {
-    public partial class Form1 : Form
+    public partial class ComprarOfertar : Form
     {
-        public Form1()
+        public ComprarOfertar()
         {
             InitializeComponent();
         }

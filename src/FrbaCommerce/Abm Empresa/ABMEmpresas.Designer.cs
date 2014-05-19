@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Comprar_Ofertar
+﻿namespace FrbaCommerce.Abm_Empresa
 {
-    partial class Form1
+    partial class ABMEmpresas
     {
         /// <summary>
         /// Required designer variable.

@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Abm_Visibilidad
+﻿namespace FrbaCommerce.Facturar_Publicaciones
 {
-    partial class Form1
+    partial class Facturar
     {
         /// <summary>
         /// Required designer variable.

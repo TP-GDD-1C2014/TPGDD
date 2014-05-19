@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Gestion_de_Preguntas
+﻿namespace FrbaCommerce.Abm_Visibilidad
 {
-    partial class Form1
+    partial class ABMVisibilidad
     {
         /// <summary>
         /// Required designer variable.

@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Historial_Cliente
+﻿namespace FrbaCommerce.Gestion_de_Preguntas
 {
-    partial class Form1
+    partial class GestionPreguntas
     {
         /// <summary>
         /// Required designer variable.

@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Calificar_Vendedor
+﻿namespace FrbaCommerce.Comprar_Ofertar
 {
-    partial class Form1
+    partial class ComprarOfertar
     {
         /// <summary>
         /// Required designer variable.

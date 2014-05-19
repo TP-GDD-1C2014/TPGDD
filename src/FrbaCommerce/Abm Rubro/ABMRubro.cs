@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaCommerce.Abm_Visibilidad
+namespace FrbaCommerce.Abm_Rubro
 {
-    public partial class Form1 : Form
+    public partial class ABMRubro : Form
     {
-        public Form1()
+        public ABMRubro()
         {
             InitializeComponent();
         }

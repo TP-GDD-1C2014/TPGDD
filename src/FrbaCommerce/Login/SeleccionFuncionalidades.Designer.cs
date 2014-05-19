@@ -59,6 +59,7 @@
             this.continuar.TabIndex = 2;
             this.continuar.Text = "Continuar >>";
             this.continuar.UseVisualStyleBackColor = true;
+            this.continuar.Click += new System.EventHandler(this.continuar_Click);
             // 
             // SeleccionFuncionalidades
             // 

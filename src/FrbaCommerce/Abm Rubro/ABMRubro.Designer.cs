@@ -1,6 +1,6 @@
-﻿namespace FrbaCommerce.Listado_Estadistico
+﻿namespace FrbaCommerce.Abm_Rubro
 {
-    partial class Form1
+    partial class ABMRubro
     {
         /// <summary>
         /// Required designer variable.

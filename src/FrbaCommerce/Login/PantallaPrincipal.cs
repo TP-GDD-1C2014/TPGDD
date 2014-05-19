@@ -29,8 +29,8 @@ namespace FrbaCommerce.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-           ABMClientes nuevaForm = new ABMClientes();
-           Interfaz.mostrarForm(nuevaForm, this);
+           //ABMClientes nuevaForm = new ABMClientes();
+           //Interfaz.mostrarForm(nuevaForm, this);
         }
 
         private void button10_Click(object sender, EventArgs e)
