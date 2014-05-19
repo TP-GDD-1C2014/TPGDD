@@ -157,7 +157,7 @@
             // 
             // PrecioUnit_textBox
             // 
-            this.PrecioUnit_textBox.Location = new System.Drawing.Point(144, 184);
+            this.PrecioUnit_textBox.Location = new System.Drawing.Point(144, 183);
             this.PrecioUnit_textBox.Name = "PrecioUnit_textBox";
             this.PrecioUnit_textBox.Size = new System.Drawing.Size(71, 20);
             this.PrecioUnit_textBox.TabIndex = 14;
@@ -211,7 +211,7 @@
             // PermitirPreg_label
             // 
             this.PermitirPreg_label.AutoSize = true;
-            this.PermitirPreg_label.Location = new System.Drawing.Point(15, 213);
+            this.PermitirPreg_label.Location = new System.Drawing.Point(15, 212);
             this.PermitirPreg_label.Name = "PermitirPreg_label";
             this.PermitirPreg_label.Size = new System.Drawing.Size(92, 13);
             this.PermitirPreg_label.TabIndex = 21;
@@ -220,7 +220,7 @@
             // permitirPreg_combobox
             // 
             this.permitirPreg_combobox.FormattingEnabled = true;
-            this.permitirPreg_combobox.Location = new System.Drawing.Point(144, 210);
+            this.permitirPreg_combobox.Location = new System.Drawing.Point(144, 209);
             this.permitirPreg_combobox.Name = "permitirPreg_combobox";
             this.permitirPreg_combobox.Size = new System.Drawing.Size(71, 21);
             this.permitirPreg_combobox.TabIndex = 22;

@@ -73,7 +73,7 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public void agregarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, int estado, int tipoPubli)
+        public void buscarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, int estado, int tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
@@ -87,6 +87,27 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", stock);
 
             //BDSQL.ejecutarQuery("SELECT Cod_Publicacion,Cod_Visibilidad,Descripcion,Stock,Estado_Public,Tipo_Public FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion=@Cod_Publicacion AND Cod_Visibilidad=Cod_Visibilidad AND ID_Vendedor=@ID_Vendedor AND Descripcion=@Descripcion AND Stock=@Stock AND Estado_Public=@Estado_Public AND Tipo_Public=@Tipo_Public", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void actualizarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, int estado, int tipoPubli, int precio, int permisoPreg)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", idVendedor);
+            BDSQL.agregarParametro(listaParametros, "@Descripcion", descripcion);
+            BDSQL.agregarParametro(listaParametros, "@Stock", stock);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Vto", fechaVto);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Inicio", fechaInicio);
+            BDSQL.agregarParametro(listaParametros, "@Precio", precio);
+            BDSQL.agregarParametro(listaParametros, "@Estado_Publicacion", estado);
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Publicacion", tipoPubli);
+            BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", permisoPreg);
+            BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", stock);
+
+
+            //BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones SET Cod_visibilidad=@Cod_visibilidad, ID_Vendedor=@ID_Vendedor, Descripcion=@Descripcion, Stock=@Stock, Vecha_Vto=@Vecha_Vto, Fecha_Inic=@Fecha_Inic, Precio=@Precio, Estado_Public=@Estado_Public, Tipo_Public=@Tipo_Public, Permisos_Preguntas=@Permisos_Preguntas", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
         }
     }

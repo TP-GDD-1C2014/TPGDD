@@ -104,7 +104,7 @@ namespace FrbaCommerce.Editar_Publicacion
             var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
             var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
 
-            //Publicacion nuevaPubli = new Publicacion(cod_publi,id_vendedor,visibilidad,descripcion,stock,estado,tipoPubli);
+            //Publicacion publi = new Publicacion(cod_publi,id_vendedor,visibilidad,descripcion,stock,estado,tipoPubli);
 
             //Buscar Publicaciones y mostrar en dataGridView1
             //nuevaPubli.buscarPublicacion(cod_publi,id_vendedor,visibilidad,descripcion,stock,estado,tipoPubli);
