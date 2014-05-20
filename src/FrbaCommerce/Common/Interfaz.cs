@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace FrbaCommerce.Common
 {
@@ -24,10 +27,21 @@ namespace FrbaCommerce.Common
 
         }
 
+        public static bool esNumerico(string val, System.Globalization.NumberStyles NumberStyle)
+        {
+            Double result;
+            return Double.TryParse(val, NumberStyle, System.Globalization.CultureInfo.CurrentCulture, out result);
+        }
+
         public static void mostrarForm(Form formNueva, Form viejaForm)
         {
             formNueva.Show();
             viejaForm.Hide();
+        }
+
+        public static DateTime obtenerFecha()
+        {
+            return DateTime.ParseExact(ConfigurationManager.AppSettings["Fecha"], "dd/MM/yyyy", null);
         }
     }
 }

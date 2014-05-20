@@ -14,6 +14,16 @@ namespace FrbaCommerce.Common
         static SqlConnection conexion = new SqlConnection();
         static string stringConexion;
 
+        public static Boolean existeString(string valor, string nombreTabla, string nombreColumna)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            agregarParametro(listaParametros, "@valor", valor);
+            SqlDataReader lector = ejecutarReader("SELECT * FROM " + nombreTabla + " WHERE " + nombreColumna + " = @valor", listaParametros, iniciarConexion());
+            Boolean res = lector.HasRows;
+            cerrarConexion();
+            return res;
+        }
+
         public static SqlConnection iniciarConexion()
         {
             try

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using FrbaCommerce.Common;
 
 namespace FrbaCommerce.Registro_de_Usuario
 {
@@ -15,27 +16,9 @@ namespace FrbaCommerce.Registro_de_Usuario
         public RegistroUsuarioForm()
         {
             InitializeComponent();
-
-            // Empezamos transacción
-            
-
-            //dummy (borrar dps!)
             Rol_Combo.Items.Add("Cliente");
             Rol_Combo.Items.Add("Empresa");
-            Rol_Combo.Sorted = true;
-            Rol_Combo.DropDownStyle = ComboBoxStyle.DropDown;
-
-            //dummy adicionales x rol
-            OcultarAdicionales();
-        }
-
-        //funcion para ocultar controles adiocionales (especificos x rol)
-        private void OcultarAdicionales()
-        {
-            Tipo_Doc_Label.Visible = false;
-            Tipo_Doc_TextBox.Visible = false;
-            Razon_Social_Label.Visible = false;
-            Razon_Social_TextBox.Visible = false;
+            Rol_Combo.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void RegistroUsuarioForm_Load(object sender, EventArgs e)
@@ -50,43 +33,13 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void Password_TextBox_TextChanged(object sender, EventArgs e)
         {
-
+            Password_TextBox.PasswordChar = '*';
         }
 
         private void Limpiar_Button_Click(object sender, EventArgs e)
         {
             Common.Interfaz.limpiarInterfaz(this);
             Rol_Combo.Text = "";
-            OcultarAdicionales();
-        }
-
-        private void Rol_Combo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Mostrar los Strings de cada rol que se encuentren en la base de datos
-            //anexo del dummy, debera ser SWTICH para mas de 2(dos) roles
-
-           
-
-              if (((string) Rol_Combo.SelectedItem).Equals("Cliente"))
-                {
-                    Tipo_Doc_Label.Visible       = true;
-                    Tipo_Doc_TextBox.Visible     = true;
-                    Razon_Social_Label.Visible   = false;
-                    Razon_Social_TextBox.Visible = false;
-                }
-
-              else
-                 {
-                    Tipo_Doc_Label.Visible       = false;
-                    Tipo_Doc_TextBox.Visible     = false;
-                    Razon_Social_Label.Visible   = true;
-                    Razon_Social_TextBox.Visible = true;
-                  }
-               
-      
-           
-
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -95,6 +48,38 @@ namespace FrbaCommerce.Registro_de_Usuario
         }
 
         private void Tipo_Doc_Label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Registrar_Button_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Username_TextBox.Text) && !string.IsNullOrEmpty(Password_TextBox.Text) && Rol_Combo.SelectedIndex != -1)
+            {
+                if(!BDSQL.existeString(Username_TextBox.Text, "MERCADONEGRO.Usuarios", "Username")){
+                    if (Rol_Combo.SelectedIndex == 0)
+                    {
+                        RegistroUsuarioForm3 form2 = new RegistroUsuarioForm3(Username_TextBox.Text, Password_TextBox.Text, Rol_Combo.SelectedIndex);
+                        this.Hide();
+                        form2.Show();
+                    }
+                    else
+                    {
+                        RegistroUsuarioForm1 form3 = new RegistroUsuarioForm1(Username_TextBox.Text, Password_TextBox.Text, Rol_Combo.SelectedIndex);
+                        this.Hide();
+                        form3.Show();
+                    }
+                } else {
+                    MessageBox.Show("Usuario ya existente.", "Error");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe completar el formulario.", "Error");
+            }
+        }
+
+        private void Rol_Combo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
