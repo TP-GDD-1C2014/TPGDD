@@ -24,6 +24,17 @@ namespace FrbaCommerce.Common
             return res;
         }
 
+        public static Boolean existenSimultaneamente(string valor1, string valor2, string nombreTabla, string nombreColumna1, string nombreColumna2)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            agregarParametro(listaParametros, "@valor1", valor1);
+            agregarParametro(listaParametros, "@valor2", valor2);
+            SqlDataReader lector = ejecutarReader("SELECT * FROM " + nombreTabla + " WHERE " + nombreColumna1 + " = @valor1 AND "+nombreColumna2 + " = @valor2", listaParametros, iniciarConexion());
+            Boolean res = lector.HasRows;
+            cerrarConexion();
+            return res;
+        }
+
         public static SqlConnection iniciarConexion()
         {
             try

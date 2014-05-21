@@ -63,13 +63,38 @@ namespace FrbaCommerce.Registro_de_Usuario
                 BDSQL.agregarParametro(listaParametros3, "@ID_User", idUser);
                 BDSQL.agregarParametro(listaParametros3, "@Razon_Social", razonSocial);
                 BDSQL.agregarParametro(listaParametros3, "@CUIT", cuit);
-                BDSQL.agregarParametro(listaParametros3, "@Telefono", Convert.ToInt32(telefono));
                 BDSQL.agregarParametro(listaParametros3, "@Direccion", direccion);
                 BDSQL.agregarParametro(listaParametros3, "@Codigo_Postal", codigoPostal);
-                BDSQL.agregarParametro(listaParametros3, "@Ciudad", ciudad);
                 BDSQL.agregarParametro(listaParametros3, "@Mail", email);
-                BDSQL.agregarParametro(listaParametros3, "@Nombre_Contacto", nombreContacto);
                 BDSQL.agregarParametro(listaParametros3, "@Fecha_Creacion", fechaCreacion);
+
+                if (telefono.Equals(""))
+                {
+                    BDSQL.agregarParametro(listaParametros3, "@Telefono", DBNull.Value);
+                }
+                else
+                {
+                    BDSQL.agregarParametro(listaParametros3, "@Telefono", Convert.ToInt32(telefono));
+                }
+
+                if (ciudad.Equals(""))
+                {
+                    BDSQL.agregarParametro(listaParametros3, "@Ciudad", DBNull.Value);
+                }
+                else
+                {
+                    BDSQL.agregarParametro(listaParametros3, "@Ciudad", ciudad);
+                }
+
+                if (nombreContacto.Equals(""))
+                {
+                    BDSQL.agregarParametro(listaParametros3, "@Nombre_Contacto", DBNull.Value);
+                }
+                else
+                {
+                    BDSQL.agregarParametro(listaParametros3, "@Nombre_Contacto", nombreContacto);
+                }
+
                 BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Empresas VALUES(@ID_User, @Razon_Social, @CUIT, @Telefono, @Direccion, @Codigo_Postal, @Ciudad, @Mail, @Nombre_Contacto, @Fecha_Creacion)", listaParametros3, BDSQL.iniciarConexion());
                 BDSQL.cerrarConexion();
 
@@ -105,11 +130,9 @@ namespace FrbaCommerce.Registro_de_Usuario
             return salida.ToString();
         }
 
-        
-
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!razonSocial.Text.Equals("") && !cuit.Text.Equals("") && !telefono.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && !ciudad.Text.Equals("") && !email.Text.Equals("") && !nombreContacto.Text.Equals(""))
+            if (!razonSocial.Text.Equals("") && !cuit.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && !email.Text.Equals(""))
             {
                 if (!BDSQL.existeString(razonSocial.Text, "MERCADONEGRO.Empresas", "Razon_Social"))
                 {
@@ -137,7 +160,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             }
             else
             {
-                MessageBox.Show("Debe completar el formulario.", "Error");
+                MessageBox.Show("Debe completar los campos solicitados.", "Error");
             }
         }
 

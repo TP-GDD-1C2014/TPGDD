@@ -49,7 +49,7 @@
             // 
             // Username_TextBox
             // 
-            this.Username_TextBox.Location = new System.Drawing.Point(15, 35);
+            this.Username_TextBox.Location = new System.Drawing.Point(15, 32);
             this.Username_TextBox.Name = "Username_TextBox";
             this.Username_TextBox.Size = new System.Drawing.Size(282, 20);
             this.Username_TextBox.TabIndex = 1;
@@ -57,7 +57,7 @@
             // Password_Label
             // 
             this.Password_Label.AutoSize = true;
-            this.Password_Label.Location = new System.Drawing.Point(12, 68);
+            this.Password_Label.Location = new System.Drawing.Point(12, 62);
             this.Password_Label.Name = "Password_Label";
             this.Password_Label.Size = new System.Drawing.Size(61, 13);
             this.Password_Label.TabIndex = 2;
@@ -67,7 +67,7 @@
             // Rol_Label
             // 
             this.Rol_Label.AutoSize = true;
-            this.Rol_Label.Location = new System.Drawing.Point(12, 129);
+            this.Rol_Label.Location = new System.Drawing.Point(12, 112);
             this.Rol_Label.Name = "Rol_Label";
             this.Rol_Label.Size = new System.Drawing.Size(23, 13);
             this.Rol_Label.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             // Password_TextBox
             // 
-            this.Password_TextBox.Location = new System.Drawing.Point(15, 93);
+            this.Password_TextBox.Location = new System.Drawing.Point(15, 82);
             this.Password_TextBox.Name = "Password_TextBox";
             this.Password_TextBox.Size = new System.Drawing.Size(282, 20);
             this.Password_TextBox.TabIndex = 4;
@@ -83,7 +83,7 @@
             // 
             // Registrar_Button
             // 
-            this.Registrar_Button.Location = new System.Drawing.Point(211, 192);
+            this.Registrar_Button.Location = new System.Drawing.Point(211, 165);
             this.Registrar_Button.Name = "Registrar_Button";
             this.Registrar_Button.Size = new System.Drawing.Size(86, 30);
             this.Registrar_Button.TabIndex = 6;
@@ -93,7 +93,7 @@
             // 
             // Limpiar_Button
             // 
-            this.Limpiar_Button.Location = new System.Drawing.Point(14, 192);
+            this.Limpiar_Button.Location = new System.Drawing.Point(14, 165);
             this.Limpiar_Button.Name = "Limpiar_Button";
             this.Limpiar_Button.Size = new System.Drawing.Size(90, 30);
             this.Limpiar_Button.TabIndex = 7;
@@ -104,7 +104,7 @@
             // Rol_Combo
             // 
             this.Rol_Combo.FormattingEnabled = true;
-            this.Rol_Combo.Location = new System.Drawing.Point(15, 154);
+            this.Rol_Combo.Location = new System.Drawing.Point(15, 132);
             this.Rol_Combo.Name = "Rol_Combo";
             this.Rol_Combo.Size = new System.Drawing.Size(282, 21);
             this.Rol_Combo.TabIndex = 8;
@@ -114,7 +114,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 234);
+            this.ClientSize = new System.Drawing.Size(312, 206);
             this.Controls.Add(this.Rol_Combo);
             this.Controls.Add(this.Limpiar_Button);
             this.Controls.Add(this.Registrar_Button);
