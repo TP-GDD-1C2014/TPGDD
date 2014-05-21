@@ -37,7 +37,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.tipoDocumento = new System.Windows.Forms.TextBox();
             this.numeroDocumento = new System.Windows.Forms.TextBox();
             this.nombre = new System.Windows.Forms.TextBox();
             this.apellido = new System.Windows.Forms.TextBox();
@@ -51,6 +50,7 @@
             this.cbDia = new System.Windows.Forms.ComboBox();
             this.cbMes = new System.Windows.Forms.ComboBox();
             this.cbAno = new System.Windows.Forms.ComboBox();
+            this.cbTipoDocumento = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -133,13 +133,6 @@
             this.label9.Size = new System.Drawing.Size(122, 13);
             this.label9.TabIndex = 8;
             this.label9.Text = "Fecha de nacimiento (*):";
-            // 
-            // tipoDocumento
-            // 
-            this.tipoDocumento.Location = new System.Drawing.Point(152, 12);
-            this.tipoDocumento.Name = "tipoDocumento";
-            this.tipoDocumento.Size = new System.Drawing.Size(148, 20);
-            this.tipoDocumento.TabIndex = 9;
             // 
             // numeroDocumento
             // 
@@ -242,11 +235,21 @@
             this.cbAno.Size = new System.Drawing.Size(52, 21);
             this.cbAno.TabIndex = 23;
             // 
+            // cbTipoDocumento
+            // 
+            this.cbTipoDocumento.FormattingEnabled = true;
+            this.cbTipoDocumento.Location = new System.Drawing.Point(152, 12);
+            this.cbTipoDocumento.Name = "cbTipoDocumento";
+            this.cbTipoDocumento.Size = new System.Drawing.Size(148, 21);
+            this.cbTipoDocumento.TabIndex = 24;
+            this.cbTipoDocumento.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // RegistroUsuarioForm3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(312, 341);
+            this.Controls.Add(this.cbTipoDocumento);
             this.Controls.Add(this.cbAno);
             this.Controls.Add(this.cbMes);
             this.Controls.Add(this.cbDia);
@@ -260,7 +263,6 @@
             this.Controls.Add(this.apellido);
             this.Controls.Add(this.nombre);
             this.Controls.Add(this.numeroDocumento);
-            this.Controls.Add(this.tipoDocumento);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -290,7 +292,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox tipoDocumento;
         private System.Windows.Forms.TextBox numeroDocumento;
         private System.Windows.Forms.TextBox nombre;
         private System.Windows.Forms.TextBox apellido;
@@ -304,5 +305,6 @@
         private System.Windows.Forms.ComboBox cbDia;
         private System.Windows.Forms.ComboBox cbMes;
         private System.Windows.Forms.ComboBox cbAno;
+        private System.Windows.Forms.ComboBox cbTipoDocumento;
     }
 }

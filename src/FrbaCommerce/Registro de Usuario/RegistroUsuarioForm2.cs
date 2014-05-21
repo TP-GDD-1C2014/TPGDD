@@ -28,10 +28,12 @@ namespace FrbaCommerce.Registro_de_Usuario
             cbDia.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMes.DropDownStyle = ComboBoxStyle.DropDownList;
             cbAno.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbTipoDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
 
             llenarCbDia();
             llenarCbMes();
             llenarCbAno();
+            llenarCbTipoDoc();
         }
 
         public void llenarCbDia()
@@ -59,6 +61,13 @@ namespace FrbaCommerce.Registro_de_Usuario
             {
                 this.cbAno.Items.Add(i.ToString());
             }
+        }
+
+        public void llenarCbTipoDoc()
+        {
+            this.cbTipoDocumento.Items.Add("DU");
+            this.cbTipoDocumento.Items.Add("CI");
+            this.cbTipoDocumento.Items.Add("LC");
         }
 
         public Boolean registrarCliente(string username, string passwordNoHash, string tipoDocumento, string numeroDocumento, string nombre, string apellido, string email, string telefono, string direccion, string codigoPostal, DateTime fechaNacimiento)
@@ -164,15 +173,15 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!tipoDocumento.Text.Equals("") && !numeroDocumento.Text.Equals("") && !nombre.Text.Equals("") && !apellido.Text.Equals("") && !email.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && cbDia.SelectedIndex != -1 && cbMes.SelectedIndex != -1 && cbAno.SelectedIndex != -1)
+            if (cbTipoDocumento.SelectedIndex != -1 && !numeroDocumento.Text.Equals("") && !nombre.Text.Equals("") && !apellido.Text.Equals("") && !email.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && cbDia.SelectedIndex != -1 && cbMes.SelectedIndex != -1 && cbAno.SelectedIndex != -1)
             {
                 if (Interfaz.esNumerico(numeroDocumento.Text, System.Globalization.NumberStyles.Integer))
                 {
-                    if (!BDSQL.existenSimultaneamente(numeroDocumento.Text, tipoDocumento.Text, "MERCADONEGRO.Clientes", "Num_Doc", "Tipo_Doc"))
+                    if (!BDSQL.existenSimultaneamente(numeroDocumento.Text, cbTipoDocumento.SelectedItem.ToString(), "MERCADONEGRO.Clientes", "Num_Doc", "Tipo_Doc"))
                     {
                         if (Interfaz.esNumerico(telefono.Text, System.Globalization.NumberStyles.Integer) || telefono.Text.Equals(""))
                         {
-                            registrarCliente(username, password, tipoDocumento.Text, numeroDocumento.Text, nombre.Text, apellido.Text, email.Text, telefono.Text, direccion.Text, codigoPostal.Text, fechaNacimiento(cbDia.SelectedItem.ToString(), cbMes.SelectedItem.ToString(), cbAno.SelectedItem.ToString()));
+                            registrarCliente(username, password, cbTipoDocumento.SelectedItem.ToString(), numeroDocumento.Text, nombre.Text, apellido.Text, email.Text, telefono.Text, direccion.Text, codigoPostal.Text, fechaNacimiento(cbDia.SelectedItem.ToString(), cbMes.SelectedItem.ToString(), cbAno.SelectedItem.ToString()));
                             MessageBox.Show("Alta finalizada. Puede ingresar al sistema.", "Registro exitoso");
                             Login.LoginForm form = new Login.LoginForm();
                             this.Hide();
@@ -197,6 +206,11 @@ namespace FrbaCommerce.Registro_de_Usuario
             {
                 MessageBox.Show("Debe completar los campos solicitados.", "Error");
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
