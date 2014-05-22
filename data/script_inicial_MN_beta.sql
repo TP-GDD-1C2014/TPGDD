@@ -276,6 +276,8 @@ BEGIN
 END
 GO
 
+
+/* SP agregar ROL al USUARIO */
 CREATE PROCEDURE MERCADONEGRO.AgregarRol(@iduser numeric(18,0), @idrol numeric(18,0)) AS
 BEGIN
 	INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
@@ -283,6 +285,8 @@ BEGIN
 				(SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE ID_Rol = @idrol))
 END 
 GO
+
+/* SP Agregar Usuario NUEVO */
 
 CREATE PROCEDURE MERCADONEGRO.AgregarUsuario(@username nvarchar(255), @password nvarchar(255),@primeraVez bit)
 AS BEGIN
@@ -292,8 +296,22 @@ AS BEGIN
 
 END
 GO
-											 
 
+/* SP Agregar PUBLICACION NUEVA */
+											 
+CREATE PROCEDURE MERCADONEGRO.AgregarPublicacion(@codVisibilidad numeric(18,0), @idVendedor numeric(18,0),
+												 @descripcion nvarchar(255), @stock numeric(18,0),
+												 @fechaInic datetime, @fechaVenc datetime,
+												 @precio numeric(18,2), @estadoPubl tinyint, @tipoPubl tinyint,
+												 @permisosPreg bit)
+AS BEGIN
+		INSERT INTO MERCADONEGRO.Publicaciones(Cod_Visibilidad, ID_Vendedor, Descripcion, Stock, Fecha_Inicial,
+												Fecha_Vencimiento, Precio, Estado_Publicacion, Permisos_Preguntas,
+												Tipo_Publicacion, Stock_Inicial)
+			VALUES(@codVisibilidad, @idVendedor, @descripcion, @stock, @fechaInic, @fechaVenc, @precio, @estadoPubl,
+				   @permisosPreg, @tipoPubl, @stock)
+END
+GO
 
 /*
 CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
