@@ -40,7 +40,7 @@ CREATE TABLE MERCADONEGRO.Preguntas
 CREATE TABLE MERCADONEGRO.Calificaciones
 (
 	Cod_Calificacion NUMERIC(18,0) IDENTITY,  
-	Puntaje			 TINYINT	   NULL,
+	Puntaje			 NUMERIC(18,0)	   NULL,
 	Descripcion		 NVARCHAR(255) NULL,
 	
 	PRIMARY KEY ( Cod_Calificacion )
@@ -94,7 +94,7 @@ CREATE TABLE MERCADONEGRO.Items
 	ID_Item			 NUMERIC(18,0) IDENTITY, 
 	Nro_Factura		 NUMERIC(18,0) NOT NULL,
 	Cantidad_Vendida NUMERIC(18,0) NOT NULL,
-	Descripcion		 NVARCHAR(255) NOT NULL, /* UNIQUE???. PARA MI NO (NAZA) */
+	Descripcion		 NVARCHAR(255) NOT NULL,
 	Precio_Item		 NUMERIC(18,2) NOT NULL,
 	
 	PRIMARY KEY (ID_Item),
@@ -252,13 +252,27 @@ CREATE TABLE MERCADONEGRO.Subastas
 )
 GO
 -----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
-/* FUNCION AGREGAR FUNCIONALIDAD X ROL*/
 
+/* SP Agregar FUNCIONALIDAD al ROL */
 CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
 BEGIN
 	INSERT INTO MERCADONEGRO.Funcionalidad_Rol (ID_Rol, ID_Funcionalidad)
 		VALUES ((SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE Nombre = @rol),
 		        (SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE Nombre = @func))
+END
+GO
+
+/* SP Quitar FUNCIONALIDAD al ROL */
+CREATE PROCEDURE MERCADONEGRO.QuitarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
+BEGIN
+	DELETE FROM MERCADONEGRO.Funcionalidad_Rol
+		WHERE 
+			(SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE @rol = Nombre)
+			= MERCADONEGRO.Funcionalidad_Rol.ID_Rol
+			AND
+			(SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE @func = Nombre)
+			 = MERCADONEGRO.Funcionalidad_Rol.ID_Funcionalidad
+			 
 END
 GO
 
@@ -269,18 +283,31 @@ BEGIN
 				(SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE ID_Rol = @idrol))
 END 
 GO
+
+CREATE PROCEDURE MERCADONEGRO.AgregarUsuario(@username nvarchar(255), @password nvarchar(255),@primeraVez bit)
+AS BEGIN
+		INSERT INTO MERCADONEGRO.Usuarios(Username, Password, Intentos_Login, Habilitado,
+											Primera_Vez, Cant_Publi_Gratuitas, Reputacion, Ventas_Sin_Rendir)
+			VALUES(@username, @password, 0, 1, @primeraVez, 0, 0, 0)
+
+END
+GO
+											 
+
+
 /*
 CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
 											  @numDoc numeric(18,0), @nombre nvarchar(255),
 											  @apellido nvarchar(255), @mail nvarchar(255),
-											  @direccion nvarchar(255), @codPostal nvarchar(50),
-											  @fechaNacimiento datetime)
+											  @telefono numeric(18,0), @direccion nvarchar(255),
+											  @codPostal nvarchar(50), @fechaNacimiento datetime)
 BEGIN
-	INSERT INTO MERCADONEGRO.Cliente(ID_User, Tipo_Doc, Num_Doc, Nombre, Apellido, Mail, Direccion,
+	INSERT INTO MERCADONEGRO.Clientes(ID_User, Tipo_Doc, Num_Doc, Nombre, Apellido, Mail, Telefono, Direccion,
 									 Codigo_Postal, Fecha_Nacimiento) 
-			VALUES((SELECT ID_User FROM MERCADONEGRO.usuarios WHERE Num_Doc = @numDoc),
-					(SELECT */
-	
+			VALUES((SELECT ID_User FROM MERCADONEGRO.Usuarios WHERE  = @numDoc),
+					(SELECT
+*/
+
 /*
 CREATE TRIGGER Trigger_InsertarFactura
 	ON MERCADONEGRO.Publicaciones
