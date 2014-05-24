@@ -122,13 +122,10 @@ namespace FrbaCommerce.Login
                     {
                         cbFuncionalidades.Items.Add(new itemComboBox("Listado Estadístico", rolActual.funcionalidades[i].ID_Funcionalidad));
                     }
+
+                    cbFuncionalidades.Items.Add(new itemComboBox("Cambiar Contraseña", -2));
                 }
             }
-        }
-
-        private void SeleccionFuncionalidades_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void continuar_Click(object sender, EventArgs e)
@@ -142,6 +139,10 @@ namespace FrbaCommerce.Login
                 itemComboBox seleccion = cbFuncionalidades.SelectedItem as itemComboBox;
                 switch (seleccion.ID_Funcionalidad)
                 {
+                    case -2:
+                        CambiarPassword formPass = new CambiarPassword();
+                        formPass.Show();
+                        break;
                     case 1:
                         Abm_Cliente.ABMClientes form1 = new Abm_Cliente.ABMClientes();
                         this.Hide();

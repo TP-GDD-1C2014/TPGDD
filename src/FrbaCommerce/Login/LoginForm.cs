@@ -75,20 +75,22 @@ namespace FrbaCommerce.Login
                             }
                             else
                             {
-                                usuarioLogin.sumarIntentoFallido();
-                                MessageBox.Show("Usuario o contraseña incorrecta, le quedan " + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + " intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                                if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
-                                {
-                                    usuarioLogin.inhabilitarUsuario();
-                                }
-
+                                CambiarPassword formPass = new CambiarPassword();
+                                formPass.Show();
                             }
                         }
                         else
                         {
-                            CambiarPassword formPass = new CambiarPassword();
-                            formPass.Show();
+                            usuarioLogin.sumarIntentoFallido();
+                            if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
+                            {
+                                usuarioLogin.inhabilitarUsuario();
+                                MessageBox.Show("Usuario inhabilitado.", "Error");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Usuario o contraseña incorrecta, le quedan " + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + " intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
                     else

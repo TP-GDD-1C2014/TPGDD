@@ -71,7 +71,6 @@
             this.Controls.Add(this.label1);
             this.Name = "SeleccionFuncionalidades";
             this.Text = "Funcionalidades - MercadoNegro";
-            this.Load += new System.EventHandler(this.SeleccionFuncionalidades_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
