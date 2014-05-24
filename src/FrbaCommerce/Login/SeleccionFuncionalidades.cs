@@ -173,7 +173,7 @@ namespace FrbaCommerce.Login
                         form6.Show();
                         break;
                     case 7:
-                        Editar_Publicacion.BuscarPubliForm form7 = new Editar_Publicacion.BuscarPubliForm();
+                        Editar_Publicacion.EditarPubliForm form7 = new Editar_Publicacion.EditarPubliForm();
                         this.Hide();
                         form7.Show();
                         break;

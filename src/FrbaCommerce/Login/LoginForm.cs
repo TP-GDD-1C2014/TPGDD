@@ -44,39 +44,53 @@ namespace FrbaCommerce.Login
                 byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Password_TextBox.Text));
                 string password = bytesDeHasheoToString(bytesDeHasheo);
                 Usuario usuarioLogin = new Usuario(0, username, password);
-                if (usuarioLogin.verificarContrasenia())
+                if (usuarioLogin.obtenerPK())
                 {
-                        usuarioLogin.ResetearIntentosFallidos();
-                        if (usuarioLogin.obtenerRoles())
+                    if (usuarioLogin.habilitado())
+                    {
+                        if (usuarioLogin.verificarContrasenia())
                         {
-                            if (usuarioLogin.Roles.Count() == 1) // Como tiene un solo rol, entra directo
+                            usuarioLogin.ResetearIntentosFallidos();
+                            if (usuarioLogin.obtenerRoles())
                             {
-                                this.Hide();
-                                SeleccionFuncionalidades formSeleccionFuncionalidades = new SeleccionFuncionalidades(usuarioLogin, usuarioLogin.Roles[0].ID_Rol);
-                                formSeleccionFuncionalidades.Show();
+                                if (usuarioLogin.Roles.Count() == 1)
+                                {
+                                    this.Hide();
+                                    SeleccionFuncionalidades formSeleccionFuncionalidades = new SeleccionFuncionalidades(usuarioLogin, usuarioLogin.Roles[0].ID_Rol);
+                                    formSeleccionFuncionalidades.Show();
+                                }
+                                else
+                                {
+                                    this.Hide();
+                                    SeleccionRoles formSeleccionRoles = new SeleccionRoles(usuarioLogin);
+                                    formSeleccionRoles.Show();
+                                }
                             }
-                            else // Tiene más de un rol, tiene que seleccionar
+                            else
                             {
-                                this.Hide();
-                                SeleccionRoles formSeleccionRoles = new SeleccionRoles(usuarioLogin);
-                                formSeleccionRoles.Show();
-                            }
+                                MessageBox.Show("El usuario no tiene roles asignados", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            };
                         }
                         else
                         {
-                            MessageBox.Show("El usuario no tiene roles asignados", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        };
+                            usuarioLogin.sumarIntentoFallido();
+                            MessageBox.Show("Usuario o contraseña incorrecta, le quedan " + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + " intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
+                            {
+                                usuarioLogin.inhabilitarUsuario();
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El usuario se encuentra inhabilitado.", "Error");
+                    }
                 }
                 else
                 {
-                    usuarioLogin.sumarIntentoFallido();
-                    MessageBox.Show("Usuario o contraseña incorrecta, le quedan" + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + "intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
-                    {
-                        usuarioLogin.inhabilitarUsuario();
-                    }
-
+                    MessageBox.Show("El usuario no existe.", "Error");
                 }
 
             }
