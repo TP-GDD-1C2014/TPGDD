@@ -6,6 +6,7 @@ using FrbaCommerce.Common;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 
 namespace FrbaCommerce.Clases
 {
@@ -28,6 +29,7 @@ namespace FrbaCommerce.Clases
             this.ID_User = id;
             this.Username = username;
             this.Password = password;
+            Interfaz.loguearUsuario(this);
         }
 
         public Boolean obtenerPK()
@@ -64,6 +66,24 @@ namespace FrbaCommerce.Clases
             {
                 BDSQL.cerrarConexion();
                 return false;
+            }
+        }
+
+        public Boolean primeraVez()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Primera_Vez FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            lector.Read();
+            if (Convert.ToInt32(lector["Primera_Vez"]) == 0)
+            {
+                BDSQL.cerrarConexion();
+                return false;
+            }
+            else
+            {
+                BDSQL.cerrarConexion();
+                return true;
             }
         }
 
@@ -130,6 +150,30 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
             BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Habilitado = 0 WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
+        }
+
+        public void cambiarPassword(string nuevoPass)
+        {
+            UTF8Encoding encoderHash = new UTF8Encoding();
+            SHA256Managed hasher = new SHA256Managed();
+            byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(nuevoPass));
+            string password = bytesDeHasheoToString(bytesDeHasheo);
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.agregarParametro(listaParametros, "@Password", password);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Password = @Password, Primera_Vez = 0 WHERE ID_User = @ID_user", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        private string bytesDeHasheoToString(byte[] array)
+        {
+            StringBuilder salida = new StringBuilder("");
+            for (int i = 0; i < array.Length; i++)
+            {
+                salida.Append(array[i].ToString("X2"));
+            }
+            return salida.ToString();
         }
 
         public Boolean obtenerRoles()

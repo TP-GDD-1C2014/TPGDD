@@ -11,6 +11,13 @@ namespace FrbaCommerce.Common
 {
     public class Interfaz
     {
+        public static Clases.Usuario usuario { get; set; }
+
+        public static void loguearUsuario(Clases.Usuario usuarioActual)
+        {
+            usuario = usuarioActual;
+        }
+
         public static void limpiarInterfaz(Control con)
         {
             foreach (Control c in con.Controls)
@@ -42,6 +49,11 @@ namespace FrbaCommerce.Common
         public static DateTime obtenerFecha()
         {
             return DateTime.ParseExact(ConfigurationManager.AppSettings["Fecha"], "dd/MM/yyyy", null);
+        }
+
+        public static Clases.Usuario usuarioActual()
+        {
+            return usuario;
         }
     }
 }
