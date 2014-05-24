@@ -6,12 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using FrbaCommerce.Common;
 
 /* ////////////// ABM_Rol //////////////// 
  * 
  * 1)Inicializar
- * - SQL. Cargar tabla Roles de la BD en el Datagrid.
- * - Registros del Datagrid deben ser seleccionables.
+ * - SQL. Cargar tabla Roles de la BD en el Datagrid. (OK!)
+ * - Registros del Datagrid deben ser seleccionables. (OK!)
  * 
  * 2)Nuevo
  * - Abrir Form.EditorDeRoles (sin cerrar AMB_Rol).
@@ -68,26 +70,28 @@ namespace FrbaCommerce.ABM_Rol
         public AbmRolForm()
         {
             InitializeComponent();
+            cargarTodosLosRoles();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+ 
+        private void cargarTodosLosRoles()
         {
+            //SqlDataReader lector = BDSQL.ObtenerDataReader("SELECT * FROM MERCADONEGRO.Roles", "DT", null);
+            //lector.Read();
+            
+            SqlDataAdapter dataadapter = new SqlDataAdapter("SELECT * FROM MERCADONEGRO.Roles", BDSQL.iniciarConexion());
+            DataTable table = new DataTable();
+            dataadapter.Fill(table);
+            Roles_Datagrid.DataSource = table;
 
-        }
-
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void AbmRolForm_Load(object sender, EventArgs e)
-        {
+            
+            BDSQL.cerrarConexion();
 
         }
 
         private void Nuevo_Button_Click(object sender, EventArgs e)
         {
-            EditorDeRoles editForm = new EditorDeRoles();
+            EditorDeRoles editForm = new EditorDeRoles("nuevo");
             editForm.Show();
         }
     }

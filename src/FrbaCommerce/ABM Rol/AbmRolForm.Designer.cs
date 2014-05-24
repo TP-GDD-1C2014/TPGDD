@@ -33,9 +33,6 @@
             this.Eliminar_Button = new System.Windows.Forms.Button();
             this.Volver_Button = new System.Windows.Forms.Button();
             this.Roles_Datagrid = new System.Windows.Forms.DataGridView();
-            this.ID_Rol_Columna_Datagrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Nombre_Columna_Datagrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Habilitado_Columna_Datagrid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.Roles_Datagrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,34 +79,13 @@
             this.Roles_Datagrid.AllowUserToDeleteRows = false;
             this.Roles_Datagrid.AllowUserToOrderColumns = true;
             this.Roles_Datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Roles_Datagrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID_Rol_Columna_Datagrid,
-            this.Nombre_Columna_Datagrid,
-            this.Habilitado_Columna_Datagrid});
             this.Roles_Datagrid.Location = new System.Drawing.Point(12, 52);
+            this.Roles_Datagrid.MultiSelect = false;
             this.Roles_Datagrid.Name = "Roles_Datagrid";
             this.Roles_Datagrid.ReadOnly = true;
+            this.Roles_Datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.Roles_Datagrid.Size = new System.Drawing.Size(343, 184);
             this.Roles_Datagrid.TabIndex = 4;
-            this.Roles_Datagrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
-            // 
-            // ID_Rol_Columna_Datagrid
-            // 
-            this.ID_Rol_Columna_Datagrid.HeaderText = "ID_Rol";
-            this.ID_Rol_Columna_Datagrid.Name = "ID_Rol_Columna_Datagrid";
-            this.ID_Rol_Columna_Datagrid.ReadOnly = true;
-            // 
-            // Nombre_Columna_Datagrid
-            // 
-            this.Nombre_Columna_Datagrid.HeaderText = "Nombre";
-            this.Nombre_Columna_Datagrid.Name = "Nombre_Columna_Datagrid";
-            this.Nombre_Columna_Datagrid.ReadOnly = true;
-            // 
-            // Habilitado_Columna_Datagrid
-            // 
-            this.Habilitado_Columna_Datagrid.HeaderText = "Habilitado";
-            this.Habilitado_Columna_Datagrid.Name = "Habilitado_Columna_Datagrid";
-            this.Habilitado_Columna_Datagrid.ReadOnly = true;
             // 
             // AbmRolForm
             // 
@@ -123,7 +99,6 @@
             this.Controls.Add(this.Nuevo_Button);
             this.Name = "AbmRolForm";
             this.Text = "Gestionar Roles";
-            this.Load += new System.EventHandler(this.AbmRolForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Roles_Datagrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -136,8 +111,5 @@
         private System.Windows.Forms.Button Eliminar_Button;
         private System.Windows.Forms.Button Volver_Button;
         private System.Windows.Forms.DataGridView Roles_Datagrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID_Rol_Columna_Datagrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre_Columna_Datagrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Habilitado_Columna_Datagrid;
     }
 }
