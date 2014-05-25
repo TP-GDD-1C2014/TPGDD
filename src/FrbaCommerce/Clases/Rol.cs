@@ -12,9 +12,9 @@ namespace FrbaCommerce.Clases
     {
         public int ID_Rol { get; set; }
         public string Nombre { get; set; }
-        public int Habilitado { get; set; }
+        public bool Habilitado { get; set; }
 
-        public Rol(int id_rol, string nombre, int habilitado)
+        public Rol(int id_rol, string nombre, bool habilitado)
         {
             this.ID_Rol = id_rol;
             this.Nombre = nombre;

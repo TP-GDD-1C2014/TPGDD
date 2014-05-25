@@ -87,6 +87,15 @@ namespace FrbaCommerce.Common
             return comando.ExecuteReader();
         }
 
+        public static SqlDataReader ejecutarReader(string stringQuery, SqlConnection conexion) // PARA SELECT
+        {
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = conexion;
+            comando.CommandText = stringQuery;
+
+            return comando.ExecuteReader();
+        }
+
 //----------------------------------------------------------------------------------------------------------------------------------------------  
  
         public static int ejecutarQuery(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA UPDATE, INSERT, DELETE

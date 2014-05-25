@@ -38,11 +38,34 @@ namespace FrbaCommerce.ABM_Rol
             {
                 List<Funcionalidad> lista = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion() , 0);
                 
-                Funcionalidades_Checkboxlist.DisplayMember = "Nombre";
+                Funcionalidades_Checkboxlist.DisplayMember = "Nombre";//TODO checkear
                 Funcionalidades_Checkboxlist.ValueMember = "ID_Funcionalidad";
                 cargarCheckboxList(lista);
 
                 Habilitado_Checkbox.Enabled = false;
+            }
+
+        }
+
+        public EditorDeRoles(string modo, Rol unRol)
+        {
+            InitializeComponent();
+            CenterToScreen();
+            if (modo == "modificar")
+            {
+                List<Funcionalidad> listaFuncQueTiene = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion(), unRol.ID_Rol);
+                List<Funcionalidad> listaTodasLasFunc = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion(), 0);
+
+                Nombre_Textbox.Text = unRol.Nombre;
+                Nombre_Textbox.Focus();
+                Nombre_Textbox.SelectAll();
+                Funcionalidades_Checkboxlist.DisplayMember = "Nombre";
+                Funcionalidades_Checkboxlist.ValueMember = "ID_Funcionalidad";
+                cargarCheckboxList(listaTodasLasFunc);
+                actualizarCheckboxList(listaFuncQueTiene);
+                //TODO que Guardar haga update del rol seleccionado y no uno nuevo en adelante, con un flag probablemente
+                
+            
             }
         }
 
@@ -50,9 +73,25 @@ namespace FrbaCommerce.ABM_Rol
         {
             for (int i = 0; i < lista.Count(); i++)
             {
-                Funcionalidades_Checkboxlist.Items.Add(new Funcionalidad(lista[i].ID_Funcionalidad, lista[i].Nombre));     
+                Funcionalidades_Checkboxlist.Items.Add(new Funcionalidad(lista[i].ID_Funcionalidad, lista[i].Nombre));
             }
         }
+
+        private void actualizarCheckboxList(List<Funcionalidad> listaFuncQueTiene)
+        {
+            foreach (Funcionalidad func in listaFuncQueTiene)
+            {
+                for (int i = 0; i < Funcionalidades_Checkboxlist.Items.Count; i++)
+                {
+                    Funcionalidad otraFunc = Funcionalidades_Checkboxlist.Items[i] as Funcionalidad;
+
+                    if (func.ID_Funcionalidad == otraFunc.ID_Funcionalidad)
+                    {
+                        Funcionalidades_Checkboxlist.SetItemCheckState(i, CheckState.Checked);
+                    }
+                }
+             }
+         }
 
         private void Guardar_Button_Click(object sender, EventArgs e)
         {
@@ -80,10 +119,13 @@ namespace FrbaCommerce.ABM_Rol
                         Nombre_Textbox.Focus();
                         Nombre_Textbox.SelectAll();
                     }
-                    else MessageBox.Show("Rol creado con éxito!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Interfaz.limpiarCheckboxList(Funcionalidades_Checkboxlist);
-                    Interfaz.limpiarInterfaz(this);
-                    Nombre_Textbox.Focus();
+                    else
+                    {
+                        MessageBox.Show("Rol creado con éxito!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Interfaz.limpiarCheckboxList(Funcionalidades_Checkboxlist);
+                        Interfaz.limpiarInterfaz(this);
+                        Nombre_Textbox.Focus();
+                    }
 
                 }
             }

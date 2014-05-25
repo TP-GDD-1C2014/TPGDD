@@ -46,7 +46,7 @@ namespace FrbaCommerce.Login
         {
             for (int i = 0; i < usuario.Roles.Count(); i++)
             {
-                if (usuario.Roles[i].Habilitado != 0) // TOMANDO EN CUENTA QUE 1 ES HABILITADO
+                if (usuario.Roles[i].Habilitado != false) // TOMANDO EN CUENTA QUE 1 ES HABILITADO
                 {
                     comboBox_Roles.Items.Add(new itemComboBox(usuario.Roles[i].Nombre, usuario.Roles[i].ID_Rol));
                 }

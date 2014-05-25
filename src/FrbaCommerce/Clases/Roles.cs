@@ -10,6 +10,21 @@ namespace FrbaCommerce.Clases
 {
     class Roles
     {
+        public static List<Rol> obtenerRoles()
+        {
+            List<Rol> roles = new List<Rol>();
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Roles", BDSQL.iniciarConexion());
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Rol unRol = new Rol((int)(decimal)lector["ID_Rol"], (string)lector["Nombre"], (bool)lector["Habilitado"]);
+                    roles.Add(unRol);
+                }
+            }
+            BDSQL.cerrarConexion();
+            return roles;
+        }
         public static bool insertarNuevoRol(string nombre , List<Funcionalidad> lista)
         {
             try
