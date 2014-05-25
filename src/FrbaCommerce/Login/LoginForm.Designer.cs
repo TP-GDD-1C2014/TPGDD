@@ -48,7 +48,6 @@
             this.Username_Label.Size = new System.Drawing.Size(98, 13);
             this.Username_Label.TabIndex = 0;
             this.Username_Label.Text = "Nombre de Usuario";
-            this.Username_Label.Click += new System.EventHandler(this.label1_Click);
             // 
             // Password_Label
             // 
@@ -58,7 +57,6 @@
             this.Password_Label.Size = new System.Drawing.Size(61, 13);
             this.Password_Label.TabIndex = 1;
             this.Password_Label.Text = "Contraseña";
-            this.Password_Label.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // Username_TextBox
             // 
@@ -66,7 +64,6 @@
             this.Username_TextBox.Name = "Username_TextBox";
             this.Username_TextBox.Size = new System.Drawing.Size(140, 20);
             this.Username_TextBox.TabIndex = 2;
-            this.Username_TextBox.TextChanged += new System.EventHandler(this.Username_TextBox_TextChanged);
             // 
             // Password_TextBox
             // 
@@ -132,7 +129,6 @@
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ingreso - MercadoNegro";
-            this.Load += new System.EventHandler(this.LoginForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

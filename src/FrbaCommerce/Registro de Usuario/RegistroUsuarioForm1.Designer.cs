@@ -233,7 +233,6 @@
             this.Name = "RegistroUsuarioForm1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Empresa - MercadoNegro";
-            this.Load += new System.EventHandler(this.RegistroUsuarioForm1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
