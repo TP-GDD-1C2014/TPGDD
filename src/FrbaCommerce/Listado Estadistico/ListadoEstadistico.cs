@@ -15,5 +15,15 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             InitializeComponent();
         }
+
+        private void anioLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ListadoEstadistico_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
