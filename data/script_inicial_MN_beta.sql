@@ -296,12 +296,12 @@ GO
 
 /* SP Agregar Usuario NUEVO */
 
-CREATE PROCEDURE MERCADONEGRO.AgregarUsuario(@username nvarchar(255), @password nvarchar(255),@primeraVez bit)
+CREATE PROCEDURE MERCADONEGRO.AgregarUsuario(@username nvarchar(255), @password nvarchar(255),@primeraVez bit, @ret numeric (18,0) output)
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Usuarios(Username, Password, Intentos_Login, Habilitado,
 											Primera_Vez, Cant_Publi_Gratuitas, Reputacion, Ventas_Sin_Rendir)
 			VALUES(@username, @password, 0, 1, @primeraVez, 0, 0, 0)
-
+			SET @ret = SCOPE_IDENTITY()
 END
 GO
 
@@ -311,13 +311,15 @@ CREATE PROCEDURE MERCADONEGRO.AgregarPublicacion(@codVisibilidad numeric(18,0), 
 												 @descripcion nvarchar(255), @stock numeric(18,0),
 												 @fechaInic datetime, @fechaVenc datetime,
 												 @precio numeric(18,2), @estadoPubl tinyint, @tipoPubl tinyint,
-												 @permisosPreg bit)
+												 @permisosPreg bit,
+												 @ret numeric (18,0) output)
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Publicaciones(Cod_Visibilidad, ID_Vendedor, Descripcion, Stock, Fecha_Inicial,
 												Fecha_Vencimiento, Precio, Estado_Publicacion, Permisos_Preguntas,
 												Tipo_Publicacion, Stock_Inicial)
 			VALUES(@codVisibilidad, @idVendedor, @descripcion, @stock, @fechaInic, @fechaVenc, @precio, @estadoPubl,
 				   @permisosPreg, @tipoPubl, @stock)
+				   SET @ret = SCOPE_IDENTITY()
 END
 GO
 
