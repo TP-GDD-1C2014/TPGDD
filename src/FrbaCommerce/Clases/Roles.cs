@@ -21,10 +21,15 @@ namespace FrbaCommerce.Clases
                 ListaParametros.Add(paramRet);
 
                 //insert, devuelve ret = id rol insertado
+                //TODO : Mega fino.. hacer que agregarRolNuevo haga primero select para ver si ya existe luego
+                // el insert, como esta ahora NO inserta si ya existe, pero el identity suma +1 y queda "feo"
+                // no afecta en nada, pero bueno, belleza. 
+                // ej: inserta: id 4, nombre Rol1 SUCCES, inserta Rol1 de nuevo FAIL, no inserta, pero identity+1
+                // inserta Rol22 SUCCES, pero queda id 6. 
                 int ret = (int)BDSQL.ExecStoredProcedure("MERCADONEGRO.agregarRolNuevo", ListaParametros);
                 BDSQL.cerrarConexion();
 
-                if (ret != -1)
+                if (ret != 0)
                 {
                     foreach (Funcionalidad unaFunc in lista)
                     {

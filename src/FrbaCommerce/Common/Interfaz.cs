@@ -22,7 +22,7 @@ namespace FrbaCommerce.Common
         {
             foreach (Control c in con.Controls)
             {
-                var box = c as TextBox;
+                var box   = c as TextBox;
 
                 if (box != null)
                 {
@@ -32,6 +32,16 @@ namespace FrbaCommerce.Common
                 limpiarInterfaz(c);
             }
 
+        }
+
+        public static void limpiarCheckboxList(CheckedListBox cbl)
+        {
+            foreach (int i in cbl.CheckedIndices)
+            {
+                cbl.SetItemCheckState(i, CheckState.Unchecked);
+                cbl.SetSelected(i,false);
+            }
+           
         }
 
         public static bool esNumerico(string val, System.Globalization.NumberStyles NumberStyle)

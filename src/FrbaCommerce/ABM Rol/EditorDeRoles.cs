@@ -57,12 +57,17 @@ namespace FrbaCommerce.ABM_Rol
         private void Guardar_Button_Click(object sender, EventArgs e)
         {
             if (Nombre_Textbox.Text == "")
+            {
                 MessageBox.Show("Complete el nombre del nuevo Rol", "Error - Falta llenar algun campo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Nombre_Textbox.Focus();
+            }
             else
-            {   
+            {
                 int cant = Funcionalidades_Checkboxlist.CheckedItems.Count;
-                if ( cant < 1 )
+                if (cant < 1)
+                {
                     MessageBox.Show("Selecciones al menos una funcionalidad", "Error - Falta llenar algun campo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 else
                 {
                     List<Funcionalidad> listaNuevasFunc = filtrarSeleccionadas();
@@ -70,9 +75,16 @@ namespace FrbaCommerce.ABM_Rol
                     bool respuesta = Roles.insertarNuevoRol(Nombre_Textbox.Text, listaNuevasFunc);
 
                     if (respuesta == false)
-                        MessageBox.Show("Ya existe un rol con ese nombre" , "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        MessageBox.Show("Ya existe un rol con ese nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Nombre_Textbox.Focus();
+                        Nombre_Textbox.SelectAll();
+                    }
                     else MessageBox.Show("Rol creado con éxito!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-   
+                    Interfaz.limpiarCheckboxList(Funcionalidades_Checkboxlist);
+                    Interfaz.limpiarInterfaz(this);
+                    Nombre_Textbox.Focus();
+
                 }
             }
         }

@@ -92,7 +92,8 @@ namespace FrbaCommerce.ABM_Rol
         private void Nuevo_Button_Click(object sender, EventArgs e)
         {
             EditorDeRoles editForm = new EditorDeRoles("nuevo");
-            editForm.Show();
+           
+            editForm.ShowDialog();
         }
     }
 }
