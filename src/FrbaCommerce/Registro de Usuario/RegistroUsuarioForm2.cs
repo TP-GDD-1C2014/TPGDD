@@ -143,11 +143,6 @@ namespace FrbaCommerce.Registro_de_Usuario
             }
         }
 
-        private void RegistroUsuarioForm2_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         private string bytesDeHasheoToString(byte[] array)
         {
             StringBuilder salida = new StringBuilder("");

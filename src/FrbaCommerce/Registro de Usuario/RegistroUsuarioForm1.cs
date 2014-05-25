@@ -26,11 +26,6 @@ namespace FrbaCommerce.Registro_de_Usuario
             InitializeComponent();
         }
 
-        private void RegistroUsuarioForm1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         public Boolean registrarEmpresa(string username, string passwordNoHash, string razonSocial, string cuit, string telefono, string direccion, string codigoPostal, string ciudad, string email, string nombreContacto, DateTime fechaCreacion)
         {
             try
@@ -138,7 +133,8 @@ namespace FrbaCommerce.Registro_de_Usuario
                 {
                     if (!BDSQL.existeString(cuit.Text, "MERCADONEGRO.Empresas", "CUIT"))
                     {
-                        if (Interfaz.esNumerico(telefono.Text, System.Globalization.NumberStyles.Integer)){
+                        if (Interfaz.esNumerico(telefono.Text, System.Globalization.NumberStyles.Integer) || telefono.Text.Equals(""))
+                        {
                             registrarEmpresa(username, password, razonSocial.Text, cuit.Text, telefono.Text, direccion.Text, codigoPostal.Text, ciudad.Text, email.Text, nombreContacto.Text, Interfaz.obtenerFecha());
                             MessageBox.Show("Alta finalizada. Puede ingresar al sistema.", "Registro exitoso");
                             Login.LoginForm form = new Login.LoginForm();
