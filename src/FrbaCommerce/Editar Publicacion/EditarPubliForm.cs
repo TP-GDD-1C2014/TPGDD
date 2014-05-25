@@ -80,6 +80,12 @@ namespace FrbaCommerce.Editar_Publicacion
         {
             InitializeComponent();
 
+            //Todos los campos deben ser completados con la selección realizada en BuscarPubliForm
+
+            //Si el estado es borrador => permitir modificar todos los campos
+            //si esl estado es activa (publicada) y el tipo es compra inmediata => permitir modificar estado a pausada o finalizada e incrementar stock
+
+            //Crear listas para los combobox
             List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
             listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
             listaVisibilidades.Add(new visibilidadComboBox("Oro", 1));

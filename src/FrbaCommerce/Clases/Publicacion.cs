@@ -31,17 +31,21 @@ namespace FrbaCommerce.Clases
 
         private List<Rubro> Rubros = new List<Rubro>();
 
-        public Publicacion(int visibilidad, string descripcion, int stock, System.DateTime fechaFin, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int precio, int permisoPreg)
+        public Publicacion(int cod_Publicacion, int visibilidad, int id_Vendedor, string descripcion, int stock, System.DateTime fecha_Fin, System.DateTime fecha_Inicio, int precio, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int permisoPreg, int stock_Inicial)
         {
+            this.Cod_Publicacion = cod_Publicacion;
             this.Cod_Visibilidad = visibilidad;
+            this.ID_Vendedor = id_Vendedor;
             this.Descripcion = descripcion;
             this.Stock = stock;
-            this.Fecha_Vto = fechaFin;
+            this.Fecha_Vto = fecha_Fin;
+            this.Fecha_Inicio = fecha_Inicio;
+            this.Precio = precio;
             this.Estado_Publicacion = estado;
             this.Tipo_Publicacion = tipoPubli;
-            this.Precio = precio;
             this.Stock_Inicial = stock;
             this.Permiso_Preguntas = permisoPreg;
+            this.Stock_Inicial = stock_Inicial;
         }
 
         public void agregarRubro(Rubro rubro)
@@ -50,7 +54,7 @@ namespace FrbaCommerce.Clases
 
         }
 
-        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, int estado, int tipoPubli, int precio, int permisoPreg)
+        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, DateTime fechaVto, DateTime fechaInicio, int estado, int tipoPubli, int precio, int permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             

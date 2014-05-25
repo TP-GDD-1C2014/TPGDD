@@ -59,10 +59,16 @@ namespace FrbaCommerce.Editar_Publicacion
             }
         }
 
-        public BuscarPubliForm()
+        public Clases.Usuario usuario {get; set;}
+
+        public BuscarPubliForm(Clases.Usuario userActual)
         {
+            //Obtiene el usuario loggeado
+            this.usuario = userActual;
+
             InitializeComponent();
 
+            //Crear listas para los combobox
             List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
             listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
             listaVisibilidades.Add(new visibilidadComboBox("Oro", 1));
@@ -95,19 +101,23 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void buscar_button_Click(object sender, EventArgs e)
         {
+            //Obtener todos los filtros
+            //TODO Verificar que campos está completos (recordar que son filtros ACUMULATIVOS)
             int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
-            //TODO Conseguir la ID_Vendedor
-
+            int idVendedor = usuario.ID_User;
             var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
             string descripcion = Descrip_TextBox.Text;
-            int stock = Convert.ToInt32(Stock_TextBox.Text);
+            int stock = Convert.ToInt32(StockInic_TextBox.Text);
             var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
             var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
 
-            //Publicacion publi = new Publicacion(cod_publi,id_vendedor,visibilidad,descripcion,stock,estado,tipoPubli);
+            //TODO Revisar parámetros
+            //Publicacion publi = new Publicacion(cod_publi, idVendedor, visibilidad, descripcion, stock, estado, tipoPubli);
 
             //Buscar Publicaciones y mostrar en dataGridView1
-            //nuevaPubli.buscarPublicacion(cod_publi,id_vendedor,visibilidad,descripcion,stock,estado,tipoPubli);
+            //nuevaPubli.buscarPublicacion(cod_publi,idVendedor,visibilidad,descripcion,stock,estado,tipoPubli);
+
+            //Recordar que los campos del datagridview NO pueden ser editables
 
         }
 
@@ -149,6 +159,11 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void TipoPubli_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void seleccionar_button_Click(object sender, EventArgs e)
+        {
+            //Al elegir una fila, dirigir a la form EditarPubliForm
         }
     }
 }

@@ -75,11 +75,17 @@ namespace FrbaCommerce.Generar_Publicacion
             }
         }
 
-        public GenerarPubliForm()
+        public Clases.Usuario usuario { get; set; }
+
+        public GenerarPubliForm(Clases.Usuario userActual)
         //Clases.Publicacion publicacion
         {
+            //Obtiene el usuario loggeado
+            this.usuario = userActual;
+
             InitializeComponent();
 
+            //Crear listas para los combobox
             List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
             listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
             listaVisibilidades.Add(new visibilidadComboBox("Oro", 1));
@@ -153,6 +159,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
         private void TipoPubli_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //Dependiendo el tipo de publicacion, mostrar si es precio unitario o total
             if (TipoPubli_ComboBox.SelectedValue.Equals(0))
             {
                 PrecioUnit_Label.Visible = true;
@@ -185,19 +192,20 @@ namespace FrbaCommerce.Generar_Publicacion
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !PrecioTotal_textBox.Text.Equals("") && !PrecioUnit_textBox.Text.Equals(""))
             {
                 var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
-                //TODO Conseguir la ID_Vendedor
-
-                //DUDA: que pasa si ya hay 1 publicacion con = Descripcion? (Descripcion UNIQUE)
+                int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
-                //stock = int.Parse(Stock_TextBox.Text);
+                        //stock = int.Parse(Stock_TextBox.Text);
+                
+                //TODO Revisar la cuestión de las fechas
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
                 DateTime fechaInicio = DateTime.Today;
                 var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
+                        //Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
                 var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
-                //Alternativa 1: Estado_Publicacion estado = (Estado_Publicacion)Estado_ComboBox.
-                //Alternativa 2: Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
+                
                 int precio;
+                //Dependiendo el tipo de publicacion, define el precio a elegir
                 if (TipoPubli_ComboBox.SelectedValue.Equals(0))
                 {
                     precio = Convert.ToInt32(PrecioUnit_textBox.Text);
@@ -209,10 +217,11 @@ namespace FrbaCommerce.Generar_Publicacion
                 var permisoPreg = (int)permitirPreg_combobox.SelectedValue;
 
                 //Crear la publicacion con los parametros asignados
-                //Publicacion publiNueva = new Publicacion(visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli,permisoPreg);
+                //TODO Revisar tipos
+                //Publicacion publiNueva = new Publicacion(0,visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli,permisoPreg, stock);
 
                 //Invocar funcion que inserta publicacion en la tabla publicaciones
-                //publiNueva.agregarPublicacion(visibilidad,idVendedor,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
+                //publiNueva.agregarPublicacion(visibilidad,idVendedor,descripcion,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
             }
             else
             {
