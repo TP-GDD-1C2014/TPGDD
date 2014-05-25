@@ -222,6 +222,7 @@
             this.MoficiarEliminar_Button.TabIndex = 19;
             this.MoficiarEliminar_Button.Text = "Modificar o Eliminar Cliente";
             this.MoficiarEliminar_Button.UseVisualStyleBackColor = true;
+            this.MoficiarEliminar_Button.Click += new System.EventHandler(this.MoficiarEliminar_Button_Click);
             // 
             // FechaNacimiento_Label
             // 

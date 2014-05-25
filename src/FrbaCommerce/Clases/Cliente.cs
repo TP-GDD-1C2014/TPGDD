@@ -20,6 +20,9 @@ namespace FrbaCommerce.Clases
         //Por ahora lo dejamos en comentario
         //public int CUIL { get; set; }
 
+        //Consulta: Tipo_Doc no debiera ser Enum?
+
+
 
     }
 }
