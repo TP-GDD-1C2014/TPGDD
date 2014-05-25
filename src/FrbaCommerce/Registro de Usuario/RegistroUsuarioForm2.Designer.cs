@@ -275,7 +275,6 @@
             this.Name = "RegistroUsuarioForm3";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Cliente - MercadoNegro";
-            this.Load += new System.EventHandler(this.RegistroUsuarioForm2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

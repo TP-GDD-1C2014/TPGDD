@@ -192,6 +192,9 @@
     <EmbeddedResource Include="ABM Rol\EditorDeRoles.resx">
       <DependentUpon>EditorDeRoles.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rubro\ABMRubro.resx">
+      <DependentUpon>ABMRubro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\BuscarPubliForm.resx">
       <DependentUpon>BuscarPubliForm.cs</DependentUpon>
     </EmbeddedResource>
