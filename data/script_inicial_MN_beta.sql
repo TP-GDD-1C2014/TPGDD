@@ -553,9 +553,22 @@ INSERT INTO  #UsuariosTemp
 		
 	FROM gd_esquema.Maestra
 	WHERE Publ_Empresa_Cuit IS NOT NULL
+GO	
 	
+-----------------VISTAS LISTADO ESTADISTICO TOP 5-----------------------------
+/*
+-----MAYOR FACTURACION------
+CREATE VIEW MERCADONEGRO.MayorFacturacionView AS
+	SELECT TOP(5) Usuarios.Username					 AS Username,
+		  SUM(Facturaciones.Total_Facturacion)			 AS [Facturacion Total]
 	
-
+		FROM MERCADONEGRO.Usuarios AS Usuarios
+			JOIN MERCADONEGRO.Publicaciones AS Publicaciones ON Usuarios.ID_User = Publicaciones.ID_Vendedor
+			JOIN MERCADONEGRO.Facturaciones AS Facturaciones ON Publicaciones.Cod_Publicacion = Facturaciones.Cod_Publicacion
+		GROUP BY Username
+		ORDER BY [Facturacion Total]
+			
+*/
 ---------------------------USUARIOS------------------------------
 PRINT 'MIGRANDO TABLAS USUARIOS'
 
