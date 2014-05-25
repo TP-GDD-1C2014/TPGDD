@@ -24,6 +24,8 @@ namespace FrbaCommerce.Common
             return res;
         }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------- 
+
         public static Boolean existenSimultaneamente(string valor1, string valor2, string nombreTabla, string nombreColumna1, string nombreColumna2)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -34,6 +36,8 @@ namespace FrbaCommerce.Common
             cerrarConexion();
             return res;
         }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------- 
 
         public static SqlConnection iniciarConexion()
         {
@@ -50,6 +54,8 @@ namespace FrbaCommerce.Common
             return conexion;
         }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------- 
+
         public static void cerrarConexion()
         {
             try
@@ -61,10 +67,13 @@ namespace FrbaCommerce.Common
                 MessageBox.Show("Error al desconectar la base de datos");
             }   
         }
-        
+//----------------------------------------------------------------------------------------------------------------------------------------------    
+    
         public static void agregarParametro(List<SqlParameter> lista, string parametro, object valor) {
             lista.Add(new SqlParameter(parametro, valor));
         }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------   
 
         public static SqlDataReader ejecutarReader(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA SELECT
         {
@@ -78,6 +87,8 @@ namespace FrbaCommerce.Common
             return comando.ExecuteReader();
         }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------  
+ 
         public static int ejecutarQuery(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA UPDATE, INSERT, DELETE
         {
             SqlCommand comando = new SqlCommand();
@@ -90,7 +101,60 @@ namespace FrbaCommerce.Common
             return comando.ExecuteNonQuery();
         }
 
-        // Iniciar transaccion
+//----------------------------------------------------------------------------------------------------------------------------------------------  
+ 
+        public static SqlDataReader ObtenerDataReader(string commandtext, string commandtype, List<SqlParameter> ListaParametro)
+        {
+
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = iniciarConexion();
+            comando.CommandText = commandtext;
+            foreach (SqlParameter elemento in ListaParametro)
+            {
+                comando.Parameters.Add(elemento);
+            }
+            switch (commandtype)
+            {
+                case "T":
+                    comando.CommandType = CommandType.Text;
+                    break;
+                case "TD":
+                    comando.CommandType = CommandType.TableDirect;
+                    break;
+                case "SP":
+                    comando.CommandType = CommandType.StoredProcedure;
+                    break;
+            }
+            return comando.ExecuteReader();
+        }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------  
+
+        public static decimal ExecStoredProcedure(string commandtext, List<SqlParameter> ListaParametro)
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = iniciarConexion();
+                comando.CommandText = commandtext;
+                comando.CommandType = CommandType.StoredProcedure;
+
+                foreach (SqlParameter elemento in ListaParametro)
+                {
+                    comando.Parameters.Add(elemento);
+                }
+
+                comando.ExecuteNonQuery();
+                return (decimal)comando.Parameters["@ret"].Value;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+//---------------------------------------------------------------------------------------------------------------------------------------------- 
+// Iniciar transaccion
+
         public static SqlTransaction iniciarTransaccion(SqlTransaction objTransaccion)
         {
             try

@@ -276,6 +276,14 @@ BEGIN
 END
 GO
 
+/* SP agregar ROL a la base */
+
+CREATE PROCEDURE MERCADONEGRO.agregarRolNuevo(@nombreRol nvarchar(255), @ret numeric (18,0) output)
+AS BEGIN
+	INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES (@nombreRol, 1)
+	SET @ret = SCOPE_IDENTITY()
+END
+GO
 
 /* SP agregar ROL al USUARIO */
 CREATE PROCEDURE MERCADONEGRO.AgregarRol(@iduser numeric(18,0), @idrol numeric(18,0)) AS
@@ -452,7 +460,7 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 ----------------- /*AGREGANDO USUARIOS INICIALES*/ ------------------------
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
 INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir) 
-	VALUES (0,'admin','w23e',0,1,0,0,0,0);--TODO ver si ultimas tres columnas podrian ir NULL
+	VALUES (0,'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',0,1,0,0,0,0);--TODO ver si ultimas tres columnas podrian ir NULL
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 
 EXEC MERCADONEGRO.AgregarRol

@@ -106,6 +106,7 @@
             this.Guardar_Button.TabIndex = 7;
             this.Guardar_Button.Text = "Guardar";
             this.Guardar_Button.UseVisualStyleBackColor = true;
+            this.Guardar_Button.Click += new System.EventHandler(this.Guardar_Button_Click);
             // 
             // EditorDeRoles
             // 

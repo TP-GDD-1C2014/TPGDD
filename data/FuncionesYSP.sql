@@ -16,6 +16,13 @@ BEGIN
 				(SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE ID_Rol = @idrol))
 END 
 GO
+
+CREATE PROCEDURE MERCADONEGRO.agregarRol(@nombreRol varchar(255), @ret numeric(18,0) output)
+AS BEGIN
+	INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES (@nombreRol, 1)
+	SET @ret = SCOPE_IDENTITY()
+END
+GO
 /*
 CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
 											  @numDoc numeric(18,0), @nombre nvarchar(255),

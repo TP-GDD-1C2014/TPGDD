@@ -22,17 +22,7 @@ namespace FrbaCommerce.Login
             InitializeComponent();
             this.CenterToScreen();
             this.AcceptButton = Login_Button;
-        }
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-        }        
+        }    
 
         private void Login_Button_Click(object sender, EventArgs e)
         {
@@ -130,10 +120,6 @@ namespace FrbaCommerce.Login
                 salida.Append(array[i].ToString("X2"));
             }
             return salida.ToString();
-        }
-
-        private void Username_TextBox_TextChanged(object sender, EventArgs e)
-        {
         }
 
         private void Password_TextBox_TextChanged(object sender, EventArgs e)
