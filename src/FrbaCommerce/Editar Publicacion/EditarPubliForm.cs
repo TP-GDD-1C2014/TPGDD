@@ -76,8 +76,13 @@ namespace FrbaCommerce.Editar_Publicacion
             }
         }
 
-        public EditarPubliForm()
+        public Clases.Usuario usuario { get; set; }
+
+        public EditarPubliForm(Clases.Usuario userActual)
         {
+            //Obtiene el usuario loggeado
+            this.usuario = userActual;
+
             InitializeComponent();
 
             //Todos los campos deben ser completados con la selección realizada en BuscarPubliForm
@@ -139,9 +144,10 @@ namespace FrbaCommerce.Editar_Publicacion
             //Controlar que se completen todos los datos y asignar
             if (!Visibilidad_Combobox.Text.Equals("") && !Descripcion_Textbox.Text.Equals("") && !Stock_Textbox.Text.Equals("") && !dateTimePicker1.Text.Equals("") && !Estado_Combobox.Text.Equals("") && !Tipo_Combobox.Text.Equals("") && !Precio_Textbox.Text.Equals(""))
             {
-                var visibilidad = (Visibilidad)Visibilidad_Combobox.SelectedValue;
+                int codPubli = 0;
+                int visibilidad = Visibilidad_Combobox.SelectedIndex;
                 //TODO Conseguir la ID_Vendedor
-
+                int idVendedor = usuario.ID_User;
                 string descripcion = Descripcion_Textbox.Text;
                 int stock = Convert.ToInt32(Stock_Textbox.Text);
                 DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
@@ -153,10 +159,10 @@ namespace FrbaCommerce.Editar_Publicacion
                 var permisoPreg = (int)PermisoPreg_Combobox.SelectedValue;
 
                 //Actualiza la publicacion con los parametros asignados
-                //Publicacion publi = new Publicacion(visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli,permisoPreg);
+                Publicacion publi = new Publicacion(codPubli,visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli,permisoPreg, stock);
 
                 //Invocar funcion que actualiza publicacion en la tabla publicaciones
-                //publiNueva.actualizarPublicacion(visibilidad,idVendedor,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
+                publi.actualizarPublicacion(visibilidad,idVendedor,descripcion,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
             }
             else
             {

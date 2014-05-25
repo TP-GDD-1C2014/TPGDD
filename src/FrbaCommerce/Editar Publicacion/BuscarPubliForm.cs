@@ -104,15 +104,17 @@ namespace FrbaCommerce.Editar_Publicacion
             //Obtener todos los filtros
             //TODO Verificar que campos está completos (recordar que son filtros ACUMULATIVOS)
             int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
-            int idVendedor = usuario.ID_User;
             var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
+            int idVendedor = usuario.ID_User;
             string descripcion = Descrip_TextBox.Text;
             int stock = Convert.ToInt32(StockInic_TextBox.Text);
+            //Obtener fechaFin y fechaInic
             var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
             var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
+            //obtener permisoPreg
 
             //TODO Revisar parámetros
-            //Publicacion publi = new Publicacion(cod_publi, idVendedor, visibilidad, descripcion, stock, estado, tipoPubli);
+            //Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, estado, tipoPubli, permisoPreg, stock);
 
             //Buscar Publicaciones y mostrar en dataGridView1
             //nuevaPubli.buscarPublicacion(cod_publi,idVendedor,visibilidad,descripcion,stock,estado,tipoPubli);

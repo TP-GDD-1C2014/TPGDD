@@ -43,7 +43,6 @@ namespace FrbaCommerce.Clases
             this.Precio = precio;
             this.Estado_Publicacion = estado;
             this.Tipo_Publicacion = tipoPubli;
-            this.Stock_Inicial = stock;
             this.Permiso_Preguntas = permisoPreg;
             this.Stock_Inicial = stock_Inicial;
         }
@@ -54,11 +53,11 @@ namespace FrbaCommerce.Clases
 
         }
 
-        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, DateTime fechaVto, DateTime fechaInicio, int estado, int tipoPubli, int precio, int permisoPreg)
+        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int precio, int permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             
-            //Se agrega automaticamente Cod_Publiciacion?
+            //Se agrega automaticamente Cod_Publicacion?
             //BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", this.Cod_Publicacion);
 
             BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
@@ -73,11 +72,11 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", permisoPreg);
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", stock);
 
-            //BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones(Cod_visibilidad,ID_Vendedor,Descripcion,Stock,Vecha_Vto,Fecha_Inic,Precio,Estado_Public,Tipo_Public,Permisos_Preguntas,Stock_Inicial) VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock,@Vecha_Vto,@Fecha_Inic,@Precio,@Estado_Public,@Tipo_Public,@Permisos_Preguntas,@Stock_Inicial)", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones(Cod_visibilidad,ID_Vendedor,Descripcion,Stock,Vecha_Vto,Fecha_Inic,Precio,Estado_Public,Tipo_Public,Permisos_Preguntas,Stock_Inicial) VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock,@Vecha_Vto,@Fecha_Inic,@Precio,@Estado_Public,@Tipo_Public,@Permisos_Preguntas,@Stock_Inicial)", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
         }
 
-        public void buscarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, int estado, int tipoPubli)
+        public void buscarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, Estado_Publicacion estado, Tipo_Publicacion tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
@@ -94,7 +93,7 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public void actualizarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, int estado, int tipoPubli, int precio, int permisoPreg)
+        public void actualizarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int precio, int permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 

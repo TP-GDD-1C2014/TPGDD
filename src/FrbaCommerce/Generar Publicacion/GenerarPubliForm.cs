@@ -191,16 +191,17 @@ namespace FrbaCommerce.Generar_Publicacion
             //Controlar que se completen todos los datos y asignar
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !PrecioTotal_textBox.Text.Equals("") && !PrecioUnit_textBox.Text.Equals(""))
             {
-                var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
+                int codPubli = 0;
+                int visibilidad = Visibilidad_ComboBox.SelectedIndex;
                 int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
                         //stock = int.Parse(Stock_TextBox.Text);
-                
-                //TODO Revisar la cuestión de las fechas
+                //TODO Revisar la cuestión de las fechas (archivo config)
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
                 DateTime fechaInicio = DateTime.Today;
                 var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
+                        //int estado = Estado_ComboBox.SelectedIndex;
                         //Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
                 var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
                 
@@ -218,10 +219,10 @@ namespace FrbaCommerce.Generar_Publicacion
 
                 //Crear la publicacion con los parametros asignados
                 //TODO Revisar tipos
-                //Publicacion publiNueva = new Publicacion(0,visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli,permisoPreg, stock);
+                Publicacion publiNueva = new Publicacion(codPubli, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli, permisoPreg, stock);
 
                 //Invocar funcion que inserta publicacion en la tabla publicaciones
-                //publiNueva.agregarPublicacion(visibilidad,idVendedor,descripcion,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
+                publiNueva.agregarPublicacion(visibilidad,idVendedor,descripcion,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
             }
             else
             {
