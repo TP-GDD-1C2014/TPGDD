@@ -104,6 +104,7 @@
     <Compile Include="Clases\ListadoMayorCalific.cs" />
     <Compile Include="Clases\ListadoMayorFact.cs" />
     <Compile Include="Clases\ListadoProdNoVendidos.cs" />
+    <Compile Include="Clases\Publicaciones.cs" />
     <Compile Include="Clases\Roles.cs" />
     <Compile Include="Common\BDSQL.cs" />
     <Compile Include="Clases\Calificacion.cs" />

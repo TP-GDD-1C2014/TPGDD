@@ -44,23 +44,14 @@
             this.seleccionar_button = new System.Windows.Forms.Button();
             this.codVisib_label = new System.Windows.Forms.Label();
             this.Visibilidad_ComboBox = new System.Windows.Forms.ComboBox();
-            this.CodPubli_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descrip_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StockInic_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EstadoPublic_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TipoPublic_Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Resultados_label = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CodPubli_Column,
-            this.Descrip_Column,
-            this.StockInic_Column,
-            this.EstadoPublic_Column,
-            this.TipoPublic_Column});
             this.dataGridView1.Location = new System.Drawing.Point(27, 219);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(600, 232);
@@ -201,41 +192,30 @@
             this.Visibilidad_ComboBox.TabIndex = 24;
             this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             // 
-            // CodPubli_Column
+            // Resultados_label
             // 
-            this.CodPubli_Column.HeaderText = "Cod_Publicacion";
-            this.CodPubli_Column.Name = "CodPubli_Column";
-            this.CodPubli_Column.ReadOnly = true;
+            this.Resultados_label.AutoSize = true;
+            this.Resultados_label.Location = new System.Drawing.Point(489, 200);
+            this.Resultados_label.Name = "Resultados_label";
+            this.Resultados_label.Size = new System.Drawing.Size(0, 13);
+            this.Resultados_label.TabIndex = 25;
             // 
-            // Descrip_Column
+            // label1
             // 
-            this.Descrip_Column.HeaderText = "Descripcion";
-            this.Descrip_Column.Name = "Descrip_Column";
-            this.Descrip_Column.ReadOnly = true;
-            // 
-            // StockInic_Column
-            // 
-            this.StockInic_Column.HeaderText = "Stock Inicial";
-            this.StockInic_Column.Name = "StockInic_Column";
-            this.StockInic_Column.ReadOnly = true;
-            // 
-            // EstadoPublic_Column
-            // 
-            this.EstadoPublic_Column.HeaderText = "Estado_Public";
-            this.EstadoPublic_Column.Name = "EstadoPublic_Column";
-            this.EstadoPublic_Column.ReadOnly = true;
-            // 
-            // TipoPublic_Column
-            // 
-            this.TipoPublic_Column.HeaderText = "Tipo_Public";
-            this.TipoPublic_Column.Name = "TipoPublic_Column";
-            this.TipoPublic_Column.ReadOnly = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(531, 199);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Resultados";
             // 
             // BuscarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 517);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.Resultados_label);
             this.Controls.Add(this.Visibilidad_ComboBox);
             this.Controls.Add(this.codVisib_label);
             this.Controls.Add(this.seleccionar_button);
@@ -279,11 +259,8 @@
         private System.Windows.Forms.Button seleccionar_button;
         private System.Windows.Forms.Label codVisib_label;
         private System.Windows.Forms.ComboBox Visibilidad_ComboBox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CodPubli_Column;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Descrip_Column;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StockInic_Column;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EstadoPublic_Column;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TipoPublic_Column;
+        private System.Windows.Forms.Label Resultados_label;
+        private System.Windows.Forms.Label label1;
 
     }
 }

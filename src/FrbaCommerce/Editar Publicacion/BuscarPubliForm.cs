@@ -61,6 +61,8 @@ namespace FrbaCommerce.Editar_Publicacion
         }
 
         public Clases.Usuario usuario {get; set;}
+        //public List<Publicacion> listaPublicaciones { get; set; }
+        //public Publicacion unaPublicacion { get; set; }
 
         public BuscarPubliForm()
         {
@@ -68,6 +70,9 @@ namespace FrbaCommerce.Editar_Publicacion
             Interfaz.loguearUsuario(usuario);
 
             InitializeComponent();
+
+            //Cargar DataGridView con las publicaciones
+            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones();
 
             //Crear listas para los combobox
             List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
@@ -134,6 +139,21 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void BuscarPubliForm_Load(object sender, EventArgs e)
         {
+            Publicacion unaPublicacion = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
+            EditarPubliForm editarPubliForm = new EditarPubliForm();
+            editarPubliForm.ShowDialog();
+
+            /*dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.DataSourceChanged += new EventHandler(dataGridView1_DataSourceChanged);
+            dataGridView1.DataSource = Conseguir la publicacion (_publiManager?)*/
+
+        }
+
+        void dataGridView1_DataSourceChanged(object sender, EventArgs e)
+        {
+            /*var dataSource = dataGridView1.DataSource as IList;
+            Resultados_label.Text = dataSource.Count.ToString();*/
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -168,5 +188,7 @@ namespace FrbaCommerce.Editar_Publicacion
         {
             //Al elegir una fila, dirigir a la form EditarPubliForm
         }
+
+
     }
 }
