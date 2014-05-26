@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
+using FrbaCommerce.Common;
 using System.Data.SqlClient;
 
 namespace FrbaCommerce.Editar_Publicacion
@@ -61,10 +62,10 @@ namespace FrbaCommerce.Editar_Publicacion
 
         public Clases.Usuario usuario {get; set;}
 
-        public BuscarPubliForm(Clases.Usuario userActual)
+        public BuscarPubliForm()
         {
             //Obtiene el usuario loggeado
-            this.usuario = userActual;
+            Interfaz.loguearUsuario(usuario);
 
             InitializeComponent();
 
