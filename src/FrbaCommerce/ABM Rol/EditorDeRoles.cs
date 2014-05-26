@@ -14,22 +14,10 @@ namespace FrbaCommerce.ABM_Rol
 {
     public partial class EditorDeRoles : Form
     {
-        /*public class itemCheckboxlistFuncionalidades
-        {
-            public string Nombre{ get; set; }
-            public int ID { get; set; }
-
-            public itemCheckboxlistFuncionalidades(string nombre, int id)
-            {
-                Nombre = nombre;
-                ID = id;
-            }
-            public override string ToString()
-            {
-                return Nombre_Rol;
-            }
-        } */
-   
+        Rol RolActual;
+        string nombreAux;
+        bool guardarNuevo;
+        
         public EditorDeRoles(string modo)
         {
             InitializeComponent();
@@ -43,6 +31,7 @@ namespace FrbaCommerce.ABM_Rol
                 cargarCheckboxList(lista);
 
                 Habilitado_Checkbox.Enabled = false;
+                guardarNuevo = true;
             }
 
         }
@@ -51,6 +40,7 @@ namespace FrbaCommerce.ABM_Rol
         {
             InitializeComponent();
             CenterToScreen();
+            RolActual = unRol;
             if (modo == "modificar")
             {
                 List<Funcionalidad> listaFuncQueTiene = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion(), unRol.ID_Rol);
@@ -59,10 +49,17 @@ namespace FrbaCommerce.ABM_Rol
                 Nombre_Textbox.Text = unRol.Nombre;
                 Nombre_Textbox.Focus();
                 Nombre_Textbox.SelectAll();
+                nombreAux = unRol.Nombre;
                 Funcionalidades_Checkboxlist.DisplayMember = "Nombre";
                 Funcionalidades_Checkboxlist.ValueMember = "ID_Funcionalidad";
                 cargarCheckboxList(listaTodasLasFunc);
                 actualizarCheckboxList(listaFuncQueTiene);
+                //si esta habilitado, NO permitir cambiar check, caso contrario permitir.
+                if (unRol.Habilitado)
+                    Habilitado_Checkbox.Enabled = false;
+                else Habilitado_Checkbox.Enabled = true;
+
+                guardarNuevo = false;
                 //TODO que Guardar haga update del rol seleccionado y no uno nuevo en adelante, con un flag probablemente
                 
             
@@ -95,40 +92,137 @@ namespace FrbaCommerce.ABM_Rol
 
         private void Guardar_Button_Click(object sender, EventArgs e)
         {
-            if (Nombre_Textbox.Text == "")
-            {
-                MessageBox.Show("Complete el nombre del nuevo Rol", "Error - Falta llenar algun campo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Nombre_Textbox.Focus();
-            }
-            else
-            {
-                int cant = Funcionalidades_Checkboxlist.CheckedItems.Count;
-                if (cant < 1)
+            
+                if (Nombre_Textbox.Text == "")
                 {
-                    MessageBox.Show("Selecciones al menos una funcionalidad", "Error - Falta llenar algun campo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Complete el nombre del nuevo Rol", "Error - Falta llenar algun campo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Nombre_Textbox.Focus();
                 }
                 else
                 {
-                    List<Funcionalidad> listaNuevasFunc = filtrarSeleccionadas();
-                    //inserto nuevo rol
-                    bool respuesta = Roles.insertarNuevoRol(Nombre_Textbox.Text, listaNuevasFunc);
-
-                    if (respuesta == false)
+                    int cant = Funcionalidades_Checkboxlist.CheckedItems.Count;
+                    if (cant < 1)
                     {
-                        MessageBox.Show("Ya existe un rol con ese nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Nombre_Textbox.Focus();
-                        Nombre_Textbox.SelectAll();
+                        MessageBox.Show("Selecciones al menos una funcionalidad", "Error - Falta llenar algun campo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
-                        MessageBox.Show("Rol creado con éxito!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Interfaz.limpiarCheckboxList(Funcionalidades_Checkboxlist);
-                        Interfaz.limpiarInterfaz(this);
-                        Nombre_Textbox.Focus();
-                    }
+                       
+                        List<Funcionalidad> listaNuevasFunc = filtrarSeleccionadas();
+                        if (guardarNuevo)
+                        //inserto nuevo rol
+                        {
+                            bool respuesta = Roles.insertarNuevoRol(Nombre_Textbox.Text, listaNuevasFunc);
 
+                            if (respuesta == false)
+                            {
+                                MessageBox.Show("Ya existe un rol con ese nombre", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Nombre_Textbox.Focus();
+                                Nombre_Textbox.SelectAll();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Rol creado con éxito!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Interfaz.limpiarCheckboxList(Funcionalidades_Checkboxlist);
+                                Interfaz.limpiarInterfaz(this);
+                                Nombre_Textbox.Focus();
+                            }
+                        }
+                        else if (!guardarNuevo)
+                        //modifico el rol actual
+                        {
+                            
+                            List<Funcionalidad> listaFuncActuales = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion(), RolActual.ID_Rol);
+
+                            if (sonIguales(listaNuevasFunc,listaFuncActuales) && (Nombre_Textbox.Text == nombreAux))
+                            {
+                                MessageBox.Show("Por favor modifique las Funcionalidades, el Nombre o ambas", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                            else
+                            {
+                                Roles.updatearRol(Nombre_Textbox.Text, listaNuevasFunc, Habilitado_Checkbox.Checked, RolActual.ID_Rol);
+                                nombreAux = Nombre_Textbox.Text;
+
+                                actualizarFuncionalidadPorRol(listaNuevasFunc, listaFuncActuales);
+                              
+                            }
+
+                            
+                        }
+                    }
                 }
+            
+           
+        }
+
+        private bool sonIguales(List<Funcionalidad> listaNuevasFunc, List<Funcionalidad> listaFuncActuales)
+        {
+            
+
+            if (listaFuncActuales.Count != listaNuevasFunc.Count)
+                return false;
+            for (int i = 0; i < listaFuncActuales.Count; i++)
+            {
+
+                bool encontro = false;
+                for (int j = 0; j < listaNuevasFunc.Count; j++)
+                {
+                    if (listaNuevasFunc[j].ID_Funcionalidad == listaFuncActuales[i].ID_Funcionalidad)
+                    {
+                        //if (!listaNuevasFunc.Contains(listaFuncActuales[i]) | !listaFuncActuales.Contains(listaNuevasFunc[i]))
+                        encontro = true;
+                        break;
+                    }
+                }
+                if (!encontro)
+                    //delete
+                    return false;
             }
+            return true;
+            
+        }
+
+
+        private void actualizarFuncionalidadPorRol(List<Funcionalidad> listaNuevasFunc, List<Funcionalidad> listaFuncActuales)
+        {
+            for (int i = 0; i < listaFuncActuales.Count; i++)
+            {
+
+                bool encontro = false;
+                for (int j = 0; j < listaNuevasFunc.Count; j++)
+                {
+                    if (listaNuevasFunc[j].ID_Funcionalidad == listaFuncActuales[i].ID_Funcionalidad)
+                    {
+                        //if (!listaNuevasFunc.Contains(listaFuncActuales[i]) | !listaFuncActuales.Contains(listaNuevasFunc[i]))
+                        encontro = true;
+                        break;
+                    }
+                }
+                if (!encontro)
+                    //delete
+                    Funcionalidades.BorrarFuncionalidadEnRol(nombreAux, listaFuncActuales[i].Nombre);
+                    
+            }
+           
+
+            for (int i = 0; i < listaNuevasFunc.Count; i++)
+            {
+
+                bool encontro = false;
+                for (int j = 0; j < listaFuncActuales.Count; j++)
+                {
+                    if (listaFuncActuales[j].ID_Funcionalidad == listaNuevasFunc[i].ID_Funcionalidad)
+                    {
+                        //if (!listaNuevasFunc.Contains(listaFuncActuales[i]) | !listaFuncActuales.Contains(listaNuevasFunc[i]))
+                        encontro = true;
+                        break;
+                    }
+                }
+                if (!encontro)
+                    //agregar
+                    Funcionalidades.AgregarFuncionalidadEnRol(nombreAux, listaNuevasFunc[i]);
+            }
+            
         }
 
         private List<Funcionalidad> filtrarSeleccionadas()

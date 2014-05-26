@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FrbaCommerce.Common;
+using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -56,6 +57,19 @@ namespace FrbaCommerce.Clases
                 else { return false; }
             }
             catch { return false; }
+        }
+
+        public static void updatearRol(string nombre, List<Funcionalidad> listaNuevasFunc, bool estaChecked, int idRol)
+        {
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@idRol", idRol));
+            ListaParametros.Add(new SqlParameter("@nombreRol", nombre));
+            ListaParametros.Add(new SqlParameter("@habilitado", estaChecked));
+
+            int ret = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Roles SET Nombre = @nombreRol, Habilitado = @habilitado WHERE ID_Rol = @idRol", ListaParametros,BDSQL.iniciarConexion());
+            if (ret == -1)
+                MessageBox.Show("Falló al actualizar el rol", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            BDSQL.cerrarConexion();
         }
 
     }
