@@ -48,7 +48,7 @@ namespace FrbaCommerce.Login
                                     if (usuarioLogin.Roles.Count() == 1)
                                     {
                                         this.Hide();
-                                        SeleccionFuncionalidades formSeleccionFuncionalidades = new SeleccionFuncionalidades(usuarioLogin, usuarioLogin.Roles[0].ID_Rol);
+                                        SeleccionFuncionalidades formSeleccionFuncionalidades = new SeleccionFuncionalidades(usuarioLogin, usuarioLogin.Roles[0].ID_Rol, true);
                                         formSeleccionFuncionalidades.Show();
                                     }
                                     else

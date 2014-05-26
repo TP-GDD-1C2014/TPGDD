@@ -65,7 +65,7 @@ namespace FrbaCommerce.Login
                 if (this.usuario.Roles[comboBox_Roles.SelectedIndex].funcionalidades.Count != 0)
                 {
                     itemComboBox seleccion = comboBox_Roles.SelectedItem as itemComboBox;
-                    SeleccionFuncionalidades formFuncionalidades = new SeleccionFuncionalidades(usuario, seleccion.ID_Rol);
+                    SeleccionFuncionalidades formFuncionalidades = new SeleccionFuncionalidades(usuario, seleccion.ID_Rol, false);
                     this.Hide();
                     formFuncionalidades.Show();
                 }

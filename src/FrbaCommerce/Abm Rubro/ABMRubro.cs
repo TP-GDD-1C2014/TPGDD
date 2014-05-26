@@ -14,6 +14,8 @@ namespace FrbaCommerce.Abm_Rubro
 {
     public partial class ABMRubro : Form
     {
+        public Login.SeleccionFuncionalidades formAnterior { get; set; }
+
         public class itemComboBox
         {
             public string Nombre_Rubro { get; set; }
@@ -30,11 +32,13 @@ namespace FrbaCommerce.Abm_Rubro
             }
         }
 
-        public ABMRubro()
+        public ABMRubro(Login.SeleccionFuncionalidades formAnt)
         {
-            InitializeComponent();
-            cbRubros.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.formAnterior = formAnt;
 
+            InitializeComponent();
+
+            cbRubros.DropDownStyle = ComboBoxStyle.DropDownList;
             llenarCbRubros();
         }
 
@@ -52,19 +56,89 @@ namespace FrbaCommerce.Abm_Rubro
             BDSQL.cerrarConexion();
         }
 
+        public void actualizarCbRubros()
+        {
+            this.cbRubros.Items.Clear();
+            llenarCbRubros();
+        }
+
+        public void eliminarRubro(int id, object item)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_Rubro", id);
+            BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Rubros WHERE ID_Rubro = @ID_Rubro", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+            cbRubros.Items.Remove(item);
+        }
+
+        public void agregarRubro(string nombre)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Descripcion", nombre);
+            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Rubros VALUES (@Descripcion)", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+
+            List<SqlParameter> listaParametros2 = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros2, "@Descripcion", nombre);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT ID_Rubro FROM MERCADONEGRO.Rubros WHERE Descripcion = @Descripcion", listaParametros2, BDSQL.iniciarConexion());
+            lector.Read();
+            cbRubros.Items.Add(new itemComboBox(nombre, Convert.ToInt32(lector["ID_Rubro"])));
+            BDSQL.cerrarConexion();
+        }
+
         private void nuevo_Click(object sender, EventArgs e)
         {
-
+            if (!nuevoRubro.Text.Equals(""))
+            {
+                if (!BDSQL.existeString(nuevoRubro.Text, "MERCADONEGRO.Rubros", "Descripcion"))
+                {
+                    agregarRubro(nuevoRubro.Text);
+                    MessageBox.Show("Rubro " + nuevoRubro.Text + " agregado.");
+                }
+                else
+                {
+                    MessageBox.Show("El rubro ya existe.", "Error");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe ingresar un nombre.", "Error");
+            }
         }
 
         private void modificar_Click(object sender, EventArgs e)
         {
-
+            if (cbRubros.SelectedIndex != -1)
+            {
+                Modificar formMod = new Modificar(cbRubros.SelectedIndex, this);
+                formMod.Show();
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un rubro.", "Error");
+            }
         }
 
         private void eliminar_Click(object sender, EventArgs e)
         {
+            if (cbRubros.SelectedIndex != -1)
+            {
+                DialogResult confirmacion = MessageBox.Show("El rubro " + cbRubros.SelectedItem.ToString() + " será eliminado.\n\n ¿Está seguro?", "Confirmación", MessageBoxButtons.YesNo);
+                if (confirmacion == DialogResult.Yes)
+                {
+                    eliminarRubro(cbRubros.SelectedIndex, cbRubros.SelectedItem);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un rubro.", "Error");
+            }
+        }
 
+        private void back_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            formAnterior.Show();
         }
     }
 }

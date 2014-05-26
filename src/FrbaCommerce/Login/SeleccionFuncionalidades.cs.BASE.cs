@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Common;
-using FrbaCommerce.Clases;
 
 namespace FrbaCommerce.Login
 {
@@ -33,7 +32,7 @@ namespace FrbaCommerce.Login
             }
         }
 
-        public SeleccionFuncionalidades(Clases.Usuario usuario, int idRol, Boolean bypass)
+        public SeleccionFuncionalidades(Clases.Usuario usuario, int idRol)
         {
             this.usuario = usuario;
             var rolQuery = from rol in this.usuario.Roles where rol.ID_Rol == idRol select rol;
@@ -51,22 +50,12 @@ namespace FrbaCommerce.Login
             cbFuncionalidades.DropDownStyle = ComboBoxStyle.DropDownList;
 
             listarFuncionalidades();
-
-            if (!bypass)
-            {
-                volver.Visible = true;
-            }
-            else
-            {
-                volver.Visible = false;
-            }
         }
 
         public void listarFuncionalidades()
         {
             if (rolActual.funcionalidades.Count != 0)
             {
-                cbFuncionalidades.Items.Add(new itemComboBox("Cambiar Contraseña", -2));
                 for (int i = 0; i < rolActual.funcionalidades.Count; i++)
                 {
                     if (rolActual.funcionalidades[i].ID_Funcionalidad == 1)
@@ -133,6 +122,8 @@ namespace FrbaCommerce.Login
                     {
                         cbFuncionalidades.Items.Add(new itemComboBox("Listado Estadístico", rolActual.funcionalidades[i].ID_Funcionalidad));
                     }
+
+                    cbFuncionalidades.Items.Add(new itemComboBox("Cambiar Contraseña", -2));
                 }
             }
         }
@@ -168,7 +159,7 @@ namespace FrbaCommerce.Login
                         form3.Show();
                         break;
                     case 4:
-                        Abm_Rubro.ABMRubro form4 = new Abm_Rubro.ABMRubro(this);
+                        Abm_Rubro.ABMRubro form4 = new Abm_Rubro.ABMRubro();
                         this.Hide();
                         form4.Show();
                         break;
@@ -178,15 +169,14 @@ namespace FrbaCommerce.Login
                         form5.Show();
                         break;
                     case 6:
-                        Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm(this.usuario);
-                        //Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm();
+                        Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm();
                         this.Hide();
-                        //form6.Show();
+                        form6.Show();
                         break;
                     case 7:
-                        //Editar_Publicacion.EditarPubliForm form7 = new Editar_Publicacion.EditarPubliForm();
+                        Editar_Publicacion.EditarPubliForm form7 = new Editar_Publicacion.EditarPubliForm();
                         this.Hide();
-                        //form7.Show();
+                        form7.Show();
                         break;
                     case 8:
                         Gestion_de_Preguntas.GestionPreguntas form8 = new Gestion_de_Preguntas.GestionPreguntas();
@@ -214,19 +204,12 @@ namespace FrbaCommerce.Login
                         form12.Show();
                         break;
                     case 13:
-                        Listado_Estadistico.ListadoEstadisticoForm form13 = new Listado_Estadistico.ListadoEstadisticoForm();
+                        Listado_Estadistico.ListadoEstadistico form13 = new Listado_Estadistico.ListadoEstadistico();
                         this.Hide();
                         form13.Show();
                         break;
                 }
             }
-        }
-
-        private void volver_Click(object sender, EventArgs e)
-        {
-            SeleccionRoles formRoles = new SeleccionRoles(Interfaz.usuario);
-            this.Hide();
-            formRoles.Show();
         }
     }
 }

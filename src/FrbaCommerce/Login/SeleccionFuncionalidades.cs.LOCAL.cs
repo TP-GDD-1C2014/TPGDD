@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Common;
-using FrbaCommerce.Clases;
 
 namespace FrbaCommerce.Login
 {
@@ -179,14 +178,13 @@ namespace FrbaCommerce.Login
                         break;
                     case 6:
                         Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm(this.usuario);
-                        //Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm();
                         this.Hide();
-                        //form6.Show();
+                        form6.Show();
                         break;
                     case 7:
-                        //Editar_Publicacion.EditarPubliForm form7 = new Editar_Publicacion.EditarPubliForm();
+                        Editar_Publicacion.EditarPubliForm form7 = new Editar_Publicacion.EditarPubliForm();
                         this.Hide();
-                        //form7.Show();
+                        form7.Show();
                         break;
                     case 8:
                         Gestion_de_Preguntas.GestionPreguntas form8 = new Gestion_de_Preguntas.GestionPreguntas();
@@ -214,7 +212,7 @@ namespace FrbaCommerce.Login
                         form12.Show();
                         break;
                     case 13:
-                        Listado_Estadistico.ListadoEstadisticoForm form13 = new Listado_Estadistico.ListadoEstadisticoForm();
+                        Listado_Estadistico.ListadoEstadistico form13 = new Listado_Estadistico.ListadoEstadistico();
                         this.Hide();
                         form13.Show();
                         break;
