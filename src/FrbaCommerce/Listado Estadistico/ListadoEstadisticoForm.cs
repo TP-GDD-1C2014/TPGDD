@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using FrbaCommerce.Clases;
 
 namespace FrbaCommerce.Listado_Estadistico
 {
@@ -54,7 +55,8 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void buscarButton_Click(object sender, EventArgs e)
         {
-            
+
+            ListadoEstadistico listadoEstadistico = new Listado_Estadistico();
         }
     }
 }

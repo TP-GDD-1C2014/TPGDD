@@ -93,6 +93,7 @@
       <DependentUpon>CalificarVendedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\Funcionalidades.cs" />
+    <Compile Include="Clases\ListadoEstadistico.cs" />
     <Compile Include="Clases\Roles.cs" />
     <Compile Include="Common\BDSQL.cs" />
     <Compile Include="Clases\Calificacion.cs" />

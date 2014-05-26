@@ -205,7 +205,7 @@ namespace FrbaCommerce.Login
                         form12.Show();
                         break;
                     case 13:
-                        Listado_Estadistico.ListadoEstadistico form13 = new Listado_Estadistico.ListadoEstadistico();
+                        Listado_Estadistico.ListadoEstadisticoForm form13 = new Listado_Estadistico.ListadoEstadisticoForm();
                         this.Hide();
                         form13.Show();
                         break;
