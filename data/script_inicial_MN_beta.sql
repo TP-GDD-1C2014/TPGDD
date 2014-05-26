@@ -596,8 +596,25 @@ CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 GO
 --DROP VIEW MERCADONEGRO.MayorReputacionView
 --SELECT * FROM MERCADONEGRO.MayorReputacionView ORDER BY Vendedor, MES, AÑO
+		   	
+---------VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS----------
+/*CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
 
----------CLIENTES CON MAYOR CANTIDAD DE PUBLICACIONES SIN CALIFICAR--------
+	SELECT	Usuarios.Username				AS Username,
+			Publicaciones.Cod_Publicacion	AS CodigoPublicacion,
+			Visibilidades.Cod_Visibilidad	AS CodigoVisibilidad,
+			Publicaciones.Stock_Inicial		AS StockInicial,
+			Operaciones.Fecha_Operacion		AS FechaOperacion
+	
+			FROM MERCADONEGRO.Usuarios		AS Usuarios
+			JOIN MERCADONEGRO.Publicaciones AS Publicaciones
+				ON Usuarios.ID_User = Publicaciones.ID_Vendedor
+			JOIN MERCADONEGRO.Visibilidades AS Visibilidades
+				ON Publicaciones.Cod_Visibilidad = Visibilidades.Cod_Visibilidad
+			JOIN MERCADONEGRO.Operaciones	AS Operaciones
+				ON Operaciones.Cod_Publicacion = Publicaciones.Cod_Publicacion
+			
+GO	*/
 
 
 ---------------------------USUARIOS------------------------------
