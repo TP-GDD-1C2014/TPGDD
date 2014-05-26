@@ -55,7 +55,13 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void buscarButton_Click(object sender, EventArgs e)
         {
+            int trimestre = this.trimestreCombo.SelectedIndex + 1;
+            int anio = Convert.ToInt32(this.anioTextbox.Text);
+            int opcionElegida = this.trimestreCombo.SelectedIndex + 1;
 
+            ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
+
+            this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
         }
 
 
@@ -69,6 +75,11 @@ namespace FrbaCommerce.Listado_Estadistico
             {
                 e.Handled = true;
             }
+        }
+
+        private void top5DataGriedView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -99,7 +99,11 @@
       <DependentUpon>CalificarVendedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Clases\Funcionalidades.cs" />
+    <Compile Include="Clases\ListadoClientesSinCalific.cs" />
     <Compile Include="Clases\ListadoEstadistico.cs" />
+    <Compile Include="Clases\ListadoMayorCalific.cs" />
+    <Compile Include="Clases\ListadoMayorFact.cs" />
+    <Compile Include="Clases\ListadoProdNoVendidos.cs" />
     <Compile Include="Clases\Roles.cs" />
     <Compile Include="Common\BDSQL.cs" />
     <Compile Include="Clases\Calificacion.cs" />
@@ -163,9 +167,6 @@
     </Compile>
     <Compile Include="Listado Estadistico\ListadoEstadisticoForm.Designer.cs">
       <DependentUpon>ListadoEstadisticoForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Listado Estadistico\TextboxNumerico.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Login\CambiarPassword.cs">
       <SubType>Form</SubType>

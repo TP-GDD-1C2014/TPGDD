@@ -133,6 +133,7 @@
             this.top5DataGriedView.ReadOnly = true;
             this.top5DataGriedView.Size = new System.Drawing.Size(590, 150);
             this.top5DataGriedView.TabIndex = 1;
+            this.top5DataGriedView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.top5DataGriedView_CellContentClick);
             // 
             // top5Label
             // 
