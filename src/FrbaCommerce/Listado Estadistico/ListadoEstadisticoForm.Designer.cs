@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buscarButton = new System.Windows.Forms.Button();
             this.tipoListadoCombo = new System.Windows.Forms.ComboBox();
             this.TipoListadoLabel = new System.Windows.Forms.Label();
             this.trimestreCombo = new System.Windows.Forms.ComboBox();
@@ -37,7 +38,6 @@
             this.anioLabel = new System.Windows.Forms.Label();
             this.top5DataGriedView = new System.Windows.Forms.DataGridView();
             this.top5Label = new System.Windows.Forms.Label();
-            this.buscarButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.top5DataGriedView)).BeginInit();
             this.SuspendLayout();
@@ -57,6 +57,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Búsqueda";
+            // 
+            // buscarButton
+            // 
+            this.buscarButton.Location = new System.Drawing.Point(509, 139);
+            this.buscarButton.Name = "buscarButton";
+            this.buscarButton.Size = new System.Drawing.Size(75, 23);
+            this.buscarButton.TabIndex = 6;
+            this.buscarButton.Text = "Buscar";
+            this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // tipoListadoCombo
             // 
@@ -96,11 +106,12 @@
             // 
             // anioTextbox
             // 
-            this.anioTextbox.Location = new System.Drawing.Point(89, 33);
+            this.anioTextbox.Location = new System.Drawing.Point(89, 29);
             this.anioTextbox.Name = "anioTextbox";
             this.anioTextbox.Size = new System.Drawing.Size(100, 20);
             this.anioTextbox.TabIndex = 1;
             this.anioTextbox.TextChanged += new System.EventHandler(this.anioTextbox_TextChanged);
+            this.anioTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.anioTextbox_KeyPress);
             // 
             // anioLabel
             // 
@@ -131,16 +142,6 @@
             this.top5Label.Size = new System.Drawing.Size(41, 13);
             this.top5Label.TabIndex = 2;
             this.top5Label.Text = "TOP 5:";
-            // 
-            // buscarButton
-            // 
-            this.buscarButton.Location = new System.Drawing.Point(509, 139);
-            this.buscarButton.Name = "buscarButton";
-            this.buscarButton.Size = new System.Drawing.Size(75, 23);
-            this.buscarButton.TabIndex = 6;
-            this.buscarButton.Text = "Buscar";
-            this.buscarButton.UseVisualStyleBackColor = true;
-            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
             // 
             // ListadoEstadisticoForm
             // 

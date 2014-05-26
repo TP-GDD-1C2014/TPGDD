@@ -22,10 +22,10 @@ namespace FrbaCommerce.Listado_Estadistico
             this.trimestreCombo.Items.Add(3);
             this.trimestreCombo.Items.Add(4);
 
-            this.tipoListadoCombo.Items.Add("Vendedores con mayor cantidad de Productos no Vendidos");
-            this.tipoListadoCombo.Items.Add("Vendedores con mayor Facturación");
-            this.tipoListadoCombo.Items.Add("Vendedores con mayor Reputación");
-            this.tipoListadoCombo.Items.Add("Clientes con mayor cantidad de publicaciones sin calificar");
+            this.tipoListadoCombo.Items.Add("Vendedores con Mayor Cantidad de Productos no Vendidos");
+            this.tipoListadoCombo.Items.Add("Vendedores con Mayor Facturación");
+            this.tipoListadoCombo.Items.Add("Vendedores con Mayor Reputación");
+            this.tipoListadoCombo.Items.Add("Clientes con Mayor Cantidad de Publicaciones sin Calificar");
         }
 
         private void anioLabel_Click(object sender, EventArgs e)
@@ -45,9 +45,9 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void anioTextbox_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
-
+        
         private void trimestreCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -56,7 +56,19 @@ namespace FrbaCommerce.Listado_Estadistico
         private void buscarButton_Click(object sender, EventArgs e)
         {
 
-            ListadoEstadistico listadoEstadistico = new Listado_Estadistico();
+        }
+
+
+        private void anioTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar) || e.KeyChar == '\b')
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
     }
 }

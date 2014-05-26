@@ -164,6 +164,9 @@
     <Compile Include="Listado Estadistico\ListadoEstadisticoForm.Designer.cs">
       <DependentUpon>ListadoEstadisticoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Listado Estadistico\TextboxNumerico.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Login\CambiarPassword.cs">
       <SubType>Form</SubType>
     </Compile>
