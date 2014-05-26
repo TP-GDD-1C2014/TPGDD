@@ -35,9 +35,19 @@ namespace FrbaCommerce.Clases
             ListaParametros.Add(new SqlParameter("@rol", nombre));
             ListaParametros.Add(new SqlParameter("@func", unaFunc.Nombre));
 
-            BDSQL.ExecStoredProcedure("MERCADONEGRO.AgregarFuncionalidad", ListaParametros);
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.AgregarFuncionalidad", ListaParametros);
             BDSQL.cerrarConexion();
            
+        }
+
+        public static void BorrarFuncionalidadEnRol(string nombreRol, string nombreFunc)
+        {
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@rol", nombreRol));
+            ListaParametros.Add(new SqlParameter("@func", nombreFunc));
+
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.QuitarFuncionalidad", ListaParametros);
+            BDSQL.cerrarConexion();
         }
     }
 }

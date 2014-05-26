@@ -161,6 +161,27 @@ namespace FrbaCommerce.Common
                 return 0;
             }
         }
+
+        public static void ExecStoredProcedureSinRet(string commandtext, List<SqlParameter> ListaParametro)
+        {
+            
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = iniciarConexion();
+                comando.CommandText = commandtext;
+                comando.CommandType = CommandType.StoredProcedure;
+
+                foreach (SqlParameter elemento in ListaParametro)
+                {
+                    comando.Parameters.Add(elemento);
+                }
+
+                comando.ExecuteNonQuery();
+                
+            
+           
+        }
+
+
 //---------------------------------------------------------------------------------------------------------------------------------------------- 
 // Iniciar transaccion
 

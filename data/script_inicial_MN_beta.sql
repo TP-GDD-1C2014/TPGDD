@@ -268,14 +268,15 @@ CREATE PROCEDURE MERCADONEGRO.QuitarFuncionalidad(@rol nvarchar(255), @func nvar
 BEGIN
 	DELETE FROM MERCADONEGRO.Funcionalidad_Rol
 		WHERE 
-			(SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE @rol = Nombre)
+			(SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE Nombre = @rol)
 			= MERCADONEGRO.Funcionalidad_Rol.ID_Rol
 			AND
-			(SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE @func = Nombre)
+			(SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE Nombre = @func )
 			 = MERCADONEGRO.Funcionalidad_Rol.ID_Funcionalidad
 			 
 END
 GO
+
 
 /* SP agregar ROL a la base */
 
