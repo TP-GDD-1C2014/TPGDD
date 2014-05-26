@@ -207,5 +207,12 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
 
         }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            Login.LoginForm form = new Login.LoginForm();
+            this.Hide();
+            form.Show();
+        }
     }
 }

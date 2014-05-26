@@ -28,64 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Username_Label = new System.Windows.Forms.Label();
             this.Username_TextBox = new System.Windows.Forms.TextBox();
-            this.Password_Label = new System.Windows.Forms.Label();
-            this.Rol_Label = new System.Windows.Forms.Label();
             this.Password_TextBox = new System.Windows.Forms.TextBox();
             this.Registrar_Button = new System.Windows.Forms.Button();
             this.Limpiar_Button = new System.Windows.Forms.Button();
             this.Rol_Combo = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // Username_Label
-            // 
-            this.Username_Label.AutoSize = true;
-            this.Username_Label.Location = new System.Drawing.Point(12, 12);
-            this.Username_Label.Name = "Username_Label";
-            this.Username_Label.Size = new System.Drawing.Size(96, 13);
-            this.Username_Label.TabIndex = 0;
-            this.Username_Label.Text = "Nombre de usuario";
             // 
             // Username_TextBox
             // 
-            this.Username_TextBox.Location = new System.Drawing.Point(15, 32);
+            this.Username_TextBox.Location = new System.Drawing.Point(10, 20);
             this.Username_TextBox.Name = "Username_TextBox";
-            this.Username_TextBox.Size = new System.Drawing.Size(282, 20);
+            this.Username_TextBox.Size = new System.Drawing.Size(196, 20);
             this.Username_TextBox.TabIndex = 1;
-            // 
-            // Password_Label
-            // 
-            this.Password_Label.AutoSize = true;
-            this.Password_Label.Location = new System.Drawing.Point(12, 62);
-            this.Password_Label.Name = "Password_Label";
-            this.Password_Label.Size = new System.Drawing.Size(61, 13);
-            this.Password_Label.TabIndex = 2;
-            this.Password_Label.Text = "Contraseña";
-            this.Password_Label.Click += new System.EventHandler(this.Contrasenia_Label_Click);
-            // 
-            // Rol_Label
-            // 
-            this.Rol_Label.AutoSize = true;
-            this.Rol_Label.Location = new System.Drawing.Point(12, 112);
-            this.Rol_Label.Name = "Rol_Label";
-            this.Rol_Label.Size = new System.Drawing.Size(23, 13);
-            this.Rol_Label.TabIndex = 3;
-            this.Rol_Label.Text = "Rol";
             // 
             // Password_TextBox
             // 
-            this.Password_TextBox.Location = new System.Drawing.Point(15, 82);
+            this.Password_TextBox.Location = new System.Drawing.Point(10, 20);
             this.Password_TextBox.Name = "Password_TextBox";
-            this.Password_TextBox.Size = new System.Drawing.Size(282, 20);
+            this.Password_TextBox.Size = new System.Drawing.Size(196, 20);
             this.Password_TextBox.TabIndex = 4;
             this.Password_TextBox.TextChanged += new System.EventHandler(this.Password_TextBox_TextChanged);
             // 
             // Registrar_Button
             // 
-            this.Registrar_Button.Location = new System.Drawing.Point(211, 165);
+            this.Registrar_Button.Location = new System.Drawing.Point(123, 203);
             this.Registrar_Button.Name = "Registrar_Button";
-            this.Registrar_Button.Size = new System.Drawing.Size(86, 30);
+            this.Registrar_Button.Size = new System.Drawing.Size(104, 30);
             this.Registrar_Button.TabIndex = 6;
             this.Registrar_Button.Text = "Continuar >>";
             this.Registrar_Button.UseVisualStyleBackColor = true;
@@ -93,54 +68,85 @@
             // 
             // Limpiar_Button
             // 
-            this.Limpiar_Button.Location = new System.Drawing.Point(14, 165);
+            this.Limpiar_Button.Location = new System.Drawing.Point(10, 203);
             this.Limpiar_Button.Name = "Limpiar_Button";
-            this.Limpiar_Button.Size = new System.Drawing.Size(90, 30);
+            this.Limpiar_Button.Size = new System.Drawing.Size(104, 30);
             this.Limpiar_Button.TabIndex = 7;
-            this.Limpiar_Button.Text = "Limpiar";
+            this.Limpiar_Button.Text = "<< Volver";
             this.Limpiar_Button.UseVisualStyleBackColor = true;
             this.Limpiar_Button.Click += new System.EventHandler(this.Limpiar_Button_Click);
             // 
             // Rol_Combo
             // 
             this.Rol_Combo.FormattingEnabled = true;
-            this.Rol_Combo.Location = new System.Drawing.Point(15, 132);
+            this.Rol_Combo.Location = new System.Drawing.Point(10, 20);
             this.Rol_Combo.Name = "Rol_Combo";
-            this.Rol_Combo.Size = new System.Drawing.Size(282, 21);
+            this.Rol_Combo.Size = new System.Drawing.Size(196, 21);
             this.Rol_Combo.TabIndex = 8;
             this.Rol_Combo.SelectedIndexChanged += new System.EventHandler(this.Rol_Combo_SelectedIndexChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.Username_TextBox);
+            this.groupBox1.Location = new System.Drawing.Point(10, 10);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(216, 52);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Nombre de usuario";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.Password_TextBox);
+            this.groupBox2.Location = new System.Drawing.Point(10, 75);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(216, 52);
+            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Contraseña";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.Rol_Combo);
+            this.groupBox3.Location = new System.Drawing.Point(10, 140);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(216, 52);
+            this.groupBox3.TabIndex = 11;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Rol";
             // 
             // RegistroUsuarioForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 206);
-            this.Controls.Add(this.Rol_Combo);
+            this.ClientSize = new System.Drawing.Size(236, 242);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Limpiar_Button);
             this.Controls.Add(this.Registrar_Button);
-            this.Controls.Add(this.Password_TextBox);
-            this.Controls.Add(this.Rol_Label);
-            this.Controls.Add(this.Password_Label);
-            this.Controls.Add(this.Username_TextBox);
-            this.Controls.Add(this.Username_Label);
             this.Name = "RegistroUsuarioForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Usuario - MercadoNegro";
             this.Load += new System.EventHandler(this.RegistroUsuarioForm_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label Username_Label;
         private System.Windows.Forms.TextBox Username_TextBox;
-        private System.Windows.Forms.Label Password_Label;
-        private System.Windows.Forms.Label Rol_Label;
         private System.Windows.Forms.TextBox Password_TextBox;
         private System.Windows.Forms.Button Registrar_Button;
         private System.Windows.Forms.Button Limpiar_Button;
         private System.Windows.Forms.ComboBox Rol_Combo;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
