@@ -12,9 +12,11 @@ namespace FrbaCommerce.Registro_de_Usuario
 {
     public partial class RegistroUsuarioForm : Form
     {
+        public Login.LoginForm formAnterior { get; set; }
 
-        public RegistroUsuarioForm()
+        public RegistroUsuarioForm(Login.LoginForm formAnt)
         {
+            this.formAnterior = formAnt;
             InitializeComponent();
             Rol_Combo.Items.Add("Cliente");
             Rol_Combo.Items.Add("Empresa");
@@ -38,8 +40,8 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void Limpiar_Button_Click(object sender, EventArgs e)
         {
-            Common.Interfaz.limpiarInterfaz(this);
-            Rol_Combo.Text = "";
+            this.Hide();
+            formAnterior.Show();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
