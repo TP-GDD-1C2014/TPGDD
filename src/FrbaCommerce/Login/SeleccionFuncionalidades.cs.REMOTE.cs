@@ -33,7 +33,7 @@ namespace FrbaCommerce.Login
             }
         }
 
-        public SeleccionFuncionalidades(Clases.Usuario usuario, int idRol, Boolean bypass)
+        public SeleccionFuncionalidades(Clases.Usuario usuario, int idRol)
         {
             this.usuario = usuario;
             var rolQuery = from rol in this.usuario.Roles where rol.ID_Rol == idRol select rol;
@@ -51,22 +51,12 @@ namespace FrbaCommerce.Login
             cbFuncionalidades.DropDownStyle = ComboBoxStyle.DropDownList;
 
             listarFuncionalidades();
-
-            if (!bypass)
-            {
-                volver.Visible = true;
-            }
-            else
-            {
-                volver.Visible = false;
-            }
         }
 
         public void listarFuncionalidades()
         {
             if (rolActual.funcionalidades.Count != 0)
             {
-                cbFuncionalidades.Items.Add(new itemComboBox("Cambiar Contraseña", -2));
                 for (int i = 0; i < rolActual.funcionalidades.Count; i++)
                 {
                     if (rolActual.funcionalidades[i].ID_Funcionalidad == 1)
@@ -133,6 +123,8 @@ namespace FrbaCommerce.Login
                     {
                         cbFuncionalidades.Items.Add(new itemComboBox("Listado Estadístico", rolActual.funcionalidades[i].ID_Funcionalidad));
                     }
+
+                    cbFuncionalidades.Items.Add(new itemComboBox("Cambiar Contraseña", -2));
                 }
             }
         }
@@ -168,7 +160,7 @@ namespace FrbaCommerce.Login
                         form3.Show();
                         break;
                     case 4:
-                        Abm_Rubro.ABMRubro form4 = new Abm_Rubro.ABMRubro(this);
+                        Abm_Rubro.ABMRubro form4 = new Abm_Rubro.ABMRubro();
                         this.Hide();
                         form4.Show();
                         break;
@@ -178,7 +170,6 @@ namespace FrbaCommerce.Login
                         form5.Show();
                         break;
                     case 6:
-                        Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm(this.usuario);
                         //Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm();
                         this.Hide();
                         //form6.Show();
@@ -220,13 +211,6 @@ namespace FrbaCommerce.Login
                         break;
                 }
             }
-        }
-
-        private void volver_Click(object sender, EventArgs e)
-        {
-            SeleccionRoles formRoles = new SeleccionRoles(Interfaz.usuario);
-            this.Hide();
-            formRoles.Show();
         }
     }
 }

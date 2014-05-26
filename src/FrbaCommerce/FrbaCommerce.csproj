@@ -80,6 +80,12 @@
     <Compile Include="Abm Rubro\ABMRubro.Designer.cs">
       <DependentUpon>ABMRubro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Rubro\Modificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Rubro\Modificar.Designer.cs">
+      <DependentUpon>Modificar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Visibilidad\ABMVisibilidad.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rubro\ABMRubro.resx">
       <DependentUpon>ABMRubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Rubro\Modificar.resx">
+      <DependentUpon>Modificar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\BuscarPubliForm.resx">
       <DependentUpon>BuscarPubliForm.cs</DependentUpon>
