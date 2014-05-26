@@ -39,9 +39,10 @@ CREATE TABLE MERCADONEGRO.Preguntas
 
 CREATE TABLE MERCADONEGRO.Calificaciones
 (
-	Cod_Calificacion NUMERIC(18,0) IDENTITY,  
-	Puntaje			 NUMERIC(18,0)	   NULL,
-	Descripcion		 NVARCHAR(255) NULL,
+	Cod_Calificacion	NUMERIC(18,0) IDENTITY,  
+	Puntaje				NUMERIC(18,0)	   NULL,
+	Descripcion			NVARCHAR(255) NULL,
+	Fecha_Calificacion	DATETIME NULL,
 	
 	PRIMARY KEY ( Cod_Calificacion )
 )
@@ -487,11 +488,12 @@ PRINT 'MIGRANDO TABLA DE CALIFICACIONES';
 
 SET IDENTITY_INSERT MERCADONEGRO.Calificaciones ON
 
-INSERT INTO MERCADONEGRO.Calificaciones (Cod_Calificacion,Puntaje,Descripcion)
+INSERT INTO MERCADONEGRO.Calificaciones (Cod_Calificacion,Puntaje,Descripcion, Fecha_Calificacion)
 	SELECT 
 			Calificacion_Codigo,
 			Calificacion_Cant_Estrellas,
-			Calificacion_Descripcion
+			Calificacion_Descripcion,
+			Compra_Fecha
 	FROM gd_esquema.Maestra
 	WHERE Calificacion_Codigo IS NOT NULL
 	
@@ -556,19 +558,47 @@ INSERT INTO  #UsuariosTemp
 GO	
 	
 -----------------VISTAS LISTADO ESTADISTICO TOP 5-----------------------------
-/*
------MAYOR FACTURACION------
-CREATE VIEW MERCADONEGRO.MayorFacturacionView AS
-	SELECT TOP(5) Usuarios.Username					 AS Username,
-		  SUM(Facturaciones.Total_Facturacion)			 AS [Facturacion Total]
+
+-----VENDEDORES CON MAYOR FACTURACION------
+CREATE VIEW  MERCADONEGRO.MayorFacturacionView		 AS
+	SELECT  Usuarios.Username						 AS Vendedor,
+			SUM(Facturaciones.Total_Facturacion)	 AS Facturacion_Total, 
+			MONTH(Facturaciones.Factura_Fecha)		 AS Mes,									
+			YEAR(Facturaciones.Factura_Fecha)		 AS Año
+			 
 	
-		FROM MERCADONEGRO.Usuarios AS Usuarios
-			JOIN MERCADONEGRO.Publicaciones AS Publicaciones ON Usuarios.ID_User = Publicaciones.ID_Vendedor
-			JOIN MERCADONEGRO.Facturaciones AS Facturaciones ON Publicaciones.Cod_Publicacion = Facturaciones.Cod_Publicacion
-		GROUP BY Username
-		ORDER BY [Facturacion Total]
+		FROM  MERCADONEGRO.Usuarios AS Usuarios
+			INNER JOIN MERCADONEGRO.Publicaciones AS Publicaciones
+					ON Usuarios.ID_User = Publicaciones.ID_Vendedor
+			INNER JOIN MERCADONEGRO.Facturaciones AS Facturaciones 
+					ON Publicaciones.Cod_Publicacion = Facturaciones.Cod_Publicacion
+	      WHERE Facturaciones.Total_Facturacion != 0
+			GROUP BY Usuarios.Username, MONTH(Facturaciones.Factura_Fecha), YEAR(Facturaciones.Factura_Fecha)
+	      			
+GO	
+--DROP VIEW MERCADONEGRO.MayorFacturacionView
+--SELECT * FROM MERCADONEGRO.MayorFacturacionView
+
+------VENDEDORES CON MAYOR REPUTACION---------
+CREATE VIEW MERCADONEGRO.MayorReputacionView AS
+	
+	SELECT Usuarios.Username							AS Vendedor,
+		   Calificaciones.Puntaje						AS Puntaje,
+		   MONTH(Calificaciones.Fecha_Calificacion)		AS Mes,
+		   YEAR(Calificaciones.Fecha_Calificacion)		AS Año	   
 			
-*/
+		FROM MERCADONEGRO.Usuarios					AS Usuarios
+		JOIN MERCADONEGRO.Operaciones				AS Operaciones
+			ON Operaciones.ID_Vendedor = Usuarios.ID_User
+		JOIN MERCADONEGRO.Calificaciones			AS Calificaciones
+			ON Calificaciones.Cod_Calificacion = Operaciones.Cod_Calificacion
+GO
+--DROP VIEW MERCADONEGRO.MayorReputacionView
+--SELECT * FROM MERCADONEGRO.MayorReputacionView ORDER BY Vendedor, MES, AÑO
+
+---------CLIENTES CON MAYOR CANTIDAD DE PUBLICACIONES SIN CALIFICAR--------
+
+
 ---------------------------USUARIOS------------------------------
 PRINT 'MIGRANDO TABLAS USUARIOS'
 
