@@ -56,7 +56,9 @@ namespace FrbaCommerce.ABM_Rol
                 actualizarCheckboxList(listaFuncQueTiene);
                 //si esta habilitado, NO permitir cambiar check, caso contrario permitir.
                 if (unRol.Habilitado)
+                {
                     Habilitado_Checkbox.Enabled = false;
+                }
                 else Habilitado_Checkbox.Enabled = true;
 
                 guardarNuevo = false;
@@ -92,7 +94,7 @@ namespace FrbaCommerce.ABM_Rol
 
         private void Guardar_Button_Click(object sender, EventArgs e)
         {
-            
+                
                 if (Nombre_Textbox.Text == "")
                 {
                     MessageBox.Show("Complete el nombre del nuevo Rol", "Error - Falta llenar algun campo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -131,19 +133,30 @@ namespace FrbaCommerce.ABM_Rol
                         else if (!guardarNuevo)
                         //modifico el rol actual
                         {
-                            
+                            if (Habilitado_Checkbox.Checked)
+                                Habilitado_Checkbox.Enabled = false;
+
                             List<Funcionalidad> listaFuncActuales = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion(), RolActual.ID_Rol);
 
-                            if (sonIguales(listaNuevasFunc,listaFuncActuales) && (Nombre_Textbox.Text == nombreAux))
+                            if (sonIguales(listaNuevasFunc,listaFuncActuales) && (Nombre_Textbox.Text == nombreAux) && (RolActual.Habilitado || !RolActual.Habilitado && !Habilitado_Checkbox.Checked))
                             {
-                                MessageBox.Show("Por favor modifique las Funcionalidades, el Nombre o ambas", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                MessageBox.Show("Por favor realice al menos un cambio", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             }
                             else
                             {
-                                Roles.updatearRol(Nombre_Textbox.Text, listaNuevasFunc, Habilitado_Checkbox.Checked, RolActual.ID_Rol);
+                                if (Habilitado_Checkbox.Checked)
+                                    RolActual.Habilitado = true;
+
+                                if (RolActual.Habilitado)
+                                    Roles.updatearRol(Nombre_Textbox.Text, listaNuevasFunc, true, RolActual.ID_Rol);
+                                else
+                                    Roles.updatearRol(Nombre_Textbox.Text, listaNuevasFunc, false, RolActual.ID_Rol);
+
                                 nombreAux = Nombre_Textbox.Text;
 
                                 actualizarFuncionalidadPorRol(listaNuevasFunc, listaFuncActuales);
+
+                                MessageBox.Show("Rol modificado con éxito! Puede seguir modificandolo o volver a ABM Rol", "Succes!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                               
                             }
 

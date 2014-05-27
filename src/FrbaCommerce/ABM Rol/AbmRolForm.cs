@@ -93,7 +93,22 @@ namespace FrbaCommerce.ABM_Rol
             Rol unRol = Roles_Datagrid.CurrentRow.DataBoundItem as Rol;
             EditorDeRoles editForm = new EditorDeRoles("modificar", unRol);
             editForm.ShowDialog();
+
+            cargarTodosLosRoles();
+        }
+
+        private void Eliminar_Button_Click(object sender, EventArgs e)
+        {
+            Rol unRol = Roles_Datagrid.CurrentRow.DataBoundItem as Rol;
+            string str = string.Format("Esta seguro que desea eliminar el rol {0}? Esto implica la baja lógica del mismo", unRol.Nombre);
+            DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show("yes", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            MessageBox.Show("nope", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            cargarTodosLosRoles();
         }
 
         
