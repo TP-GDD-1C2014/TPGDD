@@ -5,10 +5,15 @@ using System.Text;
 
 namespace FrbaCommerce.Clases
 {
-    class Calificacion
+    public class Calificacion
     {
-        public int Cod_Calificacion { get; set; }
         public int Puntaje { get; set; }
         public string Descripcion { get; set; }
+
+        public Calificacion(int punt, string desc)
+        {
+            this.Puntaje = punt;
+            this.Descripcion = desc;
+        }
     }
 }
