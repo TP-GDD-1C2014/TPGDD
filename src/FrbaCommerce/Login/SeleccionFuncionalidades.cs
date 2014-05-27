@@ -209,7 +209,7 @@ namespace FrbaCommerce.Login
                         form11.Show();
                         break;
                     case 12:
-                        Facturar_Publicaciones.FacturarForm form12 = new Facturar_Publicaciones.FacturarForm();
+                        Facturar_Publicaciones.FacturarForm form12 = new Facturar_Publicaciones.FacturarForm(usuario);
                         this.Hide();
                         form12.Show();
                         break;

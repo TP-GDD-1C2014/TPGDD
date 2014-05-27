@@ -216,6 +216,9 @@
     <EmbeddedResource Include="Editar Publicacion\EditarPubliForm.resx">
       <DependentUpon>EditarPubliForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Facturar Publicaciones\FacturarForm.resx">
+      <DependentUpon>FacturarForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\GenerarPubliForm.resx">
       <DependentUpon>GenerarPubliForm.cs</DependentUpon>
     </EmbeddedResource>
