@@ -91,7 +91,9 @@ namespace FrbaCommerce.Historial_Cliente
             BDSQL.agregarParametro(listaParametros, "@Cod_Calificacion", codCalificacion);
             SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion", listaParametros, BDSQL.iniciarConexion());
             lector.Read();
-            return new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
+            Clases.Calificacion calificacion = new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
+            BDSQL.cerrarConexion();
+            return calificacion;
         }
 
         public int obtenerCompras()
