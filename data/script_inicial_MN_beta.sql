@@ -580,6 +580,7 @@ GO
 --DROP VIEW MERCADONEGRO.MayorFacturacionView
 --SELECT * FROM MERCADONEGRO.MayorFacturacionView
 
+
 ------VENDEDORES CON MAYOR REPUTACION---------
 CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 	
@@ -614,9 +615,9 @@ GO
 			JOIN MERCADONEGRO.Operaciones	AS Operaciones
 				ON Operaciones.Cod_Publicacion = Publicaciones.Cod_Publicacion
 			
-GO	*/
+GO	
 
-
+*/
 ---------------------------USUARIOS------------------------------
 PRINT 'MIGRANDO TABLAS USUARIOS'
 

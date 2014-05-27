@@ -139,11 +139,11 @@
     <Compile Include="Editar Publicacion\EditarPubliForm.Designer.cs">
       <DependentUpon>EditarPubliForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturar Publicaciones\Facturar.cs">
+    <Compile Include="Facturar Publicaciones\FacturarForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturar Publicaciones\Facturar.Designer.cs">
-      <DependentUpon>Facturar.cs</DependentUpon>
+    <Compile Include="Facturar Publicaciones\FacturarForm.Designer.cs">
+      <DependentUpon>FacturarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\GenerarPubliForm.cs">
       <SubType>Form</SubType>
