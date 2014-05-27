@@ -20,7 +20,7 @@ namespace FrbaCommerce.Historial_Cliente
             obtenerOfertas();
         }
 
-        private class Compra
+        public class Compra
         {
             public int ID_Operacion { get; set; }
             public int ID_Vendedor { get; set; }
@@ -40,7 +40,7 @@ namespace FrbaCommerce.Historial_Cliente
             }
         }
 
-        private class Oferta
+        public class Oferta
         {
             public int ID_Operacion { get; set; }
             public int ID_Vendedor { get; set; }
@@ -61,8 +61,6 @@ namespace FrbaCommerce.Historial_Cliente
                 Subasta_Ganada = subastaGanada;
             }
         }
-
-
 
         public List<Compra> compras = new List<Compra>();
         public List<Oferta> ofertas = new List<Oferta>();
@@ -155,6 +153,11 @@ namespace FrbaCommerce.Historial_Cliente
                 BDSQL.cerrarConexion();
                 return 0;
             }
+        }
+
+        private void Historial_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
