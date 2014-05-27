@@ -57,7 +57,7 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             int trimestre = this.trimestreCombo.SelectedIndex + 1;
             int anio = Convert.ToInt32(this.anioTextbox.Text);
-            int opcionElegida = this.trimestreCombo.SelectedIndex + 1;
+            int opcionElegida = this.tipoListadoCombo.SelectedIndex + 1;
 
             ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
 

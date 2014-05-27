@@ -18,7 +18,7 @@ namespace FrbaCommerce
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Listado_Estadistico.ListadoEstadisticoForm());
+            Application.Run(new LoginForm());
 
         }
     }
