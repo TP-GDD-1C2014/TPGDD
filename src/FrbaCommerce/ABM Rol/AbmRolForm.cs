@@ -100,15 +100,27 @@ namespace FrbaCommerce.ABM_Rol
         private void Eliminar_Button_Click(object sender, EventArgs e)
         {
             Rol unRol = Roles_Datagrid.CurrentRow.DataBoundItem as Rol;
-            string str = string.Format("Esta seguro que desea eliminar el rol {0}? Esto implica la baja lógica del mismo", unRol.Nombre);
-            DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            
-            if (result == DialogResult.Yes)
+            string str;
+
+            if (!unRol.Habilitado)
             {
-                MessageBox.Show("yes", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                str = string.Format("No se puede eliminar el rol {0}. Este ya esta deshabilitado. Puede volver a habilitarlo desde Modificar", unRol.Nombre);
+                MessageBox.Show(str, "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            MessageBox.Show("nope", "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            cargarTodosLosRoles();
+            else
+            {
+                str = string.Format("Esta seguro que desea eliminar el rol {0}? Esto implica la baja lógica del mismo", unRol.Nombre);
+                DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    Roles.deshabilitarRol(unRol);
+                    Roles.eliminarUsuariosPorRol(unRol);
+                    cargarTodosLosRoles();
+                }
+
+                
+            }
         }
 
         

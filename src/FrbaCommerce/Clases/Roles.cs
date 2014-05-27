@@ -72,5 +72,27 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
+        public static void deshabilitarRol(Rol unRol)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(parametros, "@idRol", unRol.ID_Rol);
+            int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Roles SET Habilitado = 0 WHERE ID_Rol = @idRol", parametros, BDSQL.iniciarConexion());
+
+            if (resultado == -1)
+                MessageBox.Show("Falló al actualizar el rol", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            BDSQL.cerrarConexion();
+        }
+
+        public static void eliminarUsuariosPorRol(Rol unRol)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(parametros, "@idRol", unRol.ID_Rol);
+            int resultado = BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Roles_Usuarios WHERE ID_Rol = @idRol", parametros, BDSQL.iniciarConexion());
+
+            if (resultado == -1)
+                MessageBox.Show("Falló al eliminar Usuarios por Rol", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            BDSQL.cerrarConexion();
+        }
+
     }
 }

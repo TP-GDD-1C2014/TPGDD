@@ -49,5 +49,6 @@ namespace FrbaCommerce.Clases
             BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.QuitarFuncionalidad", ListaParametros);
             BDSQL.cerrarConexion();
         }
+    
     }
 }
