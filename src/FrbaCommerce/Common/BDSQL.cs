@@ -24,20 +24,20 @@ namespace FrbaCommerce.Common
             return res;
         }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------- 
+        //---------------------------------------------------------------------------------------------------------------------------------------------- 
 
         public static Boolean existenSimultaneamente(string valor1, string valor2, string nombreTabla, string nombreColumna1, string nombreColumna2)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             agregarParametro(listaParametros, "@valor1", valor1);
             agregarParametro(listaParametros, "@valor2", valor2);
-            SqlDataReader lector = ejecutarReader("SELECT * FROM " + nombreTabla + " WHERE " + nombreColumna1 + " = @valor1 AND "+nombreColumna2 + " = @valor2", listaParametros, iniciarConexion());
+            SqlDataReader lector = ejecutarReader("SELECT * FROM " + nombreTabla + " WHERE " + nombreColumna1 + " = @valor1 AND " + nombreColumna2 + " = @valor2", listaParametros, iniciarConexion());
             Boolean res = lector.HasRows;
             cerrarConexion();
             return res;
         }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------- 
+        //---------------------------------------------------------------------------------------------------------------------------------------------- 
 
         public static SqlConnection iniciarConexion()
         {
@@ -54,7 +54,7 @@ namespace FrbaCommerce.Common
             return conexion;
         }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------- 
+        //---------------------------------------------------------------------------------------------------------------------------------------------- 
 
         public static void cerrarConexion()
         {
@@ -65,15 +65,16 @@ namespace FrbaCommerce.Common
             catch (SqlException)
             {
                 MessageBox.Show("Error al desconectar la base de datos");
-            }   
+            }
         }
-//----------------------------------------------------------------------------------------------------------------------------------------------    
-    
-        public static void agregarParametro(List<SqlParameter> lista, string parametro, object valor) {
+        //----------------------------------------------------------------------------------------------------------------------------------------------    
+
+        public static void agregarParametro(List<SqlParameter> lista, string parametro, object valor)
+        {
             lista.Add(new SqlParameter(parametro, valor));
         }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------   
+        //----------------------------------------------------------------------------------------------------------------------------------------------   
 
         public static SqlDataReader ejecutarReader(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA SELECT
         {
@@ -96,8 +97,8 @@ namespace FrbaCommerce.Common
             return comando.ExecuteReader();
         }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------  
- 
+        //----------------------------------------------------------------------------------------------------------------------------------------------  
+
         public static int ejecutarQuery(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA UPDATE, INSERT, DELETE
         {
             SqlCommand comando = new SqlCommand();
@@ -110,8 +111,8 @@ namespace FrbaCommerce.Common
             return comando.ExecuteNonQuery();
         }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------  
- 
+        //----------------------------------------------------------------------------------------------------------------------------------------------  
+
         public static SqlDataReader ObtenerDataReader(string commandtext, string commandtype, List<SqlParameter> ListaParametro)
         {
 
@@ -137,7 +138,56 @@ namespace FrbaCommerce.Common
             return comando.ExecuteReader();
         }
 
-//----------------------------------------------------------------------------------------------------------------------------------------------  
+
+        //----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+        public static DataTable obtenerDataTable(string commandtext, string commandtype, List<SqlParameter> ListaParametro)
+        {
+            DataTable result = null;
+
+           int count = 0;
+
+            try
+            {
+                SqlDataReader dr = ObtenerDataReader(commandtext, commandtype, ListaParametro);
+                if (dr.HasRows)
+                {
+
+                    result = new DataTable();
+
+                    while (dr.Read())
+                    {
+                        DataRow row = result.NewRow();
+                        for (int i = 0; i < dr.FieldCount; i++)
+                        {
+                            if (count == 0)
+                                result.Columns.Add(dr.GetName(i));
+
+                            row[i] = dr[i];
+                        }
+                        result.Rows.Add(row);
+                        count++;
+                    }
+                }
+                dr.Close();
+            }
+            finally
+            {
+                try
+                {
+                    conexion.Close();
+                    conexion.Dispose();
+                }
+                catch { }
+            }
+
+
+            return result;
+
+        }
+
+        //----------------------------------------------------------------------------------------------------------------------------------------------  
 
         public static decimal ExecStoredProcedure(string commandtext, List<SqlParameter> ListaParametro)
         {
@@ -164,26 +214,26 @@ namespace FrbaCommerce.Common
 
         public static void ExecStoredProcedureSinRet(string commandtext, List<SqlParameter> ListaParametro)
         {
-            
-                SqlCommand comando = new SqlCommand();
-                comando.Connection = iniciarConexion();
-                comando.CommandText = commandtext;
-                comando.CommandType = CommandType.StoredProcedure;
 
-                foreach (SqlParameter elemento in ListaParametro)
-                {
-                    comando.Parameters.Add(elemento);
-                }
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = iniciarConexion();
+            comando.CommandText = commandtext;
+            comando.CommandType = CommandType.StoredProcedure;
 
-                comando.ExecuteNonQuery();
-                
-            
-           
+            foreach (SqlParameter elemento in ListaParametro)
+            {
+                comando.Parameters.Add(elemento);
+            }
+
+            comando.ExecuteNonQuery();
+
+
+
         }
 
 
-//---------------------------------------------------------------------------------------------------------------------------------------------- 
-// Iniciar transaccion
+        //---------------------------------------------------------------------------------------------------------------------------------------------- 
+        // Iniciar transaccion
 
         public static SqlTransaction iniciarTransaccion(SqlTransaction objTransaccion)
         {
@@ -197,7 +247,13 @@ namespace FrbaCommerce.Common
             }
             return objTransaccion;
         }
-        
 
     }
 }
+
+
+
+       
+
+
+
