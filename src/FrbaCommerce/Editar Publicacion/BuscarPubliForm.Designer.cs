@@ -32,7 +32,7 @@
             this.descrip_label = new System.Windows.Forms.Label();
             this.Descrip_TextBox = new System.Windows.Forms.TextBox();
             this.stockInic_label = new System.Windows.Forms.Label();
-            this.StockInic_TextBox = new System.Windows.Forms.TextBox();
+            this.StockInicial_TextBox = new System.Windows.Forms.TextBox();
             this.CodPubli_textBox = new System.Windows.Forms.TextBox();
             this.codPubli_label = new System.Windows.Forms.Label();
             this.estadoPubli_label = new System.Windows.Forms.Label();
@@ -44,17 +44,22 @@
             this.seleccionar_button = new System.Windows.Forms.Button();
             this.codVisib_label = new System.Windows.Forms.Label();
             this.Visibilidad_ComboBox = new System.Windows.Forms.ComboBox();
-            this.Resultados_label = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.precio_textBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(27, 219);
+            this.dataGridView1.Location = new System.Drawing.Point(27, 163);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(600, 232);
+            this.dataGridView1.Size = new System.Drawing.Size(651, 265);
             this.dataGridView1.TabIndex = 0;
             // 
             // descrip_label
@@ -79,17 +84,16 @@
             this.stockInic_label.AutoSize = true;
             this.stockInic_label.Location = new System.Drawing.Point(24, 94);
             this.stockInic_label.Name = "stockInic_label";
-            this.stockInic_label.Size = new System.Drawing.Size(65, 13);
+            this.stockInic_label.Size = new System.Drawing.Size(35, 13);
             this.stockInic_label.TabIndex = 3;
-            this.stockInic_label.Text = "Stock Inicial";
+            this.stockInic_label.Text = "Stock";
             // 
-            // StockInic_TextBox
+            // StockInicial_TextBox
             // 
-            this.StockInic_TextBox.Location = new System.Drawing.Point(128, 91);
-            this.StockInic_TextBox.Name = "StockInic_TextBox";
-            this.StockInic_TextBox.Size = new System.Drawing.Size(71, 20);
-            this.StockInic_TextBox.TabIndex = 4;
-            this.StockInic_TextBox.TextChanged += new System.EventHandler(this.Stock_TextBox_TextChanged);
+            this.StockInicial_TextBox.Location = new System.Drawing.Point(128, 91);
+            this.StockInicial_TextBox.Name = "StockInicial_TextBox";
+            this.StockInicial_TextBox.Size = new System.Drawing.Size(71, 20);
+            this.StockInicial_TextBox.TabIndex = 4;
             // 
             // CodPubli_textBox
             // 
@@ -97,7 +101,6 @@
             this.CodPubli_textBox.Name = "CodPubli_textBox";
             this.CodPubli_textBox.Size = new System.Drawing.Size(71, 20);
             this.CodPubli_textBox.TabIndex = 5;
-            this.CodPubli_textBox.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // codPubli_label
             // 
@@ -111,7 +114,7 @@
             // estadoPubli_label
             // 
             this.estadoPubli_label.AutoSize = true;
-            this.estadoPubli_label.Location = new System.Drawing.Point(24, 120);
+            this.estadoPubli_label.Location = new System.Drawing.Point(362, 66);
             this.estadoPubli_label.Name = "estadoPubli_label";
             this.estadoPubli_label.Size = new System.Drawing.Size(98, 13);
             this.estadoPubli_label.TabIndex = 7;
@@ -120,7 +123,7 @@
             // Estado_ComboBox
             // 
             this.Estado_ComboBox.FormattingEnabled = true;
-            this.Estado_ComboBox.Location = new System.Drawing.Point(128, 117);
+            this.Estado_ComboBox.Location = new System.Drawing.Point(478, 63);
             this.Estado_ComboBox.Name = "Estado_ComboBox";
             this.Estado_ComboBox.Size = new System.Drawing.Size(149, 21);
             this.Estado_ComboBox.TabIndex = 10;
@@ -129,7 +132,7 @@
             // TipoPubli_ComboBox
             // 
             this.TipoPubli_ComboBox.FormattingEnabled = true;
-            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(128, 144);
+            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(478, 90);
             this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
             this.TipoPubli_ComboBox.Size = new System.Drawing.Size(149, 21);
             this.TipoPubli_ComboBox.TabIndex = 11;
@@ -138,7 +141,7 @@
             // tipoPubli_label
             // 
             this.tipoPubli_label.AutoSize = true;
-            this.tipoPubli_label.Location = new System.Drawing.Point(24, 147);
+            this.tipoPubli_label.Location = new System.Drawing.Point(362, 93);
             this.tipoPubli_label.Name = "tipoPubli_label";
             this.tipoPubli_label.Size = new System.Drawing.Size(86, 13);
             this.tipoPubli_label.TabIndex = 12;
@@ -146,9 +149,9 @@
             // 
             // limpiar_button
             // 
-            this.limpiar_button.Location = new System.Drawing.Point(522, 467);
+            this.limpiar_button.Location = new System.Drawing.Point(528, 445);
             this.limpiar_button.Name = "limpiar_button";
-            this.limpiar_button.Size = new System.Drawing.Size(105, 38);
+            this.limpiar_button.Size = new System.Drawing.Size(150, 60);
             this.limpiar_button.TabIndex = 20;
             this.limpiar_button.Text = "Limpiar";
             this.limpiar_button.UseVisualStyleBackColor = true;
@@ -156,9 +159,9 @@
             // 
             // buscar_button
             // 
-            this.buscar_button.Location = new System.Drawing.Point(27, 467);
+            this.buscar_button.Location = new System.Drawing.Point(27, 445);
             this.buscar_button.Name = "buscar_button";
-            this.buscar_button.Size = new System.Drawing.Size(105, 38);
+            this.buscar_button.Size = new System.Drawing.Size(150, 60);
             this.buscar_button.TabIndex = 21;
             this.buscar_button.Text = "Buscar";
             this.buscar_button.UseVisualStyleBackColor = true;
@@ -166,9 +169,9 @@
             // 
             // seleccionar_button
             // 
-            this.seleccionar_button.Location = new System.Drawing.Point(266, 467);
+            this.seleccionar_button.Location = new System.Drawing.Point(279, 445);
             this.seleccionar_button.Name = "seleccionar_button";
-            this.seleccionar_button.Size = new System.Drawing.Size(105, 38);
+            this.seleccionar_button.Size = new System.Drawing.Size(150, 60);
             this.seleccionar_button.TabIndex = 22;
             this.seleccionar_button.Text = "Seleccionar";
             this.seleccionar_button.UseVisualStyleBackColor = true;
@@ -192,30 +195,79 @@
             this.Visibilidad_ComboBox.TabIndex = 24;
             this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             // 
-            // Resultados_label
+            // dateTimePicker1
             // 
-            this.Resultados_label.AutoSize = true;
-            this.Resultados_label.Location = new System.Drawing.Point(489, 200);
-            this.Resultados_label.Name = "Resultados_label";
-            this.Resultados_label.Size = new System.Drawing.Size(0, 13);
-            this.Resultados_label.TabIndex = 25;
+            this.dateTimePicker1.Location = new System.Drawing.Point(478, 11);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 27;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(478, 37);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker2.TabIndex = 28;
+            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(362, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 13);
+            this.label2.TabIndex = 29;
+            this.label2.Text = "Fecha Vencimiento";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(362, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 13);
+            this.label3.TabIndex = 30;
+            this.label3.Text = "Fecha Inicial";
+            // 
+            // precio_textBox
+            // 
+            this.precio_textBox.Location = new System.Drawing.Point(128, 118);
+            this.precio_textBox.Name = "precio_textBox";
+            this.precio_textBox.Size = new System.Drawing.Size(71, 20);
+            this.precio_textBox.TabIndex = 31;
+            this.precio_textBox.TextChanged += new System.EventHandler(this.precio_textBox_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(531, 199);
+            this.label1.Location = new System.Drawing.Point(24, 121);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 26;
-            this.label1.Text = "Resultados";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Precio";
+            // 
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(362, 120);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(100, 13);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "Permisos Preguntas";
             // 
             // BuscarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(665, 517);
+            this.ClientSize = new System.Drawing.Size(702, 517);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Resultados_label);
+            this.Controls.Add(this.precio_textBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.Visibilidad_ComboBox);
             this.Controls.Add(this.codVisib_label);
             this.Controls.Add(this.seleccionar_button);
@@ -227,7 +279,7 @@
             this.Controls.Add(this.estadoPubli_label);
             this.Controls.Add(this.codPubli_label);
             this.Controls.Add(this.CodPubli_textBox);
-            this.Controls.Add(this.StockInic_TextBox);
+            this.Controls.Add(this.StockInicial_TextBox);
             this.Controls.Add(this.stockInic_label);
             this.Controls.Add(this.Descrip_TextBox);
             this.Controls.Add(this.descrip_label);
@@ -247,7 +299,7 @@
         private System.Windows.Forms.Label descrip_label;
         private System.Windows.Forms.TextBox Descrip_TextBox;
         private System.Windows.Forms.Label stockInic_label;
-        private System.Windows.Forms.TextBox StockInic_TextBox;
+        private System.Windows.Forms.TextBox StockInicial_TextBox;
         private System.Windows.Forms.TextBox CodPubli_textBox;
         private System.Windows.Forms.Label codPubli_label;
         private System.Windows.Forms.Label estadoPubli_label;
@@ -259,8 +311,14 @@
         private System.Windows.Forms.Button seleccionar_button;
         private System.Windows.Forms.Label codVisib_label;
         private System.Windows.Forms.ComboBox Visibilidad_ComboBox;
-        private System.Windows.Forms.Label Resultados_label;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox precio_textBox;
         private System.Windows.Forms.Label label1;
+
+        private System.Windows.Forms.Label label4;
 
     }
 }

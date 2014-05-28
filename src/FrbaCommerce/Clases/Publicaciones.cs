@@ -13,10 +13,12 @@ namespace FrbaCommerce.Clases
     class Publicaciones
     {
 
-        public static List<Publicacion> obtenerPublicaciones()
+        public static List<Publicacion> obtenerPublicaciones(int idUser)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones", BDSQL.iniciarConexion());
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@idUser",idUser));
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE ID_Vendedor=@idUser",listaParametros , BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
                 while (lector.Read())

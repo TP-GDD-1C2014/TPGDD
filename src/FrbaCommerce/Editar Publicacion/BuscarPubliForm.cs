@@ -59,10 +59,26 @@ namespace FrbaCommerce.Editar_Publicacion
                 return Nombre_Tipo;
             }
         }
+        //Combobox Preguntas (bit)
+        public class permitirPreg_combobox
+        {
+            public string Permiso_Pregunta { get; set; }
+            public int Cod_Pregunta { get; set; }
+            public permitirPreg_combobox(string nombre, int cod)
+            {
+                Permiso_Pregunta = nombre;
+                Cod_Pregunta = cod;
+            }
+            public override string ToString()
+            {
+                return Permiso_Pregunta;
+            }
+        }
 
         public Clases.Usuario usuario {get; set;}
-        //public List<Publicacion> listaPublicaciones { get; set; }
-        //public Publicacion unaPublicacion { get; set; }
+        /*public List<Publicacion> listaPublicaciones = new List<Publicacion>();
+        public List<Publicacion> listaEnBlanco  = new List<Publicacion>();
+        public Publicacion unaPublicacion { get; set; }     // = new Publicacion (); ? */
 
         public BuscarPubliForm()
         {
@@ -72,7 +88,7 @@ namespace FrbaCommerce.Editar_Publicacion
             InitializeComponent();
 
             //Cargar DataGridView con las publicaciones
-            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones();
+            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
 
             //Crear listas para los combobox
             List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
@@ -103,38 +119,7 @@ namespace FrbaCommerce.Editar_Publicacion
             this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
-        }
 
-        private void buscar_button_Click(object sender, EventArgs e)
-        {
-            //Obtener todos los filtros
-            //TODO Verificar que campos está completos (recordar que son filtros ACUMULATIVOS)
-            int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
-            var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
-            int idVendedor = usuario.ID_User;
-            string descripcion = Descrip_TextBox.Text;
-            int stock = Convert.ToInt32(StockInic_TextBox.Text);
-            //Obtener fechaFin y fechaInic
-            var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
-            var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
-            //obtener permisoPreg
-
-            //TODO Revisar parámetros
-            //Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, estado, tipoPubli, permisoPreg, stock);
-
-            //Buscar Publicaciones y mostrar en dataGridView1
-            //nuevaPubli.buscarPublicacion(cod_publi,idVendedor,visibilidad,descripcion,stock,estado,tipoPubli);
-
-            //Recordar que los campos del datagridview NO pueden ser editables
-
-        }
-
-        private void limpiar_button_Click(object sender, EventArgs e)
-        {
-            Common.Interfaz.limpiarInterfaz(this);
-            Visibilidad_ComboBox.Text = "";
-            Estado_ComboBox.Text = "";
-            TipoPubli_ComboBox.Text = "";
         }
 
         private void BuscarPubliForm_Load(object sender, EventArgs e)
@@ -160,7 +145,7 @@ namespace FrbaCommerce.Editar_Publicacion
         {
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void CodPubli_TextChanged(object sender, EventArgs e)
         {
         }
 
@@ -172,7 +157,7 @@ namespace FrbaCommerce.Editar_Publicacion
         {
         }
 
-        private void Stock_TextBox_TextChanged(object sender, EventArgs e)
+        private void StockInicial_TextBox_TextChanged(object sender, EventArgs e)
         {
         }
 
@@ -184,10 +169,61 @@ namespace FrbaCommerce.Editar_Publicacion
         {
         }
 
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            //Fecha Vencimiento
+        }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            //Fecha Inicial
+        }
+
+        private void precio_textBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void buscar_button_Click(object sender, EventArgs e)
+        {
+            //Obtener todos los filtros
+            //TODO Verificar que campos está completos (recordar que son filtros ACUMULATIVOS)
+            int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
+            var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
+            int idVendedor = usuario.ID_User;
+            string descripcion = Descrip_TextBox.Text;
+            int stock = Convert.ToInt32(StockInicial_TextBox.Text);
+            //Obtener fechaFin y fechaInic
+            DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
+            DateTime fechaInic = Convert.ToDateTime(dateTimePicker2.Text);
+            var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
+            var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
+            int precio = Convert.ToInt32(precio_textBox.Text);
+            //Falta permisoPreg (problema con combobox)
+
+            //TODO Revisar parámetros
+            //Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, estado, precio, tipoPubli, permisoPreg, stock);
+
+            //Buscar Publicaciones y mostrar en dataGridView1
+            //nuevaPubli.buscarPublicacion(cod_publi,idVendedor,visibilidad,descripcion,stock,estado,tipoPubli);
+
+            //Recordar que los campos del datagridview NO pueden ser editables
+        }
+
+        private void limpiar_button_Click(object sender, EventArgs e)
+        {
+            Common.Interfaz.limpiarInterfaz(this);
+            Visibilidad_ComboBox.Text = "";
+            Estado_ComboBox.Text = "";
+            TipoPubli_ComboBox.Text = "";
+            //dataGridView1.DataSource = listaEnBlanco;
+
+        }
+
         private void seleccionar_button_Click(object sender, EventArgs e)
         {
             //Al elegir una fila, dirigir a la form EditarPubliForm
         }
+
 
 
     }
