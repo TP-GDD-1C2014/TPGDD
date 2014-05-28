@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridViewPublicaciones = new System.Windows.Forms.DataGridView();
             this.rendirButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.cantidadComprasTextBox = new System.Windows.Forms.TextBox();
+            this.dataGridViewPublicaciones = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPublicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,18 +45,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Publicaciones sin facturar";
             this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // dataGridViewPublicaciones
-            // 
-            this.dataGridViewPublicaciones.AllowUserToAddRows = false;
-            this.dataGridViewPublicaciones.AllowUserToDeleteRows = false;
-            this.dataGridViewPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPublicaciones.Location = new System.Drawing.Point(41, 53);
-            this.dataGridViewPublicaciones.Name = "dataGridViewPublicaciones";
-            this.dataGridViewPublicaciones.ReadOnly = true;
-            this.dataGridViewPublicaciones.Size = new System.Drawing.Size(458, 150);
-            this.dataGridViewPublicaciones.TabIndex = 1;
-            this.dataGridViewPublicaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // rendirButton
             // 
@@ -83,6 +71,18 @@
             this.cantidadComprasTextBox.Size = new System.Drawing.Size(100, 20);
             this.cantidadComprasTextBox.TabIndex = 4;
             // 
+            // dataGridViewPublicaciones
+            // 
+            this.dataGridViewPublicaciones.AllowUserToAddRows = false;
+            this.dataGridViewPublicaciones.AllowUserToDeleteRows = false;
+            this.dataGridViewPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPublicaciones.Location = new System.Drawing.Point(41, 53);
+            this.dataGridViewPublicaciones.Name = "dataGridViewPublicaciones";
+            this.dataGridViewPublicaciones.ReadOnly = true;
+            this.dataGridViewPublicaciones.Size = new System.Drawing.Size(458, 150);
+            this.dataGridViewPublicaciones.TabIndex = 1;
+            this.dataGridViewPublicaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
             // FacturarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,9 +104,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridViewPublicaciones;
         private System.Windows.Forms.Button rendirButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox cantidadComprasTextBox;
+        private System.Windows.Forms.DataGridView dataGridViewPublicaciones;
     }
 }

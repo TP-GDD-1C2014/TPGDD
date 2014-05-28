@@ -62,6 +62,7 @@ namespace FrbaCommerce.Listado_Estadistico
             ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
 
             this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
+            this.top5DataGriedView.Refresh();
         }
 
 

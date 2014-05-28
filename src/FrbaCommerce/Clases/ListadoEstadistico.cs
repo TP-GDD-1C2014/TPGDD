@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FrbaCommerce.Common;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace FrbaCommerce.Clases
 {
@@ -42,17 +44,15 @@ namespace FrbaCommerce.Clases
             return rangoMinimo;
         }
 
-        public Object buscar(int opcionElegida)
+        public DataTable buscar(int opcionElegida)
         {
-            if(opcionElegida == 2)
-            
-                    {
-                        ListadoMayorFact listadoFacturacion = new ListadoMayorFact(trimestre, anio);
-                        return listadoFacturacion.obtenerListado(BDSQL.iniciarConexion());
-                    }
-            else
-                return -1;
-            
+            if (opcionElegida == 2)
+            {
+                ListadoMayorFact listadoFacturacion = new ListadoMayorFact(trimestre, anio);
+                return listadoFacturacion.obtenerListado();
+            }
+            else return null;
+           
         }
 
 

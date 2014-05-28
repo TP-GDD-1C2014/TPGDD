@@ -16,6 +16,8 @@ namespace FrbaCommerce.Facturar_Publicaciones
         {
             InitializeComponent();
 
+
+
         }
 
 
