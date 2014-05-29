@@ -14,10 +14,13 @@ namespace FrbaCommerce.Listado_Estadistico
     public partial class ListadoEstadisticoForm : Form
     {
 
+   
+
         public ListadoEstadisticoForm()
         {
             InitializeComponent();
 
+          
 
             //Cargando combo de trimestre
             this.trimestreCombo.Items.Add(1);
@@ -66,21 +69,26 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void buscarButton_Click(object sender, EventArgs e)
         {
-            int trimestre = this.trimestreCombo.SelectedIndex + 1;
-            int anio = Convert.ToInt32(this.anioTextbox.Text);
-            int opcionElegida = this.tipoListadoCombo.SelectedIndex + 1;
 
-            ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
-
-            this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
-            this.top5DataGriedView.Refresh();
-
-            //Esto bloquea el ordenamiento del datagrid cuando se toca en algun header de las columnas
-            foreach (DataGridViewColumn column in this.top5DataGriedView.Columns)
+            if (this.verificarCampos(this.groupBox1))
             {
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
+                
+                int anio = Convert.ToInt32(this.anioTextbox.Text);
+                int trimestre = this.trimestreCombo.SelectedIndex + 1;
+                int opcionElegida = this.tipoListadoCombo.SelectedIndex + 1;
 
+                ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
+
+                this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
+                this.top5DataGriedView.Refresh();
+
+                //Esto bloquea el ordenamiento del datagrid cuando se toca en algun header de las columnas
+                foreach (DataGridViewColumn column in this.top5DataGriedView.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
+
+            }
         }
 
 
@@ -106,5 +114,50 @@ namespace FrbaCommerce.Listado_Estadistico
             Interfaz.limpiarInterfaz(this);
                          
         }
+
+        private bool verificarCampos(Control control)
+        {
+            
+
+            foreach(Control c in control.Controls)
+            {
+                var anioYTrimestre = c as TextBox;
+                var tipoListado = c as ComboBox;
+
+
+                if (anioYTrimestre != null && anioYTrimestre.Text == "")
+                {
+                    string str = "Los campos no pueden destar vacios";
+                    DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+        
+
+                if (tipoListado != null && tipoListado.SelectedIndex == -1)
+                {
+                    string str = "Los campos no pueden destar vacios";
+                    DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                    
+                }
+
+            }
+
+            return true;
+
+        }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

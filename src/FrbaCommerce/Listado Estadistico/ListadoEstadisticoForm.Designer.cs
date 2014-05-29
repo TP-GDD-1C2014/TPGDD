@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
             this.tipoListadoCombo = new System.Windows.Forms.ComboBox();
             this.TipoListadoLabel = new System.Windows.Forms.Label();
@@ -38,7 +39,8 @@
             this.anioLabel = new System.Windows.Forms.Label();
             this.top5DataGriedView = new System.Windows.Forms.DataGridView();
             this.top5Label = new System.Windows.Forms.Label();
-            this.limpiarButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.volverButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.top5DataGriedView)).BeginInit();
             this.SuspendLayout();
@@ -59,6 +61,17 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Búsqueda";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // limpiarButton
+            // 
+            this.limpiarButton.Location = new System.Drawing.Point(43, 139);
+            this.limpiarButton.Name = "limpiarButton";
+            this.limpiarButton.Size = new System.Drawing.Size(75, 23);
+            this.limpiarButton.TabIndex = 7;
+            this.limpiarButton.Text = "Limpiar";
+            this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // buscarButton
             // 
@@ -82,11 +95,11 @@
             // TipoListadoLabel
             // 
             this.TipoListadoLabel.AutoSize = true;
-            this.TipoListadoLabel.Location = new System.Drawing.Point(40, 94);
+            this.TipoListadoLabel.Location = new System.Drawing.Point(25, 94);
             this.TipoListadoLabel.Name = "TipoListadoLabel";
-            this.TipoListadoLabel.Size = new System.Drawing.Size(80, 13);
+            this.TipoListadoLabel.Size = new System.Drawing.Size(93, 13);
             this.TipoListadoLabel.TabIndex = 4;
-            this.TipoListadoLabel.Text = "Tipo de Listado";
+            this.TipoListadoLabel.Text = "Tipo de Listado (*)";
             // 
             // trimestreCombo
             // 
@@ -100,11 +113,11 @@
             // TrimestreLabel
             // 
             this.TrimestreLabel.AutoSize = true;
-            this.TrimestreLabel.Location = new System.Drawing.Point(303, 32);
+            this.TrimestreLabel.Location = new System.Drawing.Point(290, 33);
             this.TrimestreLabel.Name = "TrimestreLabel";
-            this.TrimestreLabel.Size = new System.Drawing.Size(50, 13);
+            this.TrimestreLabel.Size = new System.Drawing.Size(63, 13);
             this.TrimestreLabel.TabIndex = 2;
-            this.TrimestreLabel.Text = "Trimestre";
+            this.TrimestreLabel.Text = "Trimestre (*)";
             // 
             // anioTextbox
             // 
@@ -120,9 +133,9 @@
             this.anioLabel.AutoSize = true;
             this.anioLabel.Location = new System.Drawing.Point(40, 33);
             this.anioLabel.Name = "anioLabel";
-            this.anioLabel.Size = new System.Drawing.Size(26, 13);
+            this.anioLabel.Size = new System.Drawing.Size(39, 13);
             this.anioLabel.TabIndex = 0;
-            this.anioLabel.Text = "Año";
+            this.anioLabel.Text = "Año (*)";
             this.anioLabel.Click += new System.EventHandler(this.anioLabel_Click);
             // 
             // top5DataGriedView
@@ -151,21 +164,33 @@
             this.top5Label.TabIndex = 2;
             this.top5Label.Text = "TOP 5:";
             // 
-            // limpiarButton
+            // label1
             // 
-            this.limpiarButton.Location = new System.Drawing.Point(43, 139);
-            this.limpiarButton.Name = "limpiarButton";
-            this.limpiarButton.Size = new System.Drawing.Size(75, 23);
-            this.limpiarButton.TabIndex = 7;
-            this.limpiarButton.Text = "Limpiar";
-            this.limpiarButton.UseVisualStyleBackColor = true;
-            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(429, 400);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(250, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Los campos marcados con (*) son OBLIGATORIOS";
+            // 
+            // volverButton
+            // 
+            this.volverButton.Location = new System.Drawing.Point(89, 412);
+            this.volverButton.Name = "volverButton";
+            this.volverButton.Size = new System.Drawing.Size(134, 43);
+            this.volverButton.TabIndex = 4;
+            this.volverButton.Text = "Volver";
+            this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // ListadoEstadisticoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(842, 467);
+            this.ControlBox = false;
+            this.Controls.Add(this.volverButton);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.top5Label);
             this.Controls.Add(this.top5DataGriedView);
             this.Controls.Add(this.groupBox1);
@@ -193,5 +218,7 @@
         private System.Windows.Forms.Label top5Label;
         private System.Windows.Forms.Button buscarButton;
         private System.Windows.Forms.Button limpiarButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button volverButton;
     }
 }

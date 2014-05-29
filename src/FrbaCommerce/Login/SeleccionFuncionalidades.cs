@@ -155,68 +155,81 @@ namespace FrbaCommerce.Login
                     case 1:
                         Abm_Cliente.ABMClientes form1 = new Abm_Cliente.ABMClientes();
                         this.Hide();
-                        form1.Show();
+                        form1.ShowDialog();
+                        this.Show();
                         break;
                     case 2:
                         Abm_Empresa.ABMEmpresas form2 = new Abm_Empresa.ABMEmpresas();
                         this.Hide();
-                        form2.Show();
+                        form2.ShowDialog();
+                        this.Show();
                         break;
                     case 3:
                         ABM_Rol.AbmRolForm form3 = new ABM_Rol.AbmRolForm();
                         this.Hide();
-                        form3.Show();
+                        form3.ShowDialog();
+                        this.Show();
                         break;
                     case 4:
                         Abm_Rubro.ABMRubro form4 = new Abm_Rubro.ABMRubro(this);
                         this.Hide();
-                        form4.Show();
+                        form4.ShowDialog();
+                        this.Show();
                         break;
                     case 5:
                         Abm_Visibilidad.ABMVisibilidad form5 = new Abm_Visibilidad.ABMVisibilidad();
                         this.Hide();
-                        form5.Show();
+                        form5.ShowDialog();
+                        this.Show();
                         break;
                     case 6:
                         //Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm(this.usuario);
                         Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm();
                         this.Hide();
-                        form6.Show();
+                        form6.ShowDialog();
+                        this.Show();
                         break;
                     case 7:
                         Editar_Publicacion.EditarPubliForm form7 = new Editar_Publicacion.EditarPubliForm();
                         this.Hide();
-                        form7.Show();
+                        form7.ShowDialog();
+                        this.Show();
                         break;
                     case 8:
                         Gestion_de_Preguntas.GestionPreguntas form8 = new Gestion_de_Preguntas.GestionPreguntas();
                         this.Hide();
-                        form8.Show();
+                        form8.ShowDialog();
+                        this.Show();
                         break;
                     case 9:
                         Comprar_Ofertar.ComprarOfertar form9 = new Comprar_Ofertar.ComprarOfertar();
                         this.Hide();
-                        form9.Show();
+                        form9.ShowDialog();
+                        this.Show();
                         break;
                     case 10:
                         Calificar_Vendedor.CalificarVendedor form10 = new Calificar_Vendedor.CalificarVendedor();
                         this.Hide();
-                        form10.Show();
+                        form10.ShowDialog();
+                        this.Show();
                         break;
                     case 11:
                         Historial_Cliente.Historial form11 = new Historial_Cliente.Historial();
                         this.Hide();
-                        form11.Show();
+                        form11.ShowDialog();
+                        this.Show();
                         break;
                     case 12:
                         Facturar_Publicaciones.FacturarForm form12 = new Facturar_Publicaciones.FacturarForm(usuario);
                         this.Hide();
-                        form12.Show();
+                        form12.ShowDialog();
+                        this.Show();
                         break;
                     case 13:
                         Listado_Estadistico.ListadoEstadisticoForm form13 = new Listado_Estadistico.ListadoEstadisticoForm();
                         this.Hide();
-                        form13.Show();
+                        form13.ShowDialog();
+                        this.Show();
                         break;
                 }
             }
@@ -227,6 +240,11 @@ namespace FrbaCommerce.Login
             SeleccionRoles formRoles = new SeleccionRoles(Interfaz.usuario);
             this.Hide();
             formRoles.Show();
+        }
+
+        private void SeleccionFuncionalidades_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
