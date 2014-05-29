@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
+using FrbaCommerce.Common;
 
 namespace FrbaCommerce.Listado_Estadistico
 {
@@ -17,15 +18,25 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             InitializeComponent();
 
+
+            //Cargando combo de trimestre
             this.trimestreCombo.Items.Add(1);
             this.trimestreCombo.Items.Add(2);
             this.trimestreCombo.Items.Add(3);
             this.trimestreCombo.Items.Add(4);
 
+            //Cargando Combo de tipos de listados
             this.tipoListadoCombo.Items.Add("Vendedores con Mayor Cantidad de Productos no Vendidos");
             this.tipoListadoCombo.Items.Add("Vendedores con Mayor Facturación");
             this.tipoListadoCombo.Items.Add("Vendedores con Mayor Reputación");
             this.tipoListadoCombo.Items.Add("Clientes con Mayor Cantidad de Publicaciones sin Calificar");
+
+
+
+           
+
+
+
         }
 
         private void anioLabel_Click(object sender, EventArgs e)
@@ -63,6 +74,13 @@ namespace FrbaCommerce.Listado_Estadistico
 
             this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
             this.top5DataGriedView.Refresh();
+
+            //Esto bloquea el ordenamiento del datagrid cuando se toca en algun header de las columnas
+            foreach (DataGridViewColumn column in this.top5DataGriedView.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
         }
 
 
@@ -81,6 +99,12 @@ namespace FrbaCommerce.Listado_Estadistico
         private void top5DataGriedView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            Interfaz.limpiarInterfaz(this);
+                         
         }
     }
 }

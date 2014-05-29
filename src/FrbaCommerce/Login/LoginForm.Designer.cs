@@ -65,6 +65,8 @@
             this.Username_TextBox.Name = "Username_TextBox";
             this.Username_TextBox.Size = new System.Drawing.Size(220, 20);
             this.Username_TextBox.TabIndex = 2;
+            this.Username_TextBox.TextChanged += new System.EventHandler(this.Username_TextBox_TextChanged);
+            this.Username_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Username_KeyPress);
             // 
             // Password_TextBox
             // 

@@ -134,5 +134,15 @@ namespace FrbaCommerce.Login
         private void pictureBox1_Click(object sender, EventArgs e)
         {
         }
+
+        private void Username_TextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Username_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = e.KeyChar == ' ';
+        }
     }
 }

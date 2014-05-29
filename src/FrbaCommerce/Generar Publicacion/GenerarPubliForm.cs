@@ -184,7 +184,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
         private void Limpiar_button_Click(object sender, EventArgs e)
         {
-            Common.Interfaz.limpiarInterfaz(this);
+            Interfaz.limpiarInterfaz(this);
             Ocultar();
         }
 

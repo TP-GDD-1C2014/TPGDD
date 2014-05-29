@@ -85,5 +85,16 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
 
         }
+
+        private void Username_TextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Username_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = e.KeyChar == ' ';
+        }
+
     }
 }

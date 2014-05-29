@@ -211,10 +211,10 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void limpiar_button_Click(object sender, EventArgs e)
         {
-            Common.Interfaz.limpiarInterfaz(this);
-            Visibilidad_ComboBox.Text = "";
-            Estado_ComboBox.Text = "";
-            TipoPubli_ComboBox.Text = "";
+            Interfaz.limpiarInterfaz(this);
+            //Visibilidad_ComboBox.Text = "";
+            //Estado_ComboBox.Text = "";
+            //TipoPubli_ComboBox.Text = "";
             //dataGridView1.DataSource = listaEnBlanco;
 
         }

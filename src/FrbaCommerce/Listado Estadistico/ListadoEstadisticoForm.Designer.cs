@@ -38,12 +38,14 @@
             this.anioLabel = new System.Windows.Forms.Label();
             this.top5DataGriedView = new System.Windows.Forms.DataGridView();
             this.top5Label = new System.Windows.Forms.Label();
+            this.limpiarButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.top5DataGriedView)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.limpiarButton);
             this.groupBox1.Controls.Add(this.buscarButton);
             this.groupBox1.Controls.Add(this.tipoListadoCombo);
             this.groupBox1.Controls.Add(this.TipoListadoLabel);
@@ -106,7 +108,7 @@
             // 
             // anioTextbox
             // 
-            this.anioTextbox.Location = new System.Drawing.Point(89, 29);
+            this.anioTextbox.Location = new System.Drawing.Point(89, 33);
             this.anioTextbox.Name = "anioTextbox";
             this.anioTextbox.Size = new System.Drawing.Size(100, 20);
             this.anioTextbox.TabIndex = 1;
@@ -116,7 +118,7 @@
             // anioLabel
             // 
             this.anioLabel.AutoSize = true;
-            this.anioLabel.Location = new System.Drawing.Point(57, 32);
+            this.anioLabel.Location = new System.Drawing.Point(40, 33);
             this.anioLabel.Name = "anioLabel";
             this.anioLabel.Size = new System.Drawing.Size(26, 13);
             this.anioLabel.TabIndex = 0;
@@ -127,11 +129,16 @@
             // 
             this.top5DataGriedView.AllowUserToAddRows = false;
             this.top5DataGriedView.AllowUserToDeleteRows = false;
+            this.top5DataGriedView.AllowUserToResizeColumns = false;
+            this.top5DataGriedView.AllowUserToResizeRows = false;
+            this.top5DataGriedView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.top5DataGriedView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.top5DataGriedView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.top5DataGriedView.Location = new System.Drawing.Point(89, 257);
             this.top5DataGriedView.Name = "top5DataGriedView";
             this.top5DataGriedView.ReadOnly = true;
-            this.top5DataGriedView.Size = new System.Drawing.Size(590, 150);
+            this.top5DataGriedView.RowHeadersVisible = false;
+            this.top5DataGriedView.Size = new System.Drawing.Size(590, 120);
             this.top5DataGriedView.TabIndex = 1;
             this.top5DataGriedView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.top5DataGriedView_CellContentClick);
             // 
@@ -143,6 +150,16 @@
             this.top5Label.Size = new System.Drawing.Size(41, 13);
             this.top5Label.TabIndex = 2;
             this.top5Label.Text = "TOP 5:";
+            // 
+            // limpiarButton
+            // 
+            this.limpiarButton.Location = new System.Drawing.Point(43, 139);
+            this.limpiarButton.Name = "limpiarButton";
+            this.limpiarButton.Size = new System.Drawing.Size(75, 23);
+            this.limpiarButton.TabIndex = 7;
+            this.limpiarButton.Text = "Limpiar";
+            this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // ListadoEstadisticoForm
             // 
@@ -175,5 +192,6 @@
         private System.Windows.Forms.DataGridView top5DataGriedView;
         private System.Windows.Forms.Label top5Label;
         private System.Windows.Forms.Button buscarButton;
+        private System.Windows.Forms.Button limpiarButton;
     }
 }

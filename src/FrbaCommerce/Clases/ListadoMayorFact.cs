@@ -10,8 +10,6 @@ namespace FrbaCommerce.Clases
 {
     class ListadoMayorFact
     {
-        public string username { get; set; }
-        public float facturacionTotal { get; set; }
         public int anio { get; set; }
         public int mesMinimo { get; set; }
         public int mesMaximo { get; set; }
@@ -23,12 +21,7 @@ namespace FrbaCommerce.Clases
             this.mesMaximo = trimestreMinimo + 2;
         }
 
-        public ListadoMayorFact(string username, float facturacionTotal)
-        {
-            this.username = username;
-            this.facturacionTotal = facturacionTotal;
-        }
-
+        
 
         public DataTable obtenerListado()
         {
@@ -46,21 +39,6 @@ namespace FrbaCommerce.Clases
 
             return BDSQL.obtenerDataTable(commandtext, "T", listaParametros);
             
-            /*SqlDataReader lectorListado = BDSQL.ejecutarReader("SELECT TOP(5) Vendedor, SUM([Facturacion_Total]) AS [Facturacion Total] "+
-	                                                            "FROM MERCADONEGRO.MayorFacturacionView "+
-		                                                        "WHERE Mes BETWEEN @mesMinimo AND @mesMaximo AND Año = @año "+
-			                                                    "GROUP BY Vendedor "+
-				                                                "ORDER BY [Facturacion Total] DESC", listaParametros, conexion);
-            if (lectorListado.HasRows)
-            {
-                while (lectorListado.Read())
-                {
-                    ListadoMayorFact vendedor = new ListadoMayorFact(Convert.ToString(lectorListado["Vendedor"]),(float) Convert.ToInt32(lectorListado["Facturacion Total"]));
-                    listado.Add(vendedor);
-                }
-            }
-            BDSQL.cerrarConexion();
-            return listado;*/
         }
         
 

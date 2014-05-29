@@ -51,6 +51,11 @@ namespace FrbaCommerce.Clases
                 ListadoMayorFact listadoFacturacion = new ListadoMayorFact(trimestre, anio);
                 return listadoFacturacion.obtenerListado();
             }
+            else if (opcionElegida == 3)
+            {
+                ListadoMayorCalific listadoCalificacion = new ListadoMayorCalific(trimestre, anio);
+                return listadoCalificacion.obtenerListado();
+            }
             else return null;
            
         }

@@ -20,17 +20,37 @@ namespace FrbaCommerce.Common
 
         public static void limpiarInterfaz(Control con)
         {
+
+            
             foreach (Control c in con.Controls)
             {
-                var box   = c as TextBox;
-
+                var box = c as TextBox;
+                var combo = c as ComboBox;
+                var datagridview = c as DataGridView;
+                
+                //Limpia textbox
                 if (box != null)
                 {
                     box.Text = string.Empty;
                 }
 
+                //Limpia comboBox
+                if (combo != null)
+                {
+                    combo.SelectedIndex = -1;
+                }
+
+                //Limpia DataGridView
+                if (datagridview != null)
+                {
+                    datagridview.DataSource = null;
+                    datagridview.Refresh();
+                }
+
                 limpiarInterfaz(c);
+
             }
+
 
         }
 
