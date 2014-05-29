@@ -210,6 +210,9 @@
     <EmbeddedResource Include="Abm Rubro\Modificar.resx">
       <DependentUpon>Modificar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Comprar-Ofertar\ComprarOfertar.resx">
+      <DependentUpon>ComprarOfertar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\BuscarPubliForm.resx">
       <DependentUpon>BuscarPubliForm.cs</DependentUpon>
     </EmbeddedResource>
