@@ -28,20 +28,102 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dgCompras = new System.Windows.Forms.DataGridView();
+            this.historialBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dgOfertas = new System.Windows.Forms.DataGridView();
+            this.volver = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgCompras)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historialBindingSource)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgOfertas)).BeginInit();
             this.SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dgCompras);
+            this.groupBox1.Location = new System.Drawing.Point(10, 5);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(420, 180);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Compras";
+            // 
+            // dgCompras
+            // 
+            this.dgCompras.AllowUserToAddRows = false;
+            this.dgCompras.AllowUserToDeleteRows = false;
+            this.dgCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgCompras.Location = new System.Drawing.Point(10, 20);
+            this.dgCompras.Name = "dgCompras";
+            this.dgCompras.ReadOnly = true;
+            this.dgCompras.Size = new System.Drawing.Size(400, 150);
+            this.dgCompras.TabIndex = 0;
+            this.dgCompras.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgCompras_CellContentClick);
+            // 
+            // historialBindingSource
+            // 
+            this.historialBindingSource.DataSource = typeof(FrbaCommerce.Historial_Cliente.Historial);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dgOfertas);
+            this.groupBox2.Location = new System.Drawing.Point(10, 190);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(420, 180);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Ofertas";
+            // 
+            // dgOfertas
+            // 
+            this.dgOfertas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgOfertas.Location = new System.Drawing.Point(10, 20);
+            this.dgOfertas.Name = "dgOfertas";
+            this.dgOfertas.Size = new System.Drawing.Size(400, 150);
+            this.dgOfertas.TabIndex = 0;
+            // 
+            // volver
+            // 
+            this.volver.Location = new System.Drawing.Point(10, 380);
+            this.volver.Name = "volver";
+            this.volver.Size = new System.Drawing.Size(120, 30);
+            this.volver.TabIndex = 5;
+            this.volver.Text = "<< Volver";
+            this.volver.UseVisualStyleBackColor = true;
+            this.volver.Click += new System.EventHandler(this.volver_Click);
             // 
             // Historial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 266);
+            this.ClientSize = new System.Drawing.Size(442, 419);
+            this.Controls.Add(this.volver);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Name = "Historial";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial";
             this.Load += new System.EventHandler(this.Historial_Load);
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgCompras)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historialBindingSource)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgOfertas)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.BindingSource historialBindingSource;
+        private System.Windows.Forms.DataGridView dgCompras;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView dgOfertas;
+        private System.Windows.Forms.Button volver;
     }
 }

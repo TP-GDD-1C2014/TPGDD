@@ -11,7 +11,7 @@ namespace FrbaCommerce.Clases
         public int ID_Vendedor { get; set; }
         public int Cod_Publicacion { get; set; }
         public DateTime Fecha_Oferta { get; set; }
-        public Boolean Subasta_Ganada { get; set; }
+        public string Subasta_Ganada { get; set; }
 
         public Oferta(int idSubasta, int idVendedor, int codPublicacion, DateTime fechaOferta, Boolean subastaGanada)
         {
@@ -19,7 +19,14 @@ namespace FrbaCommerce.Clases
             ID_Vendedor = idVendedor;
             Cod_Publicacion = codPublicacion;
             Fecha_Oferta = fechaOferta;
-            Subasta_Ganada = subastaGanada;
+            if (subastaGanada)
+            {
+                Subasta_Ganada = "Sí";
+            }
+            else
+            {
+                Subasta_Ganada = "No";
+            }
         }
     }
 }

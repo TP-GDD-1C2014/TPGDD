@@ -264,6 +264,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\FrbaCommerce.Historial_Cliente.Historial.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

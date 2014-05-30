@@ -19,8 +19,13 @@ namespace FrbaCommerce.Historial_Cliente
         public Historial()
         {
             InitializeComponent();
+
+            dgCompras.DataSource = compras;
+            dgOfertas.DataSource = ofertas;
+
             obtenerCompras();
             obtenerOfertas();
+
         }
 
         public Clases.Calificacion obtenerCalificacion(int codCalificacion)
@@ -48,19 +53,19 @@ namespace FrbaCommerce.Historial_Cliente
                     int idOperacion = Convert.ToInt32(lector["ID_Operacion"]);
                     int idVendedor = Convert.ToInt32(lector["ID_Vendedor"]);
                     int codPublicacion = Convert.ToInt32(lector["Cod_Publicacion"]);
-                    Clases.Calificacion codCalificacion;
+                    Clases.Calificacion calificacion;
 
                     if (lector["Cod_Calificacion"] != DBNull.Value)
                     {
-                        codCalificacion = obtenerCalificacion(Convert.ToInt32(lector["Cod_Calificacion"]));
+                        calificacion = obtenerCalificacion(Convert.ToInt32(lector["Cod_Calificacion"]));
                     }
                     else
                     {
-                        codCalificacion = null;
+                        calificacion = null;
                     }
                     
                     DateTime fechaOperacion = Convert.ToDateTime(lector["Fecha_Operacion"].ToString());
-                    Clases.Compra compra = new Clases.Compra(idOperacion, idVendedor, codPublicacion, codCalificacion, fechaOperacion);
+                    Clases.Compra compra = new Clases.Compra(idOperacion, idVendedor, codPublicacion, calificacion, fechaOperacion);
                     compras.Add(compra);
                 }
             }
@@ -103,6 +108,16 @@ namespace FrbaCommerce.Historial_Cliente
         }
 
         private void Historial_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void volver_Click(object sender, EventArgs e)
         {
 
         }
