@@ -106,7 +106,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "Historial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Historial";
+            this.Text = "Historial de Operaciones - MercadoNegro";
             this.Load += new System.EventHandler(this.Historial_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgCompras)).EndInit();
