@@ -13,74 +13,14 @@ namespace FrbaCommerce.Historial_Cliente
 {
     public partial class Historial : Form
     {
+        public List<Clases.Compra> compras = new List<Clases.Compra>();
+        public List<Clases.Oferta> ofertas = new List<Clases.Oferta>();
+
         public Historial()
         {
             InitializeComponent();
             obtenerCompras();
             obtenerOfertas();
-        }
-
-        public class Compra
-        {
-            public int ID_Operacion { get; set; }
-            public int ID_Vendedor { get; set; }
-            public int ID_Comprador { get; set; }
-            public int Cod_Publicacion { get; set; }
-            public Clases.Calificacion Calificacion { get; set; }
-            public DateTime Fecha_Operacion { get; set; }
-
-            public Compra(int id, int idVendedor, int idComprador, int codPublicacion, Clases.Calificacion calif, DateTime fecha)
-            {
-                ID_Operacion = id;
-                ID_Vendedor = idVendedor;
-                ID_Comprador = idComprador;
-                Cod_Publicacion = codPublicacion;
-                Calificacion = calif;
-                Fecha_Operacion = fecha;
-            }
-        }
-
-        public class Oferta
-        {
-            public int ID_Operacion { get; set; }
-            public int ID_Vendedor { get; set; }
-            public int ID_Comprador { get; set; }
-            public int Cod_Publicacion { get; set; }
-            public Clases.Calificacion Calificacion { get; set; }
-            public DateTime Fecha_Operacion { get; set; }
-            public Boolean Subasta_Ganada { get; set; }
-
-            public Oferta(int id, int idVendedor, int idComprador, int codPublicacion, Clases.Calificacion calif, DateTime fecha, Boolean subastaGanada)
-            {
-                ID_Operacion = id;
-                ID_Vendedor = idVendedor;
-                ID_Comprador = idComprador;
-                Cod_Publicacion = codPublicacion;
-                Calificacion = calif;
-                Fecha_Operacion = fecha;
-                Subasta_Ganada = subastaGanada;
-            }
-        }
-
-        public List<Compra> compras = new List<Compra>();
-        public List<Oferta> ofertas = new List<Oferta>();
-
-        public Boolean ganoSubasta(int codPublicacion)
-        {
-            List<SqlParameter> listaParametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
-            BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", codPublicacion);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Tipo_Operacion FROM MERCADONEGRO.Operaciones WHERE Tipo_Operacion = 2 AND Cod_Publicacion = @Cod_Publicacion AND ID_Comprador = @ID_User", listaParametros, BDSQL.iniciarConexion());
-            if (lector.HasRows)
-            {
-                BDSQL.cerrarConexion();
-                return true;
-            }
-            else
-            {
-                BDSQL.cerrarConexion();
-                return false;
-            }
         }
 
         public Clases.Calificacion obtenerCalificacion(int codCalificacion)
@@ -96,63 +36,70 @@ namespace FrbaCommerce.Historial_Cliente
 
         public int obtenerCompras()
         {
+            int cont = 0;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT ID_Operacion, ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 0", listaParametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerCompras @ID_User", listaParametros, BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
-                int cant = 0;
                 while (lector.Read())
                 {
+                    cont++;
+                    int idOperacion = Convert.ToInt32(lector["ID_Operacion"]);
+                    int idVendedor = Convert.ToInt32(lector["ID_Vendedor"]);
+                    int codPublicacion = Convert.ToInt32(lector["Cod_Publicacion"]);
+                    Clases.Calificacion codCalificacion;
+
                     if (lector["Cod_Calificacion"] != DBNull.Value)
                     {
-                        compras.Add(new Compra(Convert.ToInt32(lector["ID_Operacion"]), Convert.ToInt32(lector["ID_Vendedor"]), Convert.ToInt32(lector["ID_Comprador"]), Convert.ToInt32(lector["Cod_Publicacion"]), obtenerCalificacion(Convert.ToInt32(lector["Cod_Calificacion"])), Convert.ToDateTime(lector["Fecha_Operacion"].ToString())));
+                        codCalificacion = obtenerCalificacion(Convert.ToInt32(lector["Cod_Calificacion"]));
                     }
                     else
                     {
-                        compras.Add(new Compra(Convert.ToInt32(lector["ID_Operacion"]), Convert.ToInt32(lector["ID_Vendedor"]), Convert.ToInt32(lector["ID_Comprador"]), Convert.ToInt32(lector["Cod_Publicacion"]), null, Convert.ToDateTime(lector["Fecha_Operacion"].ToString())));
+                        codCalificacion = null;
                     }
-                    cant++;
+                    
+                    DateTime fechaOperacion = Convert.ToDateTime(lector["Fecha_Operacion"].ToString());
+                    Clases.Compra compra = new Clases.Compra(idOperacion, idVendedor, codPublicacion, codCalificacion, fechaOperacion);
+                    compras.Add(compra);
                 }
-                BDSQL.cerrarConexion();
-                return cant;
             }
-            else
-            {
-                BDSQL.cerrarConexion();
-                return 0;
-            }
+            BDSQL.cerrarConexion();
+            return cont;
         }
 
         public int obtenerOfertas()
         {
+            int cont = 0;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT ID_Operacion, ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 1", listaParametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerOfertas @ID_User", listaParametros, BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
-                int cant = 0;
                 while (lector.Read())
                 {
-                    Boolean r_ganoSubasta;
-                    if ((r_ganoSubasta = ganoSubasta(Convert.ToInt32(lector["Cod_Publicacion"]))) && (lector["Cod_Calificacion"] != DBNull.Value))
+                    cont++;
+                    int idSubasta = Convert.ToInt32(lector["ID_Subasta"]);
+                    int idVendedor = Convert.ToInt32(lector["ID_Vendedor"]);
+                    int codPublicacion = Convert.ToInt32(lector["Cod_Publicacion"]);
+                    DateTime fechaOferta = Convert.ToDateTime(lector["Fecha_Oferta"].ToString());
+                    Boolean subastaGanada;
+
+                    if (Convert.ToInt32(lector["Tipo_Operacion"]) == 1)
                     {
-                        ofertas.Add(new Oferta(Convert.ToInt32(lector["ID_Operacion"]), Convert.ToInt32(lector["ID_Vendedor"]), Convert.ToInt32(lector["ID_Comprador"]), Convert.ToInt32(lector["Cod_Publicacion"]), obtenerCalificacion(Convert.ToInt32(lector["Cod_Calificacion"])), Convert.ToDateTime(lector["Fecha_Operacion"].ToString()), r_ganoSubasta));
+                        subastaGanada = true;
                     }
                     else
                     {
-                        ofertas.Add(new Oferta(Convert.ToInt32(lector["ID_Operacion"]), Convert.ToInt32(lector["ID_Vendedor"]), Convert.ToInt32(lector["ID_Comprador"]), Convert.ToInt32(lector["Cod_Publicacion"]), null, Convert.ToDateTime(lector["Fecha_Operacion"].ToString()), r_ganoSubasta));
+                        subastaGanada = false;
                     }
-                    cant++;
+
+                    Clases.Oferta oferta = new Clases.Oferta(idSubasta, idVendedor, codPublicacion, fechaOferta, subastaGanada);
+                    ofertas.Add(oferta);
                 }
-                BDSQL.cerrarConexion();
-                return cant;
             }
-            else
-            {
-                BDSQL.cerrarConexion();
-                return 0;
-            }
+            BDSQL.cerrarConexion();
+            return cont;
         }
 
         private void Historial_Load(object sender, EventArgs e)

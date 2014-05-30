@@ -98,12 +98,14 @@
     <Compile Include="Calificar Vendedor\CalificarVendedor.Designer.cs">
       <DependentUpon>CalificarVendedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Clases\Compra.cs" />
     <Compile Include="Clases\Funcionalidades.cs" />
     <Compile Include="Clases\ListadoClientesSinCalific.cs" />
     <Compile Include="Clases\ListadoEstadistico.cs" />
     <Compile Include="Clases\ListadoMayorCalific.cs" />
     <Compile Include="Clases\ListadoMayorFact.cs" />
     <Compile Include="Clases\ListadoProdNoVendidos.cs" />
+    <Compile Include="Clases\Oferta.cs" />
     <Compile Include="Clases\Publicaciones.cs" />
     <Compile Include="Clases\Roles.cs" />
     <Compile Include="Common\BDSQL.cs" />
