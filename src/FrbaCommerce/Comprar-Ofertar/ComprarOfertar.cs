@@ -13,33 +13,70 @@ namespace FrbaCommerce.Comprar_Ofertar
 {
     public partial class ComprarOfertar : Form
     {
+        static int paginaActual;
+        static int cantPublicacionesPorPagina = 30;
+        static int cantPublicacionesTotal;
+        static int ultimaPagina;
+        
         public ComprarOfertar()
         {
             InitializeComponent();
-            cargarPublicaciones(0,50);
+            paginaActual = 0;
+            contarPublicaciones();
+            cargarPublicaciones(paginaActual);
         }
 
-        public void cargarPublicaciones(int cant, int desde)
+        public void cargarPublicaciones(int paginaActual)
         {
+            Common.Interfaz.limpiarInterfaz(this);
+
+            int desde;
+            int hasta;
+
+            if (paginaActual == 0)
+            {
+                desde = 0;
+                hasta = cantPublicacionesPorPagina;
+
+                btnAnteriorPag.Enabled = false;
+                btnPrimerPag.Enabled = false;
+                btnSiguientePag.Enabled = true;
+                btnUltimaPag.Enabled = true;
+            }
+            else if (paginaActual == ultimaPagina)
+            {
+                desde = ((cantPublicacionesPorPagina * paginaActual) + 1);
+                hasta = (desde + cantPublicacionesPorPagina - 1);
+
+                btnSiguientePag.Enabled = false;
+                btnUltimaPag.Enabled = false;
+                btnAnteriorPag.Enabled = true;
+                btnPrimerPag.Enabled = true;
+            }
+            else
+            {
+                desde = ((cantPublicacionesPorPagina * paginaActual) + 1);
+                hasta = (desde + cantPublicacionesPorPagina - 1);
+
+                btnSiguientePag.Enabled = true;
+                btnUltimaPag.Enabled = true;
+                btnAnteriorPag.Enabled = true;
+                btnPrimerPag.Enabled = true;
+            }
+
+
             List<SqlParameter> listaParametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(listaParametros, "@cant", cant);
             BDSQL.agregarParametro(listaParametros, "@desde", desde);
-            /*
-            String commandtext = ("SELECT TOP (@cant) * " +
-            "FROM MERCADONEGRO.Publicaciones " +
-            "WHERE Cod_Publicacion NOT IN(Select TOP (@desde) Cod_Publicacion from MERCADONEGRO.Publicaciones) " +
-            "AND Estado_Publicacion = 0 " +
-            "AND Stock > 0 " +
-            "AND Fecha_Vencimiento < GETUTCDATE() " +
-            "ORDER BY Cod_Visibilidad" );
-            */
+            BDSQL.agregarParametro(listaParametros, "@hasta", hasta);
+         
             String commandtext = "WITH NumberedMyTable AS (SELECT Cod_Publicacion, Stock, ROW_NUMBER() OVER (ORDER BY Cod_Visibilidad) AS RowNumber " +
-            "FROM MERCADONEGRO.Publicaciones WHERE Estado_Publicacion = 0 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ) SELECT Cod_Publicacion,Stock FROM NumberedMyTable " +
-            "WHERE RowNumber BETWEEN @cant AND @desde";
+            "FROM MERCADONEGRO.Publicaciones WHERE Estado_Publicacion = 0 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ) SELECT RowNumber,Cod_Publicacion,Stock FROM NumberedMyTable " +
+            "WHERE RowNumber BETWEEN @desde AND @hasta";
             DataTable ret = BDSQL.obtenerDataTable(commandtext, "T", listaParametros);
 
             dataGridView1.DataSource = ret;
-            
+
+            BDSQL.cerrarConexion();
             
         }
 
@@ -48,37 +85,110 @@ namespace FrbaCommerce.Comprar_Ofertar
             if (textBox3.Text != "")
             {
                 int filtro = Convert.ToInt32(textBox3.Text);
-                cargarPublicaciones(Convert.ToInt32(textBox1.Text), Convert.ToInt32(textBox2.Text), filtro);
+                cargarPublicaciones(paginaActual, filtro);
             }
-            else cargarPublicaciones(Convert.ToInt32(textBox1.Text),Convert.ToInt32(textBox2.Text));
+            else cargarPublicaciones(paginaActual);
         }
 
 
-        public void cargarPublicaciones(int desde, int hasta, int filtro)
+        public void cargarPublicaciones(int paginaActual, int filtro)
         {
+            Common.Interfaz.limpiarInterfaz(this);
+
+            int desde;
+            int hasta;
+
+            if (paginaActual == 0)
+            {
+                desde = 0;
+                hasta = cantPublicacionesPorPagina;
+
+                btnAnteriorPag.Enabled = false;
+                btnPrimerPag.Enabled = false;
+                btnSiguientePag.Enabled = true;
+                btnUltimaPag.Enabled = true;
+            }
+            else if (paginaActual == ultimaPagina)
+            {
+                desde = ((cantPublicacionesPorPagina * paginaActual) + 1);
+                hasta = (desde + cantPublicacionesPorPagina);
+
+                btnSiguientePag.Enabled = false;
+                btnUltimaPag.Enabled = false;
+                btnAnteriorPag.Enabled = true;
+                btnPrimerPag.Enabled = true;
+            }
+            else
+            {
+                desde = ((cantPublicacionesPorPagina * paginaActual) + 1);
+                hasta = (desde + cantPublicacionesPorPagina);
+
+                btnSiguientePag.Enabled = true;
+                btnUltimaPag.Enabled = true;
+                btnAnteriorPag.Enabled = true;
+                btnPrimerPag.Enabled = true;
+            }
+            
+
+           
+
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@desde", desde);
             BDSQL.agregarParametro(listaParametros, "@hasta", hasta);
             BDSQL.agregarParametro(listaParametros, "@filtro", filtro);
 
-            /*
-            String commandtext = ("SELECT TOP (@cant) * " +
-            "FROM MERCADONEGRO.Publicaciones " +
-            "WHERE Cod_Publicacion NOT IN(Select TOP (@desde) Cod_Publicacion from MERCADONEGRO.Publicaciones) " +
-            "AND Estado_Publicacion = 0 " +
-            "AND Stock > 0 " +
-            "AND Fecha_Vencimiento < GETUTCDATE() " +
-            "ORDER BY Cod_Visibilidad" );
-            */
+        
             String commandtext = "WITH NumberedMyTable AS (SELECT Cod_Publicacion, Stock, ROW_NUMBER() OVER (ORDER BY Cod_Visibilidad) AS RowNumber " +
             "FROM MERCADONEGRO.Publicaciones WHERE Stock = @filtro AND Estado_Publicacion = 0 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ) SELECT Cod_Publicacion,Stock FROM NumberedMyTable " +
             "WHERE RowNumber BETWEEN @cant AND @desde";
             DataTable ret = BDSQL.obtenerDataTable(commandtext, "T", listaParametros);
 
             dataGridView1.DataSource = ret;
-
+            BDSQL.cerrarConexion();
 
         }
+
+        private void btnSiguientePag_Click(object sender, EventArgs e)
+        {
+            paginaActual = paginaActual + 1;
+            cargarPublicaciones(paginaActual);
+        }
+
+        private void btnAnteriorPag_Click(object sender, EventArgs e)
+        {
+            
+            paginaActual = paginaActual - 1;
+            cargarPublicaciones(paginaActual);
+        }
+
+        private void btnPrimerPag_Click(object sender, EventArgs e)
+        {
+            paginaActual = 0;
+            cargarPublicaciones(paginaActual);
+        }
+
+        private void btnUltimaPag_Click(object sender, EventArgs e)
+        {
+            paginaActual = ultimaPagina;
+            cargarPublicaciones(paginaActual);
+        }
+
+
+        private void contarPublicaciones ()
+        {
+            SqlDataReader reader = BDSQL.ejecutarReader("select COUNT (*) AS cant from MERCADONEGRO.Publicaciones", BDSQL.iniciarConexion());
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                cantPublicacionesTotal = Convert.ToInt32(reader["cant"]);
+                ultimaPagina = cantPublicacionesTotal / cantPublicacionesPorPagina;
+            }
+
+            BDSQL.cerrarConexion();
+        }
+            
+
 
     }
     
