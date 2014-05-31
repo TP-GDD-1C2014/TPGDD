@@ -9,26 +9,28 @@ namespace FrbaCommerce.Clases
 {
     public class Oferta
     {
-        public int ID_Subasta { get; set; }
-        public int ID_Vendedor { get; set; }
+        public string Vendedor { get; set; }
         public string Publicacion { get; set; }
-        public DateTime Fecha_Oferta { get; set; }
-        public string Subasta_Ganada { get; set; }
+        public DateTime Fecha { get; set; }
+        public int Monto { get; set; }
 
-        public Oferta(int idSubasta, int idVendedor, int codPublicacion, DateTime fechaOferta, Boolean subastaGanada)
+        public Oferta(int idVendedor, int codPublicacion, DateTime fechaOferta, int monto)
         {
-            ID_Subasta = idSubasta;
-            ID_Vendedor = idVendedor;
+            Vendedor = obtenerVendedor(idVendedor);
             Publicacion = obtenerPublicacion(codPublicacion);
-            Fecha_Oferta = fechaOferta;
-            if (subastaGanada)
-            {
-                Subasta_Ganada = "Sí";
-            }
-            else
-            {
-                Subasta_Ganada = "No";
-            }
+            Fecha = fechaOferta;
+            Monto = monto;
+        }
+
+        public string obtenerVendedor(int idVendedor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", idVendedor);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Username FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_Vendedor", listaParametros, BDSQL.iniciarConexion());
+            lector.Read();
+            string res = Convert.ToString(lector["Username"]);
+            BDSQL.cerrarConexion();
+            return res;
         }
 
         public string obtenerPublicacion(int codPublicacion)
