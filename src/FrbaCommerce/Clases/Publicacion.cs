@@ -24,14 +24,14 @@ namespace FrbaCommerce.Clases
         public DateTime Fecha_Vto { get; set; }
         public DateTime Fecha_Inicio { get; set; }
         public decimal Precio { get; set; }
-        public string Estado_Publicacion { get; set; }
-        public string Tipo_Publicacion { get; set; }
+        public int Estado_Publicacion { get; set; }
+        public int Tipo_Publicacion { get; set; }
         public bool Permiso_Preguntas { get; set; }
         public int Stock_Inicial { get; set; }
 
         //private List<Rubro> Rubros = new List<Rubro>();
 
-        public Publicacion(int cod_Publicacion, int visibilidad, int id_Vendedor, string descripcion, int stock, DateTime fecha_Fin, DateTime fecha_Inicio, decimal precio, string estado, string tipoPubli, bool permisoPreg, int stock_Inicial)
+        public Publicacion(int cod_Publicacion, int visibilidad, int id_Vendedor, string descripcion, int stock, DateTime fecha_Fin, DateTime fecha_Inicio, decimal precio, int estado, int tipoPubli, bool permisoPreg, int stock_Inicial)
         {
             this.Cod_Publicacion = cod_Publicacion;
             this.Cod_Visibilidad = visibilidad;
@@ -53,7 +53,7 @@ namespace FrbaCommerce.Clases
 
         }
 
-        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, string estado, string tipoPubli, int precio, bool permisoPreg)
+        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, int estado, int tipoPubli, int precio, bool permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             
@@ -76,7 +76,7 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public void buscarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, int estado, int tipoPubli)
+        /*public void buscarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, int estado, int tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
@@ -92,9 +92,9 @@ namespace FrbaCommerce.Clases
             //Recordar que no todos los parámetros son obligatorios
             //BDSQL.ejecutarQuery("SELECT Cod_Publicacion,Cod_Visibilidad,Descripcion,Stock,Estado_Public,Tipo_Public FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion=@Cod_Publicacion AND Cod_Visibilidad=Cod_Visibilidad AND ID_Vendedor=@ID_Vendedor AND Descripcion=@Descripcion AND Stock=@Stock AND Estado_Public=@Estado_Public AND Tipo_Public=@Tipo_Public", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
-        }
+        }*/
 
-        public void actualizarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, string estado, string tipoPubli, int precio, bool permisoPreg)
+        public void actualizarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, int estado, int tipoPubli, int precio, bool permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 

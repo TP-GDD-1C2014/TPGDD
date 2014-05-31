@@ -40,10 +40,9 @@
             this.Tipo_Label = new System.Windows.Forms.Label();
             this.TipoPubli_ComboBox = new System.Windows.Forms.ComboBox();
             this.FechaFin_DateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.PrecioUnit_textBox = new System.Windows.Forms.TextBox();
+            this.Precio_textBox = new System.Windows.Forms.TextBox();
             this.PrecioUnit_Label = new System.Windows.Forms.Label();
             this.PrecioTotal_Label = new System.Windows.Forms.Label();
-            this.PrecioTotal_textBox = new System.Windows.Forms.TextBox();
             this.Limpiar_button = new System.Windows.Forms.Button();
             this.Guardar_button = new System.Windows.Forms.Button();
             this.PermitirPreg_label = new System.Windows.Forms.Label();
@@ -90,9 +89,9 @@
             this.Stock_Label.AutoSize = true;
             this.Stock_Label.Location = new System.Drawing.Point(15, 80);
             this.Stock_Label.Name = "Stock_Label";
-            this.Stock_Label.Size = new System.Drawing.Size(65, 13);
+            this.Stock_Label.Size = new System.Drawing.Size(35, 13);
             this.Stock_Label.TabIndex = 4;
-            this.Stock_Label.Text = "Stock Inicial";
+            this.Stock_Label.Text = "Stock";
             // 
             // Stock_TextBox
             // 
@@ -155,13 +154,13 @@
             this.FechaFin_DateTimePicker.TabIndex = 13;
             this.FechaFin_DateTimePicker.ValueChanged += new System.EventHandler(this.FechaFin_DateTimePicker_ValueChanged);
             // 
-            // PrecioUnit_textBox
+            // Precio_textBox
             // 
-            this.PrecioUnit_textBox.Location = new System.Drawing.Point(144, 183);
-            this.PrecioUnit_textBox.Name = "PrecioUnit_textBox";
-            this.PrecioUnit_textBox.Size = new System.Drawing.Size(71, 20);
-            this.PrecioUnit_textBox.TabIndex = 14;
-            this.PrecioUnit_textBox.TextChanged += new System.EventHandler(this.PrecioUnit_textBox_TextChanged);
+            this.Precio_textBox.Location = new System.Drawing.Point(144, 183);
+            this.Precio_textBox.Name = "Precio_textBox";
+            this.Precio_textBox.Size = new System.Drawing.Size(71, 20);
+            this.Precio_textBox.TabIndex = 14;
+            this.Precio_textBox.TextChanged += new System.EventHandler(this.PrecioUnit_textBox_TextChanged);
             // 
             // PrecioUnit_Label
             // 
@@ -181,13 +180,6 @@
             this.PrecioTotal_Label.TabIndex = 16;
             this.PrecioTotal_Label.Text = "Precio Total";
             // 
-            // PrecioTotal_textBox
-            // 
-            this.PrecioTotal_textBox.Location = new System.Drawing.Point(144, 183);
-            this.PrecioTotal_textBox.Name = "PrecioTotal_textBox";
-            this.PrecioTotal_textBox.Size = new System.Drawing.Size(71, 20);
-            this.PrecioTotal_textBox.TabIndex = 17;
-            // 
             // Limpiar_button
             // 
             this.Limpiar_button.Location = new System.Drawing.Point(254, 252);
@@ -204,7 +196,7 @@
             this.Guardar_button.Name = "Guardar_button";
             this.Guardar_button.Size = new System.Drawing.Size(105, 38);
             this.Guardar_button.TabIndex = 20;
-            this.Guardar_button.Text = "Generar";
+            this.Guardar_button.Text = "Guardar";
             this.Guardar_button.UseVisualStyleBackColor = true;
             this.Guardar_button.Click += new System.EventHandler(this.Guardar_button_Click);
             // 
@@ -235,10 +227,9 @@
             this.Controls.Add(this.PermitirPreg_label);
             this.Controls.Add(this.Guardar_button);
             this.Controls.Add(this.Limpiar_button);
-            this.Controls.Add(this.PrecioTotal_textBox);
             this.Controls.Add(this.PrecioTotal_Label);
             this.Controls.Add(this.PrecioUnit_Label);
-            this.Controls.Add(this.PrecioUnit_textBox);
+            this.Controls.Add(this.Precio_textBox);
             this.Controls.Add(this.FechaFin_DateTimePicker);
             this.Controls.Add(this.TipoPubli_ComboBox);
             this.Controls.Add(this.Tipo_Label);
@@ -273,10 +264,9 @@
         private System.Windows.Forms.Label Tipo_Label;
         private System.Windows.Forms.ComboBox TipoPubli_ComboBox;
         private System.Windows.Forms.DateTimePicker FechaFin_DateTimePicker;
-        private System.Windows.Forms.TextBox PrecioUnit_textBox;
+        private System.Windows.Forms.TextBox Precio_textBox;
         private System.Windows.Forms.Label PrecioUnit_Label;
         private System.Windows.Forms.Label PrecioTotal_Label;
-        private System.Windows.Forms.TextBox PrecioTotal_textBox;
         private System.Windows.Forms.Button Limpiar_button;
         private System.Windows.Forms.Button Guardar_button;
         private System.Windows.Forms.Label PermitirPreg_label;

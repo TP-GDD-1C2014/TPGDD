@@ -156,8 +156,8 @@ namespace FrbaCommerce.Editar_Publicacion
                 int stock = Convert.ToInt32(Stock_Textbox.Text);
                 DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
                 DateTime fechaInicio = DateTime.Today;
-                var estado = (string)Estado_Combobox.SelectedValue;
-                var tipoPubli = (string)Tipo_Combobox.SelectedValue;
+                int estado = Estado_Combobox.SelectedIndex;
+                int tipoPubli = Tipo_Combobox.SelectedIndex;
 
                 int precio = Convert.ToInt32(Precio_Textbox.Text);
                 bool permisoPreg = PermitirPreguntas_Checkbox.Checked;

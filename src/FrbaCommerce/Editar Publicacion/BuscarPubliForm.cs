@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
+using FrbaCommerce.Generar_Publicacion;
 using System.Data.SqlClient;
 
 namespace FrbaCommerce.Editar_Publicacion
@@ -75,16 +76,14 @@ namespace FrbaCommerce.Editar_Publicacion
             }
         }
 
-        public Clases.Usuario usuario {get; set;}
+        //Obtiene el usuario loggeado
+        Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
         /*public List<Publicacion> listaPublicaciones = new List<Publicacion>();
         public List<Publicacion> listaEnBlanco  = new List<Publicacion>();
         public Publicacion unaPublicacion { get; set; }     // = new Publicacion (); ? */
 
         public BuscarPubliForm()
         {
-            //Obtiene el usuario loggeado
-            Interfaz.loguearUsuario(usuario);
-
             InitializeComponent();
 
             //Cargar DataGridView con las publicaciones
@@ -235,19 +234,21 @@ namespace FrbaCommerce.Editar_Publicacion
 
             if (resultado == DialogResult.Yes)
             {
+                Publicaciones.eliminarPublicacion(unaPubli);
+                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+            }
+
 
             }
 
-               /* if (result == DialogResult.Yes)
-                {
-                    Roles.deshabilitarRol(unRol);
-                    Roles.eliminarUsuariosPorRol(unRol);
-                    cargarTodosLosRoles();
-                }*/
+        private void modificar_button_Click_1(object sender, EventArgs e)
+        {
+            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
+            //string modo = "Modificar";
+            //GenerarPubliForm generarForm = new GenerarPubliForm(modo, unaPubli);
+            //generarForm.ShowDialog();
 
-
-            }*/
-
+            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
         }
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)

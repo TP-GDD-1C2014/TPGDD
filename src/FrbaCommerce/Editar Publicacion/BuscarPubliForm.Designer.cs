@@ -62,7 +62,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(651, 265);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
             // descrip_label
             // 
@@ -177,6 +176,7 @@
             this.modificar_button.TabIndex = 22;
             this.modificar_button.Text = "Modificar";
             this.modificar_button.UseVisualStyleBackColor = true;
+            this.modificar_button.Click += new System.EventHandler(this.modificar_button_Click_1);
             // 
             // codVisib_label
             // 

@@ -184,13 +184,14 @@ namespace FrbaCommerce.Login
                         break;
                     case 6:
                         //Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm(this.usuario);
-                        Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm();
+                        string modo = "Nuevo";
+                        Generar_Publicacion.GenerarPubliForm form6 = new Generar_Publicacion.GenerarPubliForm(modo);
                         this.Hide();
                         form6.ShowDialog();
                         this.Show();
                         break;
                     case 7:
-                        Editar_Publicacion.EditarPubliForm form7 = new Editar_Publicacion.EditarPubliForm();
+                        Editar_Publicacion.BuscarPubliForm form7 = new Editar_Publicacion.BuscarPubliForm();
                         this.Hide();
                         form7.ShowDialog();
                         this.Show();
