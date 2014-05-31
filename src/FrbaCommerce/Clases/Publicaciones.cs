@@ -44,7 +44,17 @@ namespace FrbaCommerce.Clases
             return publicaciones;
         }
 
+        public static void eliminarPublicacion(Publicacion unaPubli)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@idUser", unaPubli.Cod_Publicacion));
+            int resultado = BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Publicaciones WHERE ID_Vendedor=@idUser", listaParametros, BDSQL.iniciarConexion());
 
+            if (resultado == -1)
+                MessageBox.Show("Falló al eliminar Publicacion", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            BDSQL.cerrarConexion();
+
+        }
 
     }
 }

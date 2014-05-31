@@ -41,7 +41,7 @@
             this.tipoPubli_label = new System.Windows.Forms.Label();
             this.limpiar_button = new System.Windows.Forms.Button();
             this.buscar_button = new System.Windows.Forms.Button();
-            this.seleccionar_button = new System.Windows.Forms.Button();
+            this.modificar_button = new System.Windows.Forms.Button();
             this.codVisib_label = new System.Windows.Forms.Label();
             this.Visibilidad_ComboBox = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -51,6 +51,7 @@
             this.precio_textBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.borrar_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,6 +62,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(651, 265);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
             // descrip_label
             // 
@@ -149,9 +151,9 @@
             // 
             // limpiar_button
             // 
-            this.limpiar_button.Location = new System.Drawing.Point(528, 445);
+            this.limpiar_button.Location = new System.Drawing.Point(553, 445);
             this.limpiar_button.Name = "limpiar_button";
-            this.limpiar_button.Size = new System.Drawing.Size(150, 60);
+            this.limpiar_button.Size = new System.Drawing.Size(125, 45);
             this.limpiar_button.TabIndex = 20;
             this.limpiar_button.Text = "Limpiar";
             this.limpiar_button.UseVisualStyleBackColor = true;
@@ -161,21 +163,20 @@
             // 
             this.buscar_button.Location = new System.Drawing.Point(27, 445);
             this.buscar_button.Name = "buscar_button";
-            this.buscar_button.Size = new System.Drawing.Size(150, 60);
+            this.buscar_button.Size = new System.Drawing.Size(125, 45);
             this.buscar_button.TabIndex = 21;
             this.buscar_button.Text = "Buscar";
             this.buscar_button.UseVisualStyleBackColor = true;
             this.buscar_button.Click += new System.EventHandler(this.buscar_button_Click);
             // 
-            // seleccionar_button
+            // modificar_button
             // 
-            this.seleccionar_button.Location = new System.Drawing.Point(279, 445);
-            this.seleccionar_button.Name = "seleccionar_button";
-            this.seleccionar_button.Size = new System.Drawing.Size(150, 60);
-            this.seleccionar_button.TabIndex = 22;
-            this.seleccionar_button.Text = "Seleccionar";
-            this.seleccionar_button.UseVisualStyleBackColor = true;
-            this.seleccionar_button.Click += new System.EventHandler(this.seleccionar_button_Click);
+            this.modificar_button.Location = new System.Drawing.Point(203, 445);
+            this.modificar_button.Name = "modificar_button";
+            this.modificar_button.Size = new System.Drawing.Size(125, 45);
+            this.modificar_button.TabIndex = 22;
+            this.modificar_button.Text = "Modificar";
+            this.modificar_button.UseVisualStyleBackColor = true;
             // 
             // codVisib_label
             // 
@@ -246,7 +247,6 @@
             this.label1.TabIndex = 32;
             this.label1.Text = "Precio";
             // 
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -256,11 +256,22 @@
             this.label4.TabIndex = 34;
             this.label4.Text = "Permisos Preguntas";
             // 
+            // borrar_button
+            // 
+            this.borrar_button.Location = new System.Drawing.Point(376, 445);
+            this.borrar_button.Name = "borrar_button";
+            this.borrar_button.Size = new System.Drawing.Size(125, 45);
+            this.borrar_button.TabIndex = 35;
+            this.borrar_button.Text = "Borrar";
+            this.borrar_button.UseVisualStyleBackColor = true;
+            this.borrar_button.Click += new System.EventHandler(this.borrar_button_Click);
+            // 
             // BuscarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 517);
+            this.Controls.Add(this.borrar_button);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.precio_textBox);
@@ -270,7 +281,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.Visibilidad_ComboBox);
             this.Controls.Add(this.codVisib_label);
-            this.Controls.Add(this.seleccionar_button);
+            this.Controls.Add(this.modificar_button);
             this.Controls.Add(this.buscar_button);
             this.Controls.Add(this.limpiar_button);
             this.Controls.Add(this.tipoPubli_label);
@@ -308,7 +319,7 @@
         private System.Windows.Forms.Label tipoPubli_label;
         private System.Windows.Forms.Button limpiar_button;
         private System.Windows.Forms.Button buscar_button;
-        private System.Windows.Forms.Button seleccionar_button;
+        private System.Windows.Forms.Button modificar_button;
         private System.Windows.Forms.Label codVisib_label;
         private System.Windows.Forms.ComboBox Visibilidad_ComboBox;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
@@ -319,6 +330,7 @@
         private System.Windows.Forms.Label label1;
 
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button borrar_button;
 
     }
 }

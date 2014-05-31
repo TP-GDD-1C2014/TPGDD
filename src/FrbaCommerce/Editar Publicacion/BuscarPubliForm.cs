@@ -219,9 +219,40 @@ namespace FrbaCommerce.Editar_Publicacion
 
         }
 
-        private void seleccionar_button_Click(object sender, EventArgs e)
+        private void modificar_button_Click(object sender, EventArgs e)
         {
             //Al elegir una fila, dirigir a la form EditarPubliForm
+
+
+        }
+
+        private void borrar_button_Click(object sender, EventArgs e)
+        {
+            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
+
+            string mensaje = string.Format("¿Desea confirmar la eliminacion de la publicación?");
+            DialogResult resultado = MessageBox.Show(mensaje, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (resultado == DialogResult.Yes)
+            {
+
+            }
+
+               /* if (result == DialogResult.Yes)
+                {
+                    Roles.deshabilitarRol(unRol);
+                    Roles.eliminarUsuariosPorRol(unRol);
+                    cargarTodosLosRoles();
+                }*/
+
+
+            }*/
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
 
