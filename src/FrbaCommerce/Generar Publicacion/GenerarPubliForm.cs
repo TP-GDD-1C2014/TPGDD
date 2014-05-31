@@ -87,11 +87,9 @@ namespace FrbaCommerce.Generar_Publicacion
             if (modo == "Nuevo")
             {
                 InitializeComponent();
-
                 llenarCombos();
                 PermitirPreguntas_Checkbox.Checked = false;
                 esNueva = true;
-
                 Ocultar();
             }
 
@@ -103,7 +101,6 @@ namespace FrbaCommerce.Generar_Publicacion
             if (modo == "Modificar")
             {
                 InitializeComponent();
-
                 llenarCombos();
 
                 //TODO revisar Visibilidad_ComboBox
@@ -118,11 +115,8 @@ namespace FrbaCommerce.Generar_Publicacion
                 PermitirPreguntas_Checkbox.Checked = unaPubli.Permiso_Preguntas;
 
                 esNueva = false;
-
                 Ocultar();
             }
-
-
         }*/
 
         private void Ocultar()
@@ -185,21 +179,15 @@ namespace FrbaCommerce.Generar_Publicacion
                 int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
-                        //stock = int.Parse(Stock_TextBox.Text);
                 //TODO Revisar la cuestión de las fechas (archivo config)
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
                 DateTime fechaInicio = DateTime.Today;
-                int estado = Estado_ComboBox.SelectedIndex;
-                        //int estado = Estado_ComboBox.SelectedIndex;
-                        //Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
-                int tipoPubli = TipoPubli_ComboBox.SelectedIndex;
-                int precio = Convert.ToInt32(Precio_textBox.Text);
-
+                string estado = Convert.ToString(Estado_ComboBox.SelectedItem);
+                string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
+                decimal precio = Convert.ToDecimal(Precio_textBox.Text);
                 bool permisoPreg = PermitirPreguntas_Checkbox.Checked;
-                //var permisoPreg = (int)permitirPreg_combobox.SelectedValue;
 
                 //Crear la publicacion con los parametros asignados
-                //TODO Revisar tipos
                 Publicacion publi = new Publicacion(codPubli, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli, permisoPreg, stock);
 
 
@@ -208,6 +196,12 @@ namespace FrbaCommerce.Generar_Publicacion
                 {
                     //Invocar funcion que inserta publicacion en la tabla publicaciones
                     publi.agregarPublicacion(visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, estado, tipoPubli, precio, permisoPreg);
+
+                    //Si es gratuita, actualizar Cant_Publi_Gratuitas de la tabla Usuarios
+                    if (visibilidad == 4)
+                    {
+
+                    }
                 }
                 else
                 {

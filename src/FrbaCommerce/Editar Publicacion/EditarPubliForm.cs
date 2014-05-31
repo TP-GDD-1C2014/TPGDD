@@ -156,8 +156,8 @@ namespace FrbaCommerce.Editar_Publicacion
                 int stock = Convert.ToInt32(Stock_Textbox.Text);
                 DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
                 DateTime fechaInicio = DateTime.Today;
-                int estado = Estado_Combobox.SelectedIndex;
-                int tipoPubli = Tipo_Combobox.SelectedIndex;
+                string estado = Estado_Combobox.SelectedText;
+                string tipoPubli = Tipo_Combobox.SelectedText;
 
                 int precio = Convert.ToInt32(Precio_Textbox.Text);
                 bool permisoPreg = PermitirPreguntas_Checkbox.Checked;
@@ -167,7 +167,7 @@ namespace FrbaCommerce.Editar_Publicacion
                 Publicacion publi = new Publicacion(codPubli,visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli,permisoPreg, stock);
 
                 //Invocar funcion que actualiza publicacion en la tabla publicaciones
-                publi.actualizarPublicacion(visibilidad,idVendedor,descripcion,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
+                //publi.actualizarPublicacion(visibilidad,idVendedor,descripcion,stock,fechaFin,fechaInicio,estado,tipoPubli,precio,permisoPreg);
             }
             else
             {
