@@ -67,7 +67,7 @@ namespace FrbaCommerce.Abm_Rubro
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_Rubro", id);
-            BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Rubros WHERE ID_Rubro = @ID_Rubro", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.ejecutarQuery("EXEC MERCADONEGRO.eliminarRubro @ID_Rubro", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
             cbRubros.Items.Remove(item);
         }
