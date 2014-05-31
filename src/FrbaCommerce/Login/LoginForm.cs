@@ -144,5 +144,10 @@ namespace FrbaCommerce.Login
         {
             e.Handled = e.KeyChar == ' ';
         }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

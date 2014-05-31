@@ -9,30 +9,39 @@ namespace FrbaCommerce.Clases
 {
     public class Compra
     {
-        public int ID_Operacion { get; set; }
-        public int ID_Vendedor { get; set; }
+        public string Vendedor { get; set; }
         public string Publicacion { get; set; }
-        public DateTime Fecha_Operacion { get; set; }
+        public DateTime Fecha { get; set; }
 
-        public int Calificacion_Puntaje { get; set; }
-        public string Calificacion_Descripcion { get; set; }
+        public int Calificacion { get; set; }
+        public string Comentarios { get; set; }
 
-        public Compra(int idOperacion, int idVendedor, int codPublicacion, Clases.Calificacion calificacion, DateTime fechaOperacion)
+        public Compra(int idVendedor, int codPublicacion, Clases.Calificacion calificacion, DateTime fechaOperacion)
         {
-            ID_Operacion = idOperacion;
-            ID_Vendedor = idVendedor;
+            Vendedor = obtenerVendedor(idVendedor);
             Publicacion = obtenerPublicacion(codPublicacion);
-            Fecha_Operacion = fechaOperacion;
+            Fecha = fechaOperacion;
             if (calificacion != null)
             {
-                Calificacion_Puntaje = calificacion.Puntaje;
-                Calificacion_Descripcion = calificacion.Descripcion;
+                Calificacion = calificacion.Puntaje;
+                Comentarios = calificacion.Descripcion;
             }
             else
             {
-                Calificacion_Puntaje = 0;
-                Calificacion_Descripcion = "Sin calificar";
+                Calificacion = 0;
+                Comentarios = "Sin calificar";
             }
+        }
+
+        public string obtenerVendedor(int idVendedor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", idVendedor);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Username FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_Vendedor", listaParametros, BDSQL.iniciarConexion());
+            lector.Read();
+            string res = Convert.ToString(lector["Username"]);
+            BDSQL.cerrarConexion();
+            return res;
         }
 
         public string obtenerPublicacion(int codPublicacion)

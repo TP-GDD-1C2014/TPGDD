@@ -215,7 +215,7 @@ namespace FrbaCommerce.Login
                         this.Show();
                         break;
                     case 11:
-                        Historial_Cliente.Historial form11 = new Historial_Cliente.Historial();
+                        Historial_Cliente.Historial form11 = new Historial_Cliente.Historial(this);
                         this.Hide();
                         form11.ShowDialog();
                         this.Show();

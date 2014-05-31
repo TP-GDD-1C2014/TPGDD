@@ -87,8 +87,35 @@ namespace FrbaCommerce.Clases
             }
         }
 
+        public void actualizarUser()
+        {
+            List<SqlParameter> listaParametros2 = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros2, "@ID_User", this.ID_User);
+            SqlConnection conexion = BDSQL.iniciarConexion();
+            SqlDataReader lector2 = BDSQL.ejecutarReader("SELECT Primera_Vez FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_User", listaParametros2, conexion);
+            lector2.Read();
+            if (Convert.ToInt32(lector2["Primera_Vez"]) == 2)
+            {
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+                SqlDataReader lector = BDSQL.ejecutarReader("SELECT Password FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_User", listaParametros, conexion);
+                lector.Read();
+                
+                UTF8Encoding encoderHash = new UTF8Encoding();
+                SHA256Managed hasher = new SHA256Managed();
+                byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(Convert.ToString(lector["Password"])));
+
+                List<SqlParameter> listaParametros3 = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros3, "@ID_User", this.ID_User);
+                BDSQL.agregarParametro(listaParametros3, "@Password", bytesDeHasheoToString(bytesDeHasheo));
+                BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Password = @Password WHERE ID_User = @ID_User", listaParametros3, conexion);
+            }
+            BDSQL.cerrarConexion();
+        }
+
         public Boolean verificarContrasenia()
         {
+            actualizarUser();
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Username", this.Username);
             BDSQL.agregarParametro(listaParametros, "@Password", this.Password);

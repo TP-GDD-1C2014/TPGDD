@@ -317,8 +317,8 @@ CREATE PROCEDURE MERCADONEGRO.AgregarPublicacion(@codVisibilidad numeric(18,0), 
 												 @ret numeric (18,0) output)
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Publicaciones(Cod_Visibilidad, ID_Vendedor, Descripcion, Stock, Fecha_Inicial,
-												Fecha_Vencimiento, Precio, Publicacion_Estado, Permisos_Preguntas,
-												Publicacion_Tipo, Stock_Inicial)
+												Fecha_Vencimiento, Precio, Estado_Publicacion, Permisos_Preguntas,
+												Tipo_Publicacion, Stock_Inicial)
 			VALUES(@codVisibilidad, @idVendedor, @descripcion, @stock, @fechaInic, @fechaVenc, @precio, @estadoPubl,
 				   @permisosPreg, @tipoPubl, @stock)
 				   SET @ret = SCOPE_IDENTITY()
@@ -873,13 +873,13 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 										Fecha_Inicial,
 										Fecha_Vencimiento,
 										Precio,
-										Estado_Publicacion,
-										Tipo_Publicacion,
+										Estado_Publicacion, 
+										Tipo_Publicacion, 
 										Permisos_Preguntas,
 										Stock_Inicial)
 										
 	SELECT Publicacion_Cod, Cod_Visibilidad, ID_User, Publicacion_Descripcion, Publicacion_Stock, Publicacion_Fecha, Publicacion_Fecha_Venc,
-			 Publicacion_Precio, Estado_Publicacion, Tipo_Publicacion, Permisos_Preguntas,Publicacion_Stock
+			 Publicacion_Precio, Publicacion_Estado, Publicacion_Tipo, Permisos_Preguntas,Publicacion_Stock
 									
 	FROM	MERCADONEGRO.Vista_Publicaciones
 
@@ -941,7 +941,7 @@ INSERT INTO MERCADONEGRO.Operaciones
 	SELECT DISTINCT MERCADONEGRO.Publicaciones.ID_Vendedor,	--AS ID_Vendedor,
 					MERCADONEGRO.Usuarios.ID_User,			--AS ID_Comprador,
 					Publicacion_Cod,							--AS codpublic, 
-					Publicacion_Tipo,						--AS tipo,
+					Tipo_Publicacion,						--AS tipo,
 					Calificacion_Codigo,						--AS codcalific,
 					Compra_Fecha,							--AS fechaCompra,
 					1										--AS opFact
@@ -961,7 +961,7 @@ CREATE VIEW MERCADONEGRO.SubastasView AS
 	SELECT DISTINCT MERCADONEGRO.Publicaciones.ID_Vendedor  AS vendedor,
 					MERCADONEGRO.Usuarios.ID_User			AS ofertador,
 					Publicacion_Cod							AS codpublic,
-					Publicacion_Tipo						AS tipo,
+					Tipo_Publicacion						AS tipo,
 					Calificacion_Codigo						AS codcalific,
 					Oferta_Fecha							AS fechaOferta,
 					0										AS opFact
@@ -973,7 +973,7 @@ CREATE VIEW MERCADONEGRO.SubastasView AS
 	AND (Publ_Cli_Dni IS NOT NULL OR Publ_Empresa_Cuit IS NOT NULL)
 	AND	gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion
 	AND MERCADONEGRO.Usuarios.Password = convert(nvarchar(255),Cli_Dni)  	
-	AND MERCADONEGRO.Publicaciones.Tipo_Publicacion = 0
+	AND MERCADONEGRO.Publicaciones.Tipo_Publicacion = 'Subasta'
 GO	
 	
 --select * from MERCADONEGRO.SubastasView
