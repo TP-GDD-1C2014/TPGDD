@@ -14,9 +14,16 @@ namespace FrbaCommerce.Login
 {
     public partial class CambiarPassword : Form
     {
-        public CambiarPassword()
+        public Boolean primeraVez { get; set; }
+        public CambiarPassword(Boolean pVez)
         {
+            this.primeraVez = pVez;
             InitializeComponent();
+
+            if (primeraVez)
+            {
+                passViejoNH.Enabled = false;
+            }
         }
 
         private void pass2_TextChanged(object sender, EventArgs e)
@@ -47,14 +54,34 @@ namespace FrbaCommerce.Login
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!passViejoNH.Text.Equals("") && !pass1.Text.Equals("") && !pass2.Text.Equals(""))
+            if ((!passViejoNH.Text.Equals("") || primeraVez == true) && !pass1.Text.Equals("") && !pass2.Text.Equals(""))
             {
-                UTF8Encoding encoderHash = new UTF8Encoding();
-                SHA256Managed hasher = new SHA256Managed();
-                byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(passViejoNH.Text));
-                string passViejo = bytesDeHasheoToString(bytesDeHasheo);
+                if (primeraVez == false)
+                {
+                    UTF8Encoding encoderHash = new UTF8Encoding();
+                    SHA256Managed hasher = new SHA256Managed();
+                    byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(passViejoNH.Text));
+                    string passViejo = bytesDeHasheoToString(bytesDeHasheo);
 
-                if (chequearPassword(passViejo))
+                    if (chequearPassword(passViejo))
+                    {
+                        if (pass1.Text == pass2.Text)
+                        {
+                            Interfaz.usuario.cambiarPassword(pass1.Text);
+                            MessageBox.Show("Contraseña modificada.");
+                            this.Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Las contraseñas no coinciden.", "Error");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El password viejo no es correcto.", "Error");
+                    }
+                }
+                else
                 {
                     if (pass1.Text == pass2.Text)
                     {
@@ -66,10 +93,6 @@ namespace FrbaCommerce.Login
                     {
                         MessageBox.Show("Las contraseñas no coinciden.", "Error");
                     }
-                }
-                else
-                {
-                    MessageBox.Show("El password viejo no es correcto.", "Error");
                 }
             }
             else

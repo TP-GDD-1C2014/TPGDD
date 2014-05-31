@@ -65,22 +65,22 @@ namespace FrbaCommerce.Login
                             }
                             else
                             {
-                                CambiarPassword formPass = new CambiarPassword();
-                                formPass.Show();
+                                usuarioLogin.sumarIntentoFallido();
+                                if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
+                                {
+                                    usuarioLogin.inhabilitarUsuario();
+                                    MessageBox.Show("Usuario inhabilitado.", "Error");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Usuario o contraseña incorrecta, le quedan " + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + " intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
                         else
                         {
-                            usuarioLogin.sumarIntentoFallido();
-                            if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
-                            {
-                                usuarioLogin.inhabilitarUsuario();
-                                MessageBox.Show("Usuario inhabilitado.", "Error");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Usuario o contraseña incorrecta, le quedan " + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + " intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
+                            CambiarPassword formPass = new CambiarPassword(true);
+                            formPass.Show();
                         }
                     }
                     else

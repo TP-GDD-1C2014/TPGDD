@@ -149,7 +149,7 @@ namespace FrbaCommerce.Login
                 switch (seleccion.ID_Funcionalidad)
                 {
                     case -2:
-                        CambiarPassword formPass = new CambiarPassword();
+                        CambiarPassword formPass = new CambiarPassword(false);
                         formPass.Show();
                         break;
                     case 1:
