@@ -48,6 +48,7 @@ namespace FrbaCommerce.Abm_Rubro
             SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Rubros", listaParametros1, BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
+                lector.Read(); // Me salteo el primer rubro, que es el default
                 while (lector.Read())
                 {
                     this.cbRubros.Items.Add(new itemComboBox(lector["Descripcion"].ToString(), Convert.ToInt32(lector["ID_Rubro"])));
@@ -66,7 +67,7 @@ namespace FrbaCommerce.Abm_Rubro
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_Rubro", id);
-            BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Rubros WHERE ID_Rubro = @ID_Rubro", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.ejecutarQuery("EXEC MERCADONEGRO.eliminarRubro @ID_Rubro", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
             cbRubros.Items.Remove(item);
         }
@@ -110,7 +111,8 @@ namespace FrbaCommerce.Abm_Rubro
         {
             if (cbRubros.SelectedIndex != -1)
             {
-                Modificar formMod = new Modificar(cbRubros.SelectedIndex, this);
+                itemComboBox seleccion = cbRubros.SelectedItem as itemComboBox;
+                Modificar formMod = new Modificar(seleccion.ID_Rubro, this);
                 formMod.Show();
             }
             else
@@ -126,7 +128,8 @@ namespace FrbaCommerce.Abm_Rubro
                 DialogResult confirmacion = MessageBox.Show("El rubro " + cbRubros.SelectedItem.ToString() + " será eliminado.\n\n ¿Está seguro?", "Confirmación", MessageBoxButtons.YesNo);
                 if (confirmacion == DialogResult.Yes)
                 {
-                    eliminarRubro(cbRubros.SelectedIndex, cbRubros.SelectedItem);
+                    itemComboBox seleccion = cbRubros.SelectedItem as itemComboBox;
+                    eliminarRubro(seleccion.ID_Rubro, cbRubros.SelectedItem);
                 }
             }
             else

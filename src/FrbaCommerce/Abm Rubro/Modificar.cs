@@ -40,6 +40,8 @@ namespace FrbaCommerce.Abm_Rubro
                 if (!BDSQL.existeString(nuevoNombre.Text, "MERCADONEGRO.Rubros", "Descripcion"))
                 {
                     modificarRubro(this.id, nuevoNombre.Text);
+                    MessageBox.Show("Rubro modificado.");
+                    this.Hide();
                 }
                 else
                 {
