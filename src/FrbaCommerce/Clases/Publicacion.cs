@@ -11,8 +11,8 @@ using FrbaCommerce.Clases;
 namespace FrbaCommerce.Clases
 {
 
-    public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada };
-    public enum Tipo_Publicacion { Inmediata = 0, Subasta }
+    //public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada };
+    //public enum Tipo_Publicacion { Inmediata = 0, Subasta }
 
     class Publicacion
     {
@@ -23,15 +23,15 @@ namespace FrbaCommerce.Clases
         public int Stock { get; set; }
         public DateTime Fecha_Vto { get; set; }
         public DateTime Fecha_Inicio { get; set; }
-        public float Precio { get; set; }
-        public Estado_Publicacion Estado_Publicacion;
-        public Tipo_Publicacion Tipo_Publicacion;
-        public int Permiso_Preguntas { get; set; }
+        public decimal Precio { get; set; }
+        public string Estado_Publicacion { get; set; }
+        public string Tipo_Publicacion { get; set; }
+        public bool Permiso_Preguntas { get; set; }
         public int Stock_Inicial { get; set; }
 
-        private List<Rubro> Rubros = new List<Rubro>();
+        //private List<Rubro> Rubros = new List<Rubro>();
 
-        public Publicacion(int cod_Publicacion, int visibilidad, int id_Vendedor, string descripcion, int stock, System.DateTime fecha_Fin, System.DateTime fecha_Inicio, int precio, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int permisoPreg, int stock_Inicial)
+        public Publicacion(int cod_Publicacion, int visibilidad, int id_Vendedor, string descripcion, int stock, DateTime fecha_Fin, DateTime fecha_Inicio, decimal precio, string estado, string tipoPubli, bool permisoPreg, int stock_Inicial)
         {
             this.Cod_Publicacion = cod_Publicacion;
             this.Cod_Visibilidad = visibilidad;
@@ -46,14 +46,14 @@ namespace FrbaCommerce.Clases
             this.Permiso_Preguntas = permisoPreg;
             this.Stock_Inicial = stock_Inicial;
         }
-
+        
         public void agregarRubro(Rubro rubro)
         {
-            this.Rubros.Add(rubro);
+            //this.Rubros.Add(rubro);
 
         }
 
-        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int precio, int permisoPreg)
+        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, string estado, string tipoPubli, int precio, bool permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             
@@ -76,7 +76,7 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public void buscarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, Estado_Publicacion estado, Tipo_Publicacion tipoPubli)
+        public void buscarPublicacion(int codPubli, int visibilidad, int idVendedor, string descripcion, int stock, int estado, int tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
@@ -94,7 +94,7 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public void actualizarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, Estado_Publicacion estado, Tipo_Publicacion tipoPubli, int precio, int permisoPreg)
+        public void actualizarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, string estado, string tipoPubli, int precio, bool permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
