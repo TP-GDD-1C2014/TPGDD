@@ -88,7 +88,7 @@ namespace FrbaCommerce.Common
             return comando.ExecuteReader();
         }
 
-        public static SqlDataReader ejecutarReader(string stringQuery, SqlConnection conexion) // PARA SELECT
+        public static SqlDataReader ejecutarReader(string stringQuery, SqlConnection conexion) // PARA SELECT * (sin parametros)
         {
             SqlCommand comando = new SqlCommand();
             comando.Connection = conexion;
@@ -99,7 +99,7 @@ namespace FrbaCommerce.Common
 
         //----------------------------------------------------------------------------------------------------------------------------------------------  
 
-        public static int ejecutarQuery(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA UPDATE, INSERT, DELETE
+        public static int ejecutarQuery(string stringQuery, List<SqlParameter> parametros, SqlConnection conexion) // PARA UPDATE, INSERT, DELETE, SELECT (con parametros)
         {
             SqlCommand comando = new SqlCommand();
             comando.Connection = conexion;
@@ -113,7 +113,7 @@ namespace FrbaCommerce.Common
 
         //----------------------------------------------------------------------------------------------------------------------------------------------  
 
-        public static SqlDataReader ObtenerDataReader(string commandtext, string commandtype, List<SqlParameter> ListaParametro)
+        public static SqlDataReader ObtenerDataReader(string commandtext, string commandtype, List<SqlParameter> ListaParametro) //(con parametros)
         {
 
             SqlCommand comando = new SqlCommand();
@@ -138,11 +138,34 @@ namespace FrbaCommerce.Common
             return comando.ExecuteReader();
         }
 
+            
+        public static SqlDataReader ObtenerDataReader(string commandtext, string commandtype) //sin parametros
+        {
+
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = iniciarConexion();
+            comando.CommandText = commandtext;
+           
+            switch (commandtype)
+            {
+                case "T":
+                    comando.CommandType = CommandType.Text;
+                    break;
+                case "TD":
+                    comando.CommandType = CommandType.TableDirect;
+                    break;
+                case "SP":
+                    comando.CommandType = CommandType.StoredProcedure;
+                    break;
+            }
+            return comando.ExecuteReader();
+        }
+
 
         //----------------------------------------------------------------------------------------------------------------------------------------------
 
 
-        public static DataTable obtenerDataTable(string commandtext, string commandtype, List<SqlParameter> ListaParametro)
+        public static DataTable obtenerDataTable(string commandtext, string commandtype, List<SqlParameter> ListaParametro) //(con parametros)
         {
             DataTable result = null;
 
@@ -187,9 +210,58 @@ namespace FrbaCommerce.Common
 
         }
 
+
+        public static DataTable obtenerDataTable(string commandtext, string commandtype) //(sin parametros)
+        {
+            DataTable result = null;
+
+            int count = 0;
+
+            try
+            {
+                SqlDataReader dr = ObtenerDataReader(commandtext, commandtype);
+                if (dr.HasRows)
+                {
+
+                    result = new DataTable();
+
+                    while (dr.Read())
+                    {
+                        DataRow row = result.NewRow();
+                        for (int i = 0; i < dr.FieldCount; i++)
+                        {
+                            if (count == 0)
+                                result.Columns.Add(dr.GetName(i));
+
+                            row[i] = dr[i];
+                        }
+                        result.Rows.Add(row);
+                        count++;
+                    }
+                }
+                dr.Close();
+            }
+            finally
+            {
+                try
+                {
+                    conexion.Close();
+                    conexion.Dispose();
+                }
+                catch { }
+            }
+
+
+            return result;
+
+        }
+
+
+
+
         //----------------------------------------------------------------------------------------------------------------------------------------------  
 
-        public static decimal ExecStoredProcedure(string commandtext, List<SqlParameter> ListaParametro)
+        public static decimal ExecStoredProcedure(string commandtext, List<SqlParameter> ListaParametro) //con parametros
         {
             try
             {
@@ -212,7 +284,29 @@ namespace FrbaCommerce.Common
             }
         }
 
-        public static void ExecStoredProcedureSinRet(string commandtext, List<SqlParameter> ListaParametro)
+
+        public static decimal ExecStoredProcedure(string commandtext) //sin parametros
+        {
+            try
+            {
+                SqlCommand comando = new SqlCommand();
+                comando.Connection = iniciarConexion();
+                comando.CommandText = commandtext;
+                comando.CommandType = CommandType.StoredProcedure;
+
+           
+                comando.ExecuteNonQuery();
+                return (decimal)comando.Parameters["@ret"].Value;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+
+
+        public static void ExecStoredProcedureSinRet(string commandtext, List<SqlParameter> ListaParametro) //con parametros
         {
 
             SqlCommand comando = new SqlCommand();
@@ -227,7 +321,19 @@ namespace FrbaCommerce.Common
 
             comando.ExecuteNonQuery();
 
+        }
 
+
+        public static void ExecStoredProcedureSinRet(string commandtext) //sin parametros
+        {
+
+            SqlCommand comando = new SqlCommand();
+            comando.Connection = iniciarConexion();
+            comando.CommandText = commandtext;
+            comando.CommandType = CommandType.StoredProcedure;
+
+
+            comando.ExecuteNonQuery();
 
         }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Common;
+using FrbaCommerce.Clases;
 using System.Data.SqlClient;
 
 namespace FrbaCommerce.Comprar_Ofertar
@@ -64,19 +65,15 @@ namespace FrbaCommerce.Comprar_Ofertar
                 btnPrimerPag.Enabled = true;
             }
 
+            List<Publicacion> listaPublicaciones = Publicaciones.obtenerPublicacionesPaginadas(desde, hasta);
 
-            List<SqlParameter> listaParametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(listaParametros, "@desde", desde);
-            BDSQL.agregarParametro(listaParametros, "@hasta", hasta);
-         
-            String commandtext = "WITH NumberedMyTable AS (SELECT Cod_Publicacion, Stock, ROW_NUMBER() OVER (ORDER BY Cod_Visibilidad) AS RowNumber " +
-            "FROM MERCADONEGRO.Publicaciones WHERE Estado_Publicacion = 0 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ) SELECT RowNumber,Cod_Publicacion,Stock FROM NumberedMyTable " +
-            "WHERE RowNumber BETWEEN @desde AND @hasta";
-            DataTable ret = BDSQL.obtenerDataTable(commandtext, "T", listaParametros);
-
-            dataGridView1.DataSource = ret;
-
-            BDSQL.cerrarConexion();
+            dataGridView1.DataSource = listaPublicaciones;
+            dataGridView1.Columns["Cod_Publicacion"].Visible = false;
+            dataGridView1.Columns["Estado_Publicacion"].Visible = false;
+            dataGridView1.Columns["Permiso_Preguntas"].Visible = false;
+            dataGridView1.Columns["Stock_Inicial"].Visible = false;
+            
+          
             
         }
 
