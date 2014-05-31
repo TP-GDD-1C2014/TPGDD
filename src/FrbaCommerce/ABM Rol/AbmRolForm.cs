@@ -77,7 +77,7 @@ namespace FrbaCommerce.ABM_Rol
  
         private void cargarTodosLosRoles()
         {
-          Roles_Datagrid.DataSource = Roles.obtenerRoles();
+            Roles_Datagrid.DataSource = Roles.obtenerRoles();
         }
 
         private void Nuevo_Button_Click(object sender, EventArgs e)

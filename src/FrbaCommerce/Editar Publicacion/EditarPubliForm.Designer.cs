@@ -42,10 +42,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.Precio_Textbox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.PermisoPreg_Combobox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.Guardar_Button = new System.Windows.Forms.Button();
             this.Limpiar_Button = new System.Windows.Forms.Button();
+            this.PermitirPreguntas_Checkbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -167,15 +167,6 @@
             this.label7.TabIndex = 13;
             this.label7.Text = "Precio";
             // 
-            // PermisoPreg_Combobox
-            // 
-            this.PermisoPreg_Combobox.FormattingEnabled = true;
-            this.PermisoPreg_Combobox.Location = new System.Drawing.Point(144, 209);
-            this.PermisoPreg_Combobox.Name = "PermisoPreg_Combobox";
-            this.PermisoPreg_Combobox.Size = new System.Drawing.Size(71, 21);
-            this.PermisoPreg_Combobox.TabIndex = 14;
-            this.PermisoPreg_Combobox.SelectedIndexChanged += new System.EventHandler(this.PermisoPreg_Combobox_SelectedIndexChanged);
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -205,15 +196,24 @@
             this.Limpiar_Button.UseVisualStyleBackColor = true;
             this.Limpiar_Button.Click += new System.EventHandler(this.Limpiar_Button_Click);
             // 
+            // PermitirPreguntas_Checkbox
+            // 
+            this.PermitirPreguntas_Checkbox.AutoSize = true;
+            this.PermitirPreguntas_Checkbox.Location = new System.Drawing.Point(144, 211);
+            this.PermitirPreguntas_Checkbox.Name = "PermitirPreguntas_Checkbox";
+            this.PermitirPreguntas_Checkbox.Size = new System.Drawing.Size(15, 14);
+            this.PermitirPreguntas_Checkbox.TabIndex = 18;
+            this.PermitirPreguntas_Checkbox.UseVisualStyleBackColor = true;
+            // 
             // EditarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 332);
+            this.Controls.Add(this.PermitirPreguntas_Checkbox);
             this.Controls.Add(this.Limpiar_Button);
             this.Controls.Add(this.Guardar_Button);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.PermisoPreg_Combobox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.Precio_Textbox);
             this.Controls.Add(this.label6);
@@ -252,9 +252,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox Precio_Textbox;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox PermisoPreg_Combobox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button Guardar_Button;
         private System.Windows.Forms.Button Limpiar_Button;
+        private System.Windows.Forms.CheckBox PermitirPreguntas_Checkbox;
     }
 }

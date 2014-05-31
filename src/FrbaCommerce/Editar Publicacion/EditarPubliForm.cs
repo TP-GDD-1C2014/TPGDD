@@ -124,6 +124,7 @@ namespace FrbaCommerce.Editar_Publicacion
             this.Tipo_Combobox.SelectedIndexChanged += new System.EventHandler(this.Tipo_Combobox_SelectedIndexChanged);
             //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            /*
             List<preguntasComboBox> listaRespuestas = new List<preguntasComboBox>();
             listaRespuestas.Add(new preguntasComboBox("No", 0));
             listaRespuestas.Add(new preguntasComboBox("Si", 1));
@@ -131,6 +132,8 @@ namespace FrbaCommerce.Editar_Publicacion
             this.PermisoPreg_Combobox.DisplayMember = "Permiso_Pregunta";
             this.PermisoPreg_Combobox.ValueMember = "Cod_Pregunta";
             this.PermisoPreg_Combobox.SelectedIndexChanged += new System.EventHandler(this.PermisoPreg_Combobox_SelectedIndexChanged);
+            */
+            PermitirPreguntas_Checkbox.Checked = false;
 
             //TODO Mostrar todos los campos que se encuentren completos en la tabla de Publicaciones
         }
@@ -153,11 +156,12 @@ namespace FrbaCommerce.Editar_Publicacion
                 int stock = Convert.ToInt32(Stock_Textbox.Text);
                 DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
                 DateTime fechaInicio = DateTime.Today;
-                var estado = (Estado_Publicacion)Estado_Combobox.SelectedValue;
-                var tipoPubli = (Tipo_Publicacion)Tipo_Combobox.SelectedValue;
+                var estado = (string)Estado_Combobox.SelectedValue;
+                var tipoPubli = (string)Tipo_Combobox.SelectedValue;
 
                 int precio = Convert.ToInt32(Precio_Textbox.Text);
-                var permisoPreg = (int)PermisoPreg_Combobox.SelectedValue;
+                bool permisoPreg = PermitirPreguntas_Checkbox.Checked;
+                //var permisoPreg = (int)PermisoPreg_Combobox.SelectedValue;
 
                 //Actualiza la publicacion con los parametros asignados
                 Publicacion publi = new Publicacion(codPubli,visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli,permisoPreg, stock);

@@ -47,7 +47,7 @@
             this.Limpiar_button = new System.Windows.Forms.Button();
             this.Guardar_button = new System.Windows.Forms.Button();
             this.PermitirPreg_label = new System.Windows.Forms.Label();
-            this.permitirPreg_combobox = new System.Windows.Forms.ComboBox();
+            this.PermitirPreguntas_Checkbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Descrip_TextBox
@@ -217,21 +217,21 @@
             this.PermitirPreg_label.TabIndex = 21;
             this.PermitirPreg_label.Text = "Permitir Preguntas";
             // 
-            // permitirPreg_combobox
+            // PermitirPreguntas_Checkbox
             // 
-            this.permitirPreg_combobox.FormattingEnabled = true;
-            this.permitirPreg_combobox.Location = new System.Drawing.Point(144, 209);
-            this.permitirPreg_combobox.Name = "permitirPreg_combobox";
-            this.permitirPreg_combobox.Size = new System.Drawing.Size(71, 21);
-            this.permitirPreg_combobox.TabIndex = 22;
-            this.permitirPreg_combobox.SelectedIndexChanged += new System.EventHandler(this.permitirPreg_combobox_SelectedIndexChanged);
+            this.PermitirPreguntas_Checkbox.AutoSize = true;
+            this.PermitirPreguntas_Checkbox.Location = new System.Drawing.Point(144, 212);
+            this.PermitirPreguntas_Checkbox.Name = "PermitirPreguntas_Checkbox";
+            this.PermitirPreguntas_Checkbox.Size = new System.Drawing.Size(15, 14);
+            this.PermitirPreguntas_Checkbox.TabIndex = 23;
+            this.PermitirPreguntas_Checkbox.UseVisualStyleBackColor = true;
             // 
             // GenerarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 332);
-            this.Controls.Add(this.permitirPreg_combobox);
+            this.Controls.Add(this.PermitirPreguntas_Checkbox);
             this.Controls.Add(this.PermitirPreg_label);
             this.Controls.Add(this.Guardar_button);
             this.Controls.Add(this.Limpiar_button);
@@ -280,6 +280,6 @@
         private System.Windows.Forms.Button Limpiar_button;
         private System.Windows.Forms.Button Guardar_button;
         private System.Windows.Forms.Label PermitirPreg_label;
-        private System.Windows.Forms.ComboBox permitirPreg_combobox;
+        private System.Windows.Forms.CheckBox PermitirPreguntas_Checkbox;
     }
 }

@@ -120,13 +120,17 @@ namespace FrbaCommerce.Generar_Publicacion
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
    
-            List<preguntasComboBox> listaRespuestas = new List<preguntasComboBox>();
+            
+            /*List<preguntasComboBox> listaRespuestas = new List<preguntasComboBox>();
             listaRespuestas.Add(new preguntasComboBox("No",0));
             listaRespuestas.Add(new preguntasComboBox("Si",1));
             this.permitirPreg_combobox.DataSource = listaRespuestas;
             this.permitirPreg_combobox.DisplayMember = "Permiso_Pregunta";
             this.permitirPreg_combobox.ValueMember = "Cod_Pregunta";
             this.permitirPreg_combobox.SelectedIndexChanged += new System.EventHandler(this.permitirPreg_combobox_SelectedIndexChanged);
+            */
+
+            PermitirPreguntas_Checkbox.Checked = false;
 
             Ocultar();
         }
@@ -202,10 +206,10 @@ namespace FrbaCommerce.Generar_Publicacion
                 //TODO Revisar la cuestión de las fechas (archivo config)
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
                 DateTime fechaInicio = DateTime.Today;
-                var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
+                var estado = (string)Estado_ComboBox.SelectedValue;
                         //int estado = Estado_ComboBox.SelectedIndex;
                         //Estado_Publicacion estado = (Estado_Publicacion)Enum.Parse(typeof(Estado_Publicacion), Estado_ComboBox.Text);
-                var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
+                var tipoPubli = (string)TipoPubli_ComboBox.SelectedValue;
                 
                 int precio;
                 //Dependiendo el tipo de publicacion, define el precio a elegir
@@ -217,7 +221,9 @@ namespace FrbaCommerce.Generar_Publicacion
                 {
                     precio = Convert.ToInt32(PrecioTotal_textBox.Text);
                 }
-                var permisoPreg = (int)permitirPreg_combobox.SelectedValue;
+
+                bool permisoPreg = PermitirPreguntas_Checkbox.Checked;
+                //var permisoPreg = (int)permitirPreg_combobox.SelectedValue;
 
                 //Crear la publicacion con los parametros asignados
                 //TODO Revisar tipos

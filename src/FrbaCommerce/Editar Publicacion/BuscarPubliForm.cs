@@ -195,8 +195,8 @@ namespace FrbaCommerce.Editar_Publicacion
             //Obtener fechaFin y fechaInic
             DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
             DateTime fechaInic = Convert.ToDateTime(dateTimePicker2.Text);
-            var estado = (Estado_Publicacion)Estado_ComboBox.SelectedValue;
-            var tipoPubli = (Tipo_Publicacion)TipoPubli_ComboBox.SelectedValue;
+            var estado = (int)Estado_ComboBox.SelectedValue;
+            var tipoPubli = (int)TipoPubli_ComboBox.SelectedValue;
             int precio = Convert.ToInt32(precio_textBox.Text);
             //Falta permisoPreg (problema con combobox)
 
