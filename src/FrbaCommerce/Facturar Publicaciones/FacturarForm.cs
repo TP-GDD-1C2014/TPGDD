@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
+using FrbaCommerce.Common;
 
 namespace FrbaCommerce.Facturar_Publicaciones
 {
     public partial class FacturarForm : Form
     {
-        public FacturarForm(Usuario user)
+        public FacturarForm()
         {
             InitializeComponent();
 
-
+            this.generarDataGrid(Interfaz.usuarioActual());
 
         }
 
@@ -26,7 +27,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvOperaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
@@ -35,6 +36,9 @@ namespace FrbaCommerce.Facturar_Publicaciones
         {
             Facturacion factura = new Facturacion();
 
+            this.dgvOperaciones.DataSource = factura.obtenerOperaciones(usuario);
+            this.dgvOperaciones.Refresh();
+            
         }
 
 

@@ -325,6 +325,15 @@ AS BEGIN
 END
 GO
 
+/* Obtener Vista de las operaciones sin facturar order by fecha de operacion */
+
+CREATE PROCEDURE MERCADONEGRO.ObtenerOperacionesSinFacturar
+AS BEGIN
+		SELECT * FROM MERCADONEGRO.OperacionesSinFacturar
+			ORDER BY [Fecha de la Operacion]
+END
+GO
+
 /*
 CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
 											  @numDoc numeric(18,0), @nombre nvarchar(255),
@@ -577,7 +586,8 @@ CREATE VIEW  MERCADONEGRO.MayorFacturacionView		 AS
 			GROUP BY Usuarios.Username, MONTH(Facturaciones.Factura_Fecha), YEAR(Facturaciones.Factura_Fecha)
 	      			
 GO	
---DROP VIEW MERCADONEGRO.MayorFacturacionView
+DROP VIEW MERCADONEGRO.MayorFacturacionView
+GO
 --SELECT * FROM MERCADONEGRO.MayorFacturacionView
 
 
@@ -595,7 +605,8 @@ CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 		JOIN MERCADONEGRO.Calificaciones			AS Calificaciones
 			ON Calificaciones.Cod_Calificacion = Operaciones.Cod_Calificacion
 GO
---DROP VIEW MERCADONEGRO.MayorReputacionView
+DROP VIEW MERCADONEGRO.MayorReputacionView
+GO
 --SELECT * FROM MERCADONEGRO.MayorReputacionView ORDER BY Vendedor, MES, AÑO
 		   	
 ---------VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS----------
@@ -618,6 +629,22 @@ GO
 GO	
 
 */
+
+
+-------------------------------VISTA DE LAS OPERACIONES QUE NO FUERON FACTURADAS------------------------
+CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS 
+	SELECT  ID_Operacion					 AS Venta,
+			Publicaciones.Cod_Publicacion	 AS Publicacion,
+			Descripcion						 AS Descripcion,
+			Fecha_Operacion					 AS [Fecha de la Operacion]
+			
+	FROM MERCADONEGRO.Operaciones
+	JOIN MERCADONEGRO.Publicaciones ON Publicaciones.Cod_Publicacion = Operaciones.Cod_Publicacion
+	WHERE Operaciones.Operacion_Facturada IS NOT NULL
+GO
+
+--DROP VIEW MERCADONEGRO.OperacionesSinFacturar
+
 ---------------------------USUARIOS------------------------------
 PRINT 'MIGRANDO TABLAS USUARIOS'
 
