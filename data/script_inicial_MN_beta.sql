@@ -129,7 +129,7 @@ CREATE TABLE MERCADONEGRO.Usuarios
 	Password			 NVARCHAR(255)	   NOT NULL,
 	Intentos_Login		 TINYINT DEFAULT 0 NOT NULL, 
 	Habilitado			 BIT DEFAULT 1	   NOT NULL,
-	Primera_Vez			 BIT DEFAULT 1     NOT NULL,
+	Primera_Vez			 TINYINT DEFAULT 2 NOT NULL,
 	Cant_Publi_Gratuitas TINYINT		   NULL,
 	Reputacion			 FLOAT			   NULL, /*Solo vendedores*/
 	Ventas_Sin_Rendir	 TINYINT		   NULL, /*Solo vendedores*/
@@ -327,9 +327,10 @@ GO
 
 /* Obtener Vista de las operaciones sin facturar order by fecha de operacion */
 
-CREATE PROCEDURE MERCADONEGRO.ObtenerOperacionesSinFacturar
+CREATE PROCEDURE MERCADONEGRO.ObtenerOperacionesSinFacturar(@username nvarchar(255))
 AS BEGIN
 		SELECT * FROM MERCADONEGRO.OperacionesSinFacturar
+			WHERE @username = Username
 			ORDER BY [Fecha de la Operacion]
 END
 GO
@@ -586,8 +587,7 @@ CREATE VIEW  MERCADONEGRO.MayorFacturacionView		 AS
 			GROUP BY Usuarios.Username, MONTH(Facturaciones.Factura_Fecha), YEAR(Facturaciones.Factura_Fecha)
 	      			
 GO	
-DROP VIEW MERCADONEGRO.MayorFacturacionView
-GO
+
 --SELECT * FROM MERCADONEGRO.MayorFacturacionView
 
 
@@ -605,8 +605,7 @@ CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 		JOIN MERCADONEGRO.Calificaciones			AS Calificaciones
 			ON Calificaciones.Cod_Calificacion = Operaciones.Cod_Calificacion
 GO
-DROP VIEW MERCADONEGRO.MayorReputacionView
-GO
+
 --SELECT * FROM MERCADONEGRO.MayorReputacionView ORDER BY Vendedor, MES, AÑO
 		   	
 ---------VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS----------
@@ -633,17 +632,18 @@ GO
 
 -------------------------------VISTA DE LAS OPERACIONES QUE NO FUERON FACTURADAS------------------------
 CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS 
-	SELECT  ID_Operacion					 AS Venta,
+	SELECT  Username						 AS Username,
+			ID_Operacion					 AS Venta,
 			Publicaciones.Cod_Publicacion	 AS Publicacion,
 			Descripcion						 AS Descripcion,
 			Fecha_Operacion					 AS [Fecha de la Operacion]
 			
 	FROM MERCADONEGRO.Operaciones
 	JOIN MERCADONEGRO.Publicaciones ON Publicaciones.Cod_Publicacion = Operaciones.Cod_Publicacion
-	WHERE Operaciones.Operacion_Facturada IS NOT NULL
+	JOIN MERCADONEGRO.Usuarios ON Usuarios.ID_User = Operaciones.ID_Vendedor
+	WHERE Operaciones.Operacion_Facturada IS NULL
 GO
 
---DROP VIEW MERCADONEGRO.OperacionesSinFacturar
 
 ---------------------------USUARIOS------------------------------
 PRINT 'MIGRANDO TABLAS USUARIOS'
@@ -1020,4 +1020,12 @@ GO
 DROP VIEW MERCADONEGRO.SubastasView
 GO
 DROP VIEW MERCADONEGRO.CalificacionView
+GO
+
+//Drops de vistas que SI tienen que estar en el sistema
+DROP VIEW MERCADONEGRO.MayorFacturacionView
+GO
+DROP VIEW MERCADONEGRO.MayorReputacionView
+GO
+DROP VIEW MERCADONEGRO.OperacionesSinFacturar
 GO

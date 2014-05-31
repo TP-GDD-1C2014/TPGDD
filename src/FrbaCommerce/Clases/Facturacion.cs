@@ -17,7 +17,11 @@ namespace FrbaCommerce.Clases
 
         public DataTable obtenerOperaciones(Usuario usuario)
         {
-            return BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerOperacionesSinFacturar", "SP");
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@username", usuario.Username);
+
+            return BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerOperacionesSinFacturar", "SP", listaParametros);
 
         }
 
