@@ -68,8 +68,8 @@ CREATE TABLE MERCADONEGRO.Publicaciones
 	Fecha_Vencimiento  DATETIME		 NOT NULL,
 	Fecha_Inicial	   DATETIME		 NOT NULL,
 	Precio			   NUMERIC(18,2) NOT NULL,
-	Estado_Publicacion TINYINT		 NOT NULL,
-	Tipo_Publicacion   TINYINT		 NOT NULL,
+	Estado_Publicacion NVARCHAR(255) NOT NULL,
+	Tipo_Publicacion   NVARCHAR(255) NOT NULL,
 	Permisos_Preguntas BIT			 NOT NULL,
 	Stock_Inicial	   NUMERIC(18,0) NOT NULL,
 	
@@ -312,13 +312,13 @@ GO
 CREATE PROCEDURE MERCADONEGRO.AgregarPublicacion(@codVisibilidad numeric(18,0), @idVendedor numeric(18,0),
 												 @descripcion nvarchar(255), @stock numeric(18,0),
 												 @fechaInic datetime, @fechaVenc datetime,
-												 @precio numeric(18,2), @estadoPubl tinyint, @tipoPubl tinyint,
+												 @precio numeric(18,2), @estadoPubl NVARCHAR(255), @tipoPubl NVARCHAR(255),
 												 @permisosPreg bit,
 												 @ret numeric (18,0) output)
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Publicaciones(Cod_Visibilidad, ID_Vendedor, Descripcion, Stock, Fecha_Inicial,
-												Fecha_Vencimiento, Precio, Estado_Publicacion, Permisos_Preguntas,
-												Tipo_Publicacion, Stock_Inicial)
+												Fecha_Vencimiento, Precio, Publicacion_Estado, Permisos_Preguntas,
+												Publicacion_Tipo, Stock_Inicial)
 			VALUES(@codVisibilidad, @idVendedor, @descripcion, @stock, @fechaInic, @fechaVenc, @precio, @estadoPubl,
 				   @permisosPreg, @tipoPubl, @stock)
 				   SET @ret = SCOPE_IDENTITY()
@@ -835,16 +835,8 @@ CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 		Publicacion_Fecha,
 		Publicacion_Fecha_Venc,
 		Publicacion_Precio, 
-		CASE Publicacion_Estado
-			WHEN 'Publicada' 
-			THEN 0
-		END AS Estado_Publicacion, 
-			CASE Publicacion_Tipo
-				WHEN 'Compra Inmediata' 
-				THEN 1 
-				WHEN 'Subasta' 
-				THEN 0
-		END AS Tipo_Publicacion, 
+		Publicacion_Estado, 
+		Publicacion_Tipo, 
 		1 AS Permisos_Preguntas--Permiso de preguntas (cambiar esto si es necesario)
 					
 	FROM	gd_esquema.Maestra, MERCADONEGRO.Usuarios
@@ -861,16 +853,8 @@ CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 		Publicacion_Fecha,
 		Publicacion_Fecha_Venc,
 		Publicacion_Precio, 
-		CASE Publicacion_Estado
-			WHEN 'Publicada' 
-			THEN 0
-		END AS Estado_Publicacion, 
-			CASE Publicacion_Tipo
-				WHEN 'Compra Inmediata' 
-				THEN 1 
-				WHEN 'Subasta' 
-				THEN 0
-		END AS Tipo_Publicacion, 
+		Publicacion_Estado, 
+		Publicacion_Tipo,  
 		1 AS Permisos_Preguntas--Permiso de preguntas (cambiar esto si es necesario)
 					
 	FROM	gd_esquema.Maestra, MERCADONEGRO.Usuarios
@@ -1022,7 +1006,7 @@ GO
 DROP VIEW MERCADONEGRO.CalificacionView
 GO
 
-//Drops de vistas que SI tienen que estar en el sistema
+--Drops de vistas que SI tienen que estar en el sistema
 DROP VIEW MERCADONEGRO.MayorFacturacionView
 GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
