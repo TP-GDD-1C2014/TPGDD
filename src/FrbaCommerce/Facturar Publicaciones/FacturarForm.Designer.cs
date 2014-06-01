@@ -61,6 +61,7 @@
             this.dgvOperaciones.Location = new System.Drawing.Point(41, 53);
             this.dgvOperaciones.Name = "dgvOperaciones";
             this.dgvOperaciones.ReadOnly = true;
+            this.dgvOperaciones.RowHeadersVisible = false;
             this.dgvOperaciones.Size = new System.Drawing.Size(458, 150);
             this.dgvOperaciones.TabIndex = 1;
             this.dgvOperaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOperaciones_CellContentClick);

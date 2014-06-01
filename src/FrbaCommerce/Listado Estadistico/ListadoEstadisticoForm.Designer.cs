@@ -86,7 +86,7 @@
             // tipoListadoCombo
             // 
             this.tipoListadoCombo.FormattingEnabled = true;
-            this.tipoListadoCombo.Location = new System.Drawing.Point(126, 94);
+            this.tipoListadoCombo.Location = new System.Drawing.Point(136, 39);
             this.tipoListadoCombo.Name = "tipoListadoCombo";
             this.tipoListadoCombo.Size = new System.Drawing.Size(354, 21);
             this.tipoListadoCombo.TabIndex = 5;
@@ -95,7 +95,7 @@
             // TipoListadoLabel
             // 
             this.TipoListadoLabel.AutoSize = true;
-            this.TipoListadoLabel.Location = new System.Drawing.Point(25, 94);
+            this.TipoListadoLabel.Location = new System.Drawing.Point(37, 39);
             this.TipoListadoLabel.Name = "TipoListadoLabel";
             this.TipoListadoLabel.Size = new System.Drawing.Size(93, 13);
             this.TipoListadoLabel.TabIndex = 4;
@@ -104,7 +104,7 @@
             // trimestreCombo
             // 
             this.trimestreCombo.FormattingEnabled = true;
-            this.trimestreCombo.Location = new System.Drawing.Point(359, 32);
+            this.trimestreCombo.Location = new System.Drawing.Point(343, 96);
             this.trimestreCombo.Name = "trimestreCombo";
             this.trimestreCombo.Size = new System.Drawing.Size(121, 21);
             this.trimestreCombo.TabIndex = 3;
@@ -113,7 +113,7 @@
             // TrimestreLabel
             // 
             this.TrimestreLabel.AutoSize = true;
-            this.TrimestreLabel.Location = new System.Drawing.Point(290, 33);
+            this.TrimestreLabel.Location = new System.Drawing.Point(274, 96);
             this.TrimestreLabel.Name = "TrimestreLabel";
             this.TrimestreLabel.Size = new System.Drawing.Size(63, 13);
             this.TrimestreLabel.TabIndex = 2;
@@ -121,7 +121,7 @@
             // 
             // anioTextbox
             // 
-            this.anioTextbox.Location = new System.Drawing.Point(89, 33);
+            this.anioTextbox.Location = new System.Drawing.Point(85, 96);
             this.anioTextbox.Name = "anioTextbox";
             this.anioTextbox.Size = new System.Drawing.Size(100, 20);
             this.anioTextbox.TabIndex = 1;
@@ -131,7 +131,7 @@
             // anioLabel
             // 
             this.anioLabel.AutoSize = true;
-            this.anioLabel.Location = new System.Drawing.Point(40, 33);
+            this.anioLabel.Location = new System.Drawing.Point(40, 96);
             this.anioLabel.Name = "anioLabel";
             this.anioLabel.Size = new System.Drawing.Size(39, 13);
             this.anioLabel.TabIndex = 0;

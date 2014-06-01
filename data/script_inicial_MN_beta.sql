@@ -225,6 +225,7 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	Tipo_Operacion		NVARCHAR(255) NOT NULL,
 	Cod_Calificacion	NUMERIC(18,0) NULL,
 	Fecha_Operacion		DATETIME	  NOT NULL,
+	Monto_Compra		NUMERIC(18,2) NOT NULL,
 	Operacion_Facturada BIT DEFAULT 0 NOT NULL, 
 	
 	PRIMARY KEY (ID_Operacion),
@@ -242,7 +243,9 @@ CREATE TABLE MERCADONEGRO.Subastas
 	ID_Comprador		NUMERIC(18,0) NOT NULL,
 	Cod_Publicacion		NUMERIC(18,0) NOT NULL,
 	Tipo_Operacion		NVARCHAR(255) NOT NULL,
-	Fecha_Oferta		DATETIME	  NOT NULL, 
+	Fecha_Oferta		DATETIME	  NOT NULL,
+	Monto_Oferta		NUMERIC(18,2) NOT NULL, 
+	--Gano_Subasta		BIT			  NOT NULL,
 	
 	PRIMARY KEY (ID_Subasta),
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
@@ -938,21 +941,24 @@ GO
 
 INSERT INTO MERCADONEGRO.Operaciones
 
-	SELECT DISTINCT MERCADONEGRO.Publicaciones.ID_Vendedor,	--AS ID_Vendedor,
-					MERCADONEGRO.Usuarios.ID_User,			--AS ID_Comprador,
-					Publicacion_Cod,							--AS codpublic, 
-					Tipo_Publicacion,						--AS tipo,
-					Calificacion_Codigo,						--AS codcalific,
-					Compra_Fecha,							--AS fechaCompra,
-					1										--AS opFact
+	SELECT DISTINCT MERCADONEGRO.Publicaciones.ID_Vendedor,	
+					MERCADONEGRO.Usuarios.ID_User,			
+					Publicacion_Cod,						 
+					Tipo_Publicacion,						
+					Calificacion_Codigo,					
+					Compra_Fecha,							
+					Publicacion_Precio,
+					1										
 					
 	FROM gd_esquema.Maestra, MERCADONEGRO.Usuarios, MERCADONEGRO.Publicaciones
 	
 	WHERE gd_esquema.Maestra.Calificacion_Codigo IS NOT NULL
+	AND gd_esquema.Maestra.Compra_Fecha IS NOT NULL
+	AND gd_esquema.Maestra.Publicacion_Tipo = 'Compra Inmediata'
 	AND (Publ_Cli_Dni IS NOT NULL OR Publ_Empresa_Cuit IS NOT NULL)
 	AND	gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion 
-	AND MERCADONEGRO.Usuarios.Password = convert(nvarchar(255),Cli_Dni) 
-		
+	AND MERCADONEGRO.Usuarios.Password = convert(nvarchar(255),Cli_Dni)
+	
 GO
 
 
@@ -964,19 +970,29 @@ CREATE VIEW MERCADONEGRO.SubastasView AS
 					Tipo_Publicacion						AS tipo,
 					Calificacion_Codigo						AS codcalific,
 					Oferta_Fecha							AS fechaOferta,
-					0										AS opFact
+					Oferta_Monto							AS monto,
+					CASE 
+					WHEN 
+					gd_esquema.Maestra.Compra_Fecha IS NULL
+					THEN 0
+					WHEN gd_esquema.Maestra.Compra_Fecha IS NOT NULL
+					THEN 1
+					END									 AS ganoSubasta
 					
 	FROM gd_esquema.Maestra, MERCADONEGRO.Usuarios, MERCADONEGRO.Publicaciones
 	
 	WHERE gd_esquema.Maestra.Calificacion_Codigo IS NULL
-	AND gd_esquema.Maestra.Oferta_Fecha IS NOT NULL
+	AND MERCADONEGRO.Publicaciones.Tipo_Publicacion = 'Subasta'
 	AND (Publ_Cli_Dni IS NOT NULL OR Publ_Empresa_Cuit IS NOT NULL)
 	AND	gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion
 	AND MERCADONEGRO.Usuarios.Password = convert(nvarchar(255),Cli_Dni)  	
-	AND MERCADONEGRO.Publicaciones.Tipo_Publicacion = 'Subasta'
+	
 GO	
 	
 --select * from MERCADONEGRO.SubastasView
+--	ORDER BY codpublic, fechaOferta
+--DROP VIEW MERCADONEGRO.SubastasView
+
 --DROP VIEW MERCADONEGRO.OperacionesOfertas
 
 
@@ -985,15 +1001,27 @@ PRINT 'MIGRANDO LA TABLA SUBASTAS'
 GO
 
 
-INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor,ID_Comprador,Cod_Publicacion,Tipo_Operacion,Fecha_Oferta)
-	SELECT vendedor,ofertador, codpublic, tipo, fechaOferta
-	FROM MERCADONEGRO.SubastasView
-	EXCEPT
-	SELECT ID_Vendedor, Id_Comprador, Cod_Publicacion, Tipo_Operacion, Fecha_Operacion
-	FROM MERCADONEGRO.Operaciones
-
+INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion,
+									Fecha_Oferta, Monto_Oferta)
+	SELECT vendedor, ofertador, codpublic, tipo, fechaOferta, monto
+		 FROM MERCADONEGRO.SubastasView
+		WHERE ganoSubasta = 0
 
 GO
+
+
+INSERT INTO MERCADONEGRO.Operaciones(ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion,
+									Cod_Calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
+	 
+	SELECT S1.vendedor, S1.ofertador, S1.codpublic, S1.tipo, Calificacion_Codigo, S1.fechaOferta, MAX(s1.monto), 1
+		FROM MERCADONEGRO.SubastasView S1 
+		JOIN MERCADONEGRO.SubastasView S2 ON S1.codpublic = S2.codpublic --Mismo codigo de publicacion
+		JOIN gd_esquema.Maestra ON S1.codpublic = gd_esquema.Maestra.Publicacion_Cod
+		
+			WHERE S1.ofertador = S2.ofertador --Mismo Ofertador
+			AND S1.ganoSubasta = 0 AND S2.ganoSubasta = 1 --Que ese ofertador haya ganado
+			AND gd_esquema.Maestra.Calificacion_Codigo IS NOT NULL --Para la calificacion
+		GROUP BY S1.vendedor, S1.ofertador, S1.codpublic, s1.tipo, s1.fechaOferta, Calificacion_Codigo
 
 
 -----------------------------DROPS-----------------------------
