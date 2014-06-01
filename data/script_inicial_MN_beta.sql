@@ -39,10 +39,10 @@ CREATE TABLE MERCADONEGRO.Preguntas
 
 CREATE TABLE MERCADONEGRO.Calificaciones
 (
-	Cod_Calificacion	NUMERIC(18,0) IDENTITY,  
-	Puntaje				NUMERIC(18,0)	   NULL,
-	Descripcion			NVARCHAR(255) NULL,
-	Fecha_Calificacion	DATETIME NULL,
+	Cod_Calificacion	NUMERIC(18,0)	IDENTITY,  
+	Puntaje				NUMERIC(18,0)	NULL,
+	Descripcion			NVARCHAR(255)	NULL,
+	Fecha_Calificacion	DATETIME		NULL,
 	
 	PRIMARY KEY ( Cod_Calificacion )
 )
@@ -644,7 +644,7 @@ CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS
 	FROM MERCADONEGRO.Operaciones
 	JOIN MERCADONEGRO.Publicaciones ON Publicaciones.Cod_Publicacion = Operaciones.Cod_Publicacion
 	JOIN MERCADONEGRO.Usuarios ON Usuarios.ID_User = Operaciones.ID_Vendedor
-	WHERE Operaciones.Operacion_Facturada IS NULL
+	WHERE Operaciones.Operacion_Facturada = 0
 GO
 
 
@@ -1009,7 +1009,7 @@ INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor, ID_Comprador, Cod_Publicacion, Ti
 
 GO
 
-
+---Subastas ganadas
 INSERT INTO MERCADONEGRO.Operaciones(ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion,
 									Cod_Calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
 	 
@@ -1035,9 +1035,11 @@ DROP VIEW MERCADONEGRO.CalificacionView
 GO
 
 --Drops de vistas que SI tienen que estar en el sistema
+/*
 DROP VIEW MERCADONEGRO.MayorFacturacionView
 GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
 GO
 DROP VIEW MERCADONEGRO.OperacionesSinFacturar
 GO
+*/

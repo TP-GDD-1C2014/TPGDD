@@ -41,6 +41,11 @@ namespace FrbaCommerce.Facturar_Publicaciones
             
         }
 
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
 
 
     }
