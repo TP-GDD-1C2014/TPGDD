@@ -11,10 +11,10 @@ using FrbaCommerce.Clases;
 namespace FrbaCommerce.Clases
 {
 
-    //public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada };
-    //public enum Tipo_Publicacion { Inmediata = 0, Subasta }
+    //public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada }; es que.. a ver pera
+    //public enum Tipo_Publicacion { Inmediata = 0, Subasta } sino la hago rústica y veo si puedo pasarle cada parametro de la publi
 
-    class Publicacion
+    public class Publicacion
     {
         public int Cod_Publicacion { get; set; }
         public int Cod_Visibilidad { get; set; }
@@ -46,13 +46,13 @@ namespace FrbaCommerce.Clases
             this.Permiso_Preguntas = permisoPreg;
             this.Stock_Inicial = stock_Inicial;
         }
-        
+        /*
         public void agregarRubro(Rubro rubro)
         {
-            //this.Rubros.Add(rubro);
-
+            this.Rubros.Add(rubro);
+            //
         }
-
+        */
         public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, string estado, string tipoPubli, decimal precio, bool permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();

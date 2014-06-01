@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
-using FrbaCommerce.Generar_Publicacion;
 using System.Data.SqlClient;
 
 namespace FrbaCommerce.Editar_Publicacion
@@ -85,6 +84,7 @@ namespace FrbaCommerce.Editar_Publicacion
         public BuscarPubliForm()
         {
             InitializeComponent();
+            CenterToScreen();
 
             //Cargar DataGridView con las publicaciones
             dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
@@ -121,17 +121,11 @@ namespace FrbaCommerce.Editar_Publicacion
 
         }
 
-        private void BuscarPubliForm_Load(object sender, EventArgs e)
+        /*private void BuscarPubliForm_Load(object sender, EventArgs e) 
         {
-            Publicacion unaPublicacion = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-            EditarPubliForm editarPubliForm = new EditarPubliForm();
-            editarPubliForm.ShowDialog();
+            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
 
-            /*dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.DataSourceChanged += new EventHandler(dataGridView1_DataSourceChanged);
-            dataGridView1.DataSource = Conseguir la publicacion (_publiManager?)*/
-
-        }
+        }*/
 
         void dataGridView1_DataSourceChanged(object sender, EventArgs e)
         {
@@ -218,13 +212,6 @@ namespace FrbaCommerce.Editar_Publicacion
 
         }
 
-        private void modificar_button_Click(object sender, EventArgs e)
-        {
-            //Al elegir una fila, dirigir a la form EditarPubliForm
-
-
-        }
-
         private void borrar_button_Click(object sender, EventArgs e)
         {
             Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
@@ -239,15 +226,18 @@ namespace FrbaCommerce.Editar_Publicacion
             }
 
 
-            }
+        }
+
 
         private void modificar_button_Click_1(object sender, EventArgs e)
         {
+            //Al elegir una fila, dirigir a la form EditarPubliForm
             Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-            //string modo = "Modificar";
-            //GenerarPubliForm generarForm = new GenerarPubliForm(modo, unaPubli);
-            //generarForm.ShowDialog();
 
+            //EditarPubliForm editForm = new EditarPubliForm(unaPubli);
+            Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar",unaPubli);
+            editForm.ShowDialog();
+            
             dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
         }
 
@@ -256,12 +246,10 @@ namespace FrbaCommerce.Editar_Publicacion
 
         }
 
-        private void dataGridView1_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
+        private void BuscarPubliForm_Load(object sender, EventArgs e)
         {
 
         }
-
-
 
     }
 }

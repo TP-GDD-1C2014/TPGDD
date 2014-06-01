@@ -8,13 +8,57 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
-using FrbaCommerce.Login;
 using System.Data.SqlClient;
 
 namespace FrbaCommerce.Generar_Publicacion
 {
     public partial class GenerarPubliForm : Form
     {
+
+        //Obtiene el usuario loggeado
+        Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
+        //public Clases.Usuario usuario { get; set; }
+        bool esNueva;
+
+        //Constructor para generar publicacion nueva
+        public GenerarPubliForm(string modo)
+        {
+            if (modo == "Nuevo")
+            {
+                InitializeComponent();
+                CenterToScreen();
+                llenarCombos();
+                PermitirPreguntas_Checkbox.Checked = false;
+                esNueva = true;
+                Ocultar();
+            }
+
+        }
+
+        //Constructor para modificar publicacion a ver.. acordate que cuando seleccione la funcionalidad de Editar me debiera abrir BuscarPubliForm, a ver si se arreglo eso
+        public GenerarPubliForm(string modo, Publicacion unaPubli)
+        {
+            
+            if (modo == "Modificar")
+            {
+                InitializeComponent();
+                llenarCombos();
+
+                //TODO revisar Visibilidad_ComboBox
+                Visibilidad_ComboBox.SelectedValue = unaPubli.Cod_Visibilidad;
+                Descrip_TextBox.Text = unaPubli.Descripcion;
+                Stock_TextBox.Text = Convert.ToString(unaPubli.Stock);
+                FechaFin_DateTimePicker.Text = Convert.ToString(unaPubli.Fecha_Vto);
+                //TODO revisar TipoPubli_ComboBox y Estado_ComboBox
+                TipoPubli_ComboBox.SelectedValue = unaPubli.Tipo_Publicacion;
+                Estado_ComboBox.SelectedValue = unaPubli.Estado_Publicacion;
+                Precio_textBox.Text = Convert.ToString(unaPubli.Precio);
+                PermitirPreguntas_Checkbox.Checked = unaPubli.Permiso_Preguntas;
+
+                esNueva = false;
+                Ocultar();
+            }
+        }
         //Combobox Visibilidad (numeric(18,0) )
         public class visibilidadComboBox
         {
@@ -76,48 +120,6 @@ namespace FrbaCommerce.Generar_Publicacion
             }
         }
 
-        //Obtiene el usuario loggeado
-        Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
-        //public Clases.Usuario usuario { get; set; }
-        bool esNueva;
-
-        //Constructor para generar publicacion nueva
-        public GenerarPubliForm(string modo)
-        {
-            if (modo == "Nuevo")
-            {
-                InitializeComponent();
-                llenarCombos();
-                PermitirPreguntas_Checkbox.Checked = false;
-                esNueva = true;
-                Ocultar();
-            }
-
-        }
-
-        //Constructor para modificar publicacion
-        /*public GenerarPubliForm(string modo, Publicacion unaPubli)
-        {
-            if (modo == "Modificar")
-            {
-                InitializeComponent();
-                llenarCombos();
-
-                //TODO revisar Visibilidad_ComboBox
-                Visibilidad_ComboBox.SelectedValue = unaPubli.Cod_Visibilidad;
-                Descrip_TextBox.Text = unaPubli.Descripcion;
-                Stock_TextBox.Text = Convert.ToString(unaPubli.Stock);
-                FechaFin_DateTimePicker.Text = Convert.ToString(unaPubli.Fecha_Vto);
-                //TODO revisar TipoPubli_ComboBox y Estado_ComboBox
-                TipoPubli_ComboBox.SelectedValue = unaPubli.Tipo_Publicacion;
-                Estado_ComboBox.SelectedValue = unaPubli.Estado_Publicacion;
-                Precio_textBox.Text = Convert.ToString(unaPubli.Precio);
-                PermitirPreguntas_Checkbox.Checked = unaPubli.Permiso_Preguntas;
-
-                esNueva = false;
-                Ocultar();
-            }
-        }*/
 
         private void Ocultar()
         {

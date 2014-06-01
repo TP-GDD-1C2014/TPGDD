@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.Visibilidad_Combobox = new System.Windows.Forms.ComboBox();
-            this.Descripcion_Textbox = new System.Windows.Forms.TextBox();
+            this.Visibilidad_ComboBox = new System.Windows.Forms.ComboBox();
+            this.Descrip_TextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.Stock_Textbox = new System.Windows.Forms.TextBox();
+            this.Stock_TextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.FechaFin_DateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.Estado_Combobox = new System.Windows.Forms.ComboBox();
-            this.Tipo_Combobox = new System.Windows.Forms.ComboBox();
+            this.Estado_ComboBox = new System.Windows.Forms.ComboBox();
+            this.TipoPubli_ComboBox = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.Precio_Textbox = new System.Windows.Forms.TextBox();
+            this.Precio_textBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.Guardar_Button = new System.Windows.Forms.Button();
@@ -57,21 +57,22 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Visibilidad";
             // 
-            // Visibilidad_Combobox
+            // Visibilidad_ComboBox
             // 
-            this.Visibilidad_Combobox.FormattingEnabled = true;
-            this.Visibilidad_Combobox.Location = new System.Drawing.Point(144, 24);
-            this.Visibilidad_Combobox.Name = "Visibilidad_Combobox";
-            this.Visibilidad_Combobox.Size = new System.Drawing.Size(215, 21);
-            this.Visibilidad_Combobox.TabIndex = 1;
-            this.Visibilidad_Combobox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_Combobox_SelectedIndexChanged);
+            this.Visibilidad_ComboBox.FormattingEnabled = true;
+            this.Visibilidad_ComboBox.Location = new System.Drawing.Point(144, 24);
+            this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
+            this.Visibilidad_ComboBox.Size = new System.Drawing.Size(215, 21);
+            this.Visibilidad_ComboBox.TabIndex = 1;
+            this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             // 
-            // Descripcion_Textbox
+            // Descrip_TextBox
             // 
-            this.Descripcion_Textbox.Location = new System.Drawing.Point(144, 51);
-            this.Descripcion_Textbox.Name = "Descripcion_Textbox";
-            this.Descripcion_Textbox.Size = new System.Drawing.Size(215, 20);
-            this.Descripcion_Textbox.TabIndex = 2;
+            this.Descrip_TextBox.Location = new System.Drawing.Point(144, 51);
+            this.Descrip_TextBox.Name = "Descrip_TextBox";
+            this.Descrip_TextBox.Size = new System.Drawing.Size(215, 20);
+            this.Descrip_TextBox.TabIndex = 2;
+            this.Descrip_TextBox.TextChanged += new System.EventHandler(this.Descrip_TextBox_TextChanged);
             // 
             // label2
             // 
@@ -82,12 +83,13 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Descripción";
             // 
-            // Stock_Textbox
+            // Stock_TextBox
             // 
-            this.Stock_Textbox.Location = new System.Drawing.Point(144, 77);
-            this.Stock_Textbox.Name = "Stock_Textbox";
-            this.Stock_Textbox.Size = new System.Drawing.Size(71, 20);
-            this.Stock_Textbox.TabIndex = 4;
+            this.Stock_TextBox.Location = new System.Drawing.Point(144, 77);
+            this.Stock_TextBox.Name = "Stock_TextBox";
+            this.Stock_TextBox.Size = new System.Drawing.Size(71, 20);
+            this.Stock_TextBox.TabIndex = 4;
+            this.Stock_TextBox.TextChanged += new System.EventHandler(this.Stock_TextBox_TextChanged);
             // 
             // label3
             // 
@@ -98,13 +100,13 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Stock";
             // 
-            // dateTimePicker1
+            // FechaFin_DateTimePicker
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(144, 103);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(213, 20);
-            this.dateTimePicker1.TabIndex = 6;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            this.FechaFin_DateTimePicker.Location = new System.Drawing.Point(144, 103);
+            this.FechaFin_DateTimePicker.Name = "FechaFin_DateTimePicker";
+            this.FechaFin_DateTimePicker.Size = new System.Drawing.Size(213, 20);
+            this.FechaFin_DateTimePicker.TabIndex = 6;
+            this.FechaFin_DateTimePicker.ValueChanged += new System.EventHandler(this.FechaFin_DateTimePicker_ValueChanged);
             // 
             // label4
             // 
@@ -115,23 +117,23 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Fecha de Finalización";
             // 
-            // Estado_Combobox
+            // Estado_ComboBox
             // 
-            this.Estado_Combobox.FormattingEnabled = true;
-            this.Estado_Combobox.Location = new System.Drawing.Point(144, 129);
-            this.Estado_Combobox.Name = "Estado_Combobox";
-            this.Estado_Combobox.Size = new System.Drawing.Size(149, 21);
-            this.Estado_Combobox.TabIndex = 8;
-            this.Estado_Combobox.SelectedIndexChanged += new System.EventHandler(this.Estado_Combobox_SelectedIndexChanged);
+            this.Estado_ComboBox.FormattingEnabled = true;
+            this.Estado_ComboBox.Location = new System.Drawing.Point(144, 129);
+            this.Estado_ComboBox.Name = "Estado_ComboBox";
+            this.Estado_ComboBox.Size = new System.Drawing.Size(149, 21);
+            this.Estado_ComboBox.TabIndex = 8;
+            this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
             // 
-            // Tipo_Combobox
+            // TipoPubli_ComboBox
             // 
-            this.Tipo_Combobox.FormattingEnabled = true;
-            this.Tipo_Combobox.Location = new System.Drawing.Point(144, 156);
-            this.Tipo_Combobox.Name = "Tipo_Combobox";
-            this.Tipo_Combobox.Size = new System.Drawing.Size(149, 21);
-            this.Tipo_Combobox.TabIndex = 9;
-            this.Tipo_Combobox.SelectedIndexChanged += new System.EventHandler(this.Tipo_Combobox_SelectedIndexChanged);
+            this.TipoPubli_ComboBox.FormattingEnabled = true;
+            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(144, 156);
+            this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
+            this.TipoPubli_ComboBox.Size = new System.Drawing.Size(149, 21);
+            this.TipoPubli_ComboBox.TabIndex = 9;
+            this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -151,12 +153,13 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Tipo";
             // 
-            // Precio_Textbox
+            // Precio_textBox
             // 
-            this.Precio_Textbox.Location = new System.Drawing.Point(144, 183);
-            this.Precio_Textbox.Name = "Precio_Textbox";
-            this.Precio_Textbox.Size = new System.Drawing.Size(71, 20);
-            this.Precio_Textbox.TabIndex = 12;
+            this.Precio_textBox.Location = new System.Drawing.Point(144, 183);
+            this.Precio_textBox.Name = "Precio_textBox";
+            this.Precio_textBox.Size = new System.Drawing.Size(71, 20);
+            this.Precio_textBox.TabIndex = 12;
+            this.Precio_textBox.TextChanged += new System.EventHandler(this.Precio_textBox_TextChanged);
             // 
             // label7
             // 
@@ -194,7 +197,6 @@
             this.Limpiar_Button.TabIndex = 17;
             this.Limpiar_Button.Text = "Limpiar";
             this.Limpiar_Button.UseVisualStyleBackColor = true;
-            this.Limpiar_Button.Click += new System.EventHandler(this.Limpiar_Button_Click);
             // 
             // PermitirPreguntas_Checkbox
             // 
@@ -204,6 +206,7 @@
             this.PermitirPreguntas_Checkbox.Size = new System.Drawing.Size(15, 14);
             this.PermitirPreguntas_Checkbox.TabIndex = 18;
             this.PermitirPreguntas_Checkbox.UseVisualStyleBackColor = true;
+            this.PermitirPreguntas_Checkbox.CheckedChanged += new System.EventHandler(this.PermitirPreguntas_Checkbox_CheckedChanged);
             // 
             // EditarPubliForm
             // 
@@ -215,22 +218,21 @@
             this.Controls.Add(this.Guardar_Button);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.Precio_Textbox);
+            this.Controls.Add(this.Precio_textBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.Tipo_Combobox);
-            this.Controls.Add(this.Estado_Combobox);
+            this.Controls.Add(this.TipoPubli_ComboBox);
+            this.Controls.Add(this.Estado_ComboBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.FechaFin_DateTimePicker);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.Stock_Textbox);
+            this.Controls.Add(this.Stock_TextBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.Descripcion_Textbox);
-            this.Controls.Add(this.Visibilidad_Combobox);
+            this.Controls.Add(this.Descrip_TextBox);
+            this.Controls.Add(this.Visibilidad_ComboBox);
             this.Controls.Add(this.label1);
             this.Name = "EditarPubliForm";
             this.Text = "Editar Publicación";
-            this.Load += new System.EventHandler(this.EditarPubliForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,18 +241,18 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox Visibilidad_Combobox;
-        private System.Windows.Forms.TextBox Descripcion_Textbox;
+        private System.Windows.Forms.ComboBox Visibilidad_ComboBox;
+        private System.Windows.Forms.TextBox Descrip_TextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox Stock_Textbox;
+        private System.Windows.Forms.TextBox Stock_TextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker FechaFin_DateTimePicker;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox Estado_Combobox;
-        private System.Windows.Forms.ComboBox Tipo_Combobox;
+        private System.Windows.Forms.ComboBox Estado_ComboBox;
+        private System.Windows.Forms.ComboBox TipoPubli_ComboBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox Precio_Textbox;
+        private System.Windows.Forms.TextBox Precio_textBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button Guardar_Button;
