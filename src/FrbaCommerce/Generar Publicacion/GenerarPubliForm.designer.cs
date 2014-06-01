@@ -41,8 +41,7 @@
             this.TipoPubli_ComboBox = new System.Windows.Forms.ComboBox();
             this.FechaFin_DateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.Precio_textBox = new System.Windows.Forms.TextBox();
-            this.PrecioUnit_Label = new System.Windows.Forms.Label();
-            this.PrecioTotal_Label = new System.Windows.Forms.Label();
+            this.Precio_Label = new System.Windows.Forms.Label();
             this.Limpiar_button = new System.Windows.Forms.Button();
             this.Guardar_button = new System.Windows.Forms.Button();
             this.PermitirPreg_label = new System.Windows.Forms.Label();
@@ -160,25 +159,16 @@
             this.Precio_textBox.Name = "Precio_textBox";
             this.Precio_textBox.Size = new System.Drawing.Size(71, 20);
             this.Precio_textBox.TabIndex = 14;
-            this.Precio_textBox.TextChanged += new System.EventHandler(this.PrecioUnit_textBox_TextChanged);
+            this.Precio_textBox.TextChanged += new System.EventHandler(this.Precio_textBox_TextChanged);
             // 
-            // PrecioUnit_Label
+            // Precio_Label
             // 
-            this.PrecioUnit_Label.AutoSize = true;
-            this.PrecioUnit_Label.Location = new System.Drawing.Point(15, 186);
-            this.PrecioUnit_Label.Name = "PrecioUnit_Label";
-            this.PrecioUnit_Label.Size = new System.Drawing.Size(78, 13);
-            this.PrecioUnit_Label.TabIndex = 15;
-            this.PrecioUnit_Label.Text = "Precio por Item";
-            // 
-            // PrecioTotal_Label
-            // 
-            this.PrecioTotal_Label.AutoSize = true;
-            this.PrecioTotal_Label.Location = new System.Drawing.Point(15, 186);
-            this.PrecioTotal_Label.Name = "PrecioTotal_Label";
-            this.PrecioTotal_Label.Size = new System.Drawing.Size(64, 13);
-            this.PrecioTotal_Label.TabIndex = 16;
-            this.PrecioTotal_Label.Text = "Precio Total";
+            this.Precio_Label.AutoSize = true;
+            this.Precio_Label.Location = new System.Drawing.Point(15, 186);
+            this.Precio_Label.Name = "Precio_Label";
+            this.Precio_Label.Size = new System.Drawing.Size(37, 13);
+            this.Precio_Label.TabIndex = 15;
+            this.Precio_Label.Text = "Precio";
             // 
             // Limpiar_button
             // 
@@ -227,8 +217,7 @@
             this.Controls.Add(this.PermitirPreg_label);
             this.Controls.Add(this.Guardar_button);
             this.Controls.Add(this.Limpiar_button);
-            this.Controls.Add(this.PrecioTotal_Label);
-            this.Controls.Add(this.PrecioUnit_Label);
+            this.Controls.Add(this.Precio_Label);
             this.Controls.Add(this.Precio_textBox);
             this.Controls.Add(this.FechaFin_DateTimePicker);
             this.Controls.Add(this.TipoPubli_ComboBox);
@@ -265,8 +254,7 @@
         private System.Windows.Forms.ComboBox TipoPubli_ComboBox;
         private System.Windows.Forms.DateTimePicker FechaFin_DateTimePicker;
         private System.Windows.Forms.TextBox Precio_textBox;
-        private System.Windows.Forms.Label PrecioUnit_Label;
-        private System.Windows.Forms.Label PrecioTotal_Label;
+        private System.Windows.Forms.Label Precio_Label;
         private System.Windows.Forms.Button Limpiar_button;
         private System.Windows.Forms.Button Guardar_button;
         private System.Windows.Forms.Label PermitirPreg_label;

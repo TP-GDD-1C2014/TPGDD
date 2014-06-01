@@ -19,6 +19,7 @@ namespace FrbaCommerce.Generar_Publicacion
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
         //public Clases.Usuario usuario { get; set; }
         bool esNueva;
+        int codPubli;
 
         //Constructor para generar publicacion nueva
         public GenerarPubliForm(string modo)
@@ -30,12 +31,11 @@ namespace FrbaCommerce.Generar_Publicacion
                 llenarCombos();
                 PermitirPreguntas_Checkbox.Checked = false;
                 esNueva = true;
-                Ocultar();
+                //Ocultar();
             }
-
         }
 
-        //Constructor para modificar publicacion a ver.. acordate que cuando seleccione la funcionalidad de Editar me debiera abrir BuscarPubliForm, a ver si se arreglo eso
+        //Constructor para modificar publicacion
         public GenerarPubliForm(string modo, Publicacion unaPubli)
         {
             
@@ -44,19 +44,19 @@ namespace FrbaCommerce.Generar_Publicacion
                 InitializeComponent();
                 llenarCombos();
 
-                //TODO revisar Visibilidad_ComboBox
+                codPubli = unaPubli.Cod_Publicacion;
                 Visibilidad_ComboBox.SelectedValue = unaPubli.Cod_Visibilidad;
                 Descrip_TextBox.Text = unaPubli.Descripcion;
                 Stock_TextBox.Text = Convert.ToString(unaPubli.Stock);
                 FechaFin_DateTimePicker.Text = Convert.ToString(unaPubli.Fecha_Vto);
                 //TODO revisar TipoPubli_ComboBox y Estado_ComboBox
-                TipoPubli_ComboBox.SelectedValue = unaPubli.Tipo_Publicacion;
-                Estado_ComboBox.SelectedValue = unaPubli.Estado_Publicacion;
+                TipoPubli_ComboBox.SelectedItem = unaPubli.Tipo_Publicacion;
+                Estado_ComboBox.SelectedItem = unaPubli.Estado_Publicacion;
                 Precio_textBox.Text = Convert.ToString(unaPubli.Precio);
                 PermitirPreguntas_Checkbox.Checked = unaPubli.Permiso_Preguntas;
 
                 esNueva = false;
-                Ocultar();
+                //Ocultar();
             }
         }
         //Combobox Visibilidad (numeric(18,0) )
@@ -121,54 +121,14 @@ namespace FrbaCommerce.Generar_Publicacion
         }
 
 
-        private void Ocultar()
+       /* private void Ocultar()
         {
-            PrecioUnit_Label.Visible = true;
-            PrecioTotal_Label.Visible = false;
-        }
-
-        private void Visibilidad_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void Descrip_TextBox_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void Stock_TextBox_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void FechaFin_DateTimePicker_ValueChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void Estado_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void TipoPubli_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Dependiendo el tipo de publicacion, mostrar si es precio unitario o total
-            if (TipoPubli_ComboBox.SelectedValue.Equals(0))
-            {
-                PrecioUnit_Label.Visible = true;
-                PrecioTotal_Label.Visible = false;
-            }
-            else{
-                PrecioUnit_Label.Visible = false;
-                PrecioTotal_Label.Visible = true;
-            }
-        }
-
-        private void PrecioUnit_textBox_TextChanged(object sender, EventArgs e)
-        {
-        }
+        }*/
 
         private void Limpiar_button_Click(object sender, EventArgs e)
         {
             Interfaz.limpiarInterfaz(this);
-            Ocultar();
+            //Ocultar();
         }
 
         private void Guardar_button_Click(object sender, EventArgs e)
@@ -176,7 +136,10 @@ namespace FrbaCommerce.Generar_Publicacion
             //Controlar que se completen todos los datos y asignar
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !Precio_textBox.Text.Equals(""))
             {
-                int codPubli = 0;
+                if(esNueva == true)
+                {
+                    codPubli = 0;
+                }
                 int visibilidad = Visibilidad_ComboBox.SelectedIndex;
                 int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;
@@ -220,10 +183,6 @@ namespace FrbaCommerce.Generar_Publicacion
             {
                 MessageBox.Show("Para continuar, ingrese todos los datos solicitados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-        }
-
-        private void permitirPreg_combobox_SelectedIndexChanged(object sender, EventArgs e)
-        {
         }
 
         private void GenerarPubliForm_Load(object sender, EventArgs e)
@@ -273,6 +232,38 @@ namespace FrbaCommerce.Generar_Publicacion
             this.permitirPreg_combobox.ValueMember = "Cod_Pregunta";
             this.permitirPreg_combobox.SelectedIndexChanged += new System.EventHandler(this.permitirPreg_combobox_SelectedIndexChanged);
             */
+        }
+
+        private void Visibilidad_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Descrip_TextBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Stock_TextBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void FechaFin_DateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Estado_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void TipoPubli_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Precio_textBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void permitirPreg_combobox_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
 }

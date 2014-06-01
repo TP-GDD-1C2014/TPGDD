@@ -14,6 +14,18 @@ namespace FrbaCommerce.Editar_Publicacion
 {
     public partial class BuscarPubliForm : Form
     {
+        public BuscarPubliForm()
+        {
+            InitializeComponent();
+            CenterToScreen();
+
+            //Cargar DataGridView con las publicaciones
+            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+
+            llenarCombos();
+
+        }
+
         //Combobox Visibilidad (numeric(18,0) )
         public class visibilidadComboBox
         {
@@ -77,18 +89,83 @@ namespace FrbaCommerce.Editar_Publicacion
 
         //Obtiene el usuario loggeado
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
+
         /*public List<Publicacion> listaPublicaciones = new List<Publicacion>();
         public List<Publicacion> listaEnBlanco  = new List<Publicacion>();
         public Publicacion unaPublicacion { get; set; }     // = new Publicacion (); ? */
 
-        public BuscarPubliForm()
+        /*private void BuscarPubliForm_Load(object sender, EventArgs e) 
         {
-            InitializeComponent();
-            CenterToScreen();
+            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
 
-            //Cargar DataGridView con las publicaciones
+        }*/
+
+        private void buscar_button_Click(object sender, EventArgs e)
+        {
+            //Obtener todos los filtros
+            //TODO Verificar que campos están completos (recordar que son filtros ACUMULATIVOS)
+            int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
+            var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
+            int idVendedor = usuario.ID_User;
+            string descripcion = Descrip_TextBox.Text;
+            int stock = Convert.ToInt32(StockInicial_TextBox.Text);
+            //Obtener fechaFin y fechaInic
+            DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
+            DateTime fechaInic = Convert.ToDateTime(dateTimePicker2.Text);
+            var estado = (int)Estado_ComboBox.SelectedValue;
+            var tipoPubli = (int)TipoPubli_ComboBox.SelectedValue;
+            int precio = Convert.ToInt32(precio_textBox.Text);
+            //Falta permisoPreg (problema con combobox)
+            bool permisoPreg = permisos_checkbox.Checked;
+
+            /*Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, estado, precio, tipoPubli, permisoPreg, stock);
+            //Buscar Publicaciones y mostrar en dataGridView1
+            nuevaPubli.buscarPublicacion(cod_publi,idVendedor,visibilidad,descripcion,stock,estado,tipoPubli);*/
+
+            //Recordar que los campos del datagridview NO pueden ser editables
+        }
+
+        private void limpiar_button_Click(object sender, EventArgs e)
+        {
+            Interfaz.limpiarInterfaz(this);
+            //Visibilidad_ComboBox.Text = "";
+            //Estado_ComboBox.Text = "";
+            //TipoPubli_ComboBox.Text = "";
+            //dataGridView1.DataSource = listaEnBlanco;
+
+        }
+
+        private void borrar_button_Click(object sender, EventArgs e)
+        {
+            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
+
+            string mensaje = string.Format("¿Desea confirmar la eliminacion de la publicación?");
+            DialogResult resultado = MessageBox.Show(mensaje, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (resultado == DialogResult.Yes)
+            {
+                Publicaciones.eliminarPublicacion(unaPubli);
+                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+            }
+
+
+        }
+
+
+        private void modificar_button_Click_1(object sender, EventArgs e)
+        {
+            //Al elegir una fila, dirigir a la form EditarPubliForm
+            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
+
+            //EditarPubliForm editForm = new EditarPubliForm(unaPubli);
+            Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
+            editForm.ShowDialog();
+
             dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+        }
 
+        public void llenarCombos()
+        {
             //Crear listas para los combobox
             List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
             listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
@@ -110,7 +187,7 @@ namespace FrbaCommerce.Editar_Publicacion
             this.Estado_ComboBox.DisplayMember = "Nombre_Estado";
             this.Estado_ComboBox.ValueMember = "Cod_Estado";
             this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
- 
+
             List<tipoComboBox> listaTipos = new List<tipoComboBox>();
             listaTipos.Add(new tipoComboBox("Inmediata", 0));
             listaTipos.Add(new tipoComboBox("Subasta", 1));
@@ -118,20 +195,12 @@ namespace FrbaCommerce.Editar_Publicacion
             this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
-
         }
-
-        /*private void BuscarPubliForm_Load(object sender, EventArgs e) 
-        {
-            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-
-        }*/
 
         void dataGridView1_DataSourceChanged(object sender, EventArgs e)
         {
             /*var dataSource = dataGridView1.DataSource as IList;
             Resultados_label.Text = dataSource.Count.ToString();*/
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -176,70 +245,7 @@ namespace FrbaCommerce.Editar_Publicacion
         {
         }
 
-        private void buscar_button_Click(object sender, EventArgs e)
-        {
-            //Obtener todos los filtros
-            //TODO Verificar que campos está completos (recordar que son filtros ACUMULATIVOS)
-            int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
-            var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
-            int idVendedor = usuario.ID_User;
-            string descripcion = Descrip_TextBox.Text;
-            int stock = Convert.ToInt32(StockInicial_TextBox.Text);
-            //Obtener fechaFin y fechaInic
-            DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
-            DateTime fechaInic = Convert.ToDateTime(dateTimePicker2.Text);
-            var estado = (int)Estado_ComboBox.SelectedValue;
-            var tipoPubli = (int)TipoPubli_ComboBox.SelectedValue;
-            int precio = Convert.ToInt32(precio_textBox.Text);
-            //Falta permisoPreg (problema con combobox)
-
-            //TODO Revisar parámetros
-            //Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, estado, precio, tipoPubli, permisoPreg, stock);
-
-            //Buscar Publicaciones y mostrar en dataGridView1
-            //nuevaPubli.buscarPublicacion(cod_publi,idVendedor,visibilidad,descripcion,stock,estado,tipoPubli);
-
-            //Recordar que los campos del datagridview NO pueden ser editables
-        }
-
-        private void limpiar_button_Click(object sender, EventArgs e)
-        {
-            Interfaz.limpiarInterfaz(this);
-            //Visibilidad_ComboBox.Text = "";
-            //Estado_ComboBox.Text = "";
-            //TipoPubli_ComboBox.Text = "";
-            //dataGridView1.DataSource = listaEnBlanco;
-
-        }
-
-        private void borrar_button_Click(object sender, EventArgs e)
-        {
-            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-
-            string mensaje = string.Format("¿Desea confirmar la eliminacion de la publicación?");
-            DialogResult resultado = MessageBox.Show(mensaje, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (resultado == DialogResult.Yes)
-            {
-                Publicaciones.eliminarPublicacion(unaPubli);
-                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
-            }
-
-
-        }
-
-
-        private void modificar_button_Click_1(object sender, EventArgs e)
-        {
-            //Al elegir una fila, dirigir a la form EditarPubliForm
-            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-
-            //EditarPubliForm editForm = new EditarPubliForm(unaPubli);
-            Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar",unaPubli);
-            editForm.ShowDialog();
-            
-            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
-        }
+        
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
