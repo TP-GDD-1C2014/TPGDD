@@ -87,5 +87,17 @@ namespace FrbaCommerce.Common
         }
 
 
+        //Esto bloquea el ordenamiento del datagrid cuando se toca en algun header de las columnas
+        public static DataGridView bloquearDataGridView(DataGridView dgv)
+        {
+
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+
+            return dgv;
+        }
     }
 }

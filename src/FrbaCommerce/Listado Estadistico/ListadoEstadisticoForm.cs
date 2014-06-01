@@ -82,11 +82,8 @@ namespace FrbaCommerce.Listado_Estadistico
                 this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
                 this.top5DataGriedView.Refresh();
 
-                //Esto bloquea el ordenamiento del datagrid cuando se toca en algun header de las columnas
-                foreach (DataGridViewColumn column in this.top5DataGriedView.Columns)
-                {
-                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                }
+
+                this.top5DataGriedView = Interfaz.bloquearDataGridView(this.top5DataGriedView);
 
             }
         }
