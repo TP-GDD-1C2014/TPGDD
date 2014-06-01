@@ -40,7 +40,7 @@
             this.TipoPubli_ComboBox = new System.Windows.Forms.ComboBox();
             this.tipoPubli_label = new System.Windows.Forms.Label();
             this.limpiar_button = new System.Windows.Forms.Button();
-            this.buscar_button = new System.Windows.Forms.Button();
+            this.filtrar_button = new System.Windows.Forms.Button();
             this.modificar_button = new System.Windows.Forms.Button();
             this.codVisib_label = new System.Windows.Forms.Label();
             this.Visibilidad_ComboBox = new System.Windows.Forms.ComboBox();
@@ -52,6 +52,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.borrar_button = new System.Windows.Forms.Button();
+            this.permisos_checkbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +63,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(651, 265);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_2);
             // 
             // descrip_label
             // 
@@ -158,15 +160,16 @@
             this.limpiar_button.UseVisualStyleBackColor = true;
             this.limpiar_button.Click += new System.EventHandler(this.limpiar_button_Click);
             // 
-            // buscar_button
+            // filtrar_button
             // 
-            this.buscar_button.Location = new System.Drawing.Point(27, 445);
-            this.buscar_button.Name = "buscar_button";
-            this.buscar_button.Size = new System.Drawing.Size(125, 45);
-            this.buscar_button.TabIndex = 21;
-            this.buscar_button.Text = "Buscar";
-            this.buscar_button.UseVisualStyleBackColor = true;
-            this.buscar_button.Click += new System.EventHandler(this.buscar_button_Click);
+            this.filtrar_button.BackColor = System.Drawing.SystemColors.Control;
+            this.filtrar_button.Location = new System.Drawing.Point(27, 445);
+            this.filtrar_button.Name = "filtrar_button";
+            this.filtrar_button.Size = new System.Drawing.Size(125, 45);
+            this.filtrar_button.TabIndex = 21;
+            this.filtrar_button.Text = "Filtrar";
+            this.filtrar_button.UseVisualStyleBackColor = false;
+            this.filtrar_button.Click += new System.EventHandler(this.buscar_button_Click);
             // 
             // modificar_button
             // 
@@ -266,11 +269,21 @@
             this.borrar_button.UseVisualStyleBackColor = true;
             this.borrar_button.Click += new System.EventHandler(this.borrar_button_Click);
             // 
+            // permisos_checkbox
+            // 
+            this.permisos_checkbox.AutoSize = true;
+            this.permisos_checkbox.Location = new System.Drawing.Point(478, 121);
+            this.permisos_checkbox.Name = "permisos_checkbox";
+            this.permisos_checkbox.Size = new System.Drawing.Size(15, 14);
+            this.permisos_checkbox.TabIndex = 36;
+            this.permisos_checkbox.UseVisualStyleBackColor = true;
+            // 
             // BuscarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(702, 517);
+            this.Controls.Add(this.permisos_checkbox);
             this.Controls.Add(this.borrar_button);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
@@ -282,7 +295,7 @@
             this.Controls.Add(this.Visibilidad_ComboBox);
             this.Controls.Add(this.codVisib_label);
             this.Controls.Add(this.modificar_button);
-            this.Controls.Add(this.buscar_button);
+            this.Controls.Add(this.filtrar_button);
             this.Controls.Add(this.limpiar_button);
             this.Controls.Add(this.tipoPubli_label);
             this.Controls.Add(this.TipoPubli_ComboBox);
@@ -318,7 +331,7 @@
         private System.Windows.Forms.ComboBox TipoPubli_ComboBox;
         private System.Windows.Forms.Label tipoPubli_label;
         private System.Windows.Forms.Button limpiar_button;
-        private System.Windows.Forms.Button buscar_button;
+        private System.Windows.Forms.Button filtrar_button;
         private System.Windows.Forms.Button modificar_button;
         private System.Windows.Forms.Label codVisib_label;
         private System.Windows.Forms.ComboBox Visibilidad_ComboBox;
@@ -331,6 +344,7 @@
 
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button borrar_button;
+        private System.Windows.Forms.CheckBox permisos_checkbox;
 
     }
 }

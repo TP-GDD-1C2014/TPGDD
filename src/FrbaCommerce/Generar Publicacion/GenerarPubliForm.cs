@@ -194,17 +194,22 @@ namespace FrbaCommerce.Generar_Publicacion
                 //Comprobar si es nueva o para modificar
                 if (esNueva == true)
                 {
-                    //Invocar funcion que inserta publicacion en la tabla publicaciones
-                    publi.agregarPublicacion(visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, estado, tipoPubli, precio, permisoPreg);
-
-                    //Si es gratuita, actualizar Cant_Publi_Gratuitas de la tabla Usuarios
+                    //TODO Si es gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
                     if (visibilidad == 4)
                     {
+                        //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
+
+                        //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
 
                     }
+
+                    //Invocar funcion que inserta publicacion en la tabla Publicaciones
+                    publi.agregarPublicacion(visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, estado, tipoPubli, precio, permisoPreg);
+
                 }
                 else
                 {
+                    //Invocar funcion que actualiza la publicacion en la tabla Publicaciones
                     Publicaciones.actualizarPublicacion(publi);
                 }
                 
