@@ -35,6 +35,7 @@
             this.btnSiguientePag = new System.Windows.Forms.Button();
             this.btnPrimerPag = new System.Windows.Forms.Button();
             this.btnUltimaPag = new System.Windows.Forms.Button();
+            this.btnAbrirPublicacion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,11 +68,11 @@
             // 
             // btnAnteriorPag
             // 
-            this.btnAnteriorPag.Location = new System.Drawing.Point(397, 540);
+            this.btnAnteriorPag.Location = new System.Drawing.Point(453, 540);
             this.btnAnteriorPag.Name = "btnAnteriorPag";
-            this.btnAnteriorPag.Size = new System.Drawing.Size(75, 23);
+            this.btnAnteriorPag.Size = new System.Drawing.Size(19, 23);
             this.btnAnteriorPag.TabIndex = 5;
-            this.btnAnteriorPag.Text = "Anterior";
+            this.btnAnteriorPag.Text = "<";
             this.btnAnteriorPag.UseVisualStyleBackColor = true;
             this.btnAnteriorPag.Click += new System.EventHandler(this.btnAnteriorPag_Click);
             // 
@@ -79,15 +80,15 @@
             // 
             this.btnSiguientePag.Location = new System.Drawing.Point(478, 540);
             this.btnSiguientePag.Name = "btnSiguientePag";
-            this.btnSiguientePag.Size = new System.Drawing.Size(75, 23);
+            this.btnSiguientePag.Size = new System.Drawing.Size(19, 23);
             this.btnSiguientePag.TabIndex = 6;
-            this.btnSiguientePag.Text = "Siguiente";
+            this.btnSiguientePag.Text = ">";
             this.btnSiguientePag.UseVisualStyleBackColor = true;
             this.btnSiguientePag.Click += new System.EventHandler(this.btnSiguientePag_Click);
             // 
             // btnPrimerPag
             // 
-            this.btnPrimerPag.Location = new System.Drawing.Point(316, 540);
+            this.btnPrimerPag.Location = new System.Drawing.Point(372, 540);
             this.btnPrimerPag.Name = "btnPrimerPag";
             this.btnPrimerPag.Size = new System.Drawing.Size(75, 23);
             this.btnPrimerPag.TabIndex = 7;
@@ -97,7 +98,7 @@
             // 
             // btnUltimaPag
             // 
-            this.btnUltimaPag.Location = new System.Drawing.Point(559, 540);
+            this.btnUltimaPag.Location = new System.Drawing.Point(503, 540);
             this.btnUltimaPag.Name = "btnUltimaPag";
             this.btnUltimaPag.Size = new System.Drawing.Size(75, 23);
             this.btnUltimaPag.TabIndex = 8;
@@ -105,11 +106,22 @@
             this.btnUltimaPag.UseVisualStyleBackColor = true;
             this.btnUltimaPag.Click += new System.EventHandler(this.btnUltimaPag_Click);
             // 
+            // btnAbrirPublicacion
+            // 
+            this.btnAbrirPublicacion.Location = new System.Drawing.Point(927, 56);
+            this.btnAbrirPublicacion.Name = "btnAbrirPublicacion";
+            this.btnAbrirPublicacion.Size = new System.Drawing.Size(111, 23);
+            this.btnAbrirPublicacion.TabIndex = 9;
+            this.btnAbrirPublicacion.Text = "Abrir Publicacion";
+            this.btnAbrirPublicacion.UseVisualStyleBackColor = true;
+            this.btnAbrirPublicacion.Click += new System.EventHandler(this.btnAbrirPublicacion_Click);
+            // 
             // ComprarOfertar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1050, 575);
+            this.Controls.Add(this.btnAbrirPublicacion);
             this.Controls.Add(this.btnUltimaPag);
             this.Controls.Add(this.btnPrimerPag);
             this.Controls.Add(this.btnSiguientePag);
@@ -134,5 +146,6 @@
         private System.Windows.Forms.Button btnSiguientePag;
         private System.Windows.Forms.Button btnPrimerPag;
         private System.Windows.Forms.Button btnUltimaPag;
+        private System.Windows.Forms.Button btnAbrirPublicacion;
     }
 }

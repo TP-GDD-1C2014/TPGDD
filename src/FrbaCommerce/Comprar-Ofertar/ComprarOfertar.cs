@@ -184,6 +184,11 @@ namespace FrbaCommerce.Comprar_Ofertar
 
             BDSQL.cerrarConexion();
         }
+
+        private void btnAbrirPublicacion_Click(object sender, EventArgs e)
+        {
+
+        }
             
 
 
