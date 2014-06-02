@@ -310,6 +310,25 @@ AS BEGIN
 END
 GO
 
+/* SP Insertar Pregunta  */
+
+CREATE PROCEDURE MERCADONEGRO.InsertarPregunta(@pregunta nvarchar(255), @ret numeric (18,0) output)
+AS BEGIN
+		INSERT INTO MERCADONEGRO.Preguntas(Pregunta)
+			VALUES(@pregunta)
+			SET @ret = SCOPE_IDENTITY()
+END
+GO
+
+/* SP Insertar Pregunta_x_Publicacion  */ 
+
+CREATE PROCEDURE MERCADONEGRO.InsertarPreguntaPorPublicacion(@codPublicacion numeric(18,0),@idPregunta nvarchar(255))
+AS BEGIN
+		INSERT INTO MERCADONEGRO.Pregunta_Publicacion(Cod_Publicacion, ID_Pregunta)
+			VALUES(@codPublicacion,@idPregunta)
+END
+GO
+
 /* SP Agregar PUBLICACION NUEVA */
 											 
 CREATE PROCEDURE MERCADONEGRO.AgregarPublicacion(@codVisibilidad numeric(18,0), @idVendedor numeric(18,0),

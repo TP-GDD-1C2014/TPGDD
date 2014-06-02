@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Publicaciones_Datagrid = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.btnAnteriorPag = new System.Windows.Forms.Button();
@@ -36,18 +36,18 @@
             this.btnPrimerPag = new System.Windows.Forms.Button();
             this.btnUltimaPag = new System.Windows.Forms.Button();
             this.btnAbrirPublicacion = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Publicaciones_Datagrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // Publicaciones_Datagrid
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 85);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1035, 433);
-            this.dataGridView1.TabIndex = 0;
+            this.Publicaciones_Datagrid.AllowUserToAddRows = false;
+            this.Publicaciones_Datagrid.AllowUserToDeleteRows = false;
+            this.Publicaciones_Datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Publicaciones_Datagrid.Location = new System.Drawing.Point(3, 85);
+            this.Publicaciones_Datagrid.Name = "Publicaciones_Datagrid";
+            this.Publicaciones_Datagrid.Size = new System.Drawing.Size(1035, 433);
+            this.Publicaciones_Datagrid.TabIndex = 0;
             // 
             // button1
             // 
@@ -128,10 +128,10 @@
             this.Controls.Add(this.btnAnteriorPag);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.Publicaciones_Datagrid);
             this.Name = "ComprarOfertar";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Publicaciones_Datagrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -139,7 +139,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView Publicaciones_Datagrid;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button btnAnteriorPag;

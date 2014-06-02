@@ -67,11 +67,11 @@ namespace FrbaCommerce.Comprar_Ofertar
 
             List<Publicacion> listaPublicaciones = Publicaciones.obtenerPublicacionesPaginadas(desde, hasta);
 
-            dataGridView1.DataSource = listaPublicaciones;
-            dataGridView1.Columns["Cod_Publicacion"].Visible = false;
-            dataGridView1.Columns["Estado_Publicacion"].Visible = false;
-            dataGridView1.Columns["Permiso_Preguntas"].Visible = false;
-            dataGridView1.Columns["Stock_Inicial"].Visible = false;
+            Publicaciones_Datagrid.DataSource = listaPublicaciones;
+            Publicaciones_Datagrid.Columns["Cod_Publicacion"].Visible = false;
+            Publicaciones_Datagrid.Columns["Estado_Publicacion"].Visible = false;
+            Publicaciones_Datagrid.Columns["Permiso_Preguntas"].Visible = false;
+            Publicaciones_Datagrid.Columns["Stock_Inicial"].Visible = false;
             
           
             
@@ -140,7 +140,7 @@ namespace FrbaCommerce.Comprar_Ofertar
             "WHERE RowNumber BETWEEN @cant AND @desde";
             DataTable ret = BDSQL.obtenerDataTable(commandtext, "T", listaParametros);
 
-            dataGridView1.DataSource = ret;
+            Publicaciones_Datagrid.DataSource = ret;
             BDSQL.cerrarConexion();
 
         }
@@ -187,7 +187,11 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnAbrirPublicacion_Click(object sender, EventArgs e)
         {
+            Publicacion unaPublicacion = Publicaciones_Datagrid.CurrentRow.DataBoundItem as Publicacion;
+            DetallePublicacion detalleForm = new DetallePublicacion(unaPublicacion);
+            detalleForm.ShowDialog();
 
+            //cargarTodosLosRoles(); actualizar
         }
             
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using FrbaCommerce.Common;
+using FrbaCommerce.Comprar_Ofertar;
 
 namespace FrbaCommerce.Clases
 {
@@ -53,6 +54,34 @@ namespace FrbaCommerce.Clases
             string res = Convert.ToString(lector["Descripcion"]);
             BDSQL.cerrarConexion();
             return res;
+        }
+
+        public static SqlDataReader clienteEmpresa(int idVendedor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@idVendedor", idVendedor);
+
+            SqlDataReader lector1 = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Clientes WHERE ID_User = @idVendedor", listaParametros, BDSQL.iniciarConexion());
+            lector1.Read();
+            
+            if (!lector1.HasRows)
+            {
+                BDSQL.cerrarConexion();
+
+                List<SqlParameter> listaParametros2 = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros2, "@idVendedor", idVendedor);
+
+                SqlDataReader lector2 = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Empresas WHERE ID_User = @idVendedor", listaParametros2, BDSQL.iniciarConexion());
+                lector2.Read();
+                DatosVendedor.vendedor = "Empresa";
+                return lector2;
+            }
+            else
+            {
+                DatosVendedor.vendedor = "Cliente";
+                return lector1;
+            }
+    
         }
     }
 }
