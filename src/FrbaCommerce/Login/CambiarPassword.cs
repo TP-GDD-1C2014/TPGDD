@@ -23,6 +23,7 @@ namespace FrbaCommerce.Login
             if (primeraVez)
             {
                 passViejoNH.Enabled = false;
+                MessageBox.Show("Con el fin de mejorar la protección de sus datos personales, hemos implementado\njunto al nuevo sistema de gestión una nueva política de seguridad.\n\nPara ello, le solicitamos que ingrese nuevamente su contraseña, o escoja una nueva. \n\nAtte,\nEl personal de MercadoNegro", "Bienvenido al nuevo sistema");
             }
         }
 
@@ -68,7 +69,7 @@ namespace FrbaCommerce.Login
                         if (pass1.Text == pass2.Text)
                         {
                             Interfaz.usuario.cambiarPassword(pass1.Text);
-                            MessageBox.Show("Contraseña modificada.");
+                            MessageBox.Show("Contraseña modificada.\nYa puede ingresar al sistema.");
                             this.Hide();
                         }
                         else

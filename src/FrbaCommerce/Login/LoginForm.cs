@@ -38,7 +38,8 @@ namespace FrbaCommerce.Login
                 {
                     if (usuarioLogin.habilitado())
                     {
-                        if (!usuarioLogin.primeraVez())
+                        int pVez = usuarioLogin.primeraVez();
+                        if (pVez == 0)
                         {
                             if (usuarioLogin.verificarContrasenia())
                             {
@@ -79,8 +80,32 @@ namespace FrbaCommerce.Login
                         }
                         else
                         {
-                            CambiarPassword formPass = new CambiarPassword(true);
-                            formPass.Show();
+                            if (pVez == 2)
+                            {
+                                if (usuarioLogin.verificarContraseniaSinHash(Password_TextBox.Text))
+                                {
+                                    CambiarPassword formPass = new CambiarPassword(true);
+                                    formPass.Show();
+                                }
+                                else
+                                {
+                                    usuarioLogin.sumarIntentoFallido();
+                                    if (usuarioLogin.cantidadIntentosFallidos() == CANTIDAD_MAXIMA_INTENTOS)
+                                    {
+                                        usuarioLogin.inhabilitarUsuario();
+                                        MessageBox.Show("Usuario inhabilitado.", "Error");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Usuario o contraseña incorrecta, le quedan " + (CANTIDAD_MAXIMA_INTENTOS - usuarioLogin.intentosFallidos()).ToString() + " intentos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                            }
+                            if (pVez == 1)
+                            {
+                                CambiarPassword formPass = new CambiarPassword(false);
+                                formPass.Show();
+                            }
                         }
                     }
                     else
