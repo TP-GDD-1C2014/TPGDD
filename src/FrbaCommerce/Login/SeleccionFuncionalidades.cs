@@ -153,13 +153,13 @@ namespace FrbaCommerce.Login
                         formPass.Show();
                         break;
                     case 1:
-                        Abm_Cliente.ABMClientes form1 = new Abm_Cliente.ABMClientes();
+                        Abm_Cliente.ABMClientes form1 = new Abm_Cliente.ABMClientes(this);
                         this.Hide();
                         form1.ShowDialog();
                         this.Show();
                         break;
                     case 2:
-                        Abm_Empresa.ABMEmpresas form2 = new Abm_Empresa.ABMEmpresas();
+                        Abm_Empresa.ABMEmpresas form2 = new Abm_Empresa.ABMEmpresas(this);
                         this.Hide();
                         form2.ShowDialog();
                         this.Show();

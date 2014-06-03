@@ -212,6 +212,9 @@
     <EmbeddedResource Include="Abm Cliente\ABMClientes.resx">
       <DependentUpon>ABMClientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa\ABMEmpresas.resx">
+      <DependentUpon>ABMEmpresas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM Rol\AbmRolForm.resx">
       <DependentUpon>AbmRolForm.cs</DependentUpon>
     </EmbeddedResource>

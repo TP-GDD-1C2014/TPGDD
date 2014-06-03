@@ -214,5 +214,10 @@ namespace FrbaCommerce.Registro_de_Usuario
             this.Hide();
             form.Show();
         }
+
+        private void RegistroUsuarioForm3_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
