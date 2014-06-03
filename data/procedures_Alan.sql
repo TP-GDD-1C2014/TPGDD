@@ -1,13 +1,13 @@
 CREATE PROCEDURE MERCADONEGRO.obtenerCompras
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 'Compra Inmediata'
+	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 0
 GO
 
 CREATE PROCEDURE MERCADONEGRO.obtenerOfertasGanadas
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 'Subasta'
+	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 1
 GO
 
 CREATE PROCEDURE MERCADONEGRO.obtenerOfertas
@@ -33,4 +33,10 @@ CREATE PROCEDURE MERCADONEGRO.obtenerPublicacion
 	@Cod_Publicacion NUMERIC(18,0)
 AS
 	SELECT Descripcion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @Cod_Publicacion
+GO
+
+CREATE PROCEDURE MERCADONEGRO.obtenerCalificacion
+	@Cod_Calificacion NUMERIC(18,0)
+AS
+	SELECT Puntaje, Descripcion FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion
 GO

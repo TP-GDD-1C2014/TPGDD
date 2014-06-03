@@ -42,88 +42,105 @@ namespace FrbaCommerce.Historial_Cliente
             dgOfertas.RowHeadersVisible = false;
             dgSubastasGanadas.RowHeadersVisible = false;
 
-            DataGridViewColumn compras_cVendedor = dgCompras.Columns[0];
+            //DataGridViewColumn compras_cVendedor = dgCompras.Columns[0];
             DataGridViewColumn compras_cPublicacion = dgCompras.Columns[1];
-            DataGridViewColumn compras_cFecha = dgCompras.Columns[2];
-            DataGridViewColumn compras_cCalificacion = dgCompras.Columns[3];
-            DataGridViewColumn compras_cComentarios = dgCompras.Columns[4];
+            DataGridViewColumn compras_cFecha = dgCompras.Columns[0];
+            DataGridViewColumn compras_cCalificacion = dgCompras.Columns[2];
+            DataGridViewColumn compras_cComentarios = dgCompras.Columns[3];
 
-            DataGridViewColumn ofertasGanadas_cVendedor = dgSubastasGanadas.Columns[0];
+            //DataGridViewColumn ofertasGanadas_cVendedor = dgSubastasGanadas.Columns[0];
             DataGridViewColumn ofertasGanadas_cPublicacion = dgSubastasGanadas.Columns[1];
-            DataGridViewColumn ofertasGanadas_cFecha = dgSubastasGanadas.Columns[2];
-            DataGridViewColumn ofertasGanadas_cCalificacion = dgSubastasGanadas.Columns[3];
-            DataGridViewColumn ofertasGanadas_cComentarios = dgSubastasGanadas.Columns[4];
+            DataGridViewColumn ofertasGanadas_cFecha = dgSubastasGanadas.Columns[0];
+            DataGridViewColumn ofertasGanadas_cCalificacion = dgSubastasGanadas.Columns[2];
+            DataGridViewColumn ofertasGanadas_cComentarios = dgSubastasGanadas.Columns[3];
 
-            DataGridViewColumn ofertas_cVendedor = dgOfertas.Columns[0];
+            //DataGridViewColumn ofertas_cVendedor = dgOfertas.Columns[0];
             DataGridViewColumn ofertas_cPublicacion = dgOfertas.Columns[1];
-            DataGridViewColumn ofertas_cFecha = dgOfertas.Columns[2];
-            DataGridViewColumn ofertas_cMonto = dgOfertas.Columns[3];
+            DataGridViewColumn ofertas_cFecha = dgOfertas.Columns[0];
+            DataGridViewColumn ofertas_cMonto = dgOfertas.Columns[2];
 
-            DataGridViewColumn compras_cConexion = dgCompras.Columns[5];
-            DataGridViewColumn ofertasGanadas_cConexion = dgSubastasGanadas.Columns[5];
-            DataGridViewColumn ofertas_cConexion = dgOfertas.Columns[4];
+            DataGridViewColumn compras_cConexion = dgCompras.Columns[4];
+            DataGridViewColumn ofertasGanadas_cConexion = dgSubastasGanadas.Columns[4];
+            DataGridViewColumn ofertas_cConexion = dgOfertas.Columns[3];
 
             compras_cConexion.Visible = false;
             ofertasGanadas_cConexion.Visible = false;
             ofertas_cConexion.Visible = false;
 
-            ofertas_cVendedor.Resizable = DataGridViewTriState.False;
+            //ofertas_cVendedor.Resizable = DataGridViewTriState.False;
             ofertas_cPublicacion.Resizable = DataGridViewTriState.False;
             ofertas_cFecha.Resizable = DataGridViewTriState.False;
             ofertas_cMonto.Resizable = DataGridViewTriState.False;
 
-            compras_cVendedor.Resizable = DataGridViewTriState.False;
+            //compras_cVendedor.Resizable = DataGridViewTriState.False;
             compras_cPublicacion.Resizable = DataGridViewTriState.False;
             compras_cFecha.Resizable = DataGridViewTriState.False;
             compras_cCalificacion.Resizable = DataGridViewTriState.False;
             compras_cComentarios.Resizable = DataGridViewTriState.False;
 
-            ofertasGanadas_cVendedor.Resizable = DataGridViewTriState.False;
+            //ofertasGanadas_cVendedor.Resizable = DataGridViewTriState.False;
             ofertasGanadas_cPublicacion.Resizable = DataGridViewTriState.False;
             ofertasGanadas_cFecha.Resizable = DataGridViewTriState.False;
             ofertasGanadas_cCalificacion.Resizable = DataGridViewTriState.False;
             ofertasGanadas_cComentarios.Resizable = DataGridViewTriState.False;
 
-            compras_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertas_cFecha.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ofertas_cMonto.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            compras_cFecha.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            compras_cCalificacion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            ofertasGanadas_cFecha.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ofertasGanadas_cCalificacion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            ofertas_cPublicacion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            compras_cPublicacion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            compras_cComentarios.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            ofertasGanadas_cPublicacion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            ofertasGanadas_cComentarios.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            //compras_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             compras_cPublicacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             compras_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             compras_cCalificacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             compras_cComentarios.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            ofertasGanadas_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            //ofertasGanadas_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ofertasGanadas_cPublicacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ofertasGanadas_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ofertasGanadas_cCalificacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ofertasGanadas_cComentarios.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            ofertas_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            //ofertas_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ofertas_cPublicacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ofertas_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             ofertas_cMonto.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
-            compras_cVendedor.Width = 110;
-            compras_cPublicacion.Width = 195;
+            //compras_cVendedor.Width = 110;
+            compras_cPublicacion.Width = 245;
             compras_cFecha.Width = 70;
             compras_cCalificacion.Width = 70;
             compras_cComentarios.Width = 165;
 
-            ofertasGanadas_cVendedor.Width = compras_cVendedor.Width;
+            //ofertasGanadas_cVendedor.Width = compras_cVendedor.Width;
             ofertasGanadas_cPublicacion.Width = compras_cPublicacion.Width;
             ofertasGanadas_cFecha.Width = compras_cFecha.Width;
             ofertasGanadas_cCalificacion.Width = compras_cCalificacion.Width;
             ofertasGanadas_cComentarios.Width = compras_cComentarios.Width;
 
-            ofertas_cVendedor.Width = 110;
-            ofertas_cPublicacion.Width = 265;
-            ofertas_cFecha.Width = 125;
-            ofertas_cMonto.Width = 110;
+            //ofertas_cVendedor.Width = 110;
+            ofertas_cPublicacion.Width = 245;
+            ofertas_cFecha.Width = 70;
+            ofertas_cMonto.Width = 235;
         }
 
         public Clases.Calificacion obtenerCalificacion(int codCalificacion)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Cod_Calificacion", codCalificacion);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion", listaParametros, this.conexion);
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerCalificacion @Cod_Calificacion", listaParametros, this.conexion);
             lector.Read();
             Clases.Calificacion calificacion = new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
             return calificacion;
