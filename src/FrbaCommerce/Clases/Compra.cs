@@ -17,15 +17,26 @@ namespace FrbaCommerce.Clases
         public int Calificacion { get; set; }
         public string Comentarios { get; set; }
 
-        public Compra(int idVendedor, int codPublicacion, Clases.Calificacion calificacion, DateTime fechaOperacion)
+        public SqlConnection conexion { get; set; }
+
+        public Compra(int idVendedor, int codPublicacion, Clases.Calificacion calificacion, DateTime fechaOperacion, SqlConnection _conexion)
         {
+            this.conexion = _conexion;
+
             Vendedor = obtenerVendedor(idVendedor);
             Publicacion = obtenerPublicacion(codPublicacion);
             Fecha = fechaOperacion;
             if (calificacion != null)
             {
                 Calificacion = calificacion.Puntaje;
-                Comentarios = calificacion.Descripcion;
+                if (calificacion.Descripcion.Equals(""))
+                {
+                    Comentarios = "Sin comentarios";
+                }
+                else
+                {
+                    Comentarios = calificacion.Descripcion;
+                }
             }
             else
             {
@@ -38,10 +49,9 @@ namespace FrbaCommerce.Clases
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", idVendedor);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Username FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_Vendedor", listaParametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerVendedor @ID_Vendedor", listaParametros, this.conexion);
             lector.Read();
             string res = Convert.ToString(lector["Username"]);
-            BDSQL.cerrarConexion();
             return res;
         }
 
@@ -49,10 +59,9 @@ namespace FrbaCommerce.Clases
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", codPublicacion);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Descripcion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @Cod_Publicacion", listaParametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerPublicacion @Cod_Publicacion", listaParametros, this.conexion);
             lector.Read();
             string res = Convert.ToString(lector["Descripcion"]);
-            BDSQL.cerrarConexion();
             return res;
         }
 

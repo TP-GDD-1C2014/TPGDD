@@ -14,6 +14,7 @@ namespace FrbaCommerce.Historial_Cliente
     public partial class Historial : Form
     {
         public Login.SeleccionFuncionalidades formAnterior { get; set; }
+        public SqlConnection conexion { get; set; }
 
         public List<Clases.Compra> compras = new List<Clases.Compra>();
         public List<Clases.Compra> ofertasGanadas = new List<Clases.Compra>();
@@ -32,6 +33,10 @@ namespace FrbaCommerce.Historial_Cliente
             dgCompras.DataSource = compras;
             dgOfertas.DataSource = ofertas;
             dgSubastasGanadas.DataSource = ofertasGanadas;
+
+            dgCompras.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgOfertas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgSubastasGanadas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
             dgCompras.RowHeadersVisible = false;
             dgOfertas.RowHeadersVisible = false;
@@ -54,11 +59,53 @@ namespace FrbaCommerce.Historial_Cliente
             DataGridViewColumn ofertas_cFecha = dgOfertas.Columns[2];
             DataGridViewColumn ofertas_cMonto = dgOfertas.Columns[3];
 
-            compras_cVendedor.Width = 90;
-            compras_cPublicacion.Width = 137;
-            compras_cFecha.Width = 80;
-            compras_cCalificacion.Width = 80;
-            compras_cComentarios.Width = 240;
+            DataGridViewColumn compras_cConexion = dgCompras.Columns[5];
+            DataGridViewColumn ofertasGanadas_cConexion = dgSubastasGanadas.Columns[5];
+            DataGridViewColumn ofertas_cConexion = dgOfertas.Columns[4];
+
+            compras_cConexion.Visible = false;
+            ofertasGanadas_cConexion.Visible = false;
+            ofertas_cConexion.Visible = false;
+
+            ofertas_cVendedor.Resizable = DataGridViewTriState.False;
+            ofertas_cPublicacion.Resizable = DataGridViewTriState.False;
+            ofertas_cFecha.Resizable = DataGridViewTriState.False;
+            ofertas_cMonto.Resizable = DataGridViewTriState.False;
+
+            compras_cVendedor.Resizable = DataGridViewTriState.False;
+            compras_cPublicacion.Resizable = DataGridViewTriState.False;
+            compras_cFecha.Resizable = DataGridViewTriState.False;
+            compras_cCalificacion.Resizable = DataGridViewTriState.False;
+            compras_cComentarios.Resizable = DataGridViewTriState.False;
+
+            ofertasGanadas_cVendedor.Resizable = DataGridViewTriState.False;
+            ofertasGanadas_cPublicacion.Resizable = DataGridViewTriState.False;
+            ofertasGanadas_cFecha.Resizable = DataGridViewTriState.False;
+            ofertasGanadas_cCalificacion.Resizable = DataGridViewTriState.False;
+            ofertasGanadas_cComentarios.Resizable = DataGridViewTriState.False;
+
+            compras_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            compras_cPublicacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            compras_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            compras_cCalificacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            compras_cComentarios.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            ofertasGanadas_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertasGanadas_cPublicacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertasGanadas_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertasGanadas_cCalificacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertasGanadas_cComentarios.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            ofertas_cVendedor.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertas_cPublicacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertas_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertas_cMonto.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            compras_cVendedor.Width = 110;
+            compras_cPublicacion.Width = 195;
+            compras_cFecha.Width = 70;
+            compras_cCalificacion.Width = 70;
+            compras_cComentarios.Width = 165;
 
             ofertasGanadas_cVendedor.Width = compras_cVendedor.Width;
             ofertasGanadas_cPublicacion.Width = compras_cPublicacion.Width;
@@ -66,20 +113,19 @@ namespace FrbaCommerce.Historial_Cliente
             ofertasGanadas_cCalificacion.Width = compras_cCalificacion.Width;
             ofertasGanadas_cComentarios.Width = compras_cComentarios.Width;
 
-            ofertas_cVendedor.Width = 100;
-            ofertas_cPublicacion.Width = 277;
+            ofertas_cVendedor.Width = 110;
+            ofertas_cPublicacion.Width = 265;
             ofertas_cFecha.Width = 125;
-            ofertas_cMonto.Width = 125;
+            ofertas_cMonto.Width = 110;
         }
 
         public Clases.Calificacion obtenerCalificacion(int codCalificacion)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Cod_Calificacion", codCalificacion);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion", listaParametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion", listaParametros, this.conexion);
             lector.Read();
             Clases.Calificacion calificacion = new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
-            BDSQL.cerrarConexion();
             return calificacion;
         }
 
@@ -88,7 +134,8 @@ namespace FrbaCommerce.Historial_Cliente
             int cont = 0;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
-            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerOfertasGanadas @ID_User", listaParametros, BDSQL.iniciarConexion());
+            this.conexion = BDSQL.iniciarConexion();
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerOfertasGanadas @ID_User", listaParametros, this.conexion);
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -108,7 +155,7 @@ namespace FrbaCommerce.Historial_Cliente
                     }
 
                     DateTime fechaOperacion = Convert.ToDateTime(lector["Fecha_Operacion"].ToString());
-                    Clases.Compra ofertaGanada = new Clases.Compra(idVendedor, codPublicacion, calificacion, fechaOperacion);
+                    Clases.Compra ofertaGanada = new Clases.Compra(idVendedor, codPublicacion, calificacion, fechaOperacion, this.conexion);
                     ofertasGanadas.Add(ofertaGanada);
                 }
             }
@@ -121,7 +168,8 @@ namespace FrbaCommerce.Historial_Cliente
             int cont = 0;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
-            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerCompras @ID_User", listaParametros, BDSQL.iniciarConexion());
+            this.conexion = BDSQL.iniciarConexion();
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerCompras @ID_User", listaParametros, conexion);
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -141,7 +189,7 @@ namespace FrbaCommerce.Historial_Cliente
                     }
                     
                     DateTime fechaOperacion = Convert.ToDateTime(lector["Fecha_Operacion"].ToString());
-                    Clases.Compra compra = new Clases.Compra(idVendedor, codPublicacion, calificacion, fechaOperacion);
+                    Clases.Compra compra = new Clases.Compra(idVendedor, codPublicacion, calificacion, fechaOperacion, this.conexion);
                     compras.Add(compra);
                 }
             }
@@ -154,7 +202,8 @@ namespace FrbaCommerce.Historial_Cliente
             int cont = 0;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
-            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerOfertas @ID_User", listaParametros, BDSQL.iniciarConexion());
+            this.conexion = BDSQL.iniciarConexion();
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerOfertas @ID_User", listaParametros, this.conexion);
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -163,8 +212,8 @@ namespace FrbaCommerce.Historial_Cliente
                     int idVendedor = Convert.ToInt32(lector["ID_Vendedor"]);
                     int codPublicacion = Convert.ToInt32(lector["Cod_Publicacion"]);
                     DateTime fechaOferta = Convert.ToDateTime(lector["Fecha_Oferta"].ToString());
-                    int monto = Convert.ToInt32(lector["Monto"]);
-                    Clases.Oferta oferta = new Clases.Oferta(idVendedor, codPublicacion, fechaOferta, monto);
+                    int monto = Convert.ToInt32(lector["Monto_Oferta"]);
+                    Clases.Oferta oferta = new Clases.Oferta(idVendedor, codPublicacion, fechaOferta, monto, this.conexion);
                     ofertas.Add(oferta);
                 }
             }
