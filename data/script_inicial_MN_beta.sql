@@ -627,8 +627,28 @@ CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 		JOIN MERCADONEGRO.Calificaciones			AS Calificaciones
 			ON Calificaciones.Cod_Calificacion = Operaciones.Cod_Calificacion
 GO
-
 --SELECT * FROM MERCADONEGRO.MayorReputacionView ORDER BY Vendedor, MES, AÑO
+
+
+--------CLIENTES CON MAYOR CANTIDAD DE PUBLICACIONES SIN CALIFICAR-------------
+CREATE VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView AS
+	
+	SELECT Usuarios.Username					AS Cliente,
+		   COUNT(Calificaciones.Puntaje)		AS [Publicaciones sin calificar],
+		   MONTH(Operaciones.Fecha_Operacion)   AS Mes,
+		   YEAR(Operaciones.Fecha_Operacion)	AS Año
+		   
+		FROM MERCADONEGRO.Clientes
+		JOIN MERCADONEGRO.Usuarios 
+			ON Clientes.ID_User = Usuarios.ID_User
+		JOIN MERCADONEGRO.Operaciones 
+			ON Operaciones.ID_Comprador = Usuarios.ID_User
+		JOIN MERCADONEGRO.Calificaciones 
+			ON Operaciones.Cod_Calificacion = Calificaciones.Cod_Calificacion
+		WHERE Calificaciones.Puntaje IS NULL
+		GROUP BY Usuarios.Username, MONTH(Operaciones.Fecha_Operacion), YEAR(Operaciones.Fecha_Operacion)
+GO
+
 		   	
 ---------VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS----------
 /*CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
@@ -1060,5 +1080,7 @@ GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
 GO
 DROP VIEW MERCADONEGRO.OperacionesSinFacturar
+GO
+DROP VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView
 GO
 */

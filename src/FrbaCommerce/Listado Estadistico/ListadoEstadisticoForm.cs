@@ -80,6 +80,11 @@ namespace FrbaCommerce.Listado_Estadistico
                 ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
 
                 this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
+
+                if (this.top5DataGriedView.DataSource == null)
+                {
+                    MessageBox.Show("No hay datos para mostrar!. Por favor, verifique los filtros seleccionados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 this.top5DataGriedView.Refresh();
 
 

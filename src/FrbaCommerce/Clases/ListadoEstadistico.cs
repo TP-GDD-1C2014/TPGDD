@@ -56,6 +56,11 @@ namespace FrbaCommerce.Clases
                 ListadoMayorCalific listadoCalificacion = new ListadoMayorCalific(trimestre, anio);
                 return listadoCalificacion.obtenerListado();
             }
+            else if (opcionElegida == 4)
+            {
+                ListadoClientesSinCalific listadoClientes = new ListadoClientesSinCalific(trimestre, anio);
+                return listadoClientes.obtenerListado();
+            }
             else return null;
            
         }
