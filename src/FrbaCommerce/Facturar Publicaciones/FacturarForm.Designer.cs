@@ -47,7 +47,7 @@
             // 
             // rendirButton
             // 
-            this.rendirButton.Location = new System.Drawing.Point(423, 234);
+            this.rendirButton.Location = new System.Drawing.Point(671, 330);
             this.rendirButton.Name = "rendirButton";
             this.rendirButton.Size = new System.Drawing.Size(75, 43);
             this.rendirButton.TabIndex = 2;
@@ -58,18 +58,20 @@
             // 
             this.dgvOperaciones.AllowUserToAddRows = false;
             this.dgvOperaciones.AllowUserToDeleteRows = false;
+            this.dgvOperaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvOperaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvOperaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOperaciones.Location = new System.Drawing.Point(41, 53);
             this.dgvOperaciones.Name = "dgvOperaciones";
             this.dgvOperaciones.ReadOnly = true;
             this.dgvOperaciones.RowHeadersVisible = false;
-            this.dgvOperaciones.Size = new System.Drawing.Size(458, 150);
+            this.dgvOperaciones.Size = new System.Drawing.Size(705, 247);
             this.dgvOperaciones.TabIndex = 1;
             this.dgvOperaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOperaciones_CellContentClick);
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(41, 234);
+            this.volverButton.Location = new System.Drawing.Point(41, 330);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(76, 43);
             this.volverButton.TabIndex = 3;
@@ -81,7 +83,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 305);
+            this.ClientSize = new System.Drawing.Size(803, 412);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.rendirButton);
             this.Controls.Add(this.dgvOperaciones);

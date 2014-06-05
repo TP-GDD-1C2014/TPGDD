@@ -84,6 +84,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "SeleccionFuncionalidades";
             this.Text = "Funcionalidades - MercadoNegro";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

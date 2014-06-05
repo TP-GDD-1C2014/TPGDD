@@ -127,9 +127,10 @@ namespace FrbaCommerce.Login
 
         private void RegistrarUsuario_Button_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            
             RegistroUsuarioForm formRegistro = new RegistroUsuarioForm(this);
             formRegistro.Show();
+            this.Close();
         }
 
         private void Limpiar_Button_Click(object sender, EventArgs e)

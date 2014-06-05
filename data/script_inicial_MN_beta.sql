@@ -351,11 +351,13 @@ GO
 
 CREATE PROCEDURE MERCADONEGRO.ObtenerOperacionesSinFacturar(@username nvarchar(255))
 AS BEGIN
-		SELECT * FROM MERCADONEGRO.OperacionesSinFacturar
+		SELECT Descripcion, Publicacion AS [Publicacion Nro], Venta AS [Venta Nro], [Fecha de la Operacion] FROM MERCADONEGRO.OperacionesSinFacturar
 			WHERE @username = Username
 			ORDER BY [Fecha de la Operacion]
 END
 GO
+
+
 
 /*
 CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
@@ -684,6 +686,7 @@ CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS
 	JOIN MERCADONEGRO.Publicaciones ON Publicaciones.Cod_Publicacion = Operaciones.Cod_Publicacion
 	JOIN MERCADONEGRO.Usuarios ON Usuarios.ID_User = Operaciones.ID_Vendedor
 	WHERE Operaciones.Operacion_Facturada = 0
+	
 GO
 
 
