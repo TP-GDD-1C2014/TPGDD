@@ -20,6 +20,39 @@ namespace FrbaCommerce.Historial_Cliente
         public List<Clases.Compra> ofertasGanadas = new List<Clases.Compra>();
         public List<Clases.Oferta> ofertas = new List<Clases.Oferta>();
 
+        private void dgCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                //MessageBox.Show((e.RowIndex + 1) + " Fila " + (e.ColumnIndex + 1) + " Columna");
+                //MessageBox.Show("Cod_Publicacion = " + dgCompras.Rows[e.RowIndex].Cells[2].Value.ToString());
+                VerPublicacion formP1 = new VerPublicacion(Convert.ToInt32(dgCompras.Rows[e.RowIndex].Cells[2].Value));
+                formP1.Show();
+            }
+        }
+
+        private void dgSubastasGanadas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                //MessageBox.Show((e.RowIndex + 1) + " Fila " + (e.ColumnIndex + 1) + " Columna");
+                //MessageBox.Show("Cod_Publicacion = " + dgSubastasGanadas.Rows[e.RowIndex].Cells[2].Value.ToString());
+                VerPublicacion formP1 = new VerPublicacion(Convert.ToInt32(dgSubastasGanadas.Rows[e.RowIndex].Cells[2].Value));
+                formP1.Show();
+            }
+        }
+
+        private void dgOfertas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                //MessageBox.Show((e.RowIndex + 1) + " Fila " + (e.ColumnIndex + 1) + " Columna");
+                //MessageBox.Show("Cod_Publicacion = " + dgOfertas.Rows[e.RowIndex].Cells[2].Value.ToString());
+                VerPublicacion formP1 = new VerPublicacion(Convert.ToInt32(dgOfertas.Rows[e.RowIndex].Cells[2].Value));
+                formP1.Show();
+            }
+        }
+
         public Historial(Login.SeleccionFuncionalidades formAnt)
         {
             this.formAnterior = formAnt;
@@ -47,17 +80,50 @@ namespace FrbaCommerce.Historial_Cliente
             DataGridViewColumn compras_cFecha = dgCompras.Columns[0];
             DataGridViewColumn compras_cCalificacion = dgCompras.Columns[2];
             DataGridViewColumn compras_cComentarios = dgCompras.Columns[3];
+            DataGridViewButtonColumn compras_cVerPublicacion = new DataGridViewButtonColumn();
+
+            dgCompras.Columns.Add(compras_cVerPublicacion);
+            compras_cVerPublicacion.HeaderText = "Publicación";
+            compras_cVerPublicacion.Text = "Mostrar";
+            compras_cVerPublicacion.Name = "btn";
+            compras_cVerPublicacion.Width = 115;
+            compras_cVerPublicacion.UseColumnTextForButtonValue = true;
+            compras_cVerPublicacion.Resizable = DataGridViewTriState.False;
+
+            compras_cPublicacion.Visible = false;
 
             //DataGridViewColumn ofertasGanadas_cVendedor = dgSubastasGanadas.Columns[0];
             DataGridViewColumn ofertasGanadas_cPublicacion = dgSubastasGanadas.Columns[1];
             DataGridViewColumn ofertasGanadas_cFecha = dgSubastasGanadas.Columns[0];
             DataGridViewColumn ofertasGanadas_cCalificacion = dgSubastasGanadas.Columns[2];
             DataGridViewColumn ofertasGanadas_cComentarios = dgSubastasGanadas.Columns[3];
+            DataGridViewButtonColumn ofertasGanadas_cVerPublicacion = new DataGridViewButtonColumn();
+
+            dgSubastasGanadas.Columns.Add(ofertasGanadas_cVerPublicacion);
+            ofertasGanadas_cVerPublicacion.HeaderText = "Publicación";
+            ofertasGanadas_cVerPublicacion.Text = "Mostrar";
+            ofertasGanadas_cVerPublicacion.Name = "btn1";
+            ofertasGanadas_cVerPublicacion.Width = compras_cVerPublicacion.Width;
+            ofertasGanadas_cVerPublicacion.UseColumnTextForButtonValue = true;
+            ofertasGanadas_cVerPublicacion.Resizable = DataGridViewTriState.False;
+
+            ofertasGanadas_cPublicacion.Visible = false;
 
             //DataGridViewColumn ofertas_cVendedor = dgOfertas.Columns[0];
             DataGridViewColumn ofertas_cPublicacion = dgOfertas.Columns[1];
             DataGridViewColumn ofertas_cFecha = dgOfertas.Columns[0];
             DataGridViewColumn ofertas_cMonto = dgOfertas.Columns[2];
+            DataGridViewButtonColumn ofertas_cVerPublicacion = new DataGridViewButtonColumn();
+
+            dgOfertas.Columns.Add(ofertas_cVerPublicacion);
+            ofertas_cVerPublicacion.HeaderText = "Publicación";
+            ofertas_cVerPublicacion.Text = "Mostrar";
+            ofertas_cVerPublicacion.Name = "btn1";
+            ofertas_cVerPublicacion.Width = compras_cVerPublicacion.Width;
+            ofertas_cVerPublicacion.UseColumnTextForButtonValue = true;
+            ofertas_cVerPublicacion.Resizable = DataGridViewTriState.False;
+
+            ofertas_cPublicacion.Visible = false;
 
             DataGridViewColumn compras_cConexion = dgCompras.Columns[4];
             DataGridViewColumn ofertasGanadas_cConexion = dgSubastasGanadas.Columns[4];
@@ -119,10 +185,10 @@ namespace FrbaCommerce.Historial_Cliente
             ofertas_cMonto.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
             //compras_cVendedor.Width = 110;
-            compras_cPublicacion.Width = 245;
+            compras_cPublicacion.Width = 70;
             compras_cFecha.Width = 70;
             compras_cCalificacion.Width = 70;
-            compras_cComentarios.Width = 165;
+            compras_cComentarios.Width = 295;
 
             //ofertasGanadas_cVendedor.Width = compras_cVendedor.Width;
             ofertasGanadas_cPublicacion.Width = compras_cPublicacion.Width;
@@ -133,7 +199,7 @@ namespace FrbaCommerce.Historial_Cliente
             //ofertas_cVendedor.Width = 110;
             ofertas_cPublicacion.Width = 245;
             ofertas_cFecha.Width = 70;
-            ofertas_cMonto.Width = 235;
+            ofertas_cMonto.Width = 365;
         }
 
         public Clases.Calificacion obtenerCalificacion(int codCalificacion)
@@ -239,11 +305,6 @@ namespace FrbaCommerce.Historial_Cliente
         }
 
         private void Historial_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dgCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

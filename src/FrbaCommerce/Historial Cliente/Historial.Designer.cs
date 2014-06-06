@@ -85,6 +85,7 @@
             this.dgOfertas.Name = "dgOfertas";
             this.dgOfertas.Size = new System.Drawing.Size(570, 150);
             this.dgOfertas.TabIndex = 0;
+            this.dgOfertas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgOfertas_CellContentClick);
             // 
             // volver
             // 
@@ -113,6 +114,7 @@
             this.dgSubastasGanadas.Name = "dgSubastasGanadas";
             this.dgSubastasGanadas.Size = new System.Drawing.Size(570, 150);
             this.dgSubastasGanadas.TabIndex = 0;
+            this.dgSubastasGanadas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgSubastasGanadas_CellContentClick);
             // 
             // historialBindingSource
             // 

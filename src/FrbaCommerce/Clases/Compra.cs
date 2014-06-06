@@ -11,7 +11,7 @@ namespace FrbaCommerce.Clases
     public class Compra
     {
         public DateTime Fecha { get; set; }
-        public string Publicacion { get; set; }
+        public int Cod_Publicacion { get; set; }
         
 
         public int Calificacion { get; set; }
@@ -24,7 +24,7 @@ namespace FrbaCommerce.Clases
             this.conexion = _conexion;
 
             //Vendedor = obtenerVendedor(idVendedor);
-            Publicacion = obtenerPublicacion(codPublicacion);
+            Cod_Publicacion = codPublicacion;
             Fecha = fechaOperacion;
             if (calificacion != null)
             {
@@ -55,7 +55,7 @@ namespace FrbaCommerce.Clases
             return res;
         }*/
 
-        public string obtenerPublicacion(int codPublicacion)
+        /*public string obtenerPublicacion(int codPublicacion)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", codPublicacion);
@@ -63,7 +63,7 @@ namespace FrbaCommerce.Clases
             lector.Read();
             string res = Convert.ToString(lector["Descripcion"]);
             return res;
-        }
+        }*/
 
         public static SqlDataReader clienteEmpresa(int idVendedor)
         {
