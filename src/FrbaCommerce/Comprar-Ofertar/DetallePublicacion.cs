@@ -19,7 +19,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         int codPublicacion;
         int idVendedor;
 
-        public DetallePublicacion(Publicacion unaPublicacion)
+        public  DetallePublicacion(Publicacion unaPublicacion)
         {
             InitializeComponent();
 

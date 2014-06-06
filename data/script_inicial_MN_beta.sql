@@ -861,7 +861,8 @@ INSERT INTO MERCADONEGRO.Empresas (ID_User,
 					gd_esquema.Maestra.Publ_Empresa_Fecha_Creacion 
 			
 	FROM #UsuariosTemp,gd_esquema.Maestra
-	WHERE Publ_Empresa_Cuit  IS NOT NULL AND (#UsuariosTemp.username = 'RazonSocialNro'+ RIGHT(Publ_Empresa_Razon_Social,2))
+	WHERE Publ_Empresa_Cuit  IS NOT NULL AND (#UsuariosTemp.username = 'RazonSocialNro'+ SUBSTRING(Publ_Empresa_Razon_Social,17,2))
+	
 
 
 

@@ -15,7 +15,7 @@ namespace FrbaCommerce.Comprar_Ofertar
     public partial class ComprarOfertar : Form
     {
         static int paginaActual;
-        static int cantPublicacionesPorPagina = 30;
+        static int cantPublicacionesPorPagina = 15;
         static int cantPublicacionesTotal;
         static int ultimaPagina;
         
@@ -90,7 +90,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         public void cargarPublicaciones(int paginaActual, int filtro)
         {
-            Common.Interfaz.limpiarInterfaz(this);
+            //Common.Interfaz.limpiarInterfaz(this);
 
             int desde;
             int hasta;

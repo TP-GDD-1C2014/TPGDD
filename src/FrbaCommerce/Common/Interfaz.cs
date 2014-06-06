@@ -12,10 +12,14 @@ namespace FrbaCommerce.Common
     public class Interfaz
     {
         public static Clases.Usuario usuario { get; set; }
+        public static Dictionary<int, string> diccionarioVisibilidades = new Dictionary<int, string>();
+        //public static Dictionary<int, string> diccionarioEstadosPublicacion = new Dictionary<int, string>();
+        //public static Dictionary<int, string> diccionarioTiposPublicacion = new Dictionary<int, string>();
 
         public static void loguearUsuario(Clases.Usuario usuarioActual)
         {
             usuario = usuarioActual;
+            generarDiccionario();
         }
 
         public static void limpiarInterfaz(Control con)
@@ -98,6 +102,72 @@ namespace FrbaCommerce.Common
 
 
             return dgv;
+        }
+
+        public static void generarDiccionario()
+        {
+            SqlDataReader lector = BDSQL.ObtenerDataReader("SELECT COD_VISIBILIDAD, DESCRIPCION FROM MERCADONEGRO.VISIBILIDADES ORDER BY COD_VISIBILIDAD",
+                                                            "T");
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    diccionarioVisibilidades.Add((int)(decimal)lector["COD_VISIBILIDAD"], (string)lector["DESCRIPCION"]);
+                }
+            }
+            /*
+            lector.Dispose();
+            lector = BDSQL.ObtenerDataReader("SELECT Estado_Publicacion, Descripcion FROM MERCADONEGRO.Estados_Publicacion ORDER BY Estado_Publicacion",
+            
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    diccionarioEstadosPublicacion.Add((int)(decimal)lector["Estado_Publicacion"], (string)lector["Descripcion"]);
+                }
+            }
+
+            lector.Dispose();
+            lector = BDSQL.ObtenerDataReader("SELECT Tipo_Publicacion, Descripcion FROM MERCADONEGRO.Tipos_Publicacion ORDER BY Tipo_Publicacion",
+            
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    diccionarioTiposPublicacion.Add((int)(decimal)lector["Tipo_Publicacion"], (string)lector["Descripcion"]);
+                }
+            }
+            */
+            BDSQL.cerrarConexion();
+
+        }
+
+        //Metodo para obtener el "String" de la publicacion
+        public static string getDescripcion(int cod, string tabla)
+        {
+            string descripcion;
+
+            switch (tabla)
+            {
+                case "visibilidad":
+                    diccionarioVisibilidades.TryGetValue(cod, out descripcion);
+                    return descripcion;
+                /*
+                case "tipo":
+                    diccionarioTiposPublicacion.TryGetValue(cod, out descripcion);
+                    return descripcion;
+                case "estado":
+                    diccionarioEstadosPublicacion.TryGetValue(cod, out descripcion);
+                    return descripcion;
+                 * */
+                default:
+                    return "";
+            }
+
+            
+
+            
         }
     }
 }

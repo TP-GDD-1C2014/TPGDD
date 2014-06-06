@@ -30,6 +30,21 @@
         {
             this.lblCodPublicacion = new System.Windows.Forms.Label();
             this.GBDetalle = new System.Windows.Forms.GroupBox();
+            this.txtTipoPublicacion = new System.Windows.Forms.TextBox();
+            this.txtFechaFinalizacion = new System.Windows.Forms.TextBox();
+            this.txtStockInicial = new System.Windows.Forms.TextBox();
+            this.txtCodVisibilidad = new System.Windows.Forms.TextBox();
+            this.txtEstadoPublicacion = new System.Windows.Forms.TextBox();
+            this.txtPrecio = new System.Windows.Forms.TextBox();
+            this.txtFechaInicio = new System.Windows.Forms.TextBox();
+            this.txtStockDisponible = new System.Windows.Forms.TextBox();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.txtIdVendedor = new System.Windows.Forms.TextBox();
+            this.txtCodPublicacion = new System.Windows.Forms.TextBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnEnviar = new System.Windows.Forms.Button();
+            this.txtPregunta = new System.Windows.Forms.TextBox();
+            this.lblPregunta = new System.Windows.Forms.Label();
             this.lblStockInicial = new System.Windows.Forms.Label();
             this.lblTipoPublicacion = new System.Windows.Forms.Label();
             this.lblEstadoPublicacion = new System.Windows.Forms.Label();
@@ -40,23 +55,8 @@
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.lblIdVendedor = new System.Windows.Forms.Label();
             this.lblVisibilidad = new System.Windows.Forms.Label();
-            this.lblPregunta = new System.Windows.Forms.Label();
-            this.txtPregunta = new System.Windows.Forms.TextBox();
-            this.btnEnviar = new System.Windows.Forms.Button();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnComprar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.txtCodPublicacion = new System.Windows.Forms.TextBox();
-            this.txtIdVendedor = new System.Windows.Forms.TextBox();
-            this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.txtStockDisponible = new System.Windows.Forms.TextBox();
-            this.txtFechaInicio = new System.Windows.Forms.TextBox();
-            this.txtPrecio = new System.Windows.Forms.TextBox();
-            this.txtEstadoPublicacion = new System.Windows.Forms.TextBox();
-            this.txtCodVisibilidad = new System.Windows.Forms.TextBox();
-            this.txtStockInicial = new System.Windows.Forms.TextBox();
-            this.txtFechaFinalizacion = new System.Windows.Forms.TextBox();
-            this.txtTipoPublicacion = new System.Windows.Forms.TextBox();
             this.GBDetalle.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,6 +103,133 @@
             this.GBDetalle.TabIndex = 1;
             this.GBDetalle.TabStop = false;
             this.GBDetalle.Text = "Detalle de la publicación";
+            // 
+            // txtTipoPublicacion
+            // 
+            this.txtTipoPublicacion.Location = new System.Drawing.Point(361, 221);
+            this.txtTipoPublicacion.Name = "txtTipoPublicacion";
+            this.txtTipoPublicacion.ReadOnly = true;
+            this.txtTipoPublicacion.Size = new System.Drawing.Size(100, 20);
+            this.txtTipoPublicacion.TabIndex = 24;
+            // 
+            // txtFechaFinalizacion
+            // 
+            this.txtFechaFinalizacion.Location = new System.Drawing.Point(361, 185);
+            this.txtFechaFinalizacion.Name = "txtFechaFinalizacion";
+            this.txtFechaFinalizacion.ReadOnly = true;
+            this.txtFechaFinalizacion.Size = new System.Drawing.Size(100, 20);
+            this.txtFechaFinalizacion.TabIndex = 23;
+            // 
+            // txtStockInicial
+            // 
+            this.txtStockInicial.Location = new System.Drawing.Point(361, 148);
+            this.txtStockInicial.Name = "txtStockInicial";
+            this.txtStockInicial.ReadOnly = true;
+            this.txtStockInicial.Size = new System.Drawing.Size(100, 20);
+            this.txtStockInicial.TabIndex = 22;
+            // 
+            // txtCodVisibilidad
+            // 
+            this.txtCodVisibilidad.Location = new System.Drawing.Point(361, 27);
+            this.txtCodVisibilidad.Name = "txtCodVisibilidad";
+            this.txtCodVisibilidad.ReadOnly = true;
+            this.txtCodVisibilidad.Size = new System.Drawing.Size(100, 20);
+            this.txtCodVisibilidad.TabIndex = 21;
+            // 
+            // txtEstadoPublicacion
+            // 
+            this.txtEstadoPublicacion.Location = new System.Drawing.Point(149, 217);
+            this.txtEstadoPublicacion.Name = "txtEstadoPublicacion";
+            this.txtEstadoPublicacion.ReadOnly = true;
+            this.txtEstadoPublicacion.Size = new System.Drawing.Size(100, 20);
+            this.txtEstadoPublicacion.TabIndex = 20;
+            // 
+            // txtPrecio
+            // 
+            this.txtPrecio.Location = new System.Drawing.Point(123, 181);
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.ReadOnly = true;
+            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecio.TabIndex = 19;
+            // 
+            // txtFechaInicio
+            // 
+            this.txtFechaInicio.Location = new System.Drawing.Point(123, 148);
+            this.txtFechaInicio.Name = "txtFechaInicio";
+            this.txtFechaInicio.ReadOnly = true;
+            this.txtFechaInicio.Size = new System.Drawing.Size(100, 20);
+            this.txtFechaInicio.TabIndex = 18;
+            // 
+            // txtStockDisponible
+            // 
+            this.txtStockDisponible.Location = new System.Drawing.Point(123, 106);
+            this.txtStockDisponible.Name = "txtStockDisponible";
+            this.txtStockDisponible.ReadOnly = true;
+            this.txtStockDisponible.Size = new System.Drawing.Size(100, 20);
+            this.txtStockDisponible.TabIndex = 17;
+            // 
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Location = new System.Drawing.Point(123, 80);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.ReadOnly = true;
+            this.txtDescripcion.Size = new System.Drawing.Size(100, 20);
+            this.txtDescripcion.TabIndex = 16;
+            // 
+            // txtIdVendedor
+            // 
+            this.txtIdVendedor.Location = new System.Drawing.Point(123, 54);
+            this.txtIdVendedor.Name = "txtIdVendedor";
+            this.txtIdVendedor.ReadOnly = true;
+            this.txtIdVendedor.Size = new System.Drawing.Size(100, 20);
+            this.txtIdVendedor.TabIndex = 15;
+            // 
+            // txtCodPublicacion
+            // 
+            this.txtCodPublicacion.Location = new System.Drawing.Point(123, 27);
+            this.txtCodPublicacion.Name = "txtCodPublicacion";
+            this.txtCodPublicacion.ReadOnly = true;
+            this.txtCodPublicacion.Size = new System.Drawing.Size(100, 20);
+            this.txtCodPublicacion.TabIndex = 4;
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(491, 335);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
+            this.btnLimpiar.TabIndex = 14;
+            this.btnLimpiar.Text = "Limpar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnEnviar
+            // 
+            this.btnEnviar.Location = new System.Drawing.Point(491, 306);
+            this.btnEnviar.Name = "btnEnviar";
+            this.btnEnviar.Size = new System.Drawing.Size(75, 23);
+            this.btnEnviar.TabIndex = 13;
+            this.btnEnviar.Text = "Enviar";
+            this.btnEnviar.UseVisualStyleBackColor = true;
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
+            // 
+            // txtPregunta
+            // 
+            this.txtPregunta.Location = new System.Drawing.Point(23, 306);
+            this.txtPregunta.MaxLength = 255;
+            this.txtPregunta.Multiline = true;
+            this.txtPregunta.Name = "txtPregunta";
+            this.txtPregunta.Size = new System.Drawing.Size(462, 52);
+            this.txtPregunta.TabIndex = 12;
+            // 
+            // lblPregunta
+            // 
+            this.lblPregunta.AutoSize = true;
+            this.lblPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPregunta.Location = new System.Drawing.Point(20, 290);
+            this.lblPregunta.Name = "lblPregunta";
+            this.lblPregunta.Size = new System.Drawing.Size(272, 13);
+            this.lblPregunta.TabIndex = 11;
+            this.lblPregunta.Text = "Escriba una pregunta al vendedor: (max 255 caracteres)";
             // 
             // lblStockInicial
             // 
@@ -194,45 +321,6 @@
             this.lblVisibilidad.TabIndex = 1;
             this.lblVisibilidad.Text = "Código visibilidad";
             // 
-            // lblPregunta
-            // 
-            this.lblPregunta.AutoSize = true;
-            this.lblPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPregunta.Location = new System.Drawing.Point(20, 290);
-            this.lblPregunta.Name = "lblPregunta";
-            this.lblPregunta.Size = new System.Drawing.Size(272, 13);
-            this.lblPregunta.TabIndex = 11;
-            this.lblPregunta.Text = "Escriba una pregunta al vendedor: (max 255 caracteres)";
-            // 
-            // txtPregunta
-            // 
-            this.txtPregunta.Location = new System.Drawing.Point(23, 306);
-            this.txtPregunta.MaxLength = 255;
-            this.txtPregunta.Multiline = true;
-            this.txtPregunta.Name = "txtPregunta";
-            this.txtPregunta.Size = new System.Drawing.Size(462, 52);
-            this.txtPregunta.TabIndex = 12;
-            // 
-            // btnEnviar
-            // 
-            this.btnEnviar.Location = new System.Drawing.Point(491, 306);
-            this.btnEnviar.Name = "btnEnviar";
-            this.btnEnviar.Size = new System.Drawing.Size(75, 23);
-            this.btnEnviar.TabIndex = 13;
-            this.btnEnviar.Text = "Enviar";
-            this.btnEnviar.UseVisualStyleBackColor = true;
-            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(491, 335);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 14;
-            this.btnLimpiar.Text = "Limpar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
             // btnComprar
             // 
             this.btnComprar.Location = new System.Drawing.Point(540, 427);
@@ -251,94 +339,6 @@
             this.btnCancelar.TabIndex = 3;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
-            // 
-            // txtCodPublicacion
-            // 
-            this.txtCodPublicacion.Enabled = false;
-            this.txtCodPublicacion.Location = new System.Drawing.Point(123, 27);
-            this.txtCodPublicacion.Name = "txtCodPublicacion";
-            this.txtCodPublicacion.Size = new System.Drawing.Size(100, 20);
-            this.txtCodPublicacion.TabIndex = 4;
-            // 
-            // txtIdVendedor
-            // 
-            this.txtIdVendedor.Enabled = false;
-            this.txtIdVendedor.Location = new System.Drawing.Point(123, 54);
-            this.txtIdVendedor.Name = "txtIdVendedor";
-            this.txtIdVendedor.Size = new System.Drawing.Size(100, 20);
-            this.txtIdVendedor.TabIndex = 15;
-            // 
-            // txtDescripcion
-            // 
-            this.txtDescripcion.Enabled = false;
-            this.txtDescripcion.Location = new System.Drawing.Point(123, 80);
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(100, 20);
-            this.txtDescripcion.TabIndex = 16;
-            // 
-            // txtStockDisponible
-            // 
-            this.txtStockDisponible.Enabled = false;
-            this.txtStockDisponible.Location = new System.Drawing.Point(123, 106);
-            this.txtStockDisponible.Name = "txtStockDisponible";
-            this.txtStockDisponible.Size = new System.Drawing.Size(100, 20);
-            this.txtStockDisponible.TabIndex = 17;
-            // 
-            // txtFechaInicio
-            // 
-            this.txtFechaInicio.Enabled = false;
-            this.txtFechaInicio.Location = new System.Drawing.Point(123, 148);
-            this.txtFechaInicio.Name = "txtFechaInicio";
-            this.txtFechaInicio.Size = new System.Drawing.Size(100, 20);
-            this.txtFechaInicio.TabIndex = 18;
-            // 
-            // txtPrecio
-            // 
-            this.txtPrecio.Enabled = false;
-            this.txtPrecio.Location = new System.Drawing.Point(123, 181);
-            this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
-            this.txtPrecio.TabIndex = 19;
-            // 
-            // txtEstadoPublicacion
-            // 
-            this.txtEstadoPublicacion.Enabled = false;
-            this.txtEstadoPublicacion.Location = new System.Drawing.Point(149, 217);
-            this.txtEstadoPublicacion.Name = "txtEstadoPublicacion";
-            this.txtEstadoPublicacion.Size = new System.Drawing.Size(100, 20);
-            this.txtEstadoPublicacion.TabIndex = 20;
-            // 
-            // txtCodVisibilidad
-            // 
-            this.txtCodVisibilidad.Enabled = false;
-            this.txtCodVisibilidad.Location = new System.Drawing.Point(361, 27);
-            this.txtCodVisibilidad.Name = "txtCodVisibilidad";
-            this.txtCodVisibilidad.Size = new System.Drawing.Size(100, 20);
-            this.txtCodVisibilidad.TabIndex = 21;
-            // 
-            // txtStockInicial
-            // 
-            this.txtStockInicial.Enabled = false;
-            this.txtStockInicial.Location = new System.Drawing.Point(361, 148);
-            this.txtStockInicial.Name = "txtStockInicial";
-            this.txtStockInicial.Size = new System.Drawing.Size(100, 20);
-            this.txtStockInicial.TabIndex = 22;
-            // 
-            // txtFechaFinalizacion
-            // 
-            this.txtFechaFinalizacion.Enabled = false;
-            this.txtFechaFinalizacion.Location = new System.Drawing.Point(361, 185);
-            this.txtFechaFinalizacion.Name = "txtFechaFinalizacion";
-            this.txtFechaFinalizacion.Size = new System.Drawing.Size(100, 20);
-            this.txtFechaFinalizacion.TabIndex = 23;
-            // 
-            // txtTipoPublicacion
-            // 
-            this.txtTipoPublicacion.Enabled = false;
-            this.txtTipoPublicacion.Location = new System.Drawing.Point(361, 221);
-            this.txtTipoPublicacion.Name = "txtTipoPublicacion";
-            this.txtTipoPublicacion.Size = new System.Drawing.Size(100, 20);
-            this.txtTipoPublicacion.TabIndex = 24;
             // 
             // DetallePublicacion
             // 

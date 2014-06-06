@@ -110,7 +110,7 @@ namespace FrbaCommerce.Editar_Publicacion
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !Precio_textBox.Text.Equals(""))
             {
                 int codPubli = 0;
-                int visibilidad = Visibilidad_ComboBox.SelectedIndex;
+                string visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
                 //TODO Conseguir la ID_Vendedor
                 int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;

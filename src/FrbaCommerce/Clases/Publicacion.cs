@@ -17,7 +17,7 @@ namespace FrbaCommerce.Clases
     public class Publicacion
     {
         public int Cod_Publicacion { get; set; }
-        public int Cod_Visibilidad { get; set; }
+        public string Cod_Visibilidad { get; set; }
         public int ID_Vendedor { get; set; } //ID_User
         public string Descripcion { get; set; }
         public int Stock { get; set; }
@@ -30,8 +30,11 @@ namespace FrbaCommerce.Clases
         public int Stock_Inicial { get; set; }
 
         //private List<Rubro> Rubros = new List<Rubro>();
-
-        public Publicacion(int cod_Publicacion, int visibilidad, int id_Vendedor, string descripcion, int stock, DateTime fecha_Fin, DateTime fecha_Inicio, decimal precio, string estado, string tipoPubli, bool permisoPreg, int stock_Inicial)
+        public Publicacion()
+        {
+        }
+        
+        public Publicacion(int cod_Publicacion, string visibilidad, int id_Vendedor, string descripcion, int stock, DateTime fecha_Fin, DateTime fecha_Inicio, decimal precio, string estado, string tipoPubli, bool permisoPreg, int stock_Inicial)
         {
             this.Cod_Publicacion = cod_Publicacion;
             this.Cod_Visibilidad = visibilidad;
@@ -53,7 +56,7 @@ namespace FrbaCommerce.Clases
             //
         }
         */
-        public void agregarPublicacion(int visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, string estado, string tipoPubli, decimal precio, bool permisoPreg)
+        public void agregarPublicacion(string visibilidad, int idVendedor, string descripcion, int stock, System.DateTime fechaVto, System.DateTime fechaInicio, string estado, string tipoPubli, decimal precio, bool permisoPreg)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             

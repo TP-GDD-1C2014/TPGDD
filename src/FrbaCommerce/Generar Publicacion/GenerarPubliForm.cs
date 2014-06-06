@@ -140,7 +140,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 {
                     codPubli = 0;
                 }
-                int visibilidad = Visibilidad_ComboBox.SelectedIndex;
+                string visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
                 int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
@@ -160,7 +160,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 if (esNueva == true)
                 {
                     //TODO Si es gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
-                    if (visibilidad == 4)
+                    if (visibilidad == "Gratis")
                     {
                         //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
 
