@@ -6,21 +6,34 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
 using FrbaCommerce.Common;
 
 namespace FrbaCommerce.Abm_Cliente
 {
     public partial class ABMClientes : Form
     {
+        public string username { get; set; }
+        public string password { get; set; }
+        public int intentosLogin { get; set; }
+        public int habilitado { get; set; }
+        public int primeraVez { get; set; }
+        public DBNull cantPubliGratuitas { get; set; }
+        public DBNull reputacion { get; set; }
+        public DBNull ventasSinRendir { get; set; }
+
         public string tipoDoc { get; set; }
-        public int numDoc { get; set; }
+        public string numDoc { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string email { get; set; }
-        public string telefono { get; set; }
+        public int telefono { get; set; }
         public string direccion { get; set; }
         public string codPostal { get; set; }
         public DateTime fechaNacimiento { get; set; }
+
+        public string passwordNoHash { get; set; }
 
         public Login.SeleccionFuncionalidades formAnterior { get; set; }
 
@@ -33,11 +46,15 @@ namespace FrbaCommerce.Abm_Cliente
             cbMes.DropDownStyle = ComboBoxStyle.DropDownList;
             cbAno.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTipoDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFiltro.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbFiltroTipoDocumento.DropDownStyle = ComboBoxStyle.DropDownList;
 
             llenarCbDia();
             llenarCbMes();
             llenarCbAno();
             llenarCbTipoDoc();
+            llenarCbFiltro();
+            llenarCbFiltroTipoDoc();
         }
 
         public void llenarCbDia()
@@ -72,6 +89,37 @@ namespace FrbaCommerce.Abm_Cliente
             this.cbTipoDocumento.Items.Add("DU");
             this.cbTipoDocumento.Items.Add("CI");
             this.cbTipoDocumento.Items.Add("LC");
+        }
+
+        public void llenarCbFiltro()
+        {
+            this.cbFiltro.Items.Add("Nombre");
+            this.cbFiltro.Items.Add("Apellido");
+            this.cbFiltro.Items.Add("Tipo de documento");
+            this.cbFiltro.Items.Add("Número de documento");
+            this.cbFiltro.Items.Add("E-mail");
+        }
+
+        public void llenarCbFiltroTipoDoc()
+        {
+            this.cbFiltroTipoDocumento.Items.Add("DU");
+            this.cbFiltroTipoDocumento.Items.Add("CI");
+            this.cbFiltroTipoDocumento.Items.Add("LC");
+        }
+
+        private void cbFiltro_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox CB = (ComboBox)sender;
+            if (CB.SelectedIndex == 2)
+            {
+                cbFiltroTipoDocumento.Visible = true;
+                tBusqueda.Visible = false;
+            }
+            else
+            {
+                cbFiltroTipoDocumento.Visible = false;
+                tBusqueda.Visible = true;
+            }
         }
 
         private void ABMClientes_Load(object sender, EventArgs e)
@@ -131,23 +179,31 @@ namespace FrbaCommerce.Abm_Cliente
             {
                 if (campoNumerico(tNumeroDocumento) && (campoVacio(tTelefono) || (!campoVacio(tTelefono) && campoNumerico(tTelefono))))
                 {
-                    if (!campoVacio(tTelefono))
+                    if (!BDSQL.existenSimultaneamente(cbTipoDocumento.SelectedItem.ToString(), tNumeroDocumento.Text, "MERCADONEGRO.Clientes", "Tipo_Doc", "Num_Doc"))
                     {
-                        this.telefono = tTelefono.Text;
+                        if (!campoVacio(tTelefono))
+                        {
+                            this.telefono = Convert.ToInt32(tTelefono.Text);
+                        }
+                        else
+                        {
+                            this.telefono = -1;
+                        }
+                        this.tipoDoc = cboxString(cbTipoDocumento);
+                        this.numDoc = tNumeroDocumento.Text;
+                        this.nombre = tNombre.Text;
+                        this.apellido = tApellido.Text;
+                        this.email = tEmail.Text;
+                        this.direccion = tDireccion.Text;
+                        this.codPostal = tCodigoPostal.Text;
+                        this.fechaNacimiento = fecha(cboxString(cbDia), cboxString(cbMes), cboxString(cbAno));
+                        return true;
                     }
                     else
                     {
-                        this.telefono = "";
+                        MessageBox.Show("El tipo y número de documento ingresados ya fueron registrados.", "Error");
+                        return false;
                     }
-                    this.tipoDoc = cboxString(cbTipoDocumento);
-                    this.numDoc = Convert.ToInt32(tNumeroDocumento.Text);
-                    this.nombre = tNombre.Text;
-                    this.apellido = tApellido.Text;
-                    this.email = tEmail.Text;
-                    this.direccion = tDireccion.Text;
-                    this.codPostal = tCodigoPostal.Text;
-                    this.fechaNacimiento = fecha(cboxString(cbDia), cboxString(cbMes), cboxString(cbAno));
-                    return true;
                 }
                 else
                 {
@@ -174,7 +230,7 @@ namespace FrbaCommerce.Abm_Cliente
 
         public string randomUser()
         {
-            string random = "merca" + randomString(10);
+            string random = "MERCA" + randomString(10);
             if (!BDSQL.existeString(random, "MERCADONEGRO.Usuarios", "Username"))
             {
                 return random;
@@ -185,26 +241,134 @@ namespace FrbaCommerce.Abm_Cliente
             }
         }
 
+        private string bytesDeHasheoToString(byte[] array)
+        {
+            StringBuilder salida = new StringBuilder("");
+            for (int i = 0; i < array.Length; i++)
+            {
+                salida.Append(array[i].ToString("X2"));
+            }
+            return salida.ToString();
+        }
+
         public string randomPassword()
         {
-            return randomString(20);
+            UTF8Encoding encoderHash = new UTF8Encoding();
+            SHA256Managed hasher = new SHA256Managed();
+            this.passwordNoHash = randomString(20);
+            byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(this.passwordNoHash));
+            return bytesDeHasheoToString(bytesDeHasheo);
+        }
+
+        public void cargarUsuario()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Username", this.username);
+            BDSQL.agregarParametro(listaParametros, "@Password", this.password);
+            BDSQL.agregarParametro(listaParametros, "@Intentos_Login", this.intentosLogin);
+            BDSQL.agregarParametro(listaParametros, "@Habilitado", this.habilitado);
+            BDSQL.agregarParametro(listaParametros, "@Primera_Vez", this.primeraVez);
+            BDSQL.agregarParametro(listaParametros, "@Cant_Publi_Gratuitas", this.cantPubliGratuitas);
+            BDSQL.agregarParametro(listaParametros, "@Reputacion", this.reputacion);
+            BDSQL.agregarParametro(listaParametros, "@Ventas_Sin_Rendir", this.ventasSinRendir);
+            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios VALUES (@Username, @Password, @Intentos_Login, @Habilitado, @Primera_Vez, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir)", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void cargarCliente()
+        {
+            List<SqlParameter> listaParametros2 = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros2, "@Username", this.username);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT ID_User FROM MERCADONEGRO.Usuarios WHERE Username = @Username", listaParametros2, BDSQL.iniciarConexion());
+            lector.Read();
+            int idUser = Convert.ToInt32(lector["ID_User"]);
+            BDSQL.cerrarConexion();
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", idUser);
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Doc", this.tipoDoc);
+            BDSQL.agregarParametro(listaParametros, "@Num_Doc", this.numDoc);
+            BDSQL.agregarParametro(listaParametros, "@Nombre", this.nombre);
+            BDSQL.agregarParametro(listaParametros, "@Apellido", this.apellido);
+            BDSQL.agregarParametro(listaParametros, "@Mail", this.email);
+
+            if (this.telefono == -1)
+            {
+                BDSQL.agregarParametro(listaParametros, "@Telefono", DBNull.Value);
+            }
+            else
+            {
+                BDSQL.agregarParametro(listaParametros, "@Telefono", this.telefono);
+            }
+            
+            BDSQL.agregarParametro(listaParametros, "@Direccion", this.direccion);
+            BDSQL.agregarParametro(listaParametros, "@Codigo_Postal", this.codPostal);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Nacimiento", this.fechaNacimiento);
+            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Clientes VALUES (@ID_User, @Tipo_Doc, @Num_Doc, @Nombre, @Apellido, @Mail, @Telefono, @Direccion, @Codigo_Postal, @Fecha_Nacimiento)", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
         }
 
         private void registrar_Click(object sender, EventArgs e)
         {
-            string username = randomUser();
-            string password = randomPassword();
-            int intentosLogin = 0;
-            int habilitado = 1;
-            int primeraVez = 1;
-            DBNull cantPubliGratuitas = DBNull.Value;
-            DBNull reputacion = DBNull.Value;
-            DBNull ventasSinRendir = DBNull.Value;
+            this.username = randomUser();
+            this.password = randomPassword();
+            this.intentosLogin = 0;
+            this.habilitado = 1;
+            this.primeraVez = 1;
+            this.cantPubliGratuitas = DBNull.Value;
+            this.reputacion = DBNull.Value;
+            this.ventasSinRendir = DBNull.Value;
 
             if (chequearCampos())
             {
-                MessageBox.Show("Usuario:\n\nusername: "+username+"\npassword: "+password+"\nintentosLogin: "+intentosLogin.ToString()+"\nhabilitado: "+habilitado.ToString()+"\nprimeraVez: "+primeraVez.ToString());
-                MessageBox.Show("Cliente:\n\ntipoDoc: " + this.tipoDoc + "\nnumDoc: " + this.numDoc.ToString() + "\nnombre: " + this.nombre + "\napellido: " + this.apellido + "\nemail: " + this.email + "\ntelefono: " + this.telefono + "\ndireccion: " + this.direccion + "\ncodPostal: " + this.codPostal + "fechaNacimiento: " + this.fechaNacimiento.ToString());
+                //MessageBox.Show("Usuario:\n\nusername: " + username + "\npassword: " + password + "\nintentosLogin: " + intentosLogin.ToString() + "\nhabilitado: " + habilitado.ToString() + "\nprimeraVez: " + primeraVez.ToString());
+                //MessageBox.Show("Cliente:\n\ntipoDoc: " + this.tipoDoc + "\nnumDoc: " + this.numDoc.ToString() + "\nnombre: " + this.nombre + "\napellido: " + this.apellido + "\nemail: " + this.email + "\ntelefono: " + this.telefono + "\ndireccion: " + this.direccion + "\ncodPostal: " + this.codPostal + "\nfechaNacimiento: " + this.fechaNacimiento.ToString());
+                cargarUsuario();
+                cargarCliente();
+                MessageBox.Show("Alta de usuario realizada exitosamente.\n\nPuede ingresar al sistema mediante con los siguientes datos:\nUsername: " + this.username + "\nPassword: " + this.passwordNoHash);
+            }
+        }
+
+        private void back_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            formAnterior.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            switch (cbFiltro.SelectedIndex)
+            {
+                case -1:
+                    MessageBox.Show("Debe seleccionar un criterio de búsqueda.", "Error");
+                    break;
+                case 0: // Nombre
+                    BuscarCliente form0 = new BuscarCliente('N', tBusqueda.Text);
+                    form0.Show();
+                    break;
+                case 1: // Apellido
+                    BuscarCliente form1 = new BuscarCliente('A', tBusqueda.Text);
+                    form1.Show();
+                    break;
+                case 2: // Tipo de documento
+                    BuscarCliente form2 = new BuscarCliente('T', cbFiltroTipoDocumento.SelectedItem.ToString());
+                    form2.Show();
+                    break;
+                case 3: // Número de documento
+                    if (Interfaz.esNumerico(tBusqueda.Text, System.Globalization.NumberStyles.Integer))
+                    {
+                        BuscarCliente form3 = new BuscarCliente('D', tBusqueda.Text);
+                        form3.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Número de documento inválido.","Error");
+                    }
+                    break;
+                case 4: // Email
+                    BuscarCliente form4 = new BuscarCliente('E', tBusqueda.Text);
+                    form4.Show();
+                    break;
             }
         }
     }

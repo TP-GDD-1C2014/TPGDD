@@ -57,6 +57,7 @@
             this.cbFiltro = new System.Windows.Forms.ComboBox();
             this.tBusqueda = new System.Windows.Forms.TextBox();
             this.back = new System.Windows.Forms.Button();
+            this.cbFiltroTipoDocumento = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -275,6 +276,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbFiltroTipoDocumento);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.cbFiltro);
@@ -294,6 +296,7 @@
             this.button2.TabIndex = 3;
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label10
             // 
@@ -311,6 +314,7 @@
             this.cbFiltro.Name = "cbFiltro";
             this.cbFiltro.Size = new System.Drawing.Size(82, 21);
             this.cbFiltro.TabIndex = 1;
+            this.cbFiltro.SelectedIndexChanged += new System.EventHandler(this.cbFiltro_SelectedIndexChanged);
             // 
             // tBusqueda
             // 
@@ -327,6 +331,16 @@
             this.back.TabIndex = 10;
             this.back.Text = "<< Volver";
             this.back.UseVisualStyleBackColor = true;
+            this.back.Click += new System.EventHandler(this.back_Click_1);
+            // 
+            // cbFiltroTipoDocumento
+            // 
+            this.cbFiltroTipoDocumento.FormattingEnabled = true;
+            this.cbFiltroTipoDocumento.Location = new System.Drawing.Point(100, 42);
+            this.cbFiltroTipoDocumento.Name = "cbFiltroTipoDocumento";
+            this.cbFiltroTipoDocumento.Size = new System.Drawing.Size(130, 21);
+            this.cbFiltroTipoDocumento.TabIndex = 4;
+            this.cbFiltroTipoDocumento.Visible = false;
             // 
             // ABMClientes
             // 
@@ -379,5 +393,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button back;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cbFiltroTipoDocumento;
     }
 }
