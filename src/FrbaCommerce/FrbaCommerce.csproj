@@ -92,6 +92,12 @@
     <Compile Include="Abm Visibilidad\ABMVisibilidad.Designer.cs">
       <DependentUpon>ABMVisibilidad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Visibilidad\EditorDeVisibilidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Visibilidad\EditorDeVisibilidades.Designer.cs">
+      <DependentUpon>EditorDeVisibilidades.cs</DependentUpon>
+    </Compile>
     <Compile Include="Calificar Vendedor\CalificarVendedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Visibilidad\ABMVisibilidad.resx">
       <DependentUpon>ABMVisibilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Visibilidad\EditorDeVisibilidades.resx">
+      <DependentUpon>EditorDeVisibilidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar-Ofertar\ComprarOfertar.resx">
       <DependentUpon>ComprarOfertar.cs</DependentUpon>

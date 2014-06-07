@@ -44,6 +44,7 @@
             this.nuevaButton.TabIndex = 0;
             this.nuevaButton.Text = "Nueva";
             this.nuevaButton.UseVisualStyleBackColor = true;
+            this.nuevaButton.Click += new System.EventHandler(this.nuevaButton_Click);
             // 
             // modificarButton
             // 
@@ -65,26 +66,31 @@
             // 
             // dgvVisibilidades
             // 
+            this.dgvVisibilidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvVisibilidades.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvVisibilidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVisibilidades.Location = new System.Drawing.Point(34, 66);
             this.dgvVisibilidades.Name = "dgvVisibilidades";
-            this.dgvVisibilidades.Size = new System.Drawing.Size(375, 150);
+            this.dgvVisibilidades.ReadOnly = true;
+            this.dgvVisibilidades.RowHeadersVisible = false;
+            this.dgvVisibilidades.Size = new System.Drawing.Size(472, 121);
             this.dgvVisibilidades.TabIndex = 3;
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(333, 238);
+            this.volverButton.Location = new System.Drawing.Point(431, 235);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(75, 23);
             this.volverButton.TabIndex = 4;
             this.volverButton.Text = "Volver";
             this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // ABMVisibilidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 281);
+            this.ClientSize = new System.Drawing.Size(565, 281);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.dgvVisibilidades);
             this.Controls.Add(this.eliminarButton);
