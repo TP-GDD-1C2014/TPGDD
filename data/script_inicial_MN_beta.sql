@@ -53,6 +53,7 @@ CREATE TABLE MERCADONEGRO.Visibilidades
 	Descripcion		  NVARCHAR(255) NOT NULL,
 	Costo_Publicacion NUMERIC(18,2) NOT NULL,
 	Porcentaje_Venta  NUMERIC(18,2) NOT NULL,
+	Habilitada		  BIT DEFAULT 1 NOT NULL,
 	
 	UNIQUE		(Descripcion),
 	PRIMARY KEY ( Cod_Visibilidad )
@@ -604,12 +605,13 @@ SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
 
 PRINT 'MIGRANDO TABLA DE VISIBILIDADES';
 GO
-INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta) 
+INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta, Habilitada) 
 
 	SELECT  DISTINCT 
 					 Publicacion_Visibilidad_Desc,
 					 Publicacion_Visibilidad_Precio,
-					 Publicacion_Visibilidad_Porcentaje			
+					 Publicacion_Visibilidad_Porcentaje,
+					 1			
 					 
 	FROM gd_esquema.Maestra
 	WHERE Publicacion_Visibilidad_Cod IS NOT NULL
