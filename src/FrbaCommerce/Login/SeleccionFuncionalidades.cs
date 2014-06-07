@@ -35,6 +35,8 @@ namespace FrbaCommerce.Login
 
         public SeleccionFuncionalidades(Clases.Usuario usuario, int idRol, Boolean bypass)
         {
+            //Genera el diccionario de visibilidades
+            Interfaz.generarDiccionario();
             this.usuario = usuario;
             var rolQuery = from rol in this.usuario.Roles where rol.ID_Rol == idRol select rol;
             foreach (var item in rolQuery)

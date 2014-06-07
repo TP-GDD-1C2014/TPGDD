@@ -19,7 +19,6 @@ namespace FrbaCommerce.Common
         public static void loguearUsuario(Clases.Usuario usuarioActual)
         {
             usuario = usuarioActual;
-            generarDiccionario();
         }
 
         public static void limpiarInterfaz(Control con)
