@@ -14,6 +14,15 @@ namespace FrbaCommerce.Abm_Visibilidad
         public ABMVisibilidad()
         {
             InitializeComponent();
+            
         }
+
+
+        private void cargarVisibilidades()
+        {
+           // this.dgvVisibilidades
+        }
+
+
     }
 }

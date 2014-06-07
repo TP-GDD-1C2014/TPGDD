@@ -35,11 +35,6 @@ namespace FrbaCommerce.Listado_Estadistico
             this.tipoListadoCombo.Items.Add("Clientes con Mayor Cantidad de Publicaciones sin Calificar");
 
 
-
-           
-
-
-
         }
 
         private void anioLabel_Click(object sender, EventArgs e)
@@ -83,7 +78,7 @@ namespace FrbaCommerce.Listado_Estadistico
 
                 if (this.top5DataGriedView.DataSource == null)
                 {
-                    MessageBox.Show("No hay datos para mostrar!. Por favor, verifique los filtros seleccionados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("¡No se encontraron resultados!. Por favor, verifique los filtros seleccionados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 this.top5DataGriedView.Refresh();
 
