@@ -58,23 +58,43 @@ CREATE TABLE MERCADONEGRO.Visibilidades
 	PRIMARY KEY ( Cod_Visibilidad )
 )
 
+CREATE TABLE MERCADONEGRO.Estados_Publicacion
+(
+	Cod_EstadoPublicacion NUMERIC(18,0) IDENTITY(0,1),
+	Descripcion			  NVARCHAR(255) NOT NULL,
+	
+	PRIMARY KEY (Cod_EstadoPublicacion),
+	UNIQUE		(Descripcion)
+)
+
+CREATE TABLE MERCADONEGRO.Tipos_Publicacion
+(
+	Cod_TipoPublicacion	NUMERIC(18,0) IDENTITY(0,1),
+	Descripcion			NVARCHAR(255) NOT NULL
+	
+	PRIMARY KEY (Cod_TipoPublicacion),
+	UNIQUE		(Descripcion)
+)
+
 CREATE TABLE MERCADONEGRO.Publicaciones
 (
-	Cod_Publicacion    NUMERIC(18,0) IDENTITY,
-	Cod_Visibilidad    NUMERIC(18,0) NOT NULL, 
-	ID_Vendedor		   NUMERIC(18,0) NOT NULL,
-	Descripcion		   NVARCHAR(255) NOT NULL,
-	Stock			   NUMERIC(18,0) NOT NULL,
-	Fecha_Vencimiento  DATETIME		 NOT NULL,
-	Fecha_Inicial	   DATETIME		 NOT NULL,
-	Precio			   NUMERIC(18,2) NOT NULL,
-	Estado_Publicacion NVARCHAR(255) NOT NULL,
-	Tipo_Publicacion   NVARCHAR(255) NOT NULL,
-	Permisos_Preguntas BIT			 NOT NULL,
-	Stock_Inicial	   NUMERIC(18,0) NOT NULL,
+	Cod_Publicacion			NUMERIC(18,0) IDENTITY,
+	Cod_Visibilidad			NUMERIC(18,0) NOT NULL,
+	Cod_EstadoPublicacion	NUMERIC(18,0) NOT NULL,
+	Cod_TipoPublicacion		NUMERIC(18,0) NOT NULL, 
+	ID_Vendedor				NUMERIC(18,0) NOT NULL,
+	Descripcion				NVARCHAR(255) NOT NULL,
+	Stock					NUMERIC(18,0) NOT NULL,
+	Fecha_Vencimiento		DATETIME	  NOT NULL,
+	Fecha_Inicial			DATETIME	  NOT NULL,
+	Precio					NUMERIC(18,2) NOT NULL,
+	Permisos_Preguntas		BIT			  NOT NULL,
+	Stock_Inicial			NUMERIC(18,0) NOT NULL,
 	
 	PRIMARY KEY (Cod_Publicacion),
-	FOREIGN KEY (Cod_Visibilidad) REFERENCES MERCADONEGRO.Visibilidades(Cod_Visibilidad)
+	FOREIGN KEY (Cod_Visibilidad) REFERENCES MERCADONEGRO.Visibilidades(Cod_Visibilidad),
+	FOREIGN KEY	(Cod_EstadoPublicacion) REFERENCES MERCADONEGRO.Estados_Publicacion(Cod_EstadoPublicacion),
+	FOREIGN KEY (Cod_TipoPublicacion) REFERENCES MERCADONEGRO.Tipos_Publicacion(Cod_TipoPublicacion)
 )
 
 CREATE TABLE MERCADONEGRO.Facturaciones
@@ -215,6 +235,15 @@ CREATE TABLE MERCADONEGRO.Roles_Usuarios
 	
 )
 
+CREATE TABLE MERCADONEGRO.Tipos_Operacion
+(
+	Cod_TipoOperacion	NUMERIC(18,0) IDENTITY(0,1),
+	Descripcion			NVARCHAR(255) NOT NULL
+	
+	PRIMARY KEY (Cod_TipoOperacion),
+	UNIQUE		(Descripcion)
+)
+
 
 CREATE TABLE MERCADONEGRO.Operaciones
 (
@@ -222,7 +251,7 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	ID_Vendedor			NUMERIC(18,0) NOT NULL,
 	ID_Comprador		NUMERIC(18,0) NOT NULL,
 	Cod_Publicacion		NUMERIC(18,0) NOT NULL,
-	Tipo_Operacion		BIT DEFAULT 0 NOT NULL,
+	Cod_TipoOperacion	NUMERIC(18,0) NOT NULL,
 	Cod_Calificacion	NUMERIC(18,0) NULL,
 	Fecha_Operacion		DATETIME	  NOT NULL,
 	Monto_Compra		NUMERIC(18,2) NOT NULL,
@@ -232,7 +261,8 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
-	FOREIGN KEY (Cod_Calificacion) REFERENCES MERCADONEGRO.Calificaciones(Cod_Calificacion)
+	FOREIGN KEY (Cod_Calificacion) REFERENCES MERCADONEGRO.Calificaciones(Cod_Calificacion),
+	FOREIGN KEY (Cod_TipoOperacion) REFERENCES MERCADONEGRO.Tipos_Operacion(Cod_TipoOperacion)
 )
 GO
 
@@ -334,13 +364,13 @@ GO
 CREATE PROCEDURE MERCADONEGRO.AgregarPublicacion(@codVisibilidad numeric(18,0), @idVendedor numeric(18,0),
 												 @descripcion nvarchar(255), @stock numeric(18,0),
 												 @fechaInic datetime, @fechaVenc datetime,
-												 @precio numeric(18,2), @estadoPubl NVARCHAR(255), @tipoPubl NVARCHAR(255),
+												 @precio numeric(18,2), @estadoPubl NUMERIC(18,0), @tipoPubl NUMERIC(18,0),
 												 @permisosPreg bit,
 												 @ret numeric (18,0) output)
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Publicaciones(Cod_Visibilidad, ID_Vendedor, Descripcion, Stock, Fecha_Inicial,
-												Fecha_Vencimiento, Precio, Estado_Publicacion, Permisos_Preguntas,
-												Tipo_Publicacion, Stock_Inicial)
+												Fecha_Vencimiento, Precio, Cod_EstadoPublicacion, Permisos_Preguntas,
+												Cod_TipoPublicacion, Stock_Inicial)
 			VALUES(@codVisibilidad, @idVendedor, @descripcion, @stock, @fechaInic, @fechaVenc, @precio, @estadoPubl,
 				   @permisosPreg, @tipoPubl, @stock)
 				   SET @ret = SCOPE_IDENTITY()
@@ -367,33 +397,6 @@ AS BEGIN
 END
 GO
 
-/* TRIGGER para las compras: inserta calificacion vacia, recibe su cod_calific, con eso inserta una nueva compra en Operaciones
-con fecha actual, y luego updatea el stock de la publicacion corespondiente */
-
-CREATE TRIGGER Trigger_InsertarCompra
-	ON MERCADONEGRO.Operaciones
-	INSTEAD OF INSERT
-	AS BEGIN
-	
-	DECLARE @codCalificacion numeric(18,0)
-	exec MERCADONEGRO.AgregarCalificacion @codCalificacion output 
-	
-	declare @idVendedor numeric(18,0), @idComprador numeric(18,0), @codPublicacion numeric(18,0), @tipoOperacion bit,
-			@montoCompra numeric(18,2), @operacionFacturada bit
-			
-	select @idVendedor = ID_Vendedor, @idComprador = ID_Comprador, @codPublicacion = i.Cod_Publicacion, 
-		   @tipoOperacion = i.Tipo_Operacion, @montoCompra = Monto_Compra, @operacionFacturada = i.Operacion_Facturada
-	from inserted i
-	
-	INSERT INTO MERCADONEGRO.Operaciones (ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion,
-											Cod_calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
-	VALUES ( @idVendedor , @idComprador , @codPublicacion , @tipoOperacion , @codCalificacion ,
-			 GETDATE(), @montoCompra , @operacionFacturada )
-	
-	UPDATE MERCADONEGRO.Publicaciones SET Stock = Stock - 1 WHERE Cod_Publicacion = @codPublicacion
-	
-	END 
-GO
 
 
 /*
@@ -542,6 +545,29 @@ EXEC MERCADONEGRO.AgregarRol
 	@iduser = 0, @idrol = 0;
 
 GO
+-------------------/*AGREGANDO ESTADOS DE PUBLICACION*/-------------------------
+
+INSERT INTO MERCADONEGRO.Estados_Publicacion VALUES ('Borrador');
+INSERT INTO MERCADONEGRO.Estados_Publicacion VALUES ('Publicada');
+INSERT INTO MERCADONEGRO.Estados_Publicacion VALUES ('Pausada');
+INSERT INTO MERCADONEGRO.Estados_Publicacion VALUES ('Finalizada');
+
+GO
+
+---------------------/*AGREGANDO TIPOS DE PUBLICACION*/--------------------------
+
+INSERT INTO MERCADONEGRO.Tipos_Publicacion VALUES('Subasta');
+INSERT INTO MERCADONEGRO.Tipos_Publicacion VALUES('Compra Inmediata');
+
+GO
+
+--------------------/*AGREGANDO TIPOS DE OPERACION*/----------------------------
+
+INSERT INTO MERCADONEGRO.Tipos_Operacion VALUES('Oferta');
+INSERT INTO	MERCADONEGRO.Tipos_Operacion VALUES('Compra');
+
+GO
+
 ------------------------MIGRACION-----------------------------
 
 
@@ -805,21 +831,6 @@ END
 CLOSE contact_cursor;
 DEALLOCATE contact_cursor;
 GO
------------------------------
-/*UPDATE BC
-	SET cant_consultas = (
-		SELECT COUNT(*)
-		FROM mario_killers.Turno t1
-			JOIN mario_killers.Atencion on t1.id = Atencion.id
-		WHERE t1.persona = t2.persona
-			AND t2.horario >= t1.horario
-			--AND EXISTS (SELECT * FROM mario_killers.Atencion WHERE Atencion.id = t1.id)
-	)
-	FROM mario_killers.Bono_Consulta BC
-		JOIN mario_killers.Atencion a ON a.bono_consulta = BC.id
-		JOIN mario_killers.Turno t2 ON t2.id = a.id
-
-*/
 
 ----------------------MIGRANDO Roles_Usuario------------------------
 
@@ -918,9 +929,11 @@ CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 		Publicacion_Fecha,
 		Publicacion_Fecha_Venc,
 		Publicacion_Precio, 
-		Publicacion_Estado, 
-		Publicacion_Tipo, 
-		1 AS Permisos_Preguntas--Permiso de preguntas (cambiar esto si es necesario)
+		1 AS Publicacion_Estado, --Publicacion_estado(Todas estan publicadas => 1)
+		CASE Publicacion_Tipo WHEN 'Subasta' THEN 0
+							  WHEN 'Compra Inmediata' THEN 1
+		END AS Publicacion_Tipo, 
+		1 AS Permisos_Preguntas
 					
 	FROM	gd_esquema.Maestra, MERCADONEGRO.Usuarios
 	WHERE	Publ_Cli_Dni IS NOT NULL AND MERCADONEGRO.Usuarios.Password = CONVERT(NVARCHAR(255), gd_esquema.Maestra.Publ_Cli_Dni)
@@ -936,9 +949,11 @@ CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 		Publicacion_Fecha,
 		Publicacion_Fecha_Venc,
 		Publicacion_Precio, 
-		Publicacion_Estado, 
-		Publicacion_Tipo,  
-		1 AS Permisos_Preguntas--Permiso de preguntas (cambiar esto si es necesario)
+		1 AS Publicacion_Estado, --Publicacion_estado(Todas estan publicadas => 1)
+		CASE Publicacion_Tipo WHEN 'Subasta' THEN 0
+							  WHEN 'Compra Inmediata' THEN 1
+		END AS Publicacion_Tipo, 
+		1 AS Permisos_Preguntas
 					
 	FROM	gd_esquema.Maestra, MERCADONEGRO.Usuarios
 	WHERE	Publ_Empresa_Cuit IS NOT NULL AND MERCADONEGRO.Usuarios.Password = gd_esquema.Maestra.Publ_Empresa_Cuit
@@ -956,8 +971,8 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 										Fecha_Inicial,
 										Fecha_Vencimiento,
 										Precio,
-										Estado_Publicacion, 
-										Tipo_Publicacion, 
+										Cod_EstadoPublicacion, 
+										Cod_TipoPublicacion, 
 										Permisos_Preguntas,
 										Stock_Inicial)
 										
@@ -1024,7 +1039,7 @@ INSERT INTO MERCADONEGRO.Operaciones
 	SELECT DISTINCT MERCADONEGRO.Publicaciones.ID_Vendedor,	
 					MERCADONEGRO.Usuarios.ID_User,			
 					Publicacion_Cod,						 
-					CASE WHEN Tipo_Publicacion = 'Compra Inmediata' THEN 0 ELSE 1 END AS Tipo_Publicacion,						
+					Cod_TipoPublicacion,						
 					Calificacion_Codigo,					
 					Compra_Fecha,							
 					Publicacion_Precio,
@@ -1047,7 +1062,7 @@ CREATE VIEW MERCADONEGRO.SubastasView AS
 	SELECT DISTINCT MERCADONEGRO.Publicaciones.ID_Vendedor  AS vendedor,
 					MERCADONEGRO.Usuarios.ID_User			AS ofertador,
 					Publicacion_Cod							AS codpublic,
-					1										AS tipo,
+					0/*Oferta*/								AS tipo,
 					Calificacion_Codigo						AS codcalific,
 					Oferta_Fecha							AS fechaOferta,
 					Oferta_Monto							AS monto,
@@ -1062,7 +1077,7 @@ CREATE VIEW MERCADONEGRO.SubastasView AS
 	FROM gd_esquema.Maestra, MERCADONEGRO.Usuarios, MERCADONEGRO.Publicaciones
 	
 	WHERE gd_esquema.Maestra.Calificacion_Codigo IS NULL
-	AND MERCADONEGRO.Publicaciones.Tipo_Publicacion = 'Subasta'
+	AND MERCADONEGRO.Publicaciones.Cod_TipoPublicacion = 0
 	AND (Publ_Cli_Dni IS NOT NULL OR Publ_Empresa_Cuit IS NOT NULL)
 	AND	gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion
 	AND MERCADONEGRO.Usuarios.Password = convert(nvarchar(255),Cli_Dni)  	
@@ -1090,7 +1105,7 @@ INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor, ID_Comprador, Cod_Publicacion, Ti
 GO
 
 ---Subastas ganadas
-INSERT INTO MERCADONEGRO.Operaciones(ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion,
+INSERT INTO MERCADONEGRO.Operaciones(ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion,
 									Cod_Calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
 	 
 	SELECT S1.vendedor, S1.ofertador, S1.codpublic, S1.tipo, Calificacion_Codigo, S1.fechaOferta, MAX(s1.monto), 1
@@ -1114,8 +1129,39 @@ GO
 DROP VIEW MERCADONEGRO.CalificacionView
 GO
 
+---------------------TRIGGERS POST MIGRACION-----------------
+/* TRIGGER para las compras: inserta calificacion vacia, recibe su cod_calific, con eso inserta una nueva compra en Operaciones
+con fecha actual, y luego updatea el stock de la publicacion corespondiente */
+
+CREATE TRIGGER Trigger_InsertarCompra
+	ON MERCADONEGRO.Operaciones
+	INSTEAD OF INSERT
+	AS BEGIN
+	
+	DECLARE @codCalificacion numeric(18,0)
+	exec MERCADONEGRO.AgregarCalificacion @codCalificacion output 
+	
+	declare @idVendedor numeric(18,0), @idComprador numeric(18,0), @codPublicacion numeric(18,0), @tipoOperacion NUMERIC(18,0),
+			@montoCompra numeric(18,2), @operacionFacturada bit, @fechaCompra DATETIME
+			
+	select @idVendedor = i.ID_Vendedor, @idComprador = i.ID_Comprador, @codPublicacion = i.Cod_Publicacion, 
+		   @tipoOperacion = i.Cod_TipoOperacion, @montoCompra = i.Monto_Compra, @operacionFacturada = i.Operacion_Facturada, @fechaCompra = i.Fecha_Operacion
+	from inserted i
+	
+	INSERT INTO MERCADONEGRO.Operaciones (ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion,
+											Cod_calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
+	VALUES ( @idVendedor , @idComprador , @codPublicacion , @tipoOperacion , @codCalificacion ,
+			 @fechaCompra, @montoCompra , @operacionFacturada )
+	
+	UPDATE MERCADONEGRO.Publicaciones SET Stock = Stock - 1 WHERE Cod_Publicacion = @codPublicacion
+	
+	END 
+GO
+
+-----------------------------FIN SCRIPT INICIAL---------------------------------
+
 --Drops de vistas que SI tienen que estar en el sistema
-/*
+
 DROP VIEW MERCADONEGRO.MayorFacturacionView
 GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
@@ -1124,4 +1170,5 @@ DROP VIEW MERCADONEGRO.OperacionesSinFacturar
 GO
 DROP VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView
 GO
-*/
+
+
