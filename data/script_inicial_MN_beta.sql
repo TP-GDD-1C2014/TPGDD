@@ -1161,7 +1161,7 @@ GO
 -----------------------------FIN SCRIPT INICIAL---------------------------------
 
 --Drops de vistas que SI tienen que estar en el sistema
-
+/*
 DROP VIEW MERCADONEGRO.MayorFacturacionView
 GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
@@ -1170,5 +1170,5 @@ DROP VIEW MERCADONEGRO.OperacionesSinFacturar
 GO
 DROP VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView
 GO
-
+*/
 
