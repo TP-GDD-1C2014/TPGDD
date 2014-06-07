@@ -158,7 +158,7 @@ namespace FrbaCommerce.Editar_Publicacion
 
             List<estadoComboBox> listaEstados = new List<estadoComboBox>();
             listaEstados.Add(new estadoComboBox("Borrador", 0));
-            listaEstados.Add(new estadoComboBox("Activa", 1));
+            listaEstados.Add(new estadoComboBox("Publicada", 1));
             listaEstados.Add(new estadoComboBox("Pausada", 2));
             listaEstados.Add(new estadoComboBox("Finalizada", 3));
             this.Estado_ComboBox.DataSource = listaEstados;

@@ -18,6 +18,8 @@ namespace FrbaCommerce.Editar_Publicacion
         {
             InitializeComponent();
             CenterToScreen();
+            llenarCombos();
+            Interfaz.limpiarInterfaz(this);
 
             bool esAdmin = Usuario.controlarRol(usuario.ID_User);
 
@@ -31,8 +33,6 @@ namespace FrbaCommerce.Editar_Publicacion
                 dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
             }
 
-
-            llenarCombos();
 
         }
 
@@ -110,7 +110,7 @@ namespace FrbaCommerce.Editar_Publicacion
 
         }*/
 
-        private void buscar_button_Click(object sender, EventArgs e)
+        private void filtrar_button_Click(object sender, EventArgs e)
         {
             //Obtener todos los filtros
             //TODO Verificar que campos están completos (recordar que son filtros ACUMULATIVOS)
@@ -168,10 +168,30 @@ namespace FrbaCommerce.Editar_Publicacion
             Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
 
             //EditarPubliForm editForm = new EditarPubliForm(unaPubli);
-            Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
-            editForm.ShowDialog();
+            if ((unaPubli.Estado_Publicacion == "Borrador") || (unaPubli.Estado_Publicacion == "Publicada"))
+            {
+                Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
+                editForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("El estado de la publicación no permite modificación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+            bool esAdmin = Usuario.controlarRol(usuario.ID_User);
+            //Cargar DataGridView con las publicaciones dependiendo si es Admin o no
+            if (esAdmin == true)
+            {
+                dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
+            }
+            else
+            {
+                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+            }
+
+            /*Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
+            editForm.ShowDialog();
+            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);*/
         }
 
         public void llenarCombos()
@@ -190,7 +210,7 @@ namespace FrbaCommerce.Editar_Publicacion
 
             List<estadoComboBox> listaEstados = new List<estadoComboBox>();
             listaEstados.Add(new estadoComboBox("Borrador", 0));
-            listaEstados.Add(new estadoComboBox("Activa", 1));
+            listaEstados.Add(new estadoComboBox("Publicada", 1));
             listaEstados.Add(new estadoComboBox("Pausada", 2));
             listaEstados.Add(new estadoComboBox("Finalizada", 3));
             this.Estado_ComboBox.DataSource = listaEstados;

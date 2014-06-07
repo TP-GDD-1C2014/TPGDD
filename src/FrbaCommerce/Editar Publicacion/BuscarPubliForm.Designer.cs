@@ -169,7 +169,7 @@
             this.filtrar_button.TabIndex = 21;
             this.filtrar_button.Text = "Filtrar";
             this.filtrar_button.UseVisualStyleBackColor = false;
-            this.filtrar_button.Click += new System.EventHandler(this.buscar_button_Click);
+            this.filtrar_button.Click += new System.EventHandler(this.filtrar_button_Click);
             // 
             // modificar_button
             // 

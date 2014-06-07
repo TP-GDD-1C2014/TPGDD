@@ -45,18 +45,16 @@ namespace FrbaCommerce.Generar_Publicacion
                 llenarCombos();
 
                 codPubli = unaPubli.Cod_Publicacion;
-                Visibilidad_ComboBox.SelectedValue = unaPubli.Cod_Visibilidad;
+                Visibilidad_ComboBox.SelectedItem = unaPubli.Cod_Visibilidad;
                 Descrip_TextBox.Text = unaPubli.Descripcion;
                 Stock_TextBox.Text = Convert.ToString(unaPubli.Stock);
                 FechaFin_DateTimePicker.Text = Convert.ToString(unaPubli.Fecha_Vto);
-                //TODO revisar TipoPubli_ComboBox y Estado_ComboBox
                 TipoPubli_ComboBox.SelectedItem = unaPubli.Tipo_Publicacion;
                 Estado_ComboBox.SelectedItem = unaPubli.Estado_Publicacion;
                 Precio_textBox.Text = Convert.ToString(unaPubli.Precio);
                 PermitirPreguntas_Checkbox.Checked = unaPubli.Permiso_Preguntas;
 
                 esNueva = false;
-                //Ocultar();
             }
         }
         //Combobox Visibilidad (numeric(18,0) )
@@ -121,14 +119,9 @@ namespace FrbaCommerce.Generar_Publicacion
         }
 
 
-       /* private void Ocultar()
-        {
-        }*/
-
         private void Limpiar_button_Click(object sender, EventArgs e)
         {
             Interfaz.limpiarInterfaz(this);
-            //Ocultar();
         }
 
         private void Guardar_button_Click(object sender, EventArgs e)
@@ -163,10 +156,8 @@ namespace FrbaCommerce.Generar_Publicacion
                 if (esNueva == true)
                 {
                     //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
-                    //if (visibilidad == "Gratis")
                     if (visibilidad == "Gratis")
                     {
-                        
                         if (usuario.Cant_Publi_Gratuitas < 3)
                         {
                             //Invocar funcion que inserta publicacion en la tabla Publicaciones
@@ -180,12 +171,12 @@ namespace FrbaCommerce.Generar_Publicacion
                             //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
                             MessageBox.Show("Ya posee 3 publicaciones gratuitas activas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
-
                     }
                     
                 }
                 else
                 {
+
                     //Invocar funcion que actualiza la publicacion en la tabla Publicaciones
                     Publicaciones.actualizarPublicacion(publi, visibilidadIndex);
 
@@ -220,7 +211,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
             List<estadoComboBox> listaEstados = new List<estadoComboBox>();
             listaEstados.Add(new estadoComboBox("Borrador", 0));
-            listaEstados.Add(new estadoComboBox("Activa", 1));
+            listaEstados.Add(new estadoComboBox("Publicada", 1));
             listaEstados.Add(new estadoComboBox("Pausada", 2));
             listaEstados.Add(new estadoComboBox("Finalizada", 3));
             this.Estado_ComboBox.DataSource = listaEstados;
