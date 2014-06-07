@@ -111,6 +111,7 @@ namespace FrbaCommerce.Editar_Publicacion
             {
                 int codPubli = 0;
                 string visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
+                //int visibilidad = Visibilidad_ComboBox.SelectedIndex;
                 //TODO Conseguir la ID_Vendedor
                 int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;

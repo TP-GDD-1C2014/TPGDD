@@ -223,5 +223,44 @@ namespace FrbaCommerce.Clases
                 return false;
             }
         }
+
+        public void sumarPubliGratuita()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Cant_Publi_Gratuitas = (Cant_Publi_Gratuitas+1) WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public static bool controlarRol(int idUser)
+        {
+            bool resultado = false;
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@idUser", idUser));
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT ID_Rol FROM MERCADONEGRO.Roles_Usuarios WHERE ID_User = @idUser", listaParametros, BDSQL.iniciarConexion());
+            if (lector.HasRows)
+            {
+                lector.Read();
+                int rol = Convert.ToInt32(lector["ID_Rol"]);
+                if (rol == 0)
+                {
+                    resultado = true;
+                }
+            }
+
+            BDSQL.cerrarConexion();
+            return resultado;
+        }
+        /*        public static List<Publicacion> obtenerPublicaciones(int idUser)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@idUser",idUser));
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE ID_Vendedor=@idUser",listaParametros , BDSQL.iniciarConexion());
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {*/
     }
 }

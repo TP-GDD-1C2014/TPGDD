@@ -23,7 +23,15 @@ namespace FrbaCommerce.Clases
             {
                 while (lector.Read())
                 {
-                    Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], (string)lector["Cod_Visibilidad"], (int)(decimal)lector["ID_Vendedor"], (String)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], (String)lector["Estado_Publicacion"], (String)lector["Tipo_Publicacion"], (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                    //Se obtienen las descripciones a partir de los codigos de la BD
+                    int cod_visibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
+                    string desc_visibilidad = Interfaz.getDescripcion(cod_visibilidad, "visibilidad");
+                    int cod_estado = Convert.ToInt32(lector["Cod_EstadoPublicacion"]);
+                    string desc_estado = Interfaz.getDescripcion(cod_estado, "estado");
+                    int cod_tipo = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
+                    string desc_tipo = Interfaz.getDescripcion(cod_estado, "tipoPublicacion");
+
+                    Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
                     /*unaPublicacion.Cod_Publicacion = (int)(decimal)lector["Cod_Publicacion"];
                     unaPublicacion.Cod_Visibilidad = (int)(decimal)lector["Cod_Visibilidad"];
                     unaPublicacion.ID_Vendedor = (int)(decimal)lector["ID_Vendedor"];
@@ -36,6 +44,33 @@ namespace FrbaCommerce.Clases
                     unaPublicacion.Tipo_Publicacion = (String)lector["Tipo_Public"];
                     unaPublicacion.Permiso_Preguntas = (int)(decimal)lector["Permisos_Preguntas"];
                     unaPublicacion.Stock_Inicial = (int)(decimal)lector["Stock_Inicial"];*/
+                    publicaciones.Add(unaPublicacion);
+                }
+            }
+
+            BDSQL.cerrarConexion();
+            return publicaciones;
+        }
+
+
+        public static List<Publicacion> obtenerTodaPublicacion()
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones", BDSQL.iniciarConexion());
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    //Se obtienen las descripciones a partir de los codigos de la BD
+                    int cod_visibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
+                    string desc_visibilidad = Interfaz.getDescripcion(cod_visibilidad, "visibilidad");
+                    int cod_estado = Convert.ToInt32(lector["Cod_EstadoPublicacion"]);
+                    string desc_estado = Interfaz.getDescripcion(cod_estado, "estado");
+                    int cod_tipo = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
+                    string desc_tipo = Interfaz.getDescripcion(cod_estado, "tipoPublicacion");
+
+                    //Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], (string)lector["Cod_Visibilidad"], (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], (String)lector["Estado_Publicacion"], (String)lector["Tipo_Publicacion"], (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                    Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
                     publicaciones.Add(unaPublicacion);
                 }
             }
@@ -84,6 +119,7 @@ namespace FrbaCommerce.Clases
 
                     publi.Cod_Publicacion = Convert.ToInt32(lector["Cod_Publicacion"]);
                     publi.Cod_Visibilidad = Interfaz.getDescripcion(Convert.ToInt32(lector["Cod_Visibilidad"]), "visibilidad");
+                    //publi.Cod_Visibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
                     publi.ID_Vendedor = Convert.ToInt32(lector["ID_Vendedor"]);
                     publi.Descripcion = Convert.ToString(lector["Descripcion"]);
                     publi.Stock = Convert.ToInt32(lector["Stock"]);
@@ -103,11 +139,11 @@ namespace FrbaCommerce.Clases
             return publicaciones;
         }
 
-        public static void actualizarPublicacion(Publicacion unaPublicacion)
+        public static void actualizarPublicacion(Publicacion unaPublicacion, int visibilidad)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             listaParametros.Add(new SqlParameter("@codPubli",unaPublicacion.Cod_Publicacion));
-            listaParametros.Add(new SqlParameter("@codVisib", unaPublicacion.Cod_Visibilidad));
+            listaParametros.Add(new SqlParameter("@codVisib", visibilidad));
             listaParametros.Add(new SqlParameter("@idUser", unaPublicacion.ID_Vendedor));
             listaParametros.Add(new SqlParameter("@descrip", unaPublicacion.Descripcion));
             listaParametros.Add(new SqlParameter("@stock", unaPublicacion.Stock));
@@ -126,5 +162,38 @@ namespace FrbaCommerce.Clases
                 MessageBox.Show("Éxtio al actualizar Publicación", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             BDSQL.cerrarConexion();
         }
+
+        public static void agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", unaPubli.ID_Vendedor);
+            BDSQL.agregarParametro(listaParametros, "@Descripcion", unaPubli.Descripcion);
+            BDSQL.agregarParametro(listaParametros, "@Stock", unaPubli.Stock);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Vto", unaPubli.Fecha_Vto);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Inic", unaPubli.Fecha_Inicio);
+            BDSQL.agregarParametro(listaParametros, "@Precio", unaPubli.Precio);
+            BDSQL.agregarParametro(listaParametros, "@Estado_Publicacion", estado);
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Publicacion", tipoPubli);
+            BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", unaPubli.Permiso_Preguntas);
+            BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
+
+            int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones(Cod_visibilidad,ID_Vendedor,Descripcion,Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Cod_EstadoPublicacion,Cod_TipoPublicacion,Permisos_Preguntas,Stock_Inicial) VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock,@Fecha_Vto,@Fecha_Inic,@Precio,@Estado_Publicacion,@Tipo_Publicacion,@Permiso_Preguntas,@Stock_Inicial)", listaParametros, BDSQL.iniciarConexion());
+
+            if (resultado == -1)
+            {
+                MessageBox.Show("Falló al generar Publicacion", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Éxito al generar Publicacion", "Nice!", MessageBoxButtons.OK);
+            }
+
+
+
+            BDSQL.cerrarConexion();
+        }
+
     }
-}  
+}

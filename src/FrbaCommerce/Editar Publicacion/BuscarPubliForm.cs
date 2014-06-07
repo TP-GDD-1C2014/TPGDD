@@ -19,8 +19,18 @@ namespace FrbaCommerce.Editar_Publicacion
             InitializeComponent();
             CenterToScreen();
 
-            //Cargar DataGridView con las publicaciones
-            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+            bool esAdmin = Usuario.controlarRol(usuario.ID_User);
+
+            //Cargar DataGridView con las publicaciones dependiendo si es Admin o no
+            if (esAdmin == true)
+            {
+                dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
+            }
+            else
+            {
+                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+            }
+
 
             llenarCombos();
 

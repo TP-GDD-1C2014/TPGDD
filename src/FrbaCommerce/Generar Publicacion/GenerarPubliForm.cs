@@ -141,6 +141,7 @@ namespace FrbaCommerce.Generar_Publicacion
                     codPubli = 0;
                 }
                 string visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
+                int visibilidadIndex = Visibilidad_ComboBox.SelectedIndex;
                 int idVendedor = usuario.ID_User;
                 string descripcion = Descrip_TextBox.Text;
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
@@ -148,7 +149,9 @@ namespace FrbaCommerce.Generar_Publicacion
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
                 DateTime fechaInicio = DateTime.Today;
                 string estado = Convert.ToString(Estado_ComboBox.SelectedItem);
+                int estadoIndex = Estado_ComboBox.SelectedIndex;
                 string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
+                int tipoPubliIndex = TipoPubli_ComboBox.SelectedIndex;
                 decimal precio = Convert.ToDecimal(Precio_textBox.Text);
                 bool permisoPreg = PermitirPreguntas_Checkbox.Checked;
 
@@ -159,23 +162,34 @@ namespace FrbaCommerce.Generar_Publicacion
                 //Comprobar si es nueva o para modificar
                 if (esNueva == true)
                 {
-                    //TODO Si es gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
+                    //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
+                    //if (visibilidad == "Gratis")
                     if (visibilidad == "Gratis")
                     {
-                        //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
+                        
+                        if (usuario.Cant_Publi_Gratuitas < 3)
+                        {
+                            //Invocar funcion que inserta publicacion en la tabla Publicaciones
+                            Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
 
-                        //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
+                            //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
+                            usuario.sumarPubliGratuita();
+                        }
+                        else
+                        {
+                            //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
+                            MessageBox.Show("Ya posee 3 publicaciones gratuitas activas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
 
                     }
-
-                    //Invocar funcion que inserta publicacion en la tabla Publicaciones
-                    publi.agregarPublicacion(visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, estado, tipoPubli, precio, permisoPreg);
-
+                    
                 }
                 else
                 {
                     //Invocar funcion que actualiza la publicacion en la tabla Publicaciones
-                    Publicaciones.actualizarPublicacion(publi);
+                    Publicaciones.actualizarPublicacion(publi, visibilidadIndex);
+
+                    
                 }
                 
             }
