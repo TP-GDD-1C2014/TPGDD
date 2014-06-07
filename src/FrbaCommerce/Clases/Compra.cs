@@ -10,8 +10,15 @@ namespace FrbaCommerce.Clases
 {
     public class Compra
     {
-        public DateTime Fecha { get; set; }
+        public int Vendedor { get; set; }
+        public int Comprador { get; set; }
         public int Cod_Publicacion { get; set; }
+        public int Tipo_Operacion { get; set; }
+        public int Cod_Calificacion { get; set; }
+        public DateTime Fecha { get; set; }
+        public decimal Monto_Compra { get; set; }
+        public bool Operacion_Facturada { get; set; }
+       
         
 
         public int Calificacion { get; set; }
@@ -19,6 +26,19 @@ namespace FrbaCommerce.Clases
 
         public SqlConnection conexion { get; set; }
 
+        public Compra(int idVendedor, int idComprador, int codPublicacion, int tipoOperacion, decimal montoCompra, bool operacionFacutrada)
+        {
+            Vendedor = idVendedor;
+            Comprador = idComprador;
+            Cod_Publicacion = codPublicacion;
+            Tipo_Operacion = tipoOperacion;
+            //Cod_Calificacion = codCalificacion;
+            //Fecha = fecha;
+            Monto_Compra = montoCompra;
+            Operacion_Facturada = operacionFacutrada;
+        }
+        
+        
         public Compra(int idVendedor, int codPublicacion, Clases.Calificacion calificacion, DateTime fechaOperacion, SqlConnection _conexion)
         {
             this.conexion = _conexion;
@@ -91,6 +111,24 @@ namespace FrbaCommerce.Clases
                 return lector1;
             }
     
+        }
+
+        public static void insertarCompra(Compra compra)
+        {
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@idVendedor", compra.Vendedor));
+            ListaParametros.Add(new SqlParameter("@idComprador", compra.Comprador));
+            ListaParametros.Add(new SqlParameter("@codPublicacion", compra.Cod_Publicacion));
+            ListaParametros.Add(new SqlParameter("@tipoOperacion", compra.Tipo_Operacion));
+            ListaParametros.Add(new SqlParameter("@montoCompra", compra.Monto_Compra));
+            ListaParametros.Add(new SqlParameter("@operacionFacturada", compra.Operacion_Facturada));
+
+            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Operaciones (ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion, " +
+								"Monto_Compra, Operacion_Facturada) " +
+	                            "VALUES ( @idVendedor , @idComprador , @codPublicacion , @tipoOperacion , " +
+			                    "@montoCompra , @operacionFacturada )", ListaParametros, BDSQL.iniciarConexion());
+            
+            BDSQL.cerrarConexion();
         }
     }
 }

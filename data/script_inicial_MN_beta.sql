@@ -359,6 +359,43 @@ GO
 
 
 
+CREATE PROCEDURE MERCADONEGRO.AgregarCalificacion (@codCalificacion numeric(18,0) output )
+AS BEGIN
+		INSERT INTO MERCADONEGRO.Calificaciones (Puntaje,Descripcion,Fecha_Calificacion)
+		VALUES (NULL, NULL, NULL)
+		SET @codCalificacion = SCOPE_IDENTITY()
+END
+GO
+
+/* TRIGGER para las compras: inserta calificacion vacia, recibe su cod_calific, con eso inserta una nueva compra en Operaciones
+con fecha actual, y luego updatea el stock de la publicacion corespondiente */
+
+CREATE TRIGGER Trigger_InsertarCompra
+	ON MERCADONEGRO.Operaciones
+	INSTEAD OF INSERT
+	AS BEGIN
+	
+	DECLARE @codCalificacion numeric(18,0)
+	exec MERCADONEGRO.AgregarCalificacion @codCalificacion output 
+	
+	declare @idVendedor numeric(18,0), @idComprador numeric(18,0), @codPublicacion numeric(18,0), @tipoOperacion bit,
+			@montoCompra numeric(18,2), @operacionFacturada bit
+			
+	select @idVendedor = ID_Vendedor, @idComprador = ID_Comprador, @codPublicacion = i.Cod_Publicacion, 
+		   @tipoOperacion = i.Tipo_Operacion, @montoCompra = Monto_Compra, @operacionFacturada = i.Operacion_Facturada
+	from inserted i
+	
+	INSERT INTO MERCADONEGRO.Operaciones (ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion,
+											Cod_calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
+	VALUES ( @idVendedor , @idComprador , @codPublicacion , @tipoOperacion , @codCalificacion ,
+			 GETDATE(), @montoCompra , @operacionFacturada )
+	
+	UPDATE MERCADONEGRO.Publicaciones SET Stock = Stock - 1 WHERE Cod_Publicacion = @codPublicacion
+	
+	END 
+GO
+
+
 /*
 CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
 											  @numDoc numeric(18,0), @nombre nvarchar(255),

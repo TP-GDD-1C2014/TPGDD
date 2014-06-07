@@ -16,27 +16,21 @@ namespace FrbaCommerce.Comprar_Ofertar
 {
     public partial class DetallePublicacion : Form
     {
-        int codPublicacion;
-        int idVendedor;
+       Publicacion publi;
 
         public  DetallePublicacion(Publicacion unaPublicacion)
         {
             InitializeComponent();
 
-            //guardo el codPublicacion
-            txtCodPublicacion.Text = Convert.ToString(unaPublicacion.Cod_Publicacion);
-            codPublicacion = unaPublicacion.Cod_Publicacion;
+            publi = unaPublicacion;
 
+            txtCodPublicacion.Text = Convert.ToString(unaPublicacion.Cod_Publicacion);
             txtCodVisibilidad.Text = Convert.ToString(unaPublicacion.Cod_Visibilidad);
             txtDescripcion.Text = unaPublicacion.Descripcion;
             txtEstadoPublicacion.Text = unaPublicacion.Estado_Publicacion;
             txtFechaFinalizacion.Text = Convert.ToString(unaPublicacion.Fecha_Vto);
             txtFechaInicio.Text = Convert.ToString(unaPublicacion.Fecha_Inicio);
-
-            //guardo el idVendedor
             txtIdVendedor.Text = Convert.ToString(unaPublicacion.ID_Vendedor);
-            idVendedor = unaPublicacion.ID_Vendedor;
-
             txtPrecio.Text = Convert.ToString(unaPublicacion.Precio);
             txtStockDisponible.Text = Convert.ToString(unaPublicacion.Stock);
             txtStockInicial.Text = Convert.ToString(unaPublicacion.Stock_Inicial);
@@ -49,6 +43,9 @@ namespace FrbaCommerce.Comprar_Ofertar
                 btnEnviar.Enabled = false;
                 btnLimpiar.Enabled = false;
             }
+
+            if (publi.Tipo_Publicacion != "Compra Inmediata")
+                btnComprar.Text = "Ofertar";
 
         }
 
@@ -66,19 +63,30 @@ namespace FrbaCommerce.Comprar_Ofertar
             {
                 MessageBox.Show("Pregunta enviada con éxito!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtPregunta.Text = "";
-                Pregunta.insertarPreguntaPorPublicacion(codPublicacion, idPregunta);
+                Pregunta.insertarPreguntaPorPublicacion(publi.Cod_Publicacion, idPregunta);
             }
         }
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            DialogResult res = MessageBox.Show("Esta seguro que desea realizar la compra?", "Importante", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-
-            if (res == DialogResult.Yes)
+            if (publi.Tipo_Publicacion == "Compra Inmediata")
             {
-                
-                DatosVendedor datosVendedorForm = new DatosVendedor(idVendedor);
-                datosVendedorForm.ShowDialog();
+                DialogResult res = MessageBox.Show("Esta seguro que desea realizar la compra?", "Importante", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+                if (res == DialogResult.Yes)
+                {
+                    //int codCalificacion = agregarCalificacion();
+                    Compra compra = new Compra(publi.ID_Vendedor, Interfaz.usuario.ID_User, publi.Cod_Publicacion, 0 , publi.Precio, false);
+                    Compra.insertarCompra(compra);
+
+                    DatosVendedor datosVendedorForm = new DatosVendedor(publi.ID_Vendedor);
+                    datosVendedorForm.ShowDialog();
+                }
+            }
+            else if (publi.Tipo_Publicacion == "Subasta")
+            {
+                OfertaDlg ofertaDlg = new OfertaDlg(publi);
+                ofertaDlg.ShowDialog();
             }
         }
     }
