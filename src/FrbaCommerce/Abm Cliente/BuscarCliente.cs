@@ -197,8 +197,8 @@ namespace FrbaCommerce.Abm_Cliente
         public void formatearDataGrid()
         {
             int widthNombre = 100;
-            int widthApellido = 100;
-            int widthBotones = 100;
+            int widthApellido = 120;
+            int widthBotones = 80;
 
             dgResultados.DataSource = resultados;
             dgResultados.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -212,7 +212,7 @@ namespace FrbaCommerce.Abm_Cliente
             col_nombre.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             col_nombre.Width = widthNombre;
 
-            DataGridViewColumn col_apellido = dgResultados.Columns[1];
+            DataGridViewColumn col_apellido = dgResultados.Columns[2];
             col_apellido.Resizable = DataGridViewTriState.False;
             col_apellido.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             col_apellido.Width = widthApellido;
@@ -245,6 +245,34 @@ namespace FrbaCommerce.Abm_Cliente
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public void eliminarCliente(int id)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", id);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Habilitado = 0 WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+            MessageBox.Show("Usuario inhabilitado.");
+        }
+
+        private void dgResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    ModificarCliente form1 = new ModificarCliente(Convert.ToInt32(dgResultados.Rows[e.RowIndex].Cells[2].Value), this);
+                    this.Hide();
+                    form1.Show();
+                    break;
+                case 1:
+                    DialogResult result = MessageBox.Show("Se inhabilitará al cliente " + Convert.ToString(dgResultados.Rows[e.RowIndex].Cells[3].Value) + ", " + Convert.ToString(dgResultados.Rows[e.RowIndex].Cells[4].Value) + ".\n\n¿Está seguro?", "Confirmación", MessageBoxButtons.YesNoCancel);
+                    if (result == DialogResult.Yes)
+                    {
+                        eliminarCliente(Convert.ToInt32(dgResultados.Rows[e.RowIndex].Cells[2].Value));
+                    }
+                    break;
+            }
         }
     }
 }

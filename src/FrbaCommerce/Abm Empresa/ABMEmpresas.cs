@@ -281,23 +281,44 @@ namespace FrbaCommerce.Abm_Empresa
                     MessageBox.Show("Debe seleccionar un criterio de búsqueda.", "Error");
                     break;
                 case 0: // Razón Social
-                    BuscarEmpresa form0 = new BuscarEmpresa('R', tBusqueda.Text);
-                    form0.Show();
-                    break;
-                case 1: // CUIT
-                    if (tBusqueda.Text.Length <= 50)
+                    if (!tBusqueda.Text.Equals(""))
                     {
-                        BuscarEmpresa form1 = new BuscarEmpresa('C', tBusqueda.Text);
-                        form1.Show();
+                        BuscarEmpresa form0 = new BuscarEmpresa('R', tBusqueda.Text);
+                        form0.Show();
                     }
                     else
                     {
-                        MessageBox.Show("CUIT inválido.","Error");
+                        MessageBox.Show("Debe ingresar los campos solicitados.", "Error");
+                    }
+                    break;
+                case 1: // CUIT
+                    if (!tBusqueda.Text.Equals(""))
+                    {
+                        if (tBusqueda.Text.Length <= 50)
+                        {
+                            BuscarEmpresa form1 = new BuscarEmpresa('C', tBusqueda.Text);
+                            form1.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("CUIT inválido.", "Error");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe ingresar los campos solicitados.", "Error");
                     }
                     break;
                 case 2: // EMAIL
-                    BuscarEmpresa form2 = new BuscarEmpresa('E', tBusqueda.Text);
-                    form2.Show();
+                    if (!tBusqueda.Text.Equals(""))
+                    {
+                        BuscarEmpresa form2 = new BuscarEmpresa('E', tBusqueda.Text);
+                        form2.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe ingresar los campos solicitados.", "Error");
+                    }
                     break;
             }
         }

@@ -62,6 +62,12 @@
     <Compile Include="Abm Cliente\BuscarCliente.Designer.cs">
       <DependentUpon>BuscarCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\ModificarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\ModificarCliente.Designer.cs">
+      <DependentUpon>ModificarCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Empresa\ABMEmpresas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,12 @@
     </Compile>
     <Compile Include="Abm Empresa\BuscarEmpresa.Designer.cs">
       <DependentUpon>BuscarEmpresa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Abm Empresa\ModificarEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Empresa\ModificarEmpresa.Designer.cs">
+      <DependentUpon>ModificarEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Rol\AbmRolForm.cs">
       <SubType>Form</SubType>
@@ -245,11 +257,17 @@
     <EmbeddedResource Include="Abm Cliente\BuscarCliente.resx">
       <DependentUpon>BuscarCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\ModificarCliente.resx">
+      <DependentUpon>ModificarCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa\ABMEmpresas.resx">
       <DependentUpon>ABMEmpresas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Empresa\BuscarEmpresa.resx">
       <DependentUpon>BuscarEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Empresa\ModificarEmpresa.resx">
+      <DependentUpon>ModificarEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Rol\AbmRolForm.resx">
       <DependentUpon>AbmRolForm.cs</DependentUpon>

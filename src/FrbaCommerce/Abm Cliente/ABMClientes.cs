@@ -343,31 +343,66 @@ namespace FrbaCommerce.Abm_Cliente
                     MessageBox.Show("Debe seleccionar un criterio de búsqueda.", "Error");
                     break;
                 case 0: // Nombre
-                    BuscarCliente form0 = new BuscarCliente('N', tBusqueda.Text);
-                    form0.Show();
-                    break;
-                case 1: // Apellido
-                    BuscarCliente form1 = new BuscarCliente('A', tBusqueda.Text);
-                    form1.Show();
-                    break;
-                case 2: // Tipo de documento
-                    BuscarCliente form2 = new BuscarCliente('T', cbFiltroTipoDocumento.SelectedItem.ToString());
-                    form2.Show();
-                    break;
-                case 3: // Número de documento
-                    if (Interfaz.esNumerico(tBusqueda.Text, System.Globalization.NumberStyles.Integer))
+                    if (!tBusqueda.Text.Equals(""))
                     {
-                        BuscarCliente form3 = new BuscarCliente('D', tBusqueda.Text);
-                        form3.Show();
+                        BuscarCliente form0 = new BuscarCliente('N', tBusqueda.Text);
+                        form0.Show();
                     }
                     else
                     {
-                        MessageBox.Show("Número de documento inválido.","Error");
+                        MessageBox.Show("Debe ingresar los campos solicitados", "Error");
+                    }
+                    break;
+                case 1: // Apellido
+                    if (!tBusqueda.Text.Equals(""))
+                    {
+                        BuscarCliente form1 = new BuscarCliente('A', tBusqueda.Text);
+                        form1.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe ingresar los campos solicitados", "Error");
+                    }
+                    break;
+                case 2: // Tipo de documento
+                    if (cbFiltroTipoDocumento.SelectedIndex != -1)
+                    {
+                        BuscarCliente form2 = new BuscarCliente('T', cbFiltroTipoDocumento.SelectedItem.ToString());
+                        form2.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe ingresar los campos solicitados", "Error");
+                    }
+                    break;
+                case 3: // Número de documento
+                    if (!tBusqueda.Text.Equals(""))
+                    {
+                        if (Interfaz.esNumerico(tBusqueda.Text, System.Globalization.NumberStyles.Integer))
+                        {
+                            BuscarCliente form3 = new BuscarCliente('D', tBusqueda.Text);
+                            form3.Show();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Número de documento inválido.", "Error");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe ingresar los campos solicitados", "Error");
                     }
                     break;
                 case 4: // Email
-                    BuscarCliente form4 = new BuscarCliente('E', tBusqueda.Text);
-                    form4.Show();
+                    if (!tBusqueda.Text.Equals(""))
+                    {
+                        BuscarCliente form4 = new BuscarCliente('E', tBusqueda.Text);
+                        form4.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe ingresar los campos solicitados", "Error");
+                    }
                     break;
             }
         }

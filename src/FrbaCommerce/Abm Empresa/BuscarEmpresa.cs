@@ -136,15 +136,15 @@ namespace FrbaCommerce.Abm_Empresa
 
         public void formatearDataGrid()
         {
-            int widthRazonSocial = 200;
-            int widthBotones = 100;
+            int widthRazonSocial = 227;
+            int widthBotones = 85;
 
             dgResultados.DataSource = resultados;
             dgResultados.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgResultados.RowHeadersVisible = false;
 
             DataGridViewColumn col_idUser = dgResultados.Columns[0];
-            col_idUser.Visible = false;
+            col_idUser.Visible = true;
 
             DataGridViewColumn col_razonSocial = dgResultados.Columns[1];
             col_razonSocial.Resizable = DataGridViewTriState.False;
@@ -179,6 +179,34 @@ namespace FrbaCommerce.Abm_Empresa
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public void eliminarEmpresa(int id)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", id);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Habilitado = 0 WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+            MessageBox.Show("Usuario inhabilitado.");
+        }
+
+        private void dgResultados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            switch (e.ColumnIndex)
+            {
+                case 0:
+                    ModificarEmpresa form1 = new ModificarEmpresa(Convert.ToInt32(dgResultados.Rows[e.RowIndex].Cells[2].Value), this);
+                    this.Hide();
+                    form1.Show();
+                    break;
+                case 1:
+                    DialogResult result = MessageBox.Show("Se inhabilitará a la empresa "+Convert.ToString(dgResultados.Rows[e.RowIndex].Cells[3].Value)+".\n\n¿Está seguro?", "Confirmación", MessageBoxButtons.YesNoCancel);
+                    if (result == DialogResult.Yes)
+                    {
+                        eliminarEmpresa(Convert.ToInt32(dgResultados.Rows[e.RowIndex].Cells[2].Value));
+                    }
+                    break;
+            }
         }
     }
 }
