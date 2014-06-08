@@ -232,7 +232,7 @@
             this.Controls.Add(this.Visibilidad_Label);
             this.Controls.Add(this.Descrip_TextBox);
             this.Name = "GenerarPubliForm";
-            this.Text = "Generar Publicación";
+            this.Text = "Generar o Modificar Publicación";
             this.Load += new System.EventHandler(this.GenerarPubliForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

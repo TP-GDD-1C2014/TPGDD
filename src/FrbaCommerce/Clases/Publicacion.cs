@@ -11,7 +11,7 @@ using FrbaCommerce.Clases;
 namespace FrbaCommerce.Clases
 {
 
-    //public enum Estado_Publicacion { Borrador = 0, Activa, Pausada, Finalizada }; es que.. a ver pera
+    //public enum Estado_Publicacion { Borrador = 0, Publicada, Pausada, Finalizada }; es que.. a ver pera
     //public enum Tipo_Publicacion { Inmediata = 0, Subasta } sino la hago rústica y veo si puedo pasarle cada parametro de la publi
 
     public class Publicacion
