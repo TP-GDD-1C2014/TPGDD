@@ -115,22 +115,22 @@ namespace FrbaCommerce.Editar_Publicacion
             //Obtener todos los filtros
             //TODO Verificar que campos están completos (recordar que son filtros ACUMULATIVOS)
             int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
-            var visibilidad = (Visibilidad)Visibilidad_ComboBox.SelectedValue;
+            var visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
             int idVendedor = usuario.ID_User;
             string descripcion = Descrip_TextBox.Text;
             int stock = Convert.ToInt32(StockInicial_TextBox.Text);
-            //Obtener fechaFin y fechaInic
+            //TODO Averiguar como filtrar por fecha (cuestion NULL)
             DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
-            DateTime fechaInic = Convert.ToDateTime(dateTimePicker2.Text);
-            var estado = (int)Estado_ComboBox.SelectedValue;
-            var tipoPubli = (int)TipoPubli_ComboBox.SelectedValue;
+            DateTime fechaInic = Convert.ToDateTime(dateTimePicker2.Text); 
+            string estado = Convert.ToString(Estado_ComboBox.SelectedItem);
+            string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
             int precio = Convert.ToInt32(precio_textBox.Text);
-            //Falta permisoPreg (problema con combobox)
             bool permisoPreg = permisos_checkbox.Checked;
 
-            /*Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, estado, precio, tipoPubli, permisoPreg, stock);
+            Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, precio, estado, tipoPubli, permisoPreg, stock);
+            
             //Buscar Publicaciones y mostrar en dataGridView1
-            nuevaPubli.buscarPublicacion(cod_publi,idVendedor,visibilidad,descripcion,stock,estado,tipoPubli);*/
+            //Publicaciones.filtrarPublicaciones(publi);
 
             //Recordar que los campos del datagridview NO pueden ser editables
         }

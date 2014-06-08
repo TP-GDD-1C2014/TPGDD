@@ -79,6 +79,29 @@ namespace FrbaCommerce.Clases
             return publicaciones;
         }
 
+        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion)
+        {
+            List<Publicacion> publicaciones = new List<Publicacion>();
+            List<SqlParameter> listaParametros = new List<SqlParameter>(); listaParametros.Add(new SqlParameter("@codPubli", unaPublicacion.Cod_Publicacion));
+            listaParametros.Add(new SqlParameter("@codPubli", unaPublicacion.Cod_Publicacion));
+            listaParametros.Add(new SqlParameter("@codVisib", unaPublicacion.Cod_Visibilidad));
+            listaParametros.Add(new SqlParameter("@idUser", unaPublicacion.ID_Vendedor));
+            listaParametros.Add(new SqlParameter("@descrip", unaPublicacion.Descripcion));
+            listaParametros.Add(new SqlParameter("@stock", unaPublicacion.Stock));
+            listaParametros.Add(new SqlParameter("@fechaVto", unaPublicacion.Fecha_Vto));
+            listaParametros.Add(new SqlParameter("@fechaInic", unaPublicacion.Fecha_Inicio));
+            listaParametros.Add(new SqlParameter("@precio", unaPublicacion.Precio));
+            listaParametros.Add(new SqlParameter("@estado", unaPublicacion.Estado_Publicacion));
+            listaParametros.Add(new SqlParameter("@tipo", unaPublicacion.Tipo_Publicacion));
+            listaParametros.Add(new SqlParameter("@permiso", unaPublicacion.Permiso_Preguntas));
+            listaParametros.Add(new SqlParameter("@stockInic", unaPublicacion.Stock_Inicial));
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE", BDSQL.iniciarConexion());
+
+            BDSQL.cerrarConexion();
+            return publicaciones;
+        }
+
         public static void eliminarPublicacion(Publicacion unaPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -139,7 +162,7 @@ namespace FrbaCommerce.Clases
             return publicaciones;
         }
 
-        public static void actualizarPublicacion(Publicacion unaPublicacion, int visibilidad)
+        public static void actualizarPublicacion(Publicacion unaPublicacion, int visibilidad, int estado, int tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             listaParametros.Add(new SqlParameter("@codPubli",unaPublicacion.Cod_Publicacion));
@@ -150,8 +173,8 @@ namespace FrbaCommerce.Clases
             listaParametros.Add(new SqlParameter("@fechaVto", unaPublicacion.Fecha_Vto));
             listaParametros.Add(new SqlParameter("@fechaInic", unaPublicacion.Fecha_Inicio));
             listaParametros.Add(new SqlParameter("@precio", unaPublicacion.Precio));
-            listaParametros.Add(new SqlParameter("@estado", unaPublicacion.Estado_Publicacion));
-            listaParametros.Add(new SqlParameter("@tipo", unaPublicacion.Tipo_Publicacion));
+            listaParametros.Add(new SqlParameter("@estado", estado));
+            listaParametros.Add(new SqlParameter("@tipo", tipoPubli));
             listaParametros.Add(new SqlParameter("@permiso", unaPublicacion.Permiso_Preguntas));
             listaParametros.Add(new SqlParameter("@stockInic", unaPublicacion.Stock_Inicial));
 
