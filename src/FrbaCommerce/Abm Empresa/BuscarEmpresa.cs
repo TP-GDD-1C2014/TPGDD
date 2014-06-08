@@ -144,7 +144,7 @@ namespace FrbaCommerce.Abm_Empresa
             dgResultados.RowHeadersVisible = false;
 
             DataGridViewColumn col_idUser = dgResultados.Columns[0];
-            col_idUser.Visible = true;
+            col_idUser.Visible = false;
 
             DataGridViewColumn col_razonSocial = dgResultados.Columns[1];
             col_razonSocial.Resizable = DataGridViewTriState.False;
