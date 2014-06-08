@@ -53,6 +53,7 @@ namespace FrbaCommerce.Clases
         }
 
 
+
         public static List<Publicacion> obtenerTodaPublicacion()
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
@@ -79,28 +80,116 @@ namespace FrbaCommerce.Clases
             return publicaciones;
         }
 
-        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion)
+
+        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion, int indexVis, int indexEstado, int indexTipo)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            List<SqlParameter> listaParametros = new List<SqlParameter>(); listaParametros.Add(new SqlParameter("@codPubli", unaPublicacion.Cod_Publicacion));
-            listaParametros.Add(new SqlParameter("@codPubli", unaPublicacion.Cod_Publicacion));
-            listaParametros.Add(new SqlParameter("@codVisib", unaPublicacion.Cod_Visibilidad));
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            if (unaPublicacion.Cod_Publicacion == -1){
+                listaParametros.Add(new SqlParameter("@codPubli", DBNull.Value));
+            }
+            else{
+                listaParametros.Add(new SqlParameter("@codPubli", unaPublicacion.Cod_Publicacion));
+            }
+
+            if (indexVis == -1)
+            {
+                listaParametros.Add(new SqlParameter("@codVisib", DBNull.Value));
+            }
+            else
+            {
+                listaParametros.Add(new SqlParameter("@codVisib", indexVis));
+            }
+            
             listaParametros.Add(new SqlParameter("@idUser", unaPublicacion.ID_Vendedor));
             listaParametros.Add(new SqlParameter("@descrip", unaPublicacion.Descripcion));
-            listaParametros.Add(new SqlParameter("@stock", unaPublicacion.Stock));
-            listaParametros.Add(new SqlParameter("@fechaVto", unaPublicacion.Fecha_Vto));
-            listaParametros.Add(new SqlParameter("@fechaInic", unaPublicacion.Fecha_Inicio));
-            listaParametros.Add(new SqlParameter("@precio", unaPublicacion.Precio));
-            listaParametros.Add(new SqlParameter("@estado", unaPublicacion.Estado_Publicacion));
-            listaParametros.Add(new SqlParameter("@tipo", unaPublicacion.Tipo_Publicacion));
+            int stock;
+            if (unaPublicacion.Stock == -1){
+                stock = Convert.ToInt32(null);
+            }
+            else{
+                stock=  unaPublicacion.Stock;
+            }
+            listaParametros.Add(new SqlParameter("@stock", stock));
+
+            /*DateTime fechaVto;
+            if (unaPublicacion.Fecha_Vto == Convert.ToDateTime(null)){
+                fechaVto = Convert.ToDateTime(null);
+            }
+            else{
+                fechaVto = unaPublicacion.Fecha_Vto;
+            }
+            listaParametros.Add(new SqlParameter("@fechaVto", fechaVto));
+
+            DateTime FechaInic;
+            if (unaPublicacion.Fecha_Vto == Convert.ToDateTime(null)){
+                FechaInic = Convert.ToDateTime(null);
+            }
+            else{
+                FechaInic = unaPublicacion.Fecha_Inicio;
+            }
+            listaParametros.Add(new SqlParameter("@fechaInic", FechaInic));
+            */
+
+            decimal precio;
+            if (unaPublicacion.Precio == -1){
+                precio = Convert.ToDecimal(null);
+            }
+            else{
+                precio = unaPublicacion.Precio;
+            }
+            listaParametros.Add(new SqlParameter("@precio", precio));
+
+            int codigo_estado;
+            if (indexEstado == -1)
+            {
+                codigo_estado = Convert.ToInt32(null);
+            }
+            else
+            {
+                codigo_estado = indexEstado;
+            }
+            listaParametros.Add(new SqlParameter("@estado", codigo_estado));
+
+            int codigo_tipo;
+            if (indexTipo == -1)
+            {
+                codigo_tipo = Convert.ToInt32(null);
+            }
+            else
+            {
+                codigo_tipo = indexTipo;
+            }
+            listaParametros.Add(new SqlParameter("@tipo", codigo_tipo));
+
             listaParametros.Add(new SqlParameter("@permiso", unaPublicacion.Permiso_Preguntas));
-            listaParametros.Add(new SqlParameter("@stockInic", unaPublicacion.Stock_Inicial));
 
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE", BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE (ID_Vendedor=@idUser) AND ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND ((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%'))", listaParametros, BDSQL.iniciarConexion());
+            //  ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli))
+            // ((@codPubli is NULL) OR (Cod_Publicacion LIKE '%' + @codPubli + '%'))
+            //  AND ((@descrip is NULL) OR (Descripcion LIKE @descrip))
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    //Se obtienen las descripciones a partir de los codigos de la BD
+                    int cod_visibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
+                    string desc_visibilidad = Interfaz.getDescripcion(cod_visibilidad, "visibilidad");
+                    int cod_estado = Convert.ToInt32(lector["Cod_EstadoPublicacion"]);
+                    string desc_estado = Interfaz.getDescripcion(cod_estado, "estado");
+                    int cod_tipo = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
+                    string desc_tipo = Interfaz.getDescripcion(cod_estado, "tipoPublicacion");
 
+                    //Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], (string)lector["Cod_Visibilidad"], (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], (String)lector["Estado_Publicacion"], (String)lector["Tipo_Publicacion"], (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                    Publicacion unaPubli = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                    publicaciones.Add(unaPubli);
+                }
+            }
             BDSQL.cerrarConexion();
             return publicaciones;
         }
+
 
         public static void eliminarPublicacion(Publicacion unaPubli)
         {
@@ -162,6 +251,7 @@ namespace FrbaCommerce.Clases
             return publicaciones;
         }
 
+
         public static void actualizarPublicacion(Publicacion unaPublicacion, int visibilidad, int estado, int tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -185,6 +275,7 @@ namespace FrbaCommerce.Clases
                 MessageBox.Show("Éxtio al actualizar Publicación", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             BDSQL.cerrarConexion();
         }
+
 
         public static void agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
         {
@@ -212,11 +303,9 @@ namespace FrbaCommerce.Clases
             {
                 MessageBox.Show("Éxito al generar Publicacion", "Nice!", MessageBoxButtons.OK);
             }
-
-
-
             BDSQL.cerrarConexion();
         }
+
 
     }
 }
