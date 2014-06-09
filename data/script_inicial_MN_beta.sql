@@ -399,12 +399,15 @@ AS BEGIN
 END
 GO
 
-CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit)
+CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @ret numeric(18,0) output)
 AS BEGIN
 	INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta, Habilitada)
 	VALUES (@descripcion, @costoPublicacion, @porcentajeVenta, @habilitada)
+	SET @ret = SCOPE_IDENTITY();
 END
 GO
+
+
 
 
 /* Trigger para insertar la jerarquia a la visibilidad */
@@ -1174,7 +1177,6 @@ DROP VIEW MERCADONEGRO.SubastasView
 GO
 DROP VIEW MERCADONEGRO.CalificacionView
 GO
-
 ---------------------TRIGGERS POST MIGRACION-----------------
 /* TRIGGER para las compras: inserta calificacion vacia, recibe su cod_calific, con eso inserta una nueva compra en Operaciones
 con fecha actual, y luego updatea el stock de la publicacion corespondiente */
@@ -1203,6 +1205,10 @@ CREATE TRIGGER Trigger_InsertarCompra
 	
 	END 
 GO
+
+/* Trigger para updatear de forma secuencial las jerarquias de la visibilidad */
+
+
 
 -----------------------------FIN SCRIPT INICIAL---------------------------------
 
