@@ -115,7 +115,7 @@ namespace FrbaCommerce.Registro_de_Usuario
                 }
                 else
                 {
-                    BDSQL.agregarParametro(listaParametros3, "@Telefono", Convert.ToInt32(telefono));
+                    BDSQL.agregarParametro(listaParametros3, "@Telefono", Convert.ToInt64(telefono));
                 }
 
                 BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Clientes VALUES(@ID_User, @Tipo_Doc, @Num_Doc, @Nombre, @Apellido, @Mail, @Telefono, @Direccion, @Codigo_Postal, @Fecha_Nacimiento)", listaParametros3, BDSQL.iniciarConexion());

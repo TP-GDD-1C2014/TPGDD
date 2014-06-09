@@ -69,7 +69,7 @@ namespace FrbaCommerce.Registro_de_Usuario
                 }
                 else
                 {
-                    BDSQL.agregarParametro(listaParametros3, "@Telefono", Convert.ToInt32(telefono));
+                    BDSQL.agregarParametro(listaParametros3, "@Telefono", Convert.ToInt64(telefono));
                 }
 
                 if (ciudad.Equals(""))

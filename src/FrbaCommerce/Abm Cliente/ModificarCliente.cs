@@ -146,14 +146,14 @@ namespace FrbaCommerce.Abm_Cliente
                 cbTipoDeDocumento.SelectedIndex = 2;
             }
 
-            tNumeroDeDocumento.Text = Convert.ToInt32(lector["Num_Doc"]).ToString();
+            tNumeroDeDocumento.Text = Convert.ToInt64(lector["Num_Doc"]).ToString();
             tNombre.Text = Convert.ToString(lector["Nombre"]);
             tApellido.Text = Convert.ToString(lector["Apellido"]);
             tEmail.Text = Convert.ToString(lector["Mail"]);
 
             if (lector["Telefono"] != DBNull.Value)
             {
-                tTelefono.Text = Convert.ToInt32(lector["Telefono"]).ToString();
+                tTelefono.Text = Convert.ToInt64(lector["Telefono"]).ToString();
             }
             else
             {
@@ -497,7 +497,7 @@ namespace FrbaCommerce.Abm_Cliente
             {
                 if ((Interfaz.esNumerico(tTelefono.Text, System.Globalization.NumberStyles.Integer)) && (tTelefono.Text.Length <= 18))
                 {
-                    cambiarIntClientes("Telefono", Convert.ToInt32(tTelefono.Text));
+                    cambiarLongIntClientes("Telefono", Convert.ToInt64(tTelefono.Text));
                     resumenModificaciones = resumenModificaciones + "\nTeléfono";
                     modificacion = true;
                 }

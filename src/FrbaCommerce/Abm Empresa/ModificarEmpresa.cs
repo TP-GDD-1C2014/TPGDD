@@ -127,7 +127,7 @@ namespace FrbaCommerce.Abm_Empresa
 
             if (lector["Telefono"] != DBNull.Value)
             {
-                tTelefono.Text = Convert.ToInt32(lector["Telefono"]).ToString();
+                tTelefono.Text = Convert.ToInt64(lector["Telefono"]).ToString();
             }
             else
             {
@@ -261,6 +261,15 @@ namespace FrbaCommerce.Abm_Empresa
             BDSQL.cerrarConexion();
         }
 
+        public void cambiarLongIntEmpresas(string columna, long valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Empresas SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
         public void cambiarFecha(string columna, DateTime fecha)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -384,7 +393,7 @@ namespace FrbaCommerce.Abm_Empresa
             {
                 if ((Interfaz.esNumerico(tTelefono.Text, System.Globalization.NumberStyles.Integer)) && (tTelefono.Text.Length <= 18))
                 {
-                    cambiarIntEmpresas("Telefono", Convert.ToInt32(tTelefono.Text));
+                    cambiarLongIntEmpresas("Telefono", Convert.ToInt64(tTelefono.Text));
                     resumenModificaciones = resumenModificaciones + "\nTeléfono";
                     modificacion = true;
                 }
