@@ -14,6 +14,8 @@ namespace FrbaCommerce.Editar_Publicacion
 {
     public partial class BuscarPubliForm : Form
     {
+
+
         public BuscarPubliForm()
         {
             InitializeComponent();
@@ -21,7 +23,7 @@ namespace FrbaCommerce.Editar_Publicacion
             llenarCombos();
             Interfaz.limpiarInterfaz(this);
 
-            bool esAdmin = Usuario.controlarRol(usuario.ID_User);
+            esAdmin = Usuario.controlarRol(usuario.ID_User);
 
             //Cargar DataGridView con las publicaciones dependiendo si es Admin o no
             if (esAdmin == true)
@@ -100,6 +102,7 @@ namespace FrbaCommerce.Editar_Publicacion
         //Obtiene el usuario loggeado
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
 
+        bool esAdmin;
         /*public List<Publicacion> listaPublicaciones = new List<Publicacion>();
         public List<Publicacion> listaEnBlanco  = new List<Publicacion>();
         public Publicacion unaPublicacion { get; set; }     // = new Publicacion (); ? */
@@ -113,35 +116,93 @@ namespace FrbaCommerce.Editar_Publicacion
         private void filtrar_button_Click(object sender, EventArgs e)
         {
             //Obtener todos los filtros
-            //TODO Verificar que campos están completos (recordar que son filtros ACUMULATIVOS)
-            int cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
-            var visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
+            int cod_publi;
+            if (CodPubli_textBox.Text == "")
+            {
+                cod_publi = -1;
+            }
+            else
+            {
+                cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
+            }
+            //TODO Recordar de pasar como parámetro a filtrarPublicaciones el index de visibilidad!
+            string visibilidad = Convert.ToString(Visibilidad_ComboBox.SelectedItem);
+            int visibilidadIndex = Visibilidad_ComboBox.SelectedIndex;
             int idVendedor = usuario.ID_User;
             string descripcion = Descrip_TextBox.Text;
-            int stock = Convert.ToInt32(StockInicial_TextBox.Text);
+
+            int stock;
+            if (StockInicial_TextBox.Text == "")
+            {
+                stock = -1;
+            }
+            else 
+            {
+                stock = Convert.ToInt32(StockInicial_TextBox.Text);     
+            }
+
             //TODO Averiguar como filtrar por fecha (cuestion NULL)
-            DateTime fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
-            DateTime fechaInic = Convert.ToDateTime(dateTimePicker2.Text); 
+            string dateString = null;
+            DateTime fechaFin;
+            if (dateTimePicker1.Text == " ")
+            {
+                fechaFin = Convert.ToDateTime(dateString);
+            }else
+            {
+                fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
+            }
+
+            DateTime fechaInic;
+            if (dateTimePicker2.Text == " ")
+            {
+                fechaInic = Convert.ToDateTime(dateString);
+            }
+            else
+            {
+                fechaInic = Convert.ToDateTime(dateTimePicker2.Text);
+            }
+
             string estado = Convert.ToString(Estado_ComboBox.SelectedItem);
+            int estadoIndex = Estado_ComboBox.SelectedIndex;
             string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
-            int precio = Convert.ToInt32(precio_textBox.Text);
+            int tipoPubliIndex = TipoPubli_ComboBox.SelectedIndex;
+            decimal precio;
+            if (precio_textBox.Text == "")
+            {
+                precio = -1;
+            }
+            else
+            {
+                precio = Convert.ToDecimal(precio_textBox.Text);
+            }
             bool permisoPreg = permisos_checkbox.Checked;
 
             Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, precio, estado, tipoPubli, permisoPreg, stock);
             
-            //Buscar Publicaciones y mostrar en dataGridView1
-            //Publicaciones.filtrarPublicaciones(publi);
 
+            //Filtrar Publicaciones y mostrar en dataGridView1
+            if ((cod_publi == -1) && (visibilidadIndex == -1) && (descripcion == ""))
+            {
+                MessageBox.Show("Debe completar algún filtro para poder llevar a cabo este proceso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                dataGridView1.DataSource = Publicaciones.filtrarPublicaciones(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+            }
             //Recordar que los campos del datagridview NO pueden ser editables
         }
 
         private void limpiar_button_Click(object sender, EventArgs e)
         {
             Interfaz.limpiarInterfaz(this);
-            //Visibilidad_ComboBox.Text = "";
-            //Estado_ComboBox.Text = "";
-            //TipoPubli_ComboBox.Text = "";
-            //dataGridView1.DataSource = listaEnBlanco;
+            if (esAdmin == true)
+            {
+                dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
+            }
+            else
+            {
+                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+            }
 
         }
 
