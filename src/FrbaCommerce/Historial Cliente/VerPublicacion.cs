@@ -67,13 +67,13 @@ namespace FrbaCommerce.Historial_Cliente
             return Convert.ToString(lector["Precio"]);
         }
 
-        public string estadoPublicacion()
+        public int estadoPublicacion()
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", this.codPublicacion);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Estado_Publicacion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @Cod_Publicacion", listaParametros, this.conexion);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Cod_EstadoPublicacion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @Cod_Publicacion", listaParametros, this.conexion);
             lector.Read();
-            return Convert.ToString(lector["Estado_Publicacion"]);
+            return Convert.ToInt32(lector["Cod_EstadoPublicacion"]);
         }
 
         public VerPublicacion(int _codPublicacion)
@@ -85,7 +85,7 @@ namespace FrbaCommerce.Historial_Cliente
 
             List<SqlParameter> listaParametros2 = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros2, "@Cod_Publicacion", codPublicacion);
-            SqlDataReader lector2 = BDSQL.ejecutarReader("SELECT ID_Vendedor, Descripcion, Precio, Estado_Publicacion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @Cod_Publicacion", listaParametros2, this.conexion);
+            SqlDataReader lector2 = BDSQL.ejecutarReader("SELECT ID_Vendedor, Descripcion, Precio, Cod_EstadoPublicacion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @Cod_Publicacion", listaParametros2, this.conexion);
             lector2.Read();
 
             tNombre.Text = nombreVendedor(Convert.ToInt32(lector2["ID_Vendedor"]));
@@ -94,7 +94,15 @@ namespace FrbaCommerce.Historial_Cliente
             tRubro.Text = rubroPublicacion();
             tDescripcion.Text = descripcionPublicacion();
             tPrecio.Text = precioPublicacion();
-            tEstado.Text = estadoPublicacion();
+            if (estadoPublicacion() == 1)
+            {
+                tEstado.Text = "Activa";
+            }
+            else
+            {
+                tEstado.Text = "Inactiva";
+            }
+            
 
             BDSQL.cerrarConexion();
         }

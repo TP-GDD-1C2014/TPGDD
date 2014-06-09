@@ -80,6 +80,21 @@ namespace FrbaCommerce.Historial_Cliente
             DataGridViewColumn compras_cFecha = dgCompras.Columns[0];
             DataGridViewColumn compras_cCalificacion = dgCompras.Columns[2];
             DataGridViewColumn compras_cComentarios = dgCompras.Columns[3];
+
+            DataGridViewColumn compras_cExtra1 = dgCompras.Columns[5];
+            DataGridViewColumn compras_cExtra2 = dgCompras.Columns[6];
+            DataGridViewColumn compras_cExtra3 = dgCompras.Columns[7];
+            DataGridViewColumn compras_cExtra4 = dgCompras.Columns[8];
+            DataGridViewColumn compras_cExtra5 = dgCompras.Columns[9];
+            DataGridViewColumn compras_cExtra6 = dgCompras.Columns[10];
+
+            compras_cExtra1.Visible = false;
+            compras_cExtra2.Visible = false;
+            compras_cExtra3.Visible = false;
+            compras_cExtra4.Visible = false;
+            compras_cExtra5.Visible = false;
+            compras_cExtra6.Visible = false;
+
             DataGridViewButtonColumn compras_cVerPublicacion = new DataGridViewButtonColumn();
 
             dgCompras.Columns.Add(compras_cVerPublicacion);
@@ -97,6 +112,21 @@ namespace FrbaCommerce.Historial_Cliente
             DataGridViewColumn ofertasGanadas_cFecha = dgSubastasGanadas.Columns[0];
             DataGridViewColumn ofertasGanadas_cCalificacion = dgSubastasGanadas.Columns[2];
             DataGridViewColumn ofertasGanadas_cComentarios = dgSubastasGanadas.Columns[3];
+
+            DataGridViewColumn ofertasGanadas_cExtra1 = dgSubastasGanadas.Columns[5];
+            DataGridViewColumn ofertasGanadas_cExtra2 = dgSubastasGanadas.Columns[6];
+            DataGridViewColumn ofertasGanadas_cExtra3 = dgSubastasGanadas.Columns[7];
+            DataGridViewColumn ofertasGanadas_cExtra4 = dgSubastasGanadas.Columns[8];
+            DataGridViewColumn ofertasGanadas_cExtra5 = dgSubastasGanadas.Columns[9];
+            DataGridViewColumn ofertasGanadas_cExtra6 = dgSubastasGanadas.Columns[10];
+
+            ofertasGanadas_cExtra1.Visible = false;
+            ofertasGanadas_cExtra2.Visible = false;
+            ofertasGanadas_cExtra3.Visible = false;
+            ofertasGanadas_cExtra4.Visible = false;
+            ofertasGanadas_cExtra5.Visible = false;
+            ofertasGanadas_cExtra6.Visible = false;
+
             DataGridViewButtonColumn ofertasGanadas_cVerPublicacion = new DataGridViewButtonColumn();
 
             dgSubastasGanadas.Columns.Add(ofertasGanadas_cVerPublicacion);
@@ -113,6 +143,15 @@ namespace FrbaCommerce.Historial_Cliente
             DataGridViewColumn ofertas_cPublicacion = dgOfertas.Columns[1];
             DataGridViewColumn ofertas_cFecha = dgOfertas.Columns[0];
             DataGridViewColumn ofertas_cMonto = dgOfertas.Columns[2];
+
+            DataGridViewColumn ofertas_cExtra1 = dgOfertas.Columns[4];
+            DataGridViewColumn ofertas_cExtra2 = dgOfertas.Columns[5];
+            DataGridViewColumn ofertas_cExtra3 = dgOfertas.Columns[6];
+
+            ofertas_cExtra1.Visible = false;
+            ofertas_cExtra2.Visible = false;
+            ofertas_cExtra3.Visible = false;
+
             DataGridViewButtonColumn ofertas_cVerPublicacion = new DataGridViewButtonColumn();
 
             dgOfertas.Columns.Add(ofertas_cVerPublicacion);

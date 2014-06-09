@@ -9,15 +9,19 @@ namespace FrbaCommerce.Clases
 {
     public class Oferta
     {
-        public int Vendedor { get; set; }
-        public int Comprador { get; set; }
-        public int Cod_Publicacion { get; set; }
-        public int Tipo_Operacion { get; set; }
+        // Atributos Historial
+
         public DateTime Fecha { get; set; }
+        public int Cod_Publicacion { get; set; }
         public int Monto { get; set; }
 
-
         public SqlConnection conexion { get; set; }
+
+        // Atributos Comprar/Ofertar
+
+        public int Vendedor { get; set; }
+        public int Tipo_Operacion { get; set; }
+        public int Comprador { get; set; }
 
         public Oferta(int idVendedor, int idComprador, int codPublicacion, int tipoOperacion, int monto)
         {

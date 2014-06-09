@@ -10,21 +10,23 @@ namespace FrbaCommerce.Clases
 {
     public class Compra
     {
-        public int Vendedor { get; set; }
-        public int Comprador { get; set; }
-        public int Cod_Publicacion { get; set; }
-        public int Tipo_Operacion { get; set; }
-        public int Cod_Calificacion { get; set; }
-        public DateTime Fecha { get; set; }
-        public decimal Monto_Compra { get; set; }
-        public bool Operacion_Facturada { get; set; }
-       
-        
+        // Atributos Historial
 
+        public DateTime Fecha { get; set; }
+        public int Cod_Publicacion { get; set; }
         public int Calificacion { get; set; }
         public string Comentarios { get; set; }
 
         public SqlConnection conexion { get; set; }
+
+        // Atributos Comprar/Ofertar
+
+        public int Vendedor { get; set; }
+        public int Tipo_Operacion { get; set; }
+        public int Cod_Calificacion { get; set; }
+        public decimal Monto_Compra { get; set; }
+        public bool Operacion_Facturada { get; set; }
+        public int Comprador { get; set; }
 
         public Compra(int idVendedor, int idComprador, int codPublicacion, int tipoOperacion, decimal montoCompra, bool operacionFacutrada)
         {
