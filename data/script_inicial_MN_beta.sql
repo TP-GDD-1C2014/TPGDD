@@ -398,6 +398,13 @@ AS BEGIN
 END
 GO
 
+CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit)
+AS BEGIN
+	INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta, Habilitada)
+	VALUES (@descripcion, @costoPublicacion, @porcentajeVenta, @habilitada)
+END
+GO
+
 
 
 /*
