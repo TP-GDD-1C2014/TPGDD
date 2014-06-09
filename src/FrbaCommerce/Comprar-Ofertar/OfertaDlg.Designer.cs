@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBorrar = new System.Windows.Forms.Button();
+            this.txtOferta = new System.Windows.Forms.TextBox();
+            this.txtOfertaActual = new System.Windows.Forms.TextBox();
+            this.lblOferta = new System.Windows.Forms.Label();
+            this.lblOfertaActual = new System.Windows.Forms.Label();
             this.txtAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lblOfertaActual = new System.Windows.Forms.Label();
-            this.lblOferta = new System.Windows.Forms.Label();
-            this.txtOfertaActual = new System.Windows.Forms.TextBox();
-            this.txtOferta = new System.Windows.Forms.TextBox();
-            this.btnBorrar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +52,49 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingrese una oferta entera mayor a la actual";
+            // 
+            // btnBorrar
+            // 
+            this.btnBorrar.Location = new System.Drawing.Point(193, 57);
+            this.btnBorrar.Name = "btnBorrar";
+            this.btnBorrar.Size = new System.Drawing.Size(48, 23);
+            this.btnBorrar.TabIndex = 2;
+            this.btnBorrar.Text = "Borrar";
+            this.btnBorrar.UseVisualStyleBackColor = true;
+            this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
+            // 
+            // txtOferta
+            // 
+            this.txtOferta.Location = new System.Drawing.Point(87, 59);
+            this.txtOferta.Name = "txtOferta";
+            this.txtOferta.Size = new System.Drawing.Size(100, 20);
+            this.txtOferta.TabIndex = 5;
+            // 
+            // txtOfertaActual
+            // 
+            this.txtOfertaActual.Location = new System.Drawing.Point(87, 31);
+            this.txtOfertaActual.Name = "txtOfertaActual";
+            this.txtOfertaActual.ReadOnly = true;
+            this.txtOfertaActual.Size = new System.Drawing.Size(100, 20);
+            this.txtOfertaActual.TabIndex = 4;
+            // 
+            // lblOferta
+            // 
+            this.lblOferta.AutoSize = true;
+            this.lblOferta.Location = new System.Drawing.Point(6, 62);
+            this.lblOferta.Name = "lblOferta";
+            this.lblOferta.Size = new System.Drawing.Size(39, 13);
+            this.lblOferta.TabIndex = 3;
+            this.lblOferta.Text = "Oferta:";
+            // 
+            // lblOfertaActual
+            // 
+            this.lblOfertaActual.AutoSize = true;
+            this.lblOfertaActual.Location = new System.Drawing.Point(6, 34);
+            this.lblOfertaActual.Name = "lblOfertaActual";
+            this.lblOfertaActual.Size = new System.Drawing.Size(71, 13);
+            this.lblOfertaActual.TabIndex = 2;
+            this.lblOfertaActual.Text = "Oferta actual:";
             // 
             // txtAceptar
             // 
@@ -73,50 +116,7 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // lblOfertaActual
-            // 
-            this.lblOfertaActual.AutoSize = true;
-            this.lblOfertaActual.Location = new System.Drawing.Point(6, 34);
-            this.lblOfertaActual.Name = "lblOfertaActual";
-            this.lblOfertaActual.Size = new System.Drawing.Size(71, 13);
-            this.lblOfertaActual.TabIndex = 2;
-            this.lblOfertaActual.Text = "Oferta actual:";
-            // 
-            // lblOferta
-            // 
-            this.lblOferta.AutoSize = true;
-            this.lblOferta.Location = new System.Drawing.Point(6, 62);
-            this.lblOferta.Name = "lblOferta";
-            this.lblOferta.Size = new System.Drawing.Size(39, 13);
-            this.lblOferta.TabIndex = 3;
-            this.lblOferta.Text = "Oferta:";
-            // 
-            // txtOfertaActual
-            // 
-            this.txtOfertaActual.Location = new System.Drawing.Point(87, 31);
-            this.txtOfertaActual.Name = "txtOfertaActual";
-            this.txtOfertaActual.ReadOnly = true;
-            this.txtOfertaActual.Size = new System.Drawing.Size(100, 20);
-            this.txtOfertaActual.TabIndex = 4;
-            // 
-            // txtOferta
-            // 
-            this.txtOferta.Location = new System.Drawing.Point(87, 59);
-            this.txtOferta.Name = "txtOferta";
-            this.txtOferta.Size = new System.Drawing.Size(100, 20);
-            this.txtOferta.TabIndex = 5;
-            // 
-            // btnBorrar
-            // 
-            this.btnBorrar.Location = new System.Drawing.Point(193, 57);
-            this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(48, 23);
-            this.btnBorrar.TabIndex = 2;
-            this.btnBorrar.Text = "Borrar";
-            this.btnBorrar.UseVisualStyleBackColor = true;
-            this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
-            // 
-            // ofertaDlg
+            // OfertaDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -124,9 +124,9 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtAceptar);
             this.Controls.Add(this.groupBox1);
-            this.Name = "ofertaDlg";
+            this.Name = "OfertaDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ofertaDlg";
+            this.Text = "Subasta - Ofertar";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

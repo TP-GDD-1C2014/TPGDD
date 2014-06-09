@@ -153,6 +153,12 @@
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Clases\Visibilidad.cs" />
     <Compile Include="Common\Interfaz.cs" />
+    <Compile Include="Comprar-Ofertar\AgregarRubros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Comprar-Ofertar\AgregarRubros.designer.cs">
+      <DependentUpon>AgregarRubros.cs</DependentUpon>
+    </Compile>
     <Compile Include="Comprar-Ofertar\ComprarOfertar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Visibilidad\EditorDeVisibilidades.resx">
       <DependentUpon>EditorDeVisibilidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Comprar-Ofertar\AgregarRubros.resx">
+      <DependentUpon>AgregarRubros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Comprar-Ofertar\ComprarOfertar.resx">
       <DependentUpon>ComprarOfertar.cs</DependentUpon>

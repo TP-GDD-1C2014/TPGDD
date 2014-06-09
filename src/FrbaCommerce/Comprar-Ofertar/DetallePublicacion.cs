@@ -69,13 +69,23 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            int stock = int.Parse(txtStockDisponible.Text);
+            
+            if (stock == 0)
+            {
+                MessageBox.Show("No hay mas stock disponibles!", "ATENCIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            
             if (publi.Tipo_Publicacion == "Compra Inmediata")
             {
                 DialogResult res = MessageBox.Show("Esta seguro que desea realizar la compra?", "Importante", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
                 if (res == DialogResult.Yes)
                 {
-                    //int codCalificacion = agregarCalificacion();
+                    stock = stock - 1;
+                    txtStockDisponible.Text = Convert.ToString(stock);
+
                     Compra compra = new Compra(publi.ID_Vendedor, Interfaz.usuario.ID_User, publi.Cod_Publicacion, 0 , publi.Precio, false);
                     Compra.insertarCompra(compra);
 
@@ -88,6 +98,11 @@ namespace FrbaCommerce.Comprar_Ofertar
                 OfertaDlg ofertaDlg = new OfertaDlg(publi);
                 ofertaDlg.ShowDialog();
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

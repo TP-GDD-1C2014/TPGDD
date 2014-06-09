@@ -203,23 +203,35 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public static List<Publicacion> obtenerPublicacionesPaginadas(int desde, int hasta)
+        public static List<Publicacion> obtenerPublicacionesPaginadas(int desde, int hasta, string filtro)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
 
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@desde", desde);
             BDSQL.agregarParametro(listaParametros, "@hasta", hasta);
+            //if (filtro != "")
+            //    BDSQL.agregarParametro(listaParametros, "@filtro", filtro);
 
-            String commandtext = "WITH tablaNumerada AS " +
-            "(SELECT Cod_Publicacion, Cod_Visibilidad, ID_Vendedor,Descripcion," +
-            "Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Estado_Publicacion,Tipo_Publicacion,Permisos_Preguntas,Stock_Inicial, ROW_NUMBER() OVER (ORDER BY Cod_Visibilidad) AS RowNumber " +
-            "FROM MERCADONEGRO.Publicaciones " +
-            "WHERE Estado_Publicacion = 'Publicada' AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ) " +
-            "SELECT Cod_Publicacion, Cod_Visibilidad ,ID_Vendedor, Descripcion, " +
-            "Stock, Fecha_Vencimiento, Fecha_Inicial, Precio, Estado_Publicacion, Tipo_Publicacion, Permisos_Preguntas, Stock_Inicial " +
-            "FROM tablaNumerada " +
-            "WHERE RowNumber BETWEEN @desde AND @hasta";
+
+            String commandtext = "WITH tablaNumerada AS "
+            + "(SELECT p.Cod_Publicacion, Cod_Visibilidad, ID_Vendedor,p.Descripcion, "
+            + "Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Cod_EstadoPublicacion, "
+            + "Cod_TipoPublicacion,Permisos_Preguntas,Stock_Inicial, ROW_NUMBER() OVER (ORDER BY Cod_Visibilidad) AS RowNumber "
+            + "FROM MERCADONEGRO.Publicaciones p "
+            + "JOIN MERCADONEGRO.Rubro_Publicacion rp ON p.Cod_Publicacion=rp.Cod_Publicacion "
+                //+ "JOIN MERCADONEGRO.Rubros r ON rp.ID_Rubro=r.ID_Rubro "
+            + "WHERE Cod_EstadoPublicacion = 1 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ";
+
+            if (filtro != "")
+                commandtext += " AND " + filtro;
+
+            commandtext = commandtext + " ) "
+            + "SELECT Cod_Publicacion, Cod_Visibilidad ,ID_Vendedor, Descripcion, "
+            + "Stock, Fecha_Vencimiento, Fecha_Inicial, Precio, Cod_EstadoPublicacion, Cod_TipoPublicacion, Permisos_Preguntas, Stock_Inicial "
+            + "FROM tablaNumerada "
+            + "WHERE RowNumber BETWEEN @desde AND @hasta";
+
 
             SqlDataReader lector = BDSQL.ejecutarReader(commandtext, listaParametros, BDSQL.iniciarConexion());
 
@@ -235,14 +247,14 @@ namespace FrbaCommerce.Clases
                     publi.ID_Vendedor = Convert.ToInt32(lector["ID_Vendedor"]);
                     publi.Descripcion = Convert.ToString(lector["Descripcion"]);
                     publi.Stock = Convert.ToInt32(lector["Stock"]);
-                    publi.Fecha_Vto =  Convert.ToDateTime(lector["Fecha_Vencimiento"]);
+                    publi.Fecha_Vto = Convert.ToDateTime(lector["Fecha_Vencimiento"]);
                     publi.Fecha_Inicio = Convert.ToDateTime(lector["Fecha_Inicial"]);
                     publi.Precio = Convert.ToDecimal(lector["Precio"]);
-                    publi.Estado_Publicacion = Convert.ToString(lector["Estado_Publicacion"]);
-                    publi.Tipo_Publicacion = Convert.ToString(lector["Tipo_Publicacion"]) ;
+                    publi.Estado_Publicacion = Convert.ToString(lector["Cod_EstadoPublicacion"]);
+                    publi.Tipo_Publicacion = Interfaz.getDescripcion(Convert.ToInt32(lector["Cod_TipoPublicacion"]), "tipoPublicacion");
                     publi.Permiso_Preguntas = Convert.ToBoolean(lector["Permisos_Preguntas"]);
                     publi.Stock_Inicial = Convert.ToInt32(lector["Stock_Inicial"]);
-            
+
                     publicaciones.Add(publi);
                 }
             }

@@ -14,22 +14,47 @@ namespace FrbaCommerce.Comprar_Ofertar
 {
     public partial class ComprarOfertar : Form
     {
-        static int paginaActual;
-        static int cantPublicacionesPorPagina = 15;
-        static int cantPublicacionesTotal;
-        static int ultimaPagina;
+        int paginaActual;
+        int cantPublicacionesPorPagina = 18;
+        int cantPublicacionesTotal;
+        int ultimaPagina;
+        string filtro;
+        static List<Rubro> rubros = new List<Rubro>();
+        
         
         public ComprarOfertar()
         {
             InitializeComponent();
             paginaActual = 0;
+            filtro = "";
             contarPublicaciones();
-            cargarPublicaciones(paginaActual);
+            cargarPublicaciones();
+
+            //cmbRubros.DisplayMember = "Descripcion";
+            //cmbRubros.ValueMember = "ID_Rubro";
         }
 
-        public void cargarPublicaciones(int paginaActual)
+        public class itemComboBox
         {
-            Common.Interfaz.limpiarInterfaz(this);
+            public string Nombre_Rubro { get; set; }
+            public int ID_Rubro { get; set; }
+
+            public itemComboBox(string nombre, int id)
+            {
+                Nombre_Rubro = nombre;
+                ID_Rubro = id;
+            }
+            public override string ToString()
+            {
+                return Nombre_Rubro;
+            }
+        }
+        
+        public void cargarPublicaciones()
+        {
+            
+            //Common.Interfaz.limpiarInterfaz(this);
+            actualizarDisplay();
 
             int desde;
             int hasta;
@@ -65,7 +90,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 btnPrimerPag.Enabled = true;
             }
 
-            List<Publicacion> listaPublicaciones = Publicaciones.obtenerPublicacionesPaginadas(desde, hasta);
+            List<Publicacion> listaPublicaciones = Publicaciones.obtenerPublicacionesPaginadas(desde, hasta, filtro);
 
             Publicaciones_Datagrid.DataSource = listaPublicaciones;
             Publicaciones_Datagrid.Columns["Cod_Publicacion"].Visible = false;
@@ -77,103 +102,43 @@ namespace FrbaCommerce.Comprar_Ofertar
             
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (textBox3.Text != "")
-            {
-                int filtro = Convert.ToInt32(textBox3.Text);
-                cargarPublicaciones(paginaActual, filtro);
-            }
-            else cargarPublicaciones(paginaActual);
-        }
-
-
-        public void cargarPublicaciones(int paginaActual, int filtro)
-        {
-            //Common.Interfaz.limpiarInterfaz(this);
-
-            int desde;
-            int hasta;
-
-            if (paginaActual == 0)
-            {
-                desde = 0;
-                hasta = cantPublicacionesPorPagina;
-
-                btnAnteriorPag.Enabled = false;
-                btnPrimerPag.Enabled = false;
-                btnSiguientePag.Enabled = true;
-                btnUltimaPag.Enabled = true;
-            }
-            else if (paginaActual == ultimaPagina)
-            {
-                desde = ((cantPublicacionesPorPagina * paginaActual) + 1);
-                hasta = (desde + cantPublicacionesPorPagina);
-
-                btnSiguientePag.Enabled = false;
-                btnUltimaPag.Enabled = false;
-                btnAnteriorPag.Enabled = true;
-                btnPrimerPag.Enabled = true;
-            }
-            else
-            {
-                desde = ((cantPublicacionesPorPagina * paginaActual) + 1);
-                hasta = (desde + cantPublicacionesPorPagina);
-
-                btnSiguientePag.Enabled = true;
-                btnUltimaPag.Enabled = true;
-                btnAnteriorPag.Enabled = true;
-                btnPrimerPag.Enabled = true;
-            }
-            
-
-           
-
-            List<SqlParameter> listaParametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(listaParametros, "@desde", desde);
-            BDSQL.agregarParametro(listaParametros, "@hasta", hasta);
-            BDSQL.agregarParametro(listaParametros, "@filtro", filtro);
-
-        
-            String commandtext = "WITH NumberedMyTable AS (SELECT Cod_Publicacion, Stock, ROW_NUMBER() OVER (ORDER BY Cod_Visibilidad) AS RowNumber " +
-            "FROM MERCADONEGRO.Publicaciones WHERE Stock = @filtro AND Estado_Publicacion = 0 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ) SELECT Cod_Publicacion,Stock FROM NumberedMyTable " +
-            "WHERE RowNumber BETWEEN @cant AND @desde";
-            DataTable ret = BDSQL.obtenerDataTable(commandtext, "T", listaParametros);
-
-            Publicaciones_Datagrid.DataSource = ret;
-            BDSQL.cerrarConexion();
-
-        }
+      
 
         private void btnSiguientePag_Click(object sender, EventArgs e)
         {
             paginaActual = paginaActual + 1;
-            cargarPublicaciones(paginaActual);
+            cargarPublicaciones();
+
         }
 
         private void btnAnteriorPag_Click(object sender, EventArgs e)
         {
             
             paginaActual = paginaActual - 1;
-            cargarPublicaciones(paginaActual);
+            cargarPublicaciones();
         }
 
         private void btnPrimerPag_Click(object sender, EventArgs e)
         {
             paginaActual = 0;
-            cargarPublicaciones(paginaActual);
+            cargarPublicaciones();
         }
 
         private void btnUltimaPag_Click(object sender, EventArgs e)
         {
             paginaActual = ultimaPagina;
-            cargarPublicaciones(paginaActual);
+            cargarPublicaciones();
         }
 
 
         private void contarPublicaciones ()
         {
-            SqlDataReader reader = BDSQL.ejecutarReader("select COUNT (*) AS cant from MERCADONEGRO.Publicaciones", BDSQL.iniciarConexion());
+            string commandtext = "select COUNT (*) AS cant from MERCADONEGRO.Publicaciones as p JOIN MERCADONEGRO.Rubro_Publicacion rp ON p.Cod_Publicacion=rp.Cod_Publicacion ";
+
+            if (filtro != "")
+                commandtext += " WHERE " + filtro;
+            
+            SqlDataReader reader = BDSQL.ejecutarReader(commandtext, BDSQL.iniciarConexion());
 
             if (reader.HasRows)
             {
@@ -187,12 +152,111 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnAbrirPublicacion_Click(object sender, EventArgs e)
         {
-            Publicacion unaPublicacion = Publicaciones_Datagrid.CurrentRow.DataBoundItem as Publicacion;
-            DetallePublicacion detalleForm = new DetallePublicacion(unaPublicacion);
-            detalleForm.ShowDialog();
+            if (Publicaciones_Datagrid.SelectedRows.Count == 0)
+                return;
+            else
+            {
+                Publicacion unaPublicacion = Publicaciones_Datagrid.CurrentRow.DataBoundItem as Publicacion;
+                DetallePublicacion detalleForm = new DetallePublicacion(unaPublicacion);
+                detalleForm.ShowDialog();
+                cargarPublicaciones();
+            }
+            
 
             //cargarTodosLosRoles(); actualizar
         }
+
+        private void btnAgregarRubros_Click(object sender, EventArgs e)
+        {
+            AgregarRubros agregarRubros = new AgregarRubros(rubros);
+            agregarRubros.ShowDialog();
+
+
+            //borrarComboRubros();
+            cmbRubros.Items.Clear();
+            cargarComboRubros();
+            
+        }
+
+        private void cargarComboRubros()
+        {
+            for (int i = 0; i < rubros.Count; i++)
+            {
+                cmbRubros.Items.Add(new itemComboBox(rubros[i].Descripcion.ToString(), rubros[i].ID_Rubro));
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            paginaActual = 0;
+            armarFiltro();
+            contarPublicaciones();
+            cargarPublicaciones();
+        }
+
+
+        private void armarFiltro()
+        {
+            filtro = "";
+
+            if (rubros != null)
+            {
+                for (int i = 0; i < rubros.Count; i++)
+                {
+                    if (i == 0)
+                        filtro += " (";
+                    else filtro += " or ";
+
+                    filtro = filtro + "rp.ID_Rubro = " + rubros[i].ID_Rubro;
+
+                    if (i == rubros.Count - 1)
+                        filtro += " ) ";
+                }
+            }
+
+            if (txtDescripcion.Text != "")
+            {
+                if (filtro != "")
+                    filtro += "AND ";
+                filtro += " p.Descripcion LIKE  '%" + txtDescripcion.Text + "%' ";
+            }
+        }
+
+        private void btnBorrarDescripcion_Click(object sender, EventArgs e)
+        {
+            txtDescripcion.Text = "";
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            txtDescripcion.Text = "";
+            cmbRubros.Items.Clear();
+            rubros.Clear();
+            cargarPublicaciones();
+
+        }
+
+        private void actualizarDisplay()
+        {
+            txtCantPublicaciones.Text = Convert.ToString(cantPublicacionesTotal );
+            txtPaginaActual.Text = Convert.ToString(paginaActual + 1);
+        }
+
+
+
+        /*
+        private void borrarComboRubros()
+        {
+            for (int i = 0; i < cmbRubros.Items.Count; i++)
+            {
+                cmbRubros.Items.RemoveAt(i);
+            }
+        }
+         * */
+
+      
+
+
             
 
 

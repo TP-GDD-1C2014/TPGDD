@@ -240,7 +240,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.GBDatosVendedor);
             this.Name = "DatosVendedor";
-            this.Text = "DatosVendedor";
+            this.Text = "Datos del Vendedor";
             this.GBDatosVendedor.ResumeLayout(false);
             this.GBDatosVendedor.PerformLayout();
             this.ResumeLayout(false);

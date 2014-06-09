@@ -15,18 +15,19 @@ namespace FrbaCommerce.Comprar_Ofertar
     public partial class OfertaDlg : Form
     {
         Publicacion publicacion;
+        int ofertaMasGrande;
         
         public OfertaDlg(Publicacion publi)
         {
             InitializeComponent();
             publicacion = publi;
-            string ofertaMasGrande = Oferta.cargarOfertaMasAlta(publicacion.Cod_Publicacion);
+            ofertaMasGrande = Oferta.cargarOfertaMasAlta(publicacion.Cod_Publicacion);
 
-            if (ofertaMasGrande == "")
+            if (ofertaMasGrande == 0)
             {
-                txtOfertaActual.Text = "No hay ofertas realizadas!";
+                txtOfertaActual.Text = "No hay ofertas!";
             }
-            else txtOfertaActual.Text = ofertaMasGrande;
+            else txtOfertaActual.Text = Convert.ToString(ofertaMasGrande);
             
 
         }
@@ -41,11 +42,15 @@ namespace FrbaCommerce.Comprar_Ofertar
             int valor;
             if (int.TryParse(txtOferta.Text, out valor))
             {
-                Oferta oferta = new Oferta(publicacion.ID_Vendedor, Interfaz.usuario.ID_User, publicacion.Cod_Publicacion, 1, valor);
-                if (Oferta.insertarOferta(oferta))
+                if (valor > ofertaMasGrande)
                 {
+
+                    Oferta oferta = new Oferta(publicacion.ID_Vendedor, Interfaz.usuario.ID_User, publicacion.Cod_Publicacion, 1, valor);
+                    Oferta.insertarOferta(oferta);
+                    
                     MessageBox.Show("Oferta realizada con éxito! Actualmente usted tiene la oferta mas alta.", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    txtOfertaActual.Text = Oferta.cargarOfertaMasAlta(publicacion.Cod_Publicacion);
+                    ofertaMasGrande = Oferta.cargarOfertaMasAlta(publicacion.Cod_Publicacion);
+                    
                 }
             }
             else
