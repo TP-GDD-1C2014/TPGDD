@@ -200,18 +200,18 @@ namespace FrbaCommerce.Abm_Empresa
 
         public Boolean cambioString(string string1, string string2)
         {
-            return string1.Equals(string2);
+            return !string1.Equals(string2);
         }
 
         public Boolean cambioInt(int int1, int int2)
         {
             if (int1 == int2)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
@@ -234,6 +234,15 @@ namespace FrbaCommerce.Abm_Empresa
             BDSQL.cerrarConexion();
         }
 
+        public void cambiarStringEmpresas(string columna, string valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Empresas SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
         public void cambiarIntUsuarios(string columna, int valor)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -241,6 +250,37 @@ namespace FrbaCommerce.Abm_Empresa
             BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
             BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
+        }
+
+        public void cambiarIntEmpresas(string columna, int valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Empresas SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void cambiarFecha(string columna, DateTime fecha)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", fecha);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Empresas SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public DateTime fecha(string dia, string mes, string ano)
+        {
+            if (Convert.ToInt32(dia) <= 9)
+            {
+                dia = "0" + dia;
+            }
+            if (Convert.ToInt32(mes) <= 9)
+            {
+                mes = "0" + mes;
+            }
+            return DateTime.ParseExact(dia + "/" + mes + "/" + ano, "dd/MM/yyyy", null);
         }
 
         public string hashear(string valor)
@@ -265,26 +305,40 @@ namespace FrbaCommerce.Abm_Empresa
 
         private void bModificar_Click(object sender, EventArgs e)
         {
+            string resumenModificaciones = "Se han modificado los campos:";
+            string resumenErrores = "No se han podido modificar los campos:";
+
+            Boolean modificacion = false;
+            Boolean error = false;
+
             if (cambioString(this.vUsername, tUsername.Text))
             {
                 if (usernameValido())
                 {
                     cambiarStringUsuarios("Username", tUsername.Text);
+                    resumenModificaciones = resumenModificaciones + "\nNombre de usuario";
+                    modificacion = true;
                 }
                 else
                 {
-                    MessageBox.Show("Nombre de usuario inválido.", "Error");
+                    //MessageBox.Show("Nombre de usuario inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nNombre de usuario (ya existente)";
+                    error = true;
                 }
             }
 
             if (cambioString(this.vPassword, tPassword.Text))
             {
                 cambiarStringUsuarios("Password", hashear(tPassword.Text));
+                resumenModificaciones = resumenModificaciones + "\nContraseña";
+                modificacion = true;
             }
 
             if (cambioInt(this.vHabilitado, cbHabilitado.SelectedIndex))
             {
                 cambiarIntUsuarios("Habilitado", cbHabilitado.SelectedIndex);
+                resumenModificaciones = resumenModificaciones + "\nHabilitado";
+                modificacion = true;
             }
 
             if (cambioString(this.vPublicacionesGratuitas, tPublicacionesGratuitas.Text))
@@ -292,47 +346,140 @@ namespace FrbaCommerce.Abm_Empresa
                 if ((Convert.ToInt32(tPublicacionesGratuitas.Text) <= 255) && (Convert.ToInt32(tPublicacionesGratuitas.Text) >= 0))
                 {
                     cambiarIntUsuarios("Cant_Publi_Gratuitas", (Convert.ToInt32(tPublicacionesGratuitas.Text)));
+                    resumenModificaciones = resumenModificaciones + "\nPublicaciones gratuitas";
+                    modificacion = true;
                 }
                 else
                 {
-                    MessageBox.Show("Cantidad de publicaciones gratuitas inválida.", "Error");
+                    //MessageBox.Show("Cantidad de publicaciones gratuitas inválida.", "Error");
+                    resumenErrores = resumenErrores + "\nPublicaciones gratuitas (valor muy grande o negativo)";
+                    error = true;
                 }
             }
 
             if (cambioString(this.vRazonSocial, tRazonSocial.Text))
             {
+                cambiarStringEmpresas("Razon_Social", tRazonSocial.Text);
+                resumenModificaciones = resumenModificaciones + "\nRazón Social";
+                modificacion = true;
             }
 
             if (cambioString(this.vCUIT, tCUIT.Text))
             {
+                if (tCUIT.Text.Length <= 50)
+                {
+                    cambiarStringEmpresas("CUIT", tCUIT.Text);
+                    resumenModificaciones = resumenModificaciones + "\nCUIT";
+                    modificacion = true;
+                }
+                else
+                {
+                    //MessageBox.Show("CUIT inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nCUIT (valor muy grande)";
+                    error = true;
+                }
             }
 
             if (cambioString(this.vTelefono, tTelefono.Text))
             {
+                if ((Interfaz.esNumerico(tTelefono.Text, System.Globalization.NumberStyles.Integer)) && (tTelefono.Text.Length <= 18))
+                {
+                    cambiarIntEmpresas("Telefono", Convert.ToInt32(tTelefono.Text));
+                    resumenModificaciones = resumenModificaciones + "\nTeléfono";
+                    modificacion = true;
+                }
+                else
+                {
+                    //MessageBox.Show("Teléfono inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nTeléfono (valor no numérico o muy grande)";
+                    error = true;
+                }
             }
 
             if (cambioString(this.vDireccion, tDireccion.Text))
             {
+                cambiarStringEmpresas("Direccion", tDireccion.Text);
+                resumenModificaciones = resumenModificaciones + "\nDirección";
+                modificacion = true;
             }
 
             if (cambioString(this.vCodigoPostal, tCodigoPostal.Text))
             {
+                if (tCodigoPostal.Text.Length <= 50)
+                {
+                    cambiarStringEmpresas("Codigo_Postal", tCodigoPostal.Text);
+                    resumenModificaciones = resumenModificaciones + "\nCódigo postal";
+                    modificacion = true;
+                }
+                else
+                {
+                    //MessageBox.Show("Código postal inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nCódigo postal (valor muy grande)";
+                    error = true;
+                }
             }
 
             if (cambioString(this.vCiudad, tCiudad.Text))
             {
+                if (tCiudad.Text.Length <= 50)
+                {
+                    cambiarStringEmpresas("Ciudad", tCiudad.Text);
+                    resumenModificaciones = resumenModificaciones + "\nCiudad";
+                    modificacion = true;
+                }
+                else
+                {
+                    //MessageBox.Show("Ciudad inválida.", "Error");
+                    resumenErrores = resumenErrores + "\nCiudad (valor muy grande)";
+                    error = true;
+                }
             }
 
             if (cambioString(this.vEmail, tEmail.Text))
             {
+                cambiarStringEmpresas("Mail", tEmail.Text);
+                resumenModificaciones = resumenModificaciones + "\nE-mail";
+                modificacion = true;
             }
 
             if (cambioString(this.vNombreDeContacto, tNombreDeContacto.Text))
             {
+                if (tNombreDeContacto.Text.Length <= 50)
+                {
+                    cambiarStringEmpresas("Nombre_Contacto", tNombreDeContacto.Text);
+                    resumenModificaciones = resumenModificaciones + "\nNombre de contacto";
+                    modificacion = true;
+                }
+                else
+                {
+                    //MessageBox.Show("Nombre de contacto inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nNombre de contacto (valor muy grande)";
+                    error = true;
+                }
             }
 
             if (cambioInt(vDia, cbDia.SelectedIndex) || cambioInt(vMes, cbMes.SelectedIndex) || cambioInt(vAno, cbAno.SelectedIndex))
             {
+                cambiarFecha("Fecha_Creacion", fecha(cbDia.SelectedItem.ToString(), cbMes.SelectedItem.ToString(), cbAno.SelectedItem.ToString()));
+                resumenModificaciones = resumenModificaciones + "\nFecha de creación";
+                modificacion = true;
+            }
+
+            if (modificacion)
+            {
+                MessageBox.Show(resumenModificaciones);
+
+            }
+
+            if (error)
+            {
+                MessageBox.Show(resumenErrores);
+            }
+
+            if (modificacion || error)
+            {
+                this.Close();
+                formAnterior.Show();
             }
         }
     }

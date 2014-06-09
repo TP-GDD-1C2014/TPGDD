@@ -141,6 +141,7 @@
             // numeroDocumento
             // 
             this.numeroDocumento.Location = new System.Drawing.Point(131, 47);
+            this.numeroDocumento.MaxLength = 18;
             this.numeroDocumento.Name = "numeroDocumento";
             this.numeroDocumento.Size = new System.Drawing.Size(144, 20);
             this.numeroDocumento.TabIndex = 10;
@@ -148,6 +149,7 @@
             // nombre
             // 
             this.nombre.Location = new System.Drawing.Point(131, 17);
+            this.nombre.MaxLength = 255;
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(144, 20);
             this.nombre.TabIndex = 11;
@@ -155,6 +157,7 @@
             // apellido
             // 
             this.apellido.Location = new System.Drawing.Point(131, 47);
+            this.apellido.MaxLength = 255;
             this.apellido.Name = "apellido";
             this.apellido.Size = new System.Drawing.Size(144, 20);
             this.apellido.TabIndex = 12;
@@ -162,6 +165,7 @@
             // email
             // 
             this.email.Location = new System.Drawing.Point(131, 77);
+            this.email.MaxLength = 255;
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(144, 20);
             this.email.TabIndex = 13;
@@ -169,6 +173,7 @@
             // telefono
             // 
             this.telefono.Location = new System.Drawing.Point(131, 107);
+            this.telefono.MaxLength = 18;
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(144, 20);
             this.telefono.TabIndex = 14;
@@ -176,6 +181,7 @@
             // direccion
             // 
             this.direccion.Location = new System.Drawing.Point(131, 137);
+            this.direccion.MaxLength = 255;
             this.direccion.Name = "direccion";
             this.direccion.Size = new System.Drawing.Size(144, 20);
             this.direccion.TabIndex = 15;
@@ -183,6 +189,7 @@
             // codigoPostal
             // 
             this.codigoPostal.Location = new System.Drawing.Point(131, 167);
+            this.codigoPostal.MaxLength = 50;
             this.codigoPostal.Name = "codigoPostal";
             this.codigoPostal.Size = new System.Drawing.Size(144, 20);
             this.codigoPostal.TabIndex = 16;

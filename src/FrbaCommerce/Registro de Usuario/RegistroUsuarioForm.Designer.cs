@@ -44,6 +44,7 @@
             // Username_TextBox
             // 
             this.Username_TextBox.Location = new System.Drawing.Point(10, 20);
+            this.Username_TextBox.MaxLength = 255;
             this.Username_TextBox.Name = "Username_TextBox";
             this.Username_TextBox.Size = new System.Drawing.Size(196, 20);
             this.Username_TextBox.TabIndex = 1;
@@ -53,6 +54,7 @@
             // Password_TextBox
             // 
             this.Password_TextBox.Location = new System.Drawing.Point(10, 20);
+            this.Password_TextBox.MaxLength = 255;
             this.Password_TextBox.Name = "Password_TextBox";
             this.Password_TextBox.Size = new System.Drawing.Size(196, 20);
             this.Password_TextBox.TabIndex = 4;

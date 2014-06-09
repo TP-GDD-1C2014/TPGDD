@@ -52,12 +52,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbFiltroTipoDocumento = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.cbFiltro = new System.Windows.Forms.ComboBox();
             this.tBusqueda = new System.Windows.Forms.TextBox();
             this.back = new System.Windows.Forms.Button();
-            this.cbFiltroTipoDocumento = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -147,6 +147,7 @@
             // tNombre
             // 
             this.tNombre.Location = new System.Drawing.Point(140, 17);
+            this.tNombre.MaxLength = 255;
             this.tNombre.Name = "tNombre";
             this.tNombre.Size = new System.Drawing.Size(152, 20);
             this.tNombre.TabIndex = 15;
@@ -154,6 +155,7 @@
             // tApellido
             // 
             this.tApellido.Location = new System.Drawing.Point(140, 47);
+            this.tApellido.MaxLength = 255;
             this.tApellido.Name = "tApellido";
             this.tApellido.Size = new System.Drawing.Size(152, 20);
             this.tApellido.TabIndex = 14;
@@ -161,6 +163,7 @@
             // tCodigoPostal
             // 
             this.tCodigoPostal.Location = new System.Drawing.Point(140, 227);
+            this.tCodigoPostal.MaxLength = 50;
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(152, 20);
             this.tCodigoPostal.TabIndex = 13;
@@ -168,6 +171,7 @@
             // tDireccion
             // 
             this.tDireccion.Location = new System.Drawing.Point(140, 197);
+            this.tDireccion.MaxLength = 255;
             this.tDireccion.Name = "tDireccion";
             this.tDireccion.Size = new System.Drawing.Size(152, 20);
             this.tDireccion.TabIndex = 12;
@@ -175,6 +179,7 @@
             // tTelefono
             // 
             this.tTelefono.Location = new System.Drawing.Point(140, 167);
+            this.tTelefono.MaxLength = 18;
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(152, 20);
             this.tTelefono.TabIndex = 11;
@@ -182,6 +187,7 @@
             // tEmail
             // 
             this.tEmail.Location = new System.Drawing.Point(140, 137);
+            this.tEmail.MaxLength = 255;
             this.tEmail.Name = "tEmail";
             this.tEmail.Size = new System.Drawing.Size(152, 20);
             this.tEmail.TabIndex = 10;
@@ -189,6 +195,7 @@
             // tNumeroDocumento
             // 
             this.tNumeroDocumento.Location = new System.Drawing.Point(140, 107);
+            this.tNumeroDocumento.MaxLength = 18;
             this.tNumeroDocumento.Name = "tNumeroDocumento";
             this.tNumeroDocumento.Size = new System.Drawing.Size(152, 20);
             this.tNumeroDocumento.TabIndex = 9;
@@ -288,6 +295,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Baja o modificación de clientes";
             // 
+            // cbFiltroTipoDocumento
+            // 
+            this.cbFiltroTipoDocumento.FormattingEnabled = true;
+            this.cbFiltroTipoDocumento.Location = new System.Drawing.Point(100, 42);
+            this.cbFiltroTipoDocumento.Name = "cbFiltroTipoDocumento";
+            this.cbFiltroTipoDocumento.Size = new System.Drawing.Size(130, 21);
+            this.cbFiltroTipoDocumento.TabIndex = 4;
+            this.cbFiltroTipoDocumento.Visible = false;
+            // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(236, 36);
@@ -332,15 +348,6 @@
             this.back.Text = "<< Volver";
             this.back.UseVisualStyleBackColor = true;
             this.back.Click += new System.EventHandler(this.back_Click_1);
-            // 
-            // cbFiltroTipoDocumento
-            // 
-            this.cbFiltroTipoDocumento.FormattingEnabled = true;
-            this.cbFiltroTipoDocumento.Location = new System.Drawing.Point(100, 42);
-            this.cbFiltroTipoDocumento.Name = "cbFiltroTipoDocumento";
-            this.cbFiltroTipoDocumento.Size = new System.Drawing.Size(130, 21);
-            this.cbFiltroTipoDocumento.TabIndex = 4;
-            this.cbFiltroTipoDocumento.Visible = false;
             // 
             // ABMClientes
             // 

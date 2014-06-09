@@ -97,6 +97,7 @@
             // tNombreDeContacto
             // 
             this.tNombreDeContacto.Location = new System.Drawing.Point(140, 227);
+            this.tNombreDeContacto.MaxLength = 50;
             this.tNombreDeContacto.Name = "tNombreDeContacto";
             this.tNombreDeContacto.Size = new System.Drawing.Size(152, 20);
             this.tNombreDeContacto.TabIndex = 30;
@@ -104,6 +105,7 @@
             // tCuit
             // 
             this.tCuit.Location = new System.Drawing.Point(140, 197);
+            this.tCuit.MaxLength = 50;
             this.tCuit.Name = "tCuit";
             this.tCuit.Size = new System.Drawing.Size(152, 20);
             this.tCuit.TabIndex = 29;
@@ -111,6 +113,7 @@
             // tCiudad
             // 
             this.tCiudad.Location = new System.Drawing.Point(140, 167);
+            this.tCiudad.MaxLength = 50;
             this.tCiudad.Name = "tCiudad";
             this.tCiudad.Size = new System.Drawing.Size(152, 20);
             this.tCiudad.TabIndex = 28;
@@ -118,6 +121,7 @@
             // tCodigoPostal
             // 
             this.tCodigoPostal.Location = new System.Drawing.Point(140, 137);
+            this.tCodigoPostal.MaxLength = 50;
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(152, 20);
             this.tCodigoPostal.TabIndex = 27;
@@ -125,6 +129,7 @@
             // tDireccion
             // 
             this.tDireccion.Location = new System.Drawing.Point(140, 107);
+            this.tDireccion.MaxLength = 255;
             this.tDireccion.Name = "tDireccion";
             this.tDireccion.Size = new System.Drawing.Size(152, 20);
             this.tDireccion.TabIndex = 26;
@@ -132,6 +137,7 @@
             // tTelefono
             // 
             this.tTelefono.Location = new System.Drawing.Point(140, 77);
+            this.tTelefono.MaxLength = 18;
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(152, 20);
             this.tTelefono.TabIndex = 25;
@@ -139,6 +145,7 @@
             // tEmail
             // 
             this.tEmail.Location = new System.Drawing.Point(140, 47);
+            this.tEmail.MaxLength = 50;
             this.tEmail.Name = "tEmail";
             this.tEmail.Size = new System.Drawing.Size(152, 20);
             this.tEmail.TabIndex = 24;
@@ -146,6 +153,7 @@
             // tRazonSocial
             // 
             this.tRazonSocial.Location = new System.Drawing.Point(140, 17);
+            this.tRazonSocial.MaxLength = 255;
             this.tRazonSocial.Name = "tRazonSocial";
             this.tRazonSocial.Size = new System.Drawing.Size(152, 20);
             this.tRazonSocial.TabIndex = 23;

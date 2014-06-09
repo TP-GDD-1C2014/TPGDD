@@ -213,18 +213,18 @@ namespace FrbaCommerce.Abm_Cliente
 
         public Boolean cambioString(string string1, string string2)
         {
-            return string1.Equals(string2);
+            return !string1.Equals(string2);
         }
 
         public Boolean cambioInt(int int1, int int2)
         {
             if (int1 == int2)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
@@ -266,6 +266,15 @@ namespace FrbaCommerce.Abm_Cliente
         }
 
         public void cambiarIntClientes(string columna, int valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Clientes SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void cambiarLongIntClientes(string columna, long valor)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Valor", valor);
@@ -336,17 +345,17 @@ namespace FrbaCommerce.Abm_Cliente
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Tipo_Doc", Tipo_Doc);
             BDSQL.agregarParametro(listaParametros, "@Num_Doc", tNumeroDeDocumento.Text);
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Num_Doc FROM MERCADONEGRO.Clientes WHERE Tipo_Doc = @Tipo_Doc AND Num_Doc = @Num_Doc", listaParametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Clientes WHERE Tipo_Doc = @Tipo_Doc AND Num_Doc = @Num_Doc", listaParametros, BDSQL.iniciarConexion());
 
             lector.Read();
 
             if (lector.HasRows)
             {
-                res = true;
+                res = false;
             }
             else
             {
-                res = false;
+                res = true;
             }
 
             BDSQL.cerrarConexion();
@@ -368,26 +377,40 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void bModificar_Click(object sender, EventArgs e)
         {
+            string resumenModificaciones = "Se han modificado los campos:";
+            string resumenErrores = "No se han podido modificar los campos:";
+
+            Boolean modificacion = false;
+            Boolean error = false;
+
             if (cambioString(this.vUsername, tUsername.Text))
             {
                 if (usernameValido())
                 {
                     cambiarStringUsuarios("Username", tUsername.Text);
+                    resumenModificaciones = resumenModificaciones + "\nNombre de usuario";
+                    modificacion = true;
                 }
                 else
                 {
-                    MessageBox.Show("Nombre de usuario inválido.", "Error");
+                    //MessageBox.Show("Nombre de usuario inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nNombre de usuario (ya existente)";
+                    error = true;
                 }
             }
 
             if (cambioString(this.vPassword, tPassword.Text))
             {
                 cambiarStringUsuarios("Password", hashear(tPassword.Text));
+                resumenModificaciones = resumenModificaciones + "\nContraseña";
+                modificacion = true;
             }
 
             if (cambioInt(this.vHabilitado, cbHabilitado.SelectedIndex))
             {
                 cambiarIntUsuarios("Habilitado", cbHabilitado.SelectedIndex);
+                resumenModificaciones = resumenModificaciones + "\nHabilitado";
+                modificacion = true;
             }
 
             if (cambioString(this.vPublicacionesGratuitas, tPublicacionesGratuitas.Text))
@@ -395,10 +418,14 @@ namespace FrbaCommerce.Abm_Cliente
                 if ((Convert.ToInt32(tPublicacionesGratuitas.Text) <= 255) && (Convert.ToInt32(tPublicacionesGratuitas.Text) >= 0))
                 {
                     cambiarIntUsuarios("Cant_Publi_Gratuitas", (Convert.ToInt32(tPublicacionesGratuitas.Text)));
+                    resumenModificaciones = resumenModificaciones + "\nPublicaciones gratuitas";
+                    modificacion = true;
                 }
                 else
                 {
-                    MessageBox.Show("Cantidad de publicaciones gratuitas inválida.", "Error");
+                    //MessageBox.Show("Cantidad de publicaciones gratuitas inválida.", "Error");
+                    resumenErrores = resumenErrores + "\nPublicaciones gratuitas (valor muy grande o negativo)";
+                    error = true;
                 }
             }
 
@@ -418,10 +445,14 @@ namespace FrbaCommerce.Abm_Cliente
                             cambiarStringClientes("Tipo_Doc", "LC");
                             break;
                     }
+                    resumenModificaciones = resumenModificaciones + "\nTipo de documento";
+                    modificacion = true;
                 }
                 else
                 {
-                    MessageBox.Show("Tipo y/o número de documento inválido/s.", "Error");
+                    //MessageBox.Show("Tipo y/o número de documento inválido/s.", "Error");
+                    resumenErrores = resumenErrores + "\nTipo de documento (ya existente o valor inválido)";
+                    error = true;
                 }
             }
 
@@ -429,44 +460,60 @@ namespace FrbaCommerce.Abm_Cliente
             {
                 if (numeroDeDocumentoValido() && tipoDeDocumentoValido())
                 {
-                    cambiarIntClientes("Num_Doc", Convert.ToInt32(tNumeroDeDocumento.Text));
+                    cambiarLongIntClientes("Num_Doc", Convert.ToInt64(tNumeroDeDocumento.Text));
+                    resumenModificaciones = resumenModificaciones + "\nNúmero de documento";
+                    modificacion = true;
                 }
                 else
                 {
-                    MessageBox.Show("Número de documento inválido.", "Error");
+                    //MessageBox.Show("Número de documento inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nNúmero de documento (ya existente o valor inválido)";
+                    error = true;
                 }
             }
 
             if (cambioString(this.vNombre, tNombre.Text))
             {
                 cambiarStringClientes("Nombre", tNombre.Text);
+                resumenModificaciones = resumenModificaciones + "\nNombre";
+                modificacion = true;
             }
 
             if (cambioString(this.vApellido, tApellido.Text))
             {
                 cambiarStringClientes("Apellido", tApellido.Text);
+                resumenModificaciones = resumenModificaciones + "\nApellido";
+                modificacion = true;
             }
 
             if (cambioString(this.vEmail, tEmail.Text))
             {
                 cambiarStringClientes("Mail", tEmail.Text);
+                resumenModificaciones = resumenModificaciones + "\nE-mail";
+                modificacion = true;
             }
 
             if (cambioString(this.vTelefono, tTelefono.Text))
             {
-                if (tTelefono.Text.Length <= 18)
+                if ((Interfaz.esNumerico(tTelefono.Text, System.Globalization.NumberStyles.Integer)) && (tTelefono.Text.Length <= 18))
                 {
                     cambiarIntClientes("Telefono", Convert.ToInt32(tTelefono.Text));
+                    resumenModificaciones = resumenModificaciones + "\nTeléfono";
+                    modificacion = true;
                 }
                 else
                 {
-                    MessageBox.Show("Teléfono inválido.", "Error");
+                    //MessageBox.Show("Teléfono inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nTeléfono (no numérico o muy grande)";
+                    error = true;
                 }
             }
 
             if (cambioString(this.vDireccion, tDireccion.Text))
             {
                 cambiarStringClientes("Direccion", tDireccion.Text);
+                resumenModificaciones = resumenModificaciones + "\nDirección";
+                modificacion = true;
             }
 
             if (cambioString(this.vCodigoPostal, tCodigoPostal.Text))
@@ -474,16 +521,39 @@ namespace FrbaCommerce.Abm_Cliente
                 if (tCodigoPostal.Text.Length <= 50)
                 {
                     cambiarStringClientes("Codigo_Postal", tCodigoPostal.Text);
+                    resumenModificaciones = resumenModificaciones + "\nCódigo Postal";
+                    modificacion = true;
                 }
                 else
                 {
                     MessageBox.Show("Código postal inválido.", "Error");
+                    resumenErrores = resumenErrores + "\nCódigo postal (valor muy grande)";
+                    error = true;
                 }
             }
 
             if (cambioInt(vDia, cbDia.SelectedIndex) || cambioInt(vMes, cbMes.SelectedIndex) || cambioInt(vAno, cbAno.SelectedIndex))
             {
                 cambiarFecha("Fecha_Nacimiento", fecha(cbDia.SelectedItem.ToString(), cbMes.SelectedItem.ToString(), cbAno.SelectedItem.ToString()));
+                resumenModificaciones = resumenModificaciones + "\nFecha de nacimiento";
+                modificacion = true;
+            }
+
+            if (modificacion)
+            {
+                MessageBox.Show(resumenModificaciones);
+                
+            }
+
+            if (error)
+            {
+                MessageBox.Show(resumenErrores);
+            }
+
+            if (modificacion || error)
+            {
+                this.Close();
+                formAnterior.Show();
             }
         }
     }
