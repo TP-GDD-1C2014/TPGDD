@@ -399,11 +399,10 @@ AS BEGIN
 END
 GO
 
-CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @codVisibilidad numeric(18,0) output)
+CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit)
 AS BEGIN
 	INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta, Habilitada)
 	VALUES (@descripcion, @costoPublicacion, @porcentajeVenta, @habilitada)
-	SET @codVisibilidad = SCOPE_IDENTITY();
 END
 GO
 
