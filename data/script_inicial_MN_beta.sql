@@ -54,6 +54,7 @@ CREATE TABLE MERCADONEGRO.Visibilidades
 	Costo_Publicacion NUMERIC(18,2) NOT NULL,
 	Porcentaje_Venta  NUMERIC(18,2) NOT NULL,
 	Habilitada		  BIT DEFAULT 1 NOT NULL,
+	Jerarquia		  NUMERIC(18,0) 
 	
 	UNIQUE		(Descripcion),
 	PRIMARY KEY ( Cod_Visibilidad )
@@ -398,10 +399,48 @@ AS BEGIN
 END
 GO
 
-CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit)
+CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @codVisibilidad numeric(18,0) output)
 AS BEGIN
 	INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta, Habilitada)
 	VALUES (@descripcion, @costoPublicacion, @porcentajeVenta, @habilitada)
+	SET @codVisibilidad = SCOPE_IDENTITY();
+END
+GO
+
+
+/* Trigger para insertar la jerarquia a la visibilidad */
+CREATE TRIGGER MERCADONEGRO.Trigger_MigracionVisibilidades
+ON MERCADONEGRO.Visibilidades
+AFTER INSERT
+ AS BEGIN
+
+	
+	-- Declare the variables to store the values returned by FETCH.
+	DECLARE @idInsertada numeric(18,0);
+
+	DECLARE trigger_cursor CURSOR FOR
+	SELECT Cod_visibilidad FROM MERCADONEGRO.Visibilidades
+	ORDER BY Cod_Visibilidad;
+
+	OPEN trigger_cursor;
+
+	-- Perform the first fetch.
+	FETCH NEXT FROM trigger_cursor
+	INTO @idInsertada
+
+	-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+	-- This is executed as long as the previous fetch succeeds.
+	UPDATE MERCADONEGRO.Visibilidades   
+		SET Jerarquia = @idInsertada
+		WHERE MERCADONEGRO.Visibilidades.Cod_Visibilidad = @idInsertada	
+   FETCH NEXT FROM trigger_cursor
+	INTO @idInsertada
+	END
+
+CLOSE trigger_cursor;
+DEALLOCATE trigger_cursor;
 END
 GO
 
@@ -604,11 +643,9 @@ INSERT INTO MERCADONEGRO.Calificaciones (Cod_Calificacion,Puntaje,Descripcion, F
 	WHERE Calificacion_Codigo IS NOT NULL
 	
 SET IDENTITY_INSERT MERCADONEGRO.Calificaciones OFF
-
+GO
 
 -------------------------MIGRANDO TABLA DE VISIBILIDADES---------------------------
-
- 
 
 PRINT 'MIGRANDO TABLA DE VISIBILIDADES';
 GO
@@ -618,8 +655,9 @@ INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaj
 					 Publicacion_Visibilidad_Desc,
 					 Publicacion_Visibilidad_Precio,
 					 Publicacion_Visibilidad_Porcentaje,
-					 1			
+					 1
 					 
+				
 	FROM gd_esquema.Maestra
 	WHERE Publicacion_Visibilidad_Cod IS NOT NULL
 	ORDER BY Publicacion_Visibilidad_Precio DESC
