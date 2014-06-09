@@ -13,11 +13,11 @@ namespace FrbaCommerce.Clases
     {
         public int Cod_Visibilidad { get; set; }
         public string Descripcion { get; set; }
-        public float Costo_Publicacion { get; set; }
-        public float Porcentaje_Venta  { get; set; }
+        public decimal Costo_Publicacion { get; set; }
+        public int Porcentaje_Venta  { get; set; }
         public bool habilitada { get; set; }
 
-        public Visibilidad(int codVisibilidad, string descripcion, float costoPublicacion, float porcentajeVenta, bool habilitada)
+        public Visibilidad(int codVisibilidad, string descripcion, decimal costoPublicacion, int porcentajeVenta, bool habilitada)
         {
             this.Cod_Visibilidad = codVisibilidad;
             this.Descripcion = descripcion;
@@ -26,7 +26,8 @@ namespace FrbaCommerce.Clases
             this.habilitada = habilitada;
         }
 
-   
+    
+            
 
         public static List<Visibilidad> ObtenerVisibilidades()
         {
@@ -43,8 +44,8 @@ namespace FrbaCommerce.Clases
                 {
                     Visibilidad unaVisibilidad = new Visibilidad((int)(decimal)lector["Cod_Visibilidad"],
                                                                    (string)lector["Descripcion"],
-                                                                   (float) (decimal) lector["Costo_Publicacion"],
-                                                                   (float) (decimal) lector["Porcentaje_Venta"],
+                                                                   (decimal) lector["Costo_Publicacion"],
+                                                                   Convert.ToInt32(((decimal) lector["Porcentaje_Venta"]) * 100),
                                                                    (bool) lector["Habilitada"]);
                     visibilidades.Add(unaVisibilidad);
                 }

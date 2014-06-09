@@ -54,6 +54,7 @@
             this.modificarButton.TabIndex = 1;
             this.modificarButton.Text = "Modificar";
             this.modificarButton.UseVisualStyleBackColor = true;
+            this.modificarButton.Click += new System.EventHandler(this.modificarButton_Click);
             // 
             // eliminarButton
             // 
@@ -73,12 +74,13 @@
             this.dgvVisibilidades.Name = "dgvVisibilidades";
             this.dgvVisibilidades.ReadOnly = true;
             this.dgvVisibilidades.RowHeadersVisible = false;
-            this.dgvVisibilidades.Size = new System.Drawing.Size(472, 121);
+            this.dgvVisibilidades.Size = new System.Drawing.Size(617, 121);
             this.dgvVisibilidades.TabIndex = 3;
+            this.dgvVisibilidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVisibilidades_CellContentClick);
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(431, 235);
+            this.volverButton.Location = new System.Drawing.Point(576, 228);
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(75, 23);
             this.volverButton.TabIndex = 4;
@@ -90,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 281);
+            this.ClientSize = new System.Drawing.Size(712, 281);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.dgvVisibilidades);
             this.Controls.Add(this.eliminarButton);
@@ -98,6 +100,7 @@
             this.Controls.Add(this.nuevaButton);
             this.Name = "ABMVisibilidad";
             this.Text = "ABM Visiblidades - MercadoNegro";
+            this.Load += new System.EventHandler(this.ABMVisibilidad_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidades)).EndInit();
             this.ResumeLayout(false);
 

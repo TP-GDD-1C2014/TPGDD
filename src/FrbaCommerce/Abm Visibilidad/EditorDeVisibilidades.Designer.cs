@@ -40,12 +40,14 @@
             this.ConfirmarButton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.codigoComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 25);
+            this.label1.Location = new System.Drawing.Point(37, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 0;
@@ -55,7 +57,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(37, 70);
+            this.label2.Location = new System.Drawing.Point(37, 105);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 13);
             this.label2.TabIndex = 1;
@@ -64,7 +66,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(37, 116);
+            this.label3.Location = new System.Drawing.Point(37, 151);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(120, 13);
             this.label3.TabIndex = 2;
@@ -74,7 +76,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 163);
+            this.label4.Location = new System.Drawing.Point(37, 198);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 3;
@@ -82,37 +84,37 @@
             // 
             // nombreTextBox
             // 
-            this.nombreTextBox.Location = new System.Drawing.Point(168, 25);
+            this.nombreTextBox.Location = new System.Drawing.Point(187, 60);
             this.nombreTextBox.Name = "nombreTextBox";
             this.nombreTextBox.Size = new System.Drawing.Size(100, 20);
-            this.nombreTextBox.TabIndex = 4;
+            this.nombreTextBox.TabIndex = 1;
             // 
             // costoTextBox
             // 
-            this.costoTextBox.Location = new System.Drawing.Point(168, 70);
+            this.costoTextBox.Location = new System.Drawing.Point(187, 105);
             this.costoTextBox.Name = "costoTextBox";
             this.costoTextBox.Size = new System.Drawing.Size(100, 20);
-            this.costoTextBox.TabIndex = 5;
+            this.costoTextBox.TabIndex = 2;
             // 
             // porcentajeTextBox
             // 
-            this.porcentajeTextBox.Location = new System.Drawing.Point(168, 116);
+            this.porcentajeTextBox.Location = new System.Drawing.Point(187, 151);
             this.porcentajeTextBox.Name = "porcentajeTextBox";
             this.porcentajeTextBox.Size = new System.Drawing.Size(36, 20);
-            this.porcentajeTextBox.TabIndex = 6;
+            this.porcentajeTextBox.TabIndex = 3;
             // 
             // checkBox
             // 
             this.checkBox.AutoSize = true;
-            this.checkBox.Location = new System.Drawing.Point(168, 163);
+            this.checkBox.Location = new System.Drawing.Point(187, 198);
             this.checkBox.Name = "checkBox";
             this.checkBox.Size = new System.Drawing.Size(15, 14);
-            this.checkBox.TabIndex = 7;
+            this.checkBox.TabIndex = 4;
             this.checkBox.UseVisualStyleBackColor = true;
             // 
             // cancelarButton
             // 
-            this.cancelarButton.Location = new System.Drawing.Point(40, 210);
+            this.cancelarButton.Location = new System.Drawing.Point(40, 244);
             this.cancelarButton.Name = "cancelarButton";
             this.cancelarButton.Size = new System.Drawing.Size(75, 23);
             this.cancelarButton.TabIndex = 8;
@@ -122,7 +124,7 @@
             // 
             // ConfirmarButton
             // 
-            this.ConfirmarButton.Location = new System.Drawing.Point(193, 210);
+            this.ConfirmarButton.Location = new System.Drawing.Point(212, 244);
             this.ConfirmarButton.Name = "ConfirmarButton";
             this.ConfirmarButton.Size = new System.Drawing.Size(75, 23);
             this.ConfirmarButton.TabIndex = 9;
@@ -133,7 +135,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(210, 123);
+            this.label5.Location = new System.Drawing.Point(229, 158);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(15, 13);
             this.label5.TabIndex = 10;
@@ -143,17 +145,37 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(37, 253);
+            this.label6.Location = new System.Drawing.Point(37, 293);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(250, 13);
             this.label6.TabIndex = 11;
             this.label6.Text = "Los campos marcados con (*) son OBLIGATORIOS";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(37, 15);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(137, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Código de la Publicación (*)";
+            // 
+            // codigoComboBox
+            // 
+            this.codigoComboBox.FormattingEnabled = true;
+            this.codigoComboBox.Location = new System.Drawing.Point(187, 12);
+            this.codigoComboBox.Name = "codigoComboBox";
+            this.codigoComboBox.Size = new System.Drawing.Size(121, 21);
+            this.codigoComboBox.TabIndex = 0;
             // 
             // EditorDeVisibilidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 273);
+            this.ClientSize = new System.Drawing.Size(342, 332);
+            this.Controls.Add(this.codigoComboBox);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.ConfirmarButton);
@@ -187,5 +209,7 @@
         private System.Windows.Forms.Button ConfirmarButton;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox codigoComboBox;
     }
 }
