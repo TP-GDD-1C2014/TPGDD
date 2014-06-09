@@ -48,7 +48,7 @@ namespace FrbaCommerce.Clases
             Fecha = fechaOperacion;
             if (calificacion != null)
             {
-                Calificacion = calificacion.Puntaje;
+                Calificacion = (int)calificacion.Puntaje;
                 if (calificacion.Descripcion.Equals(""))
                 {
                     Comentarios = "Sin comentarios";

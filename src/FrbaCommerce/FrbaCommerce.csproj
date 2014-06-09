@@ -293,6 +293,9 @@
     <EmbeddedResource Include="Abm Visibilidad\EditorDeVisibilidades.resx">
       <DependentUpon>EditorDeVisibilidades.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Calificar Vendedor\CalificarVendedor.resx">
+      <DependentUpon>CalificarVendedor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Comprar-Ofertar\AgregarRubros.resx">
       <DependentUpon>AgregarRubros.cs</DependentUpon>
     </EmbeddedResource>
