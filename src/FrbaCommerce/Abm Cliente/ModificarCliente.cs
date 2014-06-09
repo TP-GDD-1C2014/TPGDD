@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Common;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace FrbaCommerce.Abm_Cliente
 {
@@ -16,6 +17,23 @@ namespace FrbaCommerce.Abm_Cliente
         public BuscarCliente formAnterior { get; set; }
 
         public int ID_User { get; set; }
+
+        public string vUsername { get; set; }
+        public string vPassword { get; set; }
+        public int vHabilitado { get; set; }
+        public string vPublicacionesGratuitas { get; set; }
+
+        public int vTipoDeDocumento { get; set; }
+        public string vNumeroDeDocumento { get; set; }
+        public string vNombre { get; set; }
+        public string vApellido { get; set; }
+        public string vEmail { get; set; }
+        public string vTelefono { get; set; }
+        public string vDireccion { get; set; }
+        public string vCodigoPostal { get; set; }
+        public int vDia { get; set; }
+        public int vMes { get; set; }
+        public int vAno { get; set; }
 
         public ModificarCliente(int _ID_User, BuscarCliente _formAnterior)
         {
@@ -27,6 +45,28 @@ namespace FrbaCommerce.Abm_Cliente
             setearComboBoxes();
             cargarDatosUsuario();
             cargarDatosCliente();
+
+            cargarDatosViejos();
+        }
+
+        public void cargarDatosViejos()
+        {
+            this.vUsername = tUsername.Text;
+            this.vPassword = tPassword.Text;
+            this.vHabilitado = cbHabilitado.SelectedIndex;
+            this.vPublicacionesGratuitas = tPublicacionesGratuitas.Text;
+
+            this.vTipoDeDocumento = cbTipoDeDocumento.SelectedIndex;
+            this.vNumeroDeDocumento = tNumeroDeDocumento.Text;
+            this.vNombre = tNombre.Text;
+            this.vApellido = tApellido.Text;
+            this.vEmail = tEmail.Text;
+            this.vTelefono = tTelefono.Text;
+            this.vDireccion = tDireccion.Text;
+            this.vCodigoPostal = tCodigoPostal.Text;
+            this.vDia = cbDia.SelectedIndex;
+            this.vMes = cbMes.SelectedIndex;
+            this.vAno = cbAno.SelectedIndex;
         }
 
         public void setearComboBoxes()
@@ -160,8 +200,6 @@ namespace FrbaCommerce.Abm_Cliente
             BDSQL.cerrarConexion();
         }
 
-
-
         private void ModificarCliente_Load(object sender, EventArgs e)
         {
 
@@ -173,9 +211,280 @@ namespace FrbaCommerce.Abm_Cliente
             this.formAnterior.Show();
         }
 
+        public Boolean cambioString(string string1, string string2)
+        {
+            return string1.Equals(string2);
+        }
+
+        public Boolean cambioInt(int int1, int int2)
+        {
+            if (int1 == int2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private string bytesDeHasheoToString(byte[] array)
+        {
+            StringBuilder salida = new StringBuilder("");
+            for (int i = 0; i < array.Length; i++)
+            {
+                salida.Append(array[i].ToString("X2"));
+            }
+            return salida.ToString();
+        }
+
+        public void cambiarStringUsuarios(string columna, string valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void cambiarStringClientes(string columna, string valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Clientes SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void cambiarIntUsuarios(string columna, int valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void cambiarIntClientes(string columna, int valor)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", valor);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Clientes SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public void cambiarFecha(string columna, DateTime fecha)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", fecha);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Clientes SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public string hashear(string valor)
+        {
+            UTF8Encoding encoderHash = new UTF8Encoding();
+            SHA256Managed hasher = new SHA256Managed();
+            byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(valor));
+            return bytesDeHasheoToString(bytesDeHasheo);
+        }
+
+        public Boolean usernameValido()
+        {
+            if (!tUsername.Text.Equals("") && !BDSQL.existeString(tUsername.Text, "MERCADONEGRO.Usuarios", "Username"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Boolean numeroDeDocumentoValido()
+        {
+            if ((Interfaz.esNumerico(tNumeroDeDocumento.Text, System.Globalization.NumberStyles.Integer)) && (tNumeroDeDocumento.Text.Length <= 18))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Boolean tipoDeDocumentoValido()
+        {
+            string Tipo_Doc = "";
+            Boolean res = false;
+
+            switch (cbTipoDeDocumento.SelectedIndex)
+            {
+                case 0: // DU
+                    Tipo_Doc = "DU";
+                    break;
+                case 1: // CI
+                    Tipo_Doc = "CI";
+                    break;
+                case 2: // LC
+                    Tipo_Doc = "LC";
+                    break;
+            }
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Doc", Tipo_Doc);
+            BDSQL.agregarParametro(listaParametros, "@Num_Doc", tNumeroDeDocumento.Text);
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Num_Doc FROM MERCADONEGRO.Clientes WHERE Tipo_Doc = @Tipo_Doc AND Num_Doc = @Num_Doc", listaParametros, BDSQL.iniciarConexion());
+
+            lector.Read();
+
+            if (lector.HasRows)
+            {
+                res = true;
+            }
+            else
+            {
+                res = false;
+            }
+
+            BDSQL.cerrarConexion();
+            return res;
+        }
+
+        public DateTime fecha(string dia, string mes, string ano)
+        {
+            if (Convert.ToInt32(dia) <= 9)
+            {
+                dia = "0" + dia;
+            }
+            if (Convert.ToInt32(mes) <= 9)
+            {
+                mes = "0" + mes;
+            }
+            return DateTime.ParseExact(dia + "/" + mes + "/" + ano, "dd/MM/yyyy", null);
+        }
+
         private void bModificar_Click(object sender, EventArgs e)
         {
+            if (cambioString(this.vUsername, tUsername.Text))
+            {
+                if (usernameValido())
+                {
+                    cambiarStringUsuarios("Username", tUsername.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Nombre de usuario inválido.", "Error");
+                }
+            }
 
+            if (cambioString(this.vPassword, tPassword.Text))
+            {
+                cambiarStringUsuarios("Password", hashear(tPassword.Text));
+            }
+
+            if (cambioInt(this.vHabilitado, cbHabilitado.SelectedIndex))
+            {
+                cambiarIntUsuarios("Habilitado", cbHabilitado.SelectedIndex);
+            }
+
+            if (cambioString(this.vPublicacionesGratuitas, tPublicacionesGratuitas.Text))
+            {
+                if ((Convert.ToInt32(tPublicacionesGratuitas.Text) <= 255) && (Convert.ToInt32(tPublicacionesGratuitas.Text) >= 0))
+                {
+                    cambiarIntUsuarios("Cant_Publi_Gratuitas", (Convert.ToInt32(tPublicacionesGratuitas.Text)));
+                }
+                else
+                {
+                    MessageBox.Show("Cantidad de publicaciones gratuitas inválida.", "Error");
+                }
+            }
+
+            if (cambioInt(this.vTipoDeDocumento, cbTipoDeDocumento.SelectedIndex))
+            {
+                if (numeroDeDocumentoValido() && tipoDeDocumentoValido())
+                {
+                    switch (cbTipoDeDocumento.SelectedIndex)
+                    {
+                        case 0:
+                            cambiarStringClientes("Tipo_Doc", "DU");
+                            break;
+                        case 1:
+                            cambiarStringClientes("Tipo_Doc", "CI");
+                            break;
+                        case 2:
+                            cambiarStringClientes("Tipo_Doc", "LC");
+                            break;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Tipo y/o número de documento inválido/s.", "Error");
+                }
+            }
+
+            if (cambioString(this.vNumeroDeDocumento, tNumeroDeDocumento.Text))
+            {
+                if (numeroDeDocumentoValido() && tipoDeDocumentoValido())
+                {
+                    cambiarIntClientes("Num_Doc", Convert.ToInt32(tNumeroDeDocumento.Text));
+                }
+                else
+                {
+                    MessageBox.Show("Número de documento inválido.", "Error");
+                }
+            }
+
+            if (cambioString(this.vNombre, tNombre.Text))
+            {
+                cambiarStringClientes("Nombre", tNombre.Text);
+            }
+
+            if (cambioString(this.vApellido, tApellido.Text))
+            {
+                cambiarStringClientes("Apellido", tApellido.Text);
+            }
+
+            if (cambioString(this.vEmail, tEmail.Text))
+            {
+                cambiarStringClientes("Mail", tEmail.Text);
+            }
+
+            if (cambioString(this.vTelefono, tTelefono.Text))
+            {
+                if (tTelefono.Text.Length <= 18)
+                {
+                    cambiarIntClientes("Telefono", Convert.ToInt32(tTelefono.Text));
+                }
+                else
+                {
+                    MessageBox.Show("Teléfono inválido.", "Error");
+                }
+            }
+
+            if (cambioString(this.vDireccion, tDireccion.Text))
+            {
+                cambiarStringClientes("Direccion", tDireccion.Text);
+            }
+
+            if (cambioString(this.vCodigoPostal, tCodigoPostal.Text))
+            {
+                if (tCodigoPostal.Text.Length <= 50)
+                {
+                    cambiarStringClientes("Codigo_Postal", tCodigoPostal.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Código postal inválido.", "Error");
+                }
+            }
+
+            if (cambioInt(vDia, cbDia.SelectedIndex) || cambioInt(vMes, cbMes.SelectedIndex) || cambioInt(vAno, cbAno.SelectedIndex))
+            {
+                cambiarFecha("Fecha_Nacimiento", fecha(cbDia.SelectedItem.ToString(), cbMes.SelectedItem.ToString(), cbAno.SelectedItem.ToString()));
+            }
         }
     }
 }
