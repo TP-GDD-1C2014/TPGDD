@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
+using FrbaCommerce.Login;
 using System.Data.SqlClient;
 
 namespace FrbaCommerce.Generar_Publicacion
@@ -18,6 +19,7 @@ namespace FrbaCommerce.Generar_Publicacion
         //Obtiene el usuario loggeado
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
         //public Clases.Usuario usuario { get; set; }
+        //public SeleccionFuncionalidades formAnterior { get; set; }
         bool esNueva;
         int codPubli;
         int stockTraido;
@@ -43,6 +45,7 @@ namespace FrbaCommerce.Generar_Publicacion
             if (modo == "Modificar")
             {
                 InitializeComponent();
+                CenterToScreen();
                 llenarCombos();
 
                 codPubli = unaPubli.Cod_Publicacion;
@@ -61,7 +64,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 //Si se encuentra Publicada, sólo permitir modificar el estado a Pausada o Finalizada (Inmediata unicamente)
                 if ((unaPubli.Estado_Publicacion == "Publicada") && (unaPubli.Tipo_Publicacion == "Inmediata"))
                 {
-                    Visibilidad_ComboBox.Enabled = false;
+                    /*Visibilidad_ComboBox.Enabled = false;
                     Descrip_TextBox.Enabled = false;
                     //TODO Revisar cuestión de stock (permitir aumento)
                     FechaFin_DateTimePicker.Enabled = false;
@@ -69,7 +72,7 @@ namespace FrbaCommerce.Generar_Publicacion
                     Estado_ComboBox.Items.RemoveAt(0);
                     TipoPubli_ComboBox.Enabled = false;
                     Precio_textBox.Enabled = false;
-                    PermitirPreguntas_Checkbox.Enabled = false;
+                    PermitirPreguntas_Checkbox.Enabled = false;*/
                 }
             }
         }
@@ -144,7 +147,7 @@ namespace FrbaCommerce.Generar_Publicacion
         {
             //Controlar que se completen todos los datos y asignar
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !Precio_textBox.Text.Equals(""))
-            {// 1er IF
+            {
                 if(esNueva == true)
                 {
                     codPubli = 0;
@@ -167,50 +170,50 @@ namespace FrbaCommerce.Generar_Publicacion
                 //Crear la publicacion con los parametros asignados
                 Publicacion publi = new Publicacion(codPubli, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli, permisoPreg, stock);
 
-                //Comprueba que no se haya decrementado el stock
-                if (stockTraido >= stock)
-                {// 2do IF
+                //Comprobar si es nueva o para modificar
+                if ((esNueva == true))
+                {
 
-                    //Comprobar si es nueva o para modificar
-                    if ((esNueva == true))
-                    {// 3er IF
+                    //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
+                    if (visibilidad == "Gratis")
+                    {
 
-                        //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
-                        if (visibilidad == "Gratis")
-                        {// 4to IF
+                        if (usuario.Cant_Publi_Gratuitas < 3)
+                        {
+                            //Invocar funcion que inserta publicacion en la tabla Publicaciones
+                            Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
 
-                            if (usuario.Cant_Publi_Gratuitas < 3)
-                            {
-                                //Invocar funcion que inserta publicacion en la tabla Publicaciones
-                                Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                            //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
+                            usuario.sumarPubliGratuita();
+                        }
+                        else
+                        {
+                            //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
+                            MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
 
-                                //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
-                                usuario.sumarPubliGratuita();
-                            }
-                            else
-                            {
-                                //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
-                                MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            }
+                    }
 
-                        }// 4to IF
-
-                    }// 3er IF
-                    else
+                }
+                else
+                {
+                    //Comprueba que no se haya decrementado el stock
+                    if (stockTraido >= stock)
                     {
                         //Invocar funcion que actualiza la publicacion en la tabla Publicaciones
                         Publicaciones.actualizarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
 
                         //TODO Revisar en caso de que sea borrador y pase a ser generada como gratuita!
-                    }
 
-                }// 2do IF
-                else
-                {
-                    MessageBox.Show("No es posible decrementar el stock", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("No es posible decrementar el stock", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
 
-            }// 1er IF
+            }
             else
             {
                 MessageBox.Show("Para continuar, ingrese todos los datos solicitados", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -237,6 +240,7 @@ namespace FrbaCommerce.Generar_Publicacion
             //this.Visibilidad_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             List<estadoComboBox> listaEstados = new List<estadoComboBox>();
+            //TODO Controlar index!
             listaEstados.Add(new estadoComboBox("Borrador", 0));
             listaEstados.Add(new estadoComboBox("Publicada", 1));
             listaEstados.Add(new estadoComboBox("Pausada", 2));
@@ -248,8 +252,8 @@ namespace FrbaCommerce.Generar_Publicacion
             //Estado_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             List<tipoComboBox> listaTipos = new List<tipoComboBox>();
-            listaTipos.Add(new tipoComboBox("Inmediata", 0));
-            listaTipos.Add(new tipoComboBox("Subasta", 1));
+            listaTipos.Add(new tipoComboBox("Subasta", 0));
+            listaTipos.Add(new tipoComboBox("Inmediata", 1));
             this.TipoPubli_ComboBox.DataSource = listaTipos;
             this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
@@ -297,5 +301,11 @@ namespace FrbaCommerce.Generar_Publicacion
         private void permitirPreg_combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
+
+        /*private void volver_button_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.formAnterior.Show();
+        }*/
     }
 }

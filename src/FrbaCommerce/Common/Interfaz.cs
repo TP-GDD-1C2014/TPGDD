@@ -32,6 +32,7 @@ namespace FrbaCommerce.Common
                 var combo = c as ComboBox;
                 var datagridview = c as DataGridView;
                 var datetimepicker = c as DateTimePicker;
+                var checkbox = c as CheckBox;
                 
                 //Limpia textbox
                 if (box != null)
@@ -55,11 +56,19 @@ namespace FrbaCommerce.Common
                 //Limpiar DateTimePicker
                 if (datetimepicker != null)
                 {
-                    datetimepicker.CustomFormat = " ";
-                    datetimepicker.Format = DateTimePickerFormat.Custom;
-                    datetimepicker.Refresh();
+                    /*datetimepicker.CustomFormat = " ";
+                    datetimepicker.Format = DateTimePickerFormat.Custom;*/
+                    //datetimepicker.Refresh();
+                    /*datetimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+                    datetimepicker.CustomFormat = " ";*/
                 }
 
+                //Limpiar Checkbox
+                if (checkbox != null)
+                {
+                    checkbox.Checked = false;
+                }
+                
                 limpiarInterfaz(c);
 
             }

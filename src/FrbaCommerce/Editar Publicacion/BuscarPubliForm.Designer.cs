@@ -50,18 +50,19 @@
             this.label3 = new System.Windows.Forms.Label();
             this.precio_textBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.borrar_button = new System.Windows.Forms.Button();
-            this.permisos_checkbox = new System.Windows.Forms.CheckBox();
+            this.volver_button = new System.Windows.Forms.Button();
+            this.fechaVenc_checkBox = new System.Windows.Forms.CheckBox();
+            this.fechaInic_checkBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(27, 163);
+            this.dataGridView1.Location = new System.Drawing.Point(27, 189);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(651, 265);
+            this.dataGridView1.Size = new System.Drawing.Size(675, 265);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
@@ -152,7 +153,7 @@
             // 
             // limpiar_button
             // 
-            this.limpiar_button.Location = new System.Drawing.Point(553, 445);
+            this.limpiar_button.Location = new System.Drawing.Point(553, 121);
             this.limpiar_button.Name = "limpiar_button";
             this.limpiar_button.Size = new System.Drawing.Size(125, 45);
             this.limpiar_button.TabIndex = 20;
@@ -163,7 +164,7 @@
             // filtrar_button
             // 
             this.filtrar_button.BackColor = System.Drawing.SystemColors.Control;
-            this.filtrar_button.Location = new System.Drawing.Point(27, 445);
+            this.filtrar_button.Location = new System.Drawing.Point(365, 121);
             this.filtrar_button.Name = "filtrar_button";
             this.filtrar_button.Size = new System.Drawing.Size(125, 45);
             this.filtrar_button.TabIndex = 21;
@@ -173,7 +174,7 @@
             // 
             // modificar_button
             // 
-            this.modificar_button.Location = new System.Drawing.Point(203, 445);
+            this.modificar_button.Location = new System.Drawing.Point(27, 460);
             this.modificar_button.Name = "modificar_button";
             this.modificar_button.Size = new System.Drawing.Size(125, 45);
             this.modificar_button.TabIndex = 22;
@@ -250,18 +251,9 @@
             this.label1.TabIndex = 32;
             this.label1.Text = "Precio";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(362, 120);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(100, 13);
-            this.label4.TabIndex = 34;
-            this.label4.Text = "Permisos Preguntas";
-            // 
             // borrar_button
             // 
-            this.borrar_button.Location = new System.Drawing.Point(376, 445);
+            this.borrar_button.Location = new System.Drawing.Point(304, 460);
             this.borrar_button.Name = "borrar_button";
             this.borrar_button.Size = new System.Drawing.Size(125, 45);
             this.borrar_button.TabIndex = 35;
@@ -269,23 +261,45 @@
             this.borrar_button.UseVisualStyleBackColor = true;
             this.borrar_button.Click += new System.EventHandler(this.borrar_button_Click);
             // 
-            // permisos_checkbox
+            // volver_button
             // 
-            this.permisos_checkbox.AutoSize = true;
-            this.permisos_checkbox.Location = new System.Drawing.Point(478, 121);
-            this.permisos_checkbox.Name = "permisos_checkbox";
-            this.permisos_checkbox.Size = new System.Drawing.Size(15, 14);
-            this.permisos_checkbox.TabIndex = 36;
-            this.permisos_checkbox.UseVisualStyleBackColor = true;
+            this.volver_button.Location = new System.Drawing.Point(577, 460);
+            this.volver_button.Name = "volver_button";
+            this.volver_button.Size = new System.Drawing.Size(125, 45);
+            this.volver_button.TabIndex = 36;
+            this.volver_button.Text = "Volver";
+            this.volver_button.UseVisualStyleBackColor = true;
+            this.volver_button.Click += new System.EventHandler(this.volver_button_Click);
+            // 
+            // fechaVenc_checkBox
+            // 
+            this.fechaVenc_checkBox.AutoSize = true;
+            this.fechaVenc_checkBox.Location = new System.Drawing.Point(684, 15);
+            this.fechaVenc_checkBox.Name = "fechaVenc_checkBox";
+            this.fechaVenc_checkBox.Size = new System.Drawing.Size(15, 14);
+            this.fechaVenc_checkBox.TabIndex = 37;
+            this.fechaVenc_checkBox.UseVisualStyleBackColor = true;
+            this.fechaVenc_checkBox.CheckedChanged += new System.EventHandler(this.fechaVenc_checkBox_CheckedChanged);
+            // 
+            // fechaInic_checkBox
+            // 
+            this.fechaInic_checkBox.AutoSize = true;
+            this.fechaInic_checkBox.Location = new System.Drawing.Point(684, 41);
+            this.fechaInic_checkBox.Name = "fechaInic_checkBox";
+            this.fechaInic_checkBox.Size = new System.Drawing.Size(15, 14);
+            this.fechaInic_checkBox.TabIndex = 38;
+            this.fechaInic_checkBox.UseVisualStyleBackColor = true;
+            this.fechaInic_checkBox.CheckedChanged += new System.EventHandler(this.fechaInic_checkBox_CheckedChanged);
             // 
             // BuscarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 517);
-            this.Controls.Add(this.permisos_checkbox);
+            this.ClientSize = new System.Drawing.Size(731, 517);
+            this.Controls.Add(this.fechaInic_checkBox);
+            this.Controls.Add(this.fechaVenc_checkBox);
+            this.Controls.Add(this.volver_button);
             this.Controls.Add(this.borrar_button);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.precio_textBox);
             this.Controls.Add(this.label3);
@@ -341,10 +355,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox precio_textBox;
         private System.Windows.Forms.Label label1;
-
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button borrar_button;
-        private System.Windows.Forms.CheckBox permisos_checkbox;
+        private System.Windows.Forms.Button volver_button;
+        private System.Windows.Forms.CheckBox fechaVenc_checkBox;
+        private System.Windows.Forms.CheckBox fechaInic_checkBox;
 
     }
 }
