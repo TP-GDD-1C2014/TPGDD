@@ -8,21 +8,24 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
+using FrbaCommerce.Login;
 using System.Data.SqlClient;
 
 namespace FrbaCommerce.Editar_Publicacion
 {
     public partial class BuscarPubliForm : Form
     {
-
-
-        public BuscarPubliForm()
+        public SeleccionFuncionalidades formAnterior { get; set; }
+        
+        public BuscarPubliForm(SeleccionFuncionalidades _formAnterior)
         {
+            this.formAnterior = _formAnterior;
             InitializeComponent();
             CenterToScreen();
             llenarCombos();
             Interfaz.limpiarInterfaz(this);
 
+            //Comprueba si el usuario es administrador o no
             esAdmin = Usuario.controlarRol(usuario.ID_User);
 
             //Cargar DataGridView con las publicaciones dependiendo si es Admin o no
@@ -35,7 +38,31 @@ namespace FrbaCommerce.Editar_Publicacion
                 dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
             }
 
+            //No permitir cambios en el DataGridView
+            dataGridView1.ReadOnly = true;
 
+            //Setea los text de las fechas en nulo, gracias al checkbox
+            if (!fechaVenc_checkBox.Checked)
+            {
+                dateTimePicker1.CustomFormat = " ";
+                dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            }
+            else
+            {
+                dateTimePicker1.CustomFormat = null;
+                dateTimePicker1.Format = DateTimePickerFormat.Long;
+            }
+
+            if (!fechaInic_checkBox.Checked)
+            {
+                dateTimePicker2.CustomFormat = " ";
+                dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            }
+            else
+            {
+                dateTimePicker2.CustomFormat = null;
+                dateTimePicker2.Format = DateTimePickerFormat.Long;
+            }
         }
 
         //Combobox Visibilidad (numeric(18,0) )
@@ -101,7 +128,7 @@ namespace FrbaCommerce.Editar_Publicacion
 
         //Obtiene el usuario loggeado
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
-
+        
         bool esAdmin;
         /*public List<Publicacion> listaPublicaciones = new List<Publicacion>();
         public List<Publicacion> listaEnBlanco  = new List<Publicacion>();
@@ -125,7 +152,7 @@ namespace FrbaCommerce.Editar_Publicacion
             {
                 cod_publi = Convert.ToInt32(CodPubli_textBox.Text);
             }
-            //TODO Recordar de pasar como parámetro a filtrarPublicaciones el index de visibilidad!
+
             string visibilidad = Convert.ToString(Visibilidad_ComboBox.SelectedItem);
             int visibilidadIndex = Visibilidad_ComboBox.SelectedIndex;
             int idVendedor = usuario.ID_User;
@@ -141,27 +168,31 @@ namespace FrbaCommerce.Editar_Publicacion
                 stock = Convert.ToInt32(StockInicial_TextBox.Text);     
             }
 
-            //TODO Averiguar como filtrar por fecha (cuestion NULL)
-            string dateString = null;
             DateTime fechaFin;
+            bool fechaFinNula;
             if (dateTimePicker1.Text == " ")
             {
-                fechaFin = Convert.ToDateTime(dateString);
+                fechaFinNula = true;
+                fechaFin = Convert.ToDateTime(null);
             }else
             {
+                fechaFinNula = false;
                 fechaFin = Convert.ToDateTime(dateTimePicker1.Text);
             }
 
             DateTime fechaInic;
+            bool fechaInicNula;
             if (dateTimePicker2.Text == " ")
             {
-                fechaInic = Convert.ToDateTime(dateString);
+                fechaInicNula = true;
+                fechaInic = Convert.ToDateTime(null);
             }
             else
             {
+                fechaInicNula = false;
                 fechaInic = Convert.ToDateTime(dateTimePicker2.Text);
             }
-
+            
             string estado = Convert.ToString(Estado_ComboBox.SelectedItem);
             int estadoIndex = Estado_ComboBox.SelectedIndex;
             string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
@@ -175,26 +206,32 @@ namespace FrbaCommerce.Editar_Publicacion
             {
                 precio = Convert.ToDecimal(precio_textBox.Text);
             }
-            bool permisoPreg = permisos_checkbox.Checked;
 
+            //Recordar que el filtro de permiso de preguntas fue removido
+            //bool permisoPreg = permisos_checkbox.Checked;
+            bool permisoPreg = false;
+
+            //Crea una publicacion a partir de los datos seleccionados
             Publicacion publi = new Publicacion(cod_publi, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInic, precio, estado, tipoPubli, permisoPreg, stock);
             
 
-            //Filtrar Publicaciones y mostrar en dataGridView1
-            if ((cod_publi == -1) && (visibilidadIndex == -1) && (descripcion == ""))
+            //Comprueba que haya por lo menos 1 campo completo
+            if ((cod_publi == -1) && (visibilidadIndex == -1) && (descripcion == "") && (stock == -1) && (precio == -1) && (estadoIndex == -1) && (tipoPubliIndex == -1) && fechaFinNula == true && fechaInicNula == true)
             {
                 MessageBox.Show("Debe completar algún filtro para poder llevar a cabo este proceso", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                dataGridView1.DataSource = Publicaciones.filtrarPublicaciones(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                //Filtrar Publicaciones y mostrar en dataGridView1
+                dataGridView1.DataSource = Publicaciones.filtrarPublicaciones(publi, visibilidadIndex, estadoIndex, tipoPubliIndex, fechaFinNula, fechaInicNula, esAdmin);
             }
-            //Recordar que los campos del datagridview NO pueden ser editables
+
         }
 
         private void limpiar_button_Click(object sender, EventArgs e)
         {
             Interfaz.limpiarInterfaz(this);
+            //Re-checkea si el usuario es admin o no, para saber cómo completar el datagridview
             if (esAdmin == true)
             {
                 dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
@@ -208,6 +245,7 @@ namespace FrbaCommerce.Editar_Publicacion
 
         private void borrar_button_Click(object sender, EventArgs e)
         {
+            //Obtiene la publicacion seleccionada
             Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
 
             string mensaje = string.Format("¿Desea confirmar la eliminacion de la publicación?");
@@ -215,8 +253,18 @@ namespace FrbaCommerce.Editar_Publicacion
 
             if (resultado == DialogResult.Yes)
             {
+                //Elimina publicacion de la BD y vuelve a cargar el datagrid
                 Publicaciones.eliminarPublicacion(unaPubli);
-                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+
+                //Re-checkea si el usuario es admin o no, para saber cómo completar el datagridview
+                if (esAdmin == true)
+                {
+                    dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
+                }
+                else
+                {
+                    dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+                }
             }
 
 
@@ -228,18 +276,23 @@ namespace FrbaCommerce.Editar_Publicacion
             //Al elegir una fila, dirigir a la form EditarPubliForm
             Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
 
-            //EditarPubliForm editForm = new EditarPubliForm(unaPubli);
+            //Dependiendo el estado seleccionado, permite o no su modificación
             if ((unaPubli.Estado_Publicacion == "Borrador") || (unaPubli.Estado_Publicacion == "Publicada"))
             {
+                //Invoca la form de Generar Publicación
                 Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
+                this.Hide(); 
                 editForm.ShowDialog();
+                this.Show();
             }
             else
             {
                 MessageBox.Show("El estado de la publicación no permite modificación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            //Averigua si el usuario es o no Admin
             bool esAdmin = Usuario.controlarRol(usuario.ID_User);
+
             //Cargar DataGridView con las publicaciones dependiendo si es Admin o no
             if (esAdmin == true)
             {
@@ -250,9 +303,6 @@ namespace FrbaCommerce.Editar_Publicacion
                 dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
             }
 
-            /*Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
-            editForm.ShowDialog();
-            dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);*/
         }
 
         public void llenarCombos()
@@ -280,8 +330,9 @@ namespace FrbaCommerce.Editar_Publicacion
             this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
 
             List<tipoComboBox> listaTipos = new List<tipoComboBox>();
-            listaTipos.Add(new tipoComboBox("Inmediata", 0));
-            listaTipos.Add(new tipoComboBox("Subasta", 1));
+            //Ojo con el index
+            listaTipos.Add(new tipoComboBox("Subasta", 0));
+            listaTipos.Add(new tipoComboBox("Inmediata", 1));
             this.TipoPubli_ComboBox.DataSource = listaTipos;
             this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
@@ -290,8 +341,6 @@ namespace FrbaCommerce.Editar_Publicacion
 
         void dataGridView1_DataSourceChanged(object sender, EventArgs e)
         {
-            /*var dataSource = dataGridView1.DataSource as IList;
-            Resultados_label.Text = dataSource.Count.ToString();*/
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -336,16 +385,48 @@ namespace FrbaCommerce.Editar_Publicacion
         {
         }
 
-        
-
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void BuscarPubliForm_Load(object sender, EventArgs e)
         {
+        }
 
+        private void volver_button_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.formAnterior.Show();
+        }
+
+        private void fechaVenc_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            //Dependiendo el checkbox, habilita o no el filtro por fecha de vencimiento
+            if (!fechaVenc_checkBox.Checked)
+            {
+                dateTimePicker1.CustomFormat = " ";
+                dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            }
+            else
+            {
+                dateTimePicker1.CustomFormat = null;
+                dateTimePicker1.Format = DateTimePickerFormat.Long;
+            }
+        }
+
+        private void fechaInic_checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            //Dependiendo el checkbox, habilita o no el filtro por fecha inicial
+            if (!fechaInic_checkBox.Checked)
+            {
+                dateTimePicker2.CustomFormat = " ";
+                dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            }
+            else
+            {
+                dateTimePicker2.CustomFormat = null;
+                dateTimePicker2.Format = DateTimePickerFormat.Long;
+            }
         }
 
     }

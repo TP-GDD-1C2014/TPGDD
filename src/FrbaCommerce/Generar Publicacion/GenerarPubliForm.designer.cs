@@ -172,7 +172,7 @@
             // 
             // Limpiar_button
             // 
-            this.Limpiar_button.Location = new System.Drawing.Point(254, 252);
+            this.Limpiar_button.Location = new System.Drawing.Point(252, 252);
             this.Limpiar_button.Name = "Limpiar_button";
             this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
             this.Limpiar_button.TabIndex = 19;
@@ -182,7 +182,7 @@
             // 
             // Guardar_button
             // 
-            this.Guardar_button.Location = new System.Drawing.Point(73, 252);
+            this.Guardar_button.Location = new System.Drawing.Point(80, 252);
             this.Guardar_button.Name = "Guardar_button";
             this.Guardar_button.Size = new System.Drawing.Size(105, 38);
             this.Guardar_button.TabIndex = 20;
