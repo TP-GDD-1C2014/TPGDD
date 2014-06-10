@@ -389,7 +389,7 @@ AS BEGIN
 END
 GO
 
-
+/* SP Agregar Calificacion */
 
 CREATE PROCEDURE MERCADONEGRO.AgregarCalificacion (@codCalificacion numeric(18,0) output )
 AS BEGIN
@@ -399,6 +399,8 @@ AS BEGIN
 END
 GO
 
+/* Agregar Visibilidad */
+
 CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @ret numeric(18,0) output)
 AS BEGIN
 	INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta, Habilitada)
@@ -407,6 +409,16 @@ AS BEGIN
 END
 GO
 
+/* SP Editar Visibilidad */
+
+CREATE PROCEDURE MERCADONEGRO.EditarVisibilidad(@codVisibilidad numeric(18,0), @descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @jerarquia numeric(18,0))
+AS BEGIN
+	UPDATE MERCADONEGRO.Visibilidades 
+		SET Descripcion = @descripcion, Costo_Publicacion = @costoPublicacion, Porcentaje_Venta = @porcentajeVenta,
+			Habilitada = @habilitada, Jerarquia = @jerarquia
+			WHERE Cod_Visibilidad = @codVisibilidad
+END
+GO
 
 
 
