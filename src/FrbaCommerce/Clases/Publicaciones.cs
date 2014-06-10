@@ -201,7 +201,7 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public static List<Publicacion> obtenerPublicacionesPaginadas(int desde, int hasta, string filtro)
+        public static List<Publicacion> obtenerPublicacionesPaginadas(int desde, int hasta, string filtro, bool filtroRubros)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
 
@@ -213,13 +213,19 @@ namespace FrbaCommerce.Clases
 
 
             String commandtext = "WITH tablaNumerada AS "
-            + "(SELECT p.Cod_Publicacion, Cod_Visibilidad, ID_Vendedor,p.Descripcion, "
+            + "(SELECT p.Cod_Publicacion, p.Cod_Visibilidad, ID_Vendedor,p.Descripcion, "
             + "Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Cod_EstadoPublicacion, "
-            + "Cod_TipoPublicacion,Permisos_Preguntas,Stock_Inicial, ROW_NUMBER() OVER (ORDER BY Cod_Visibilidad) AS RowNumber "
+            + "Cod_TipoPublicacion,Permisos_Preguntas,Stock_Inicial, ROW_NUMBER() OVER (ORDER BY v.Jerarquia) AS RowNumber "
             + "FROM MERCADONEGRO.Publicaciones p "
-            + "JOIN MERCADONEGRO.Rubro_Publicacion rp ON p.Cod_Publicacion=rp.Cod_Publicacion "
-                //+ "JOIN MERCADONEGRO.Rubros r ON rp.ID_Rubro=r.ID_Rubro "
-            + "WHERE Cod_EstadoPublicacion = 1 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ";
+            + "JOIN MERCADONEGRO.Visibilidades v ON v.Cod_Visibilidad = p.Cod_Visibilidad ";
+
+            if (filtroRubros)
+            {
+                commandtext += "JOIN MERCADONEGRO.Rubro_Publicacion rp ON p.Cod_Publicacion=rp.Cod_Publicacion ";
+
+            }
+
+            commandtext += "WHERE Cod_EstadoPublicacion = 1 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ";
 
             if (filtro != "")
                 commandtext += " AND " + filtro;

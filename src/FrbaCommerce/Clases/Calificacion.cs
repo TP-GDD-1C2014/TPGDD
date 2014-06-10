@@ -63,7 +63,7 @@ namespace FrbaCommerce.Clases
                     {
                         desc = "";
                     }
-                    else desc = (string)lector["Puntaje"];
+                    else desc = (string)lector["Descripcion"];
 
                     if (Convert.IsDBNull(lector["Fecha_Calificacion"]))
                     {
@@ -82,6 +82,22 @@ namespace FrbaCommerce.Clases
             }
             BDSQL.cerrarConexion();
             return calificaciones;
+        }
+
+
+        public static void updateCalificacion(Calificacion calific)
+        {
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@codCalificacion", calific.Cod_Calificacion));
+            ListaParametros.Add(new SqlParameter("@puntaje", calific.Puntaje));
+            ListaParametros.Add(new SqlParameter("@descripcion", calific.Descripcion));
+            ListaParametros.Add(new SqlParameter("@fecha", calific.Fecha_Calificacion));
+
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.UpdateCalificacion", ListaParametros);
+		   // "SET Puntaje = @puntaje, Descripcion = @descripcion, Fecha_Calificacion = @fecha "
+		    //+ "WHERE Cod_Calificacion = @codCalificacion", ListaParametros, BDSQL.iniciarConexion());
+
+            BDSQL.cerrarConexion();
         }
     }
 }

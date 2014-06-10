@@ -17,6 +17,25 @@ namespace FrbaCommerce.Calificar_Vendedor
         public CalificarVendedor()
         {
             InitializeComponent();
+            actualizar();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Calificacion calif = calificacionesDataGrid.CurrentRow.DataBoundItem as Calificacion;
+
+            if (calif.Puntaje == null)
+            {
+                CalificarDlg calificarDlg = new CalificarDlg(calif.Cod_Calificacion);
+                calificarDlg.ShowDialog();
+            }
+            else MessageBox.Show("Esta compra ya fue calificada, no puede volver a hacerlo.", "ATENCIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            actualizar();
+        }
+
+        private void actualizar()
+        {
             calificacionesDataGrid.DataSource = Calificacion.obtenerCalificaciones(Interfaz.usuario.ID_User);
         }
 

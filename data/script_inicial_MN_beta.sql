@@ -389,13 +389,24 @@ AS BEGIN
 END
 GO
 
-/* SP Agregar Calificacion */
+/* Agrega una calificacion para la compra realizada, devuelve el codCalific */
 
 CREATE PROCEDURE MERCADONEGRO.AgregarCalificacion (@codCalificacion numeric(18,0) output )
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Calificaciones (Puntaje,Descripcion,Fecha_Calificacion)
 		VALUES (NULL, NULL, NULL)
 		SET @codCalificacion = SCOPE_IDENTITY()
+END
+GO
+
+/* Update de la calificacion (Calificar Vendedor), ACTIVA TRIGGER */
+
+CREATE PROCEDURE MERCADONEGRO.UpdateCalificacion (@codCalificacion numeric(18,0), @puntaje numeric(18,0),
+												  @descripcion nvarchar(255), @fecha datetime)
+AS BEGIN
+		UPDATE MERCADONEGRO.Calificaciones
+		SET Puntaje = @puntaje, Descripcion = @descripcion, Fecha_Calificacion = @fecha
+		WHERE Cod_Calificacion = @codCalificacion
 END
 GO
 
@@ -1218,6 +1229,36 @@ CREATE TRIGGER Trigger_InsertarCompra
 	END 
 GO
 
+/* Trigger para actualizar reputacion after recibir calificacion*/
+
+CREATE TRIGGER Trigger_UpdateCalificacion
+	ON MERCADONEGRO.Calificaciones
+	AFTER UPDATE
+	AS BEGIN
+	
+	DECLARE @codCalificacion numeric(18,0), @puntaje numeric(18,0), @descripcion nvarchar(255), @fecha datetime
+	SELECT @codCalificacion = Cod_Calificacion, @puntaje = Puntaje, @descripcion = Descripcion , @fecha = Fecha_Calificacion
+	FROM inserted
+		
+	DECLARE @idUser numeric (18,0) = (SELECT ID_Vendedor FROM MERCADONEGRO.Operaciones WHERE Cod_Calificacion = @codCalificacion)
+	
+	DECLARE @promedio float = 
+	(
+	SELECT  	
+			AVG(c.Puntaje)		
+			
+	FROM MERCADONEGRO.Usuarios u     
+	JOIN MERCADONEGRO.Operaciones o    ON o.ID_Vendedor = u.ID_User 
+	JOIN MERCADONEGRO.Calificaciones c ON c.Cod_Calificacion = o.Cod_Calificacion
+	
+	WHERE u.ID_User = @idUser
+	GROUP BY u.ID_User 
+	)
+	
+	UPDATE MERCADONEGRO.Usuarios SET Reputacion = @promedio WHERE ID_User = @idUser
+			
+	END 
+GO
 /* Trigger para updatear de forma secuencial las jerarquias de la visibilidad */
 
 

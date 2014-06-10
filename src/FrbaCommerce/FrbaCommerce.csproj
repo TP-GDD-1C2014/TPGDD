@@ -122,6 +122,12 @@
     <Compile Include="Abm Visibilidad\EditorDeVisibilidades.Designer.cs">
       <DependentUpon>EditorDeVisibilidades.cs</DependentUpon>
     </Compile>
+    <Compile Include="Calificar Vendedor\CalificarDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Calificar Vendedor\CalificarDlg.Designer.cs">
+      <DependentUpon>CalificarDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Calificar Vendedor\CalificarVendedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Visibilidad\EditorDeVisibilidades.resx">
       <DependentUpon>EditorDeVisibilidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calificar Vendedor\CalificarDlg.resx">
+      <DependentUpon>CalificarDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Calificar Vendedor\CalificarVendedor.resx">
       <DependentUpon>CalificarVendedor.cs</DependentUpon>

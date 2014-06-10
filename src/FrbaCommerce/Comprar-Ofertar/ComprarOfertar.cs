@@ -19,6 +19,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         int cantPublicacionesTotal;
         int ultimaPagina;
         string filtro;
+        bool filtroRubros;
         static List<Rubro> rubros = new List<Rubro>();
         
         
@@ -27,6 +28,7 @@ namespace FrbaCommerce.Comprar_Ofertar
             InitializeComponent();
             paginaActual = 0;
             filtro = "";
+            filtroRubros = false;
             contarPublicaciones();
             cargarPublicaciones();
 
@@ -90,7 +92,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 btnPrimerPag.Enabled = true;
             }
 
-            List<Publicacion> listaPublicaciones = Publicaciones.obtenerPublicacionesPaginadas(desde, hasta, filtro);
+            List<Publicacion> listaPublicaciones = Publicaciones.obtenerPublicacionesPaginadas(desde, hasta, filtro, filtroRubros);
 
             Publicaciones_Datagrid.DataSource = listaPublicaciones;
             Publicaciones_Datagrid.Columns["Cod_Publicacion"].Visible = false;
@@ -198,11 +200,14 @@ namespace FrbaCommerce.Comprar_Ofertar
         private void armarFiltro()
         {
             filtro = "";
+            filtroRubros = false;
 
             if (rubros != null)
             {
                 for (int i = 0; i < rubros.Count; i++)
                 {
+                    filtroRubros = true;
+                    
                     if (i == 0)
                         filtro += " (";
                     else filtro += " or ";
