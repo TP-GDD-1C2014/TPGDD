@@ -81,11 +81,12 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion, int indexVis, int indexEstado, int indexTipo, bool fechaFinNula, bool fechaInicNula)
+        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion, int indexVis, int indexEstado, int indexTipo, bool fechaFinNula, bool fechaInicNula, bool esAdmin)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
+            //Checkeo y asignacion de parametros
             if (unaPublicacion.Cod_Publicacion == -1){
                 listaParametros.Add(new SqlParameter("@codPubli", DBNull.Value));
             }
@@ -155,10 +156,17 @@ namespace FrbaCommerce.Clases
             
             listaParametros.Add(new SqlParameter("@permiso", unaPublicacion.Permiso_Preguntas));
 
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE (ID_Vendedor=@idUser) AND ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND ((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%') AND ((@stock is NULL) OR (Stock = @stock))) AND ((@fechaVto is NULL) OR (Fecha_Vencimiento = @fechaVto)) AND ((@fechaInic is NULL) OR (Fecha_Inicial = @fechaInic)) AND ((@precio is NULL) OR (Precio = @precio)) AND ((@estado is NULL) OR (Cod_EstadoPublicacion = @estado)) AND ((@tipo is NULL) OR (Cod_TipoPublicacion = @tipo))", listaParametros, BDSQL.iniciarConexion());
-            //  ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli))
-            // ((@codPubli is NULL) OR (Cod_Publicacion LIKE '%' + @codPubli + '%'))
-            //  AND ((@descrip is NULL) OR (Descripcion LIKE @descrip))
+            //Dependiendo si el usuario logueado es o no admin, filtra todas las publicaciones o las del usuario
+            SqlDataReader lector;
+            if (esAdmin == false)
+            {
+                lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE (ID_Vendedor=@idUser) AND ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND ((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%') AND ((@stock is NULL) OR (Stock = @stock))) AND ((@fechaVto is NULL) OR (Fecha_Vencimiento = @fechaVto)) AND ((@fechaInic is NULL) OR (Fecha_Inicial = @fechaInic)) AND ((@precio is NULL) OR (Precio = @precio)) AND ((@estado is NULL) OR (Cod_EstadoPublicacion = @estado)) AND ((@tipo is NULL) OR (Cod_TipoPublicacion = @tipo))", listaParametros, BDSQL.iniciarConexion());
+            }
+            else
+            {
+                lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND ((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%') AND ((@stock is NULL) OR (Stock = @stock))) AND ((@fechaVto is NULL) OR (Fecha_Vencimiento = @fechaVto)) AND ((@fechaInic is NULL) OR (Fecha_Inicial = @fechaInic)) AND ((@precio is NULL) OR (Precio = @precio)) AND ((@estado is NULL) OR (Cod_EstadoPublicacion = @estado)) AND ((@tipo is NULL) OR (Cod_TipoPublicacion = @tipo))", listaParametros, BDSQL.iniciarConexion());
+            }
+
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -171,7 +179,7 @@ namespace FrbaCommerce.Clases
                     int cod_tipo = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
                     string desc_tipo = Interfaz.getDescripcion(cod_tipo, "tipoPublicacion");
 
-                    //Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], (string)lector["Cod_Visibilidad"], (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], (String)lector["Estado_Publicacion"], (String)lector["Tipo_Publicacion"], (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                    //Se obtiene la publicacion de la BD y se agrega a la lista de Publicaciones
                     Publicacion unaPubli = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
                     publicaciones.Add(unaPubli);
                 }
