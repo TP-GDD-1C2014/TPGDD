@@ -42,6 +42,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.codigoComboBox = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -88,6 +89,7 @@
             this.nombreTextBox.Name = "nombreTextBox";
             this.nombreTextBox.Size = new System.Drawing.Size(100, 20);
             this.nombreTextBox.TabIndex = 1;
+           
             // 
             // costoTextBox
             // 
@@ -95,6 +97,7 @@
             this.costoTextBox.Name = "costoTextBox";
             this.costoTextBox.Size = new System.Drawing.Size(100, 20);
             this.costoTextBox.TabIndex = 2;
+            this.costoTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.costoTextBox_KeyPress);
             // 
             // porcentajeTextBox
             // 
@@ -102,6 +105,7 @@
             this.porcentajeTextBox.Name = "porcentajeTextBox";
             this.porcentajeTextBox.Size = new System.Drawing.Size(36, 20);
             this.porcentajeTextBox.TabIndex = 3;
+            this.porcentajeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.porcentajeTextBox_KeyPress);
             // 
             // checkBox
             // 
@@ -157,9 +161,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(37, 15);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(137, 13);
+            this.label7.Size = new System.Drawing.Size(138, 13);
             this.label7.TabIndex = 12;
-            this.label7.Text = "Código de la Publicación (*)";
+            this.label7.Text = "Jerarquia de la Visibilidad (*)";
             // 
             // codigoComboBox
             // 
@@ -169,11 +173,21 @@
             this.codigoComboBox.Size = new System.Drawing.Size(121, 21);
             this.codigoComboBox.TabIndex = 0;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(37, 15);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(235, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Nota: La visibilidad se agregará al final de la lista";
+            // 
             // EditorDeVisibilidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(342, 332);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.codigoComboBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -211,5 +225,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox codigoComboBox;
+        private System.Windows.Forms.Label label8;
     }
 }

@@ -11,19 +11,20 @@ namespace FrbaCommerce.Clases
 {
     class Visibilidad
     {
-        public int Cod_Visibilidad { get; set; }
+        public int jerarquia { get; set; }
         public string Descripcion { get; set; }
         public decimal Costo_Publicacion { get; set; }
         public int Porcentaje_Venta  { get; set; }
         public bool habilitada { get; set; }
 
-        public Visibilidad(int codVisibilidad, string descripcion, decimal costoPublicacion, int porcentajeVenta, bool habilitada)
+        public Visibilidad(int jerarquia, string descripcion, decimal costoPublicacion, int porcentajeVenta, bool habilitada)
         {
-            this.Cod_Visibilidad = codVisibilidad;
+            this.jerarquia = jerarquia;
             this.Descripcion = descripcion;
             this.Costo_Publicacion = costoPublicacion;
             this.Porcentaje_Venta = porcentajeVenta;
             this.habilitada = habilitada;
+
         }
 
     
@@ -33,7 +34,7 @@ namespace FrbaCommerce.Clases
         {
             List<Visibilidad> visibilidades = new List<Visibilidad>();
 
-            string commandText = "SELECT * FROM MERCADONEGRO.VISIBILIDADES";
+            string commandText = "SELECT * FROM MERCADONEGRO.VISIBILIDADES ORDER BY JERARQUIA";
 
             SqlDataReader lector = BDSQL.ejecutarReader(commandText, BDSQL.iniciarConexion());
 
@@ -42,7 +43,7 @@ namespace FrbaCommerce.Clases
             {
                 while (lector.Read())
                 {
-                    Visibilidad unaVisibilidad = new Visibilidad((int)(decimal)lector["Cod_Visibilidad"],
+                    Visibilidad unaVisibilidad = new Visibilidad((int)(decimal)lector["Jerarquia"],
                                                                    (string)lector["Descripcion"],
                                                                    (decimal) lector["Costo_Publicacion"],
                                                                    Convert.ToInt32(((decimal) lector["Porcentaje_Venta"]) * 100),

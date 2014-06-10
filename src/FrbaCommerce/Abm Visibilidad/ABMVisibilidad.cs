@@ -35,8 +35,8 @@ namespace FrbaCommerce.Abm_Visibilidad
                     columna.HeaderText = "Porcentaje por Venta";
                 else if (columna.Name == "habilitada")
                     columna.HeaderText = "Habilitada";
-                else if (columna.HeaderText == "Cod_Visibilidad")
-                    columna.HeaderText = "Código de la Visibilidad";
+                else if (columna.Name == "jerarquia")
+                    columna.HeaderText = "Jerarquia";
                 else if (columna.HeaderText == "Costo_Publicacion")
                     columna.HeaderText = "Costo por Publicar";
              

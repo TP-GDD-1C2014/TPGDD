@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace FrbaCommerce.Abm_Visibilidad
 {
@@ -33,6 +34,7 @@ namespace FrbaCommerce.Abm_Visibilidad
             if (botonSeleccionado.Text == "Modificar")
             {
                 Visibilidad visibilidad = dgv.CurrentRow.DataBoundItem as Visibilidad;
+                this.label8.Hide();
 
                 //agregando al combo los codigos de visibilidad
                 this.cargarComboBoxCodigos();
@@ -68,7 +70,10 @@ namespace FrbaCommerce.Abm_Visibilidad
             this.costoTextBox.Text = Convert.ToString(visibilidad.Costo_Publicacion);
             this.porcentajeTextBox.Text = Convert.ToString(visibilidad.Porcentaje_Venta);
             this.checkBox.Checked = visibilidad.habilitada;
+            this.codigoComboBox.SelectedItem = visibilidad.jerarquia;
 
+            this.porcentajeTextBox.MaxLength = 3;
+            
         ;
 
         }
@@ -98,12 +103,23 @@ namespace FrbaCommerce.Abm_Visibilidad
             {
                 MessageBox.Show("Por favor complete los campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
-                chequeado = true;
+            else if (Convert.ToInt32(this.porcentajeTextBox.Text) < 0 || Convert.ToInt32(this.porcentajeTextBox.Text) > 100)
+            {
+                MessageBox.Show("Porcentaje de venta inválido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (BDSQL.existeString(nombreTextBox.Text, "MERCADONEGRO.VISIBILIDADES", "DESCRIPCION"))
+            {
+                MessageBox.Show("Ya existe una visibilidad con ese nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }else
+                 chequeado = true;
 
             //si la visibilidad es nueva
             if (this.botonSeleccionado.Text == "Nueva" && chequeado)
             {
+                string nombreVisibilidad = Convert.ToString(this.nombreTextBox.Text);
+
+
+              
                     int habilitada = 0;
 
                     if (this.checkBox.Checked)
@@ -111,23 +127,55 @@ namespace FrbaCommerce.Abm_Visibilidad
 
 
                     List<SqlParameter> parametros = new List<SqlParameter>();
-                  
-                    BDSQL.agregarParametro(parametros, "@descripcion", Convert.ToString(this.nombreTextBox.Text));
+
+
+                    BDSQL.agregarParametro(parametros, "@descripcion", nombreVisibilidad);
                     BDSQL.agregarParametro(parametros, "@costoPublicacion", Convert.ToDecimal(this.costoTextBox.Text));
                     BDSQL.agregarParametro(parametros, "@porcentajeVenta", Convert.ToDecimal(this.porcentajeTextBox.Text) / 100);
                     BDSQL.agregarParametro(parametros, "@habilitada", habilitada);
 
-                    
+                    SqlParameter paramRet = new SqlParameter("@ret", System.Data.SqlDbType.Decimal);
+                    paramRet.Direction = System.Data.ParameterDirection.Output;
+                    parametros.Add(paramRet);
 
-                   BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.AgregarVisibilidad", parametros);
-                   BDSQL.cerrarConexion();
 
 
-                   MessageBox.Show("¡Visibilidad Agregada!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    int idInsertada = (int)BDSQL.ExecStoredProcedure("MERCADONEGRO.AgregarVisibilidad", parametros);
+                    BDSQL.cerrarConexion();
 
-                   this.Close();
+
+                    MessageBox.Show("¡Visibilidad Agregada!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    this.Close();
+
+
+
+                    Interfaz.diccionarioVisibilidades.Add(idInsertada, Convert.ToString(this.nombreTextBox.Text));
 
                 
+            }
+            else if (this.botonSeleccionado.Text == "Modificar" && chequeado)
+            {
+                List<SqlParameter> parametros = new List<SqlParameter>();
+
+                int habilitada = 0;
+
+                if (this.checkBox.Checked)
+                    habilitada = 1;
+
+                
+                BDSQL.agregarParametro(parametros, "@descripcion", this.nombreTextBox.Text);
+                BDSQL.agregarParametro(parametros, "@costoPublicacion", Convert.ToDecimal(this.costoTextBox.Text));
+                BDSQL.agregarParametro(parametros, "@porcentajeVenta", Convert.ToDecimal(this.porcentajeTextBox.Text) / 100);
+                BDSQL.agregarParametro(parametros, "@habilitada", habilitada);
+                BDSQL.agregarParametro(parametros, "@jerarquia", Convert.ToInt32(this.codigoComboBox.SelectedItem));
+
+                
+
+                BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.EditarVisibilidad", parametros);
+
+                BDSQL.cerrarConexion();
+
             }
 
 
@@ -144,5 +192,46 @@ namespace FrbaCommerce.Abm_Visibilidad
         {
 
         }
+
+        private void costoTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsDigit(e.KeyChar)
+                && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point 
+            if (e.KeyChar == '.'
+                && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+
+        if (Regex.IsMatch(costoTextBox.Text, @"\.\d\d"))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void porcentajeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                && !char.IsDigit(e.KeyChar)
+                && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point 
+            if (e.KeyChar == '.'
+                && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+
+        }
+
     }
 }
