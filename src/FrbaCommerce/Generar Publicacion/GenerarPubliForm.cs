@@ -41,6 +41,7 @@ namespace FrbaCommerce.Generar_Publicacion
         //Constructor para modificar publicacion
         public GenerarPubliForm(string modo, Publicacion unaPubli)
         {
+            //TODO Permitir o no cambios en determinados campos, dependiendo del estado
             
             if (modo == "Modificar")
             {
