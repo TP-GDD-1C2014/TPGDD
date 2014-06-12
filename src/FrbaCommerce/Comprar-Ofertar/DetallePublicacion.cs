@@ -69,6 +69,17 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            //chequeo que no tenga mas de 5 compras sin calificar o si esta habilitado
+            bool puedeComprar = Calificacion.verificarCantidadCalificaciones(Interfaz.usuario.ID_User);
+
+            if (!puedeComprar)
+            {
+                //TODO: deshabilitar funcioanlidad compra
+                MessageBox.Show("Usted tiene 5 compras (inmediata o subasta ganada) sin calificar, " +
+                "no podrá seguir comprando hasta que no califique a los vendedores.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            
             int stock = int.Parse(txtStockDisponible.Text);
             
             if (stock == 0)
@@ -89,6 +100,15 @@ namespace FrbaCommerce.Comprar_Ofertar
                     Compra compra = new Compra(publi.ID_Vendedor, Interfaz.usuario.ID_User, publi.Cod_Publicacion, 0 , publi.Precio, false);
                     Compra.insertarCompra(compra);
 
+                    bool puedeComprarLaProx = Calificacion.verificarCantidadCalificaciones(Interfaz.usuario.ID_User);
+
+                    if (!puedeComprarLaProx)
+                    {
+                        //TODO: deshabilitar funcioanlidad compra
+                        MessageBox.Show("Usted tiene 5 compras (inmediata o subasta ganada) sin calificar, " +
+                        "no podrá seguir comprando hasta que no califique a los vendedores.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    
                     DatosVendedor datosVendedorForm = new DatosVendedor(publi.ID_Vendedor);
                     datosVendedorForm.ShowDialog();
                 }
@@ -100,9 +120,6 @@ namespace FrbaCommerce.Comprar_Ofertar
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }
