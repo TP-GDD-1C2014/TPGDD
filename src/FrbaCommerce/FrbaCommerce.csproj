@@ -219,6 +219,18 @@
     <Compile Include="Gestion de Preguntas\GestionPreguntas.Designer.cs">
       <DependentUpon>GestionPreguntas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gestion de Preguntas\ResponderPreguntas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion de Preguntas\ResponderPreguntas.Designer.cs">
+      <DependentUpon>ResponderPreguntas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion de Preguntas\VerRespuestas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion de Preguntas\VerRespuestas.Designer.cs">
+      <DependentUpon>VerRespuestas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Historial Cliente\Historial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -331,6 +343,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicacion\GenerarPubliForm.resx">
       <DependentUpon>GenerarPubliForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion de Preguntas\GestionPreguntas.resx">
+      <DependentUpon>GestionPreguntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion de Preguntas\ResponderPreguntas.resx">
+      <DependentUpon>ResponderPreguntas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\Historial.resx">
       <DependentUpon>Historial.cs</DependentUpon>
