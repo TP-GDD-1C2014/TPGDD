@@ -39,6 +39,15 @@ namespace FrbaCommerce.Calificar_Vendedor
             calificacionesDataGrid.DataSource = Calificacion.obtenerCalificaciones(Interfaz.usuario.ID_User);
         }
 
+        private void btnVerPublicacion_Click(object sender, EventArgs e)
+        {
+            Calificacion calif = calificacionesDataGrid.CurrentRow.DataBoundItem as Calificacion;
+
+            int codPublicacion = Calificacion.getCodPublicacion(calif.Cod_Calificacion);
+            Historial_Cliente.VerPublicacion verPublicacionForm = new FrbaCommerce.Historial_Cliente.VerPublicacion(codPublicacion);
+            verPublicacionForm.ShowDialog();
+        }
+
         
     }
 }

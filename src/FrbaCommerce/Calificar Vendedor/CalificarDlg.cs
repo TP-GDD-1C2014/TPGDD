@@ -61,21 +61,30 @@ namespace FrbaCommerce.Calificar_Vendedor
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            string descripcion;
-
-            if (rbOpciones.Checked)
+            if (cmbEstrellas.SelectedIndex == -1)
             {
-                if (cmbOpciones.SelectedIndex != -1)
-                    descripcion = cmbOpciones.SelectedItem.ToString();
-                else descripcion = "";
+                MessageBox.Show("Seleccione la cantidad de estrellas que desea puntuar.", "Falta llenar algun campo!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+               
             }
-            else descripcion = txtTextoLibre.Text;
-          
-            Calificacion calific = new Calificacion(Cod_Calificacion, Convert.ToInt32(cmbEstrellas.SelectedItem.ToString()), descripcion, Interfaz.obtenerFecha());
+            else
+            {
+                string descripcion;
 
-            Calificacion.updateCalificacion(calific);
+                if (rbOpciones.Checked)
+                {
+                    if (cmbOpciones.SelectedIndex != -1)
+                        descripcion = cmbOpciones.SelectedItem.ToString();
+                    else descripcion = "";
+                }
+                else descripcion = txtTextoLibre.Text;
 
-            MessageBox.Show("Calificación realizada con éxito!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.None);
+                Calificacion calific = new Calificacion(Cod_Calificacion, Convert.ToInt32(cmbEstrellas.SelectedItem.ToString()), descripcion, Interfaz.obtenerFecha());
+
+                Calificacion.updateCalificacion(calific);
+
+                MessageBox.Show("Calificación realizada con éxito!", "Succes", MessageBoxButtons.OK, MessageBoxIcon.None);
+                this.DialogResult = DialogResult.OK;
+            }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)

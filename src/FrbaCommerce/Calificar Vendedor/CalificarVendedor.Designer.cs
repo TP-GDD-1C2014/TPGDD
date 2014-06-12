@@ -31,6 +31,7 @@
             this.calificacionesDataGrid = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnCalificar = new System.Windows.Forms.Button();
+            this.btnVerPublicacion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.calificacionesDataGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -46,6 +47,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnVerPublicacion);
             this.groupBox1.Controls.Add(this.btnCalificar);
             this.groupBox1.Controls.Add(this.calificacionesDataGrid);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -64,6 +66,16 @@
             this.btnCalificar.Text = "Calificar";
             this.btnCalificar.UseVisualStyleBackColor = true;
             this.btnCalificar.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnVerPublicacion
+            // 
+            this.btnVerPublicacion.Location = new System.Drawing.Point(303, 19);
+            this.btnVerPublicacion.Name = "btnVerPublicacion";
+            this.btnVerPublicacion.Size = new System.Drawing.Size(113, 23);
+            this.btnVerPublicacion.TabIndex = 2;
+            this.btnVerPublicacion.Text = "Ver publicación";
+            this.btnVerPublicacion.UseVisualStyleBackColor = true;
+            this.btnVerPublicacion.Click += new System.EventHandler(this.btnVerPublicacion_Click);
             // 
             // CalificarVendedor
             // 
@@ -84,5 +96,6 @@
         private System.Windows.Forms.DataGridView calificacionesDataGrid;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnCalificar;
+        private System.Windows.Forms.Button btnVerPublicacion;
     }
 }

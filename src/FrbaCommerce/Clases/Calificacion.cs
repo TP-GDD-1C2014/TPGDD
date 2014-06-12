@@ -99,5 +99,48 @@ namespace FrbaCommerce.Clases
 
             BDSQL.cerrarConexion();
         }
+
+        public static int getCodPublicacion(int codCalific)
+        {
+            int codPublicacion;
+
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@codCalificacion", codCalific));
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Cod_Publicacion FROM MERCADONEGRO.Operaciones WHERE Cod_Calificacion = @codCalificacion",ListaParametros,BDSQL.iniciarConexion());
+
+            lector.Read();
+
+            codPublicacion = Convert.ToInt32(lector["Cod_Publicacion"]);
+
+            BDSQL.cerrarConexion();
+
+            return codPublicacion;
+        }
+
+        public static bool verificarCantidadCalificaciones(int idUser)
+        {
+            bool puedeComprar;
+
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@idUser", idUser));
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT COUNT(ID_Operacion) AS cant FROM MERCADONEGRO.Operaciones o " +
+                                                        "JOIN MERCADONEGRO.Calificaciones c ON o.Cod_Calificacion = c.Cod_Calificacion " +
+                                                        "WHERE o.ID_Comprador = @idUser AND c.Puntaje is NULL", 
+                                                        ListaParametros, BDSQL.iniciarConexion());
+
+            lector.Read();
+
+            int cant = Convert.ToInt32(lector["cant"]);
+
+            BDSQL.cerrarConexion();
+
+            if (cant >= 5)
+                puedeComprar = false;
+            else puedeComprar = true;
+
+            return puedeComprar;
+        }
     }
 }
