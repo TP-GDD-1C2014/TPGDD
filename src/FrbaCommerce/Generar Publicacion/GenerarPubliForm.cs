@@ -23,6 +23,9 @@ namespace FrbaCommerce.Generar_Publicacion
         bool esNueva;
         int codPubli;
         int stockTraido;
+        int estadoIndex = -1;
+        bool esBorrador;
+        bool esSubasta;
 
         //Constructor para generar publicacion nueva
         public GenerarPubliForm(string modo)
@@ -62,19 +65,39 @@ namespace FrbaCommerce.Generar_Publicacion
                 stockTraido = Convert.ToInt32(unaPubli.Stock);
                 esNueva = false;
 
-                //Si se encuentra Publicada, sólo permitir modificar el estado a Pausada o Finalizada (Inmediata unicamente)
-                if ((unaPubli.Estado_Publicacion == "Publicada") && (unaPubli.Tipo_Publicacion == "Inmediata"))
+                if (unaPubli.Estado_Publicacion == "Borrador")
                 {
-                    /*Visibilidad_ComboBox.Enabled = false;
-                    Descrip_TextBox.Enabled = false;
-                    //TODO Revisar cuestión de stock (permitir aumento)
-                    FechaFin_DateTimePicker.Enabled = false;
-                    //Imposibilita el cambio de estado a Borrador
-                    Estado_ComboBox.Items.RemoveAt(0);
-                    TipoPubli_ComboBox.Enabled = false;
-                    Precio_textBox.Enabled = false;
-                    PermitirPreguntas_Checkbox.Enabled = false;*/
+                    esBorrador = true;
                 }
+                else
+                {
+                    esBorrador = false;
+                }
+
+                if (unaPubli.Tipo_Publicacion == "Subasta")
+                {
+                    esSubasta = true;
+                }
+                else
+                {
+                    esSubasta = false;
+                }
+
+                //Si se encuentra Publicada, sólo permitir modificar el estado a Pausada o Finalizada (Inmediata unicamente)
+                if (esBorrador == false) 
+                {
+                        //llenarCombosModificables();
+
+                        Visibilidad_ComboBox.Enabled = false;
+                        Descrip_TextBox.Enabled = false;
+                        //TODO Revisar cuestión de stock (permitir aumento)
+                        FechaFin_DateTimePicker.Enabled = false;
+                        TipoPubli_ComboBox.Enabled = false;
+                        Precio_textBox.Enabled = false;
+                        PermitirPreguntas_Checkbox.Enabled = false;
+
+                }
+
             }
         }
         //Combobox Visibilidad (numeric(18,0) )
@@ -174,16 +197,11 @@ namespace FrbaCommerce.Generar_Publicacion
                 //Comprobar si es nueva o para modificar
                 if ((esNueva == true))
                 {
-
                     //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
                     if (visibilidad == "Gratis")
                     {
-
                         if (usuario.Cant_Publi_Gratuitas < 3)
                         {
-                            //Invocar funcion que inserta publicacion en la tabla Publicaciones
-                            Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-
                             //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
                             usuario.sumarPubliGratuita();
                         }
@@ -192,28 +210,52 @@ namespace FrbaCommerce.Generar_Publicacion
                             //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
                             MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
-
                     }
+                    //Invocar funcion que inserta publicacion en la tabla Publicaciones
+                    Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
 
                 }
                 else
                 {
                     //Comprueba que no se haya decrementado el stock
-                    if (stockTraido >= stock)
-                    {
-                        //Invocar funcion que actualiza la publicacion en la tabla Publicaciones
-                        Publicaciones.actualizarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-
-                        //TODO Revisar en caso de que sea borrador y pase a ser generada como gratuita!
-
-
-                    }
-                    else
+                    if (stockTraido > stock)
                     {
                         MessageBox.Show("No es posible decrementar el stock", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
-                }
+                    else
+                    {
+                        if (esBorrador == false)
+                        {
+                            MessageBox.Show("No es posible modificar de Publicada a Borrador", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (esSubasta == false)
+                        {
+                            MessageBox.Show("No es posible modificar una Subasta que se encuentre Publicada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else
+                        {
+                            //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
+                            if (visibilidad == "Gratis")
+                            {
+                                if (usuario.Cant_Publi_Gratuitas < 3)
+                                {
+                                    //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
+                                    usuario.sumarPubliGratuita();
+                                }
+                                else
+                                {
+                                    //Si tiene Cant_Publi_Gratuitas en numero limite, mostrar error
+                                    MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                }
+                            }
 
+                            //Invocar funcion que actualiza la publicacion en la tabla Publicaciones
+                            Publicaciones.actualizarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                            //TODO Revisar en caso de que sea borrador y pase a ser generada como gratuita!
+                            this.Close();
+                        }
+                    }
+                }
             }
             else
             {
@@ -260,16 +302,43 @@ namespace FrbaCommerce.Generar_Publicacion
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            /*List<preguntasComboBox> listaRespuestas = new List<preguntasComboBox>();
-            listaRespuestas.Add(new preguntasComboBox("No",0));
-            listaRespuestas.Add(new preguntasComboBox("Si",1));
-            this.permitirPreg_combobox.DataSource = listaRespuestas;
-            this.permitirPreg_combobox.DisplayMember = "Permiso_Pregunta";
-            this.permitirPreg_combobox.ValueMember = "Cod_Pregunta";
-            this.permitirPreg_combobox.SelectedIndexChanged += new System.EventHandler(this.permitirPreg_combobox_SelectedIndexChanged);
-            */
         }
+
+       /* public void llenarCombosModificables()
+        {
+            //Crear listas para los combobox
+            List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
+            listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
+            listaVisibilidades.Add(new visibilidadComboBox("Oro", 1));
+            listaVisibilidades.Add(new visibilidadComboBox("Plata", 2));
+            listaVisibilidades.Add(new visibilidadComboBox("Bronce", 3));
+            listaVisibilidades.Add(new visibilidadComboBox("Gratis", 4));
+            this.Visibilidad_ComboBox.DataSource = listaVisibilidades;
+            this.Visibilidad_ComboBox.DisplayMember = "Nombre_Visibilidad";
+            this.Visibilidad_ComboBox.ValueMember = "Cod_Visibilidad";
+            this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
+            //this.Visibilidad_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            List<estadoComboBox> listaEstados = new List<estadoComboBox>();
+            //TODO Controlar index!
+            listaEstados.Add(new estadoComboBox("Publicada", 1));
+            listaEstados.Add(new estadoComboBox("Pausada", 2));
+            listaEstados.Add(new estadoComboBox("Finalizada", 3));
+            this.Estado_ComboBox.DataSource = listaEstados;
+            this.Estado_ComboBox.DisplayMember = "Nombre_Estado";
+            this.Estado_ComboBox.ValueMember = "Cod_Estado";
+            this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
+            //Estado_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            List<tipoComboBox> listaTipos = new List<tipoComboBox>();
+            listaTipos.Add(new tipoComboBox("Subasta", 0));
+            listaTipos.Add(new tipoComboBox("Inmediata", 1));
+            this.TipoPubli_ComboBox.DataSource = listaTipos;
+            this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
+            this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
+            this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
+            //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+        }*/
 
         private void Visibilidad_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
