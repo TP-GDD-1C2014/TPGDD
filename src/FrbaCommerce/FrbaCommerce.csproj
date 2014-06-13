@@ -219,11 +219,23 @@
     <Compile Include="Gestion de Preguntas\GestionPreguntas.Designer.cs">
       <DependentUpon>GestionPreguntas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gestion de Preguntas\ResponderDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion de Preguntas\ResponderDlg.Designer.cs">
+      <DependentUpon>ResponderDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Gestion de Preguntas\ResponderPreguntas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Gestion de Preguntas\ResponderPreguntas.Designer.cs">
       <DependentUpon>ResponderPreguntas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gestion de Preguntas\VerRespuestaDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestion de Preguntas\VerRespuestaDlg.Designer.cs">
+      <DependentUpon>VerRespuestaDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Gestion de Preguntas\VerRespuestas.cs">
       <SubType>Form</SubType>
@@ -347,8 +359,17 @@
     <EmbeddedResource Include="Gestion de Preguntas\GestionPreguntas.resx">
       <DependentUpon>GestionPreguntas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Gestion de Preguntas\ResponderDlg.resx">
+      <DependentUpon>ResponderDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Gestion de Preguntas\ResponderPreguntas.resx">
       <DependentUpon>ResponderPreguntas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion de Preguntas\VerRespuestaDlg.resx">
+      <DependentUpon>VerRespuestaDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Gestion de Preguntas\VerRespuestas.resx">
+      <DependentUpon>VerRespuestas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\Historial.resx">
       <DependentUpon>Historial.cs</DependentUpon>

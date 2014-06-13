@@ -13,19 +13,23 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 {
     public partial class GestionPreguntas : Form
     {
-        Usuario user;
-        
+       
         public GestionPreguntas()
         {
             InitializeComponent();
-            user = Interfaz.usuario;
-            txtUsuario.Text = user.Username;
+            txtUsuario.Text = Interfaz.usuario.Username;
         }
 
         private void btnResponder_Click(object sender, EventArgs e)
         {
-            ResponderPreguntas responderForm = new ResponderPreguntas(user.ID_User);
+            ResponderPreguntas responderForm = new ResponderPreguntas();
             responderForm.ShowDialog();
+        }
+
+        private void btnRespuestas_Click(object sender, EventArgs e)
+        {
+            VerRespuestas respuestasForm = new VerRespuestas();
+            respuestasForm.ShowDialog();
         }
     }
 }

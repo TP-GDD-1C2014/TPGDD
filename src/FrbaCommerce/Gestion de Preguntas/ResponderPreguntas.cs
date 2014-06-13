@@ -14,19 +14,28 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 {
     public partial class ResponderPreguntas : Form
     {
-        int idUser;
-
-        public ResponderPreguntas(int id_user)
+      
+        public ResponderPreguntas()
         {
             InitializeComponent();
-            idUser = id_user;
             cargarPreguntas();
         }
 
         private void cargarPreguntas()
         {
-            preguntasDataGrid.DataSource = Pregunta.obtenerPreguntas(Interfaz.usuario.ID_User);
+            preguntasDataGrid.DataSource = Pregunta.obtenerPreguntas(Interfaz.usuario.ID_User, "preguntas");
 
+        }
+
+        private void btnResponder_Click(object sender, EventArgs e)
+        {
+            Pregunta unaPregunta = preguntasDataGrid.CurrentRow.DataBoundItem as Pregunta;
+
+
+            ResponderDlg responderDlg = new ResponderDlg(unaPregunta);
+            responderDlg.ShowDialog();
+
+            cargarPreguntas();
         }
     }
 }

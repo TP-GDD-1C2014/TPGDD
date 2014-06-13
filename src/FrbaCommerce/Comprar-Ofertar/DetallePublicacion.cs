@@ -57,7 +57,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            int idPregunta = Pregunta.insertarPregunta(txtPregunta.Text);
+            int idPregunta = Pregunta.insertarPregunta(txtPregunta.Text, Interfaz.usuario.ID_User);
 
             if (idPregunta != -1)
             {

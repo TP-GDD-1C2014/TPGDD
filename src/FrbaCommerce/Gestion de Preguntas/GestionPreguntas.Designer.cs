@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblBienvenido = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnResponder = new System.Windows.Forms.Button();
             this.btnRespuestas = new System.Windows.Forms.Button();
+            this.btnResponder = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtUsuario = new System.Windows.Forms.TextBox();
+            this.lblBienvenido = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -52,32 +52,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gestor de Preguntas";
             // 
-            // lblBienvenido
+            // btnRespuestas
             // 
-            this.lblBienvenido.AutoSize = true;
-            this.lblBienvenido.Location = new System.Drawing.Point(6, 36);
-            this.lblBienvenido.Name = "lblBienvenido";
-            this.lblBienvenido.Size = new System.Drawing.Size(100, 13);
-            this.lblBienvenido.TabIndex = 0;
-            this.lblBienvenido.Text = "Bienvenido usuario:";
-            // 
-            // txtUsuario
-            // 
-            this.txtUsuario.Enabled = false;
-            this.txtUsuario.Location = new System.Drawing.Point(112, 33);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(82, 20);
-            this.txtUsuario.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 67);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "¿Qué acción desea realizar?";
+            this.btnRespuestas.Location = new System.Drawing.Point(112, 109);
+            this.btnRespuestas.Name = "btnRespuestas";
+            this.btnRespuestas.Size = new System.Drawing.Size(77, 40);
+            this.btnRespuestas.TabIndex = 4;
+            this.btnRespuestas.Text = "Ver respuestas";
+            this.btnRespuestas.UseVisualStyleBackColor = true;
+            this.btnRespuestas.Click += new System.EventHandler(this.btnRespuestas_Click);
             // 
             // btnResponder
             // 
@@ -89,14 +72,32 @@
             this.btnResponder.UseVisualStyleBackColor = true;
             this.btnResponder.Click += new System.EventHandler(this.btnResponder_Click);
             // 
-            // btnRespuestas
+            // label1
             // 
-            this.btnRespuestas.Location = new System.Drawing.Point(112, 109);
-            this.btnRespuestas.Name = "btnRespuestas";
-            this.btnRespuestas.Size = new System.Drawing.Size(77, 40);
-            this.btnRespuestas.TabIndex = 4;
-            this.btnRespuestas.Text = "Ver respuestas";
-            this.btnRespuestas.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 67);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(142, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "¿Qué acción desea realizar?";
+            // 
+            // txtUsuario
+            // 
+            this.txtUsuario.Enabled = false;
+            this.txtUsuario.Location = new System.Drawing.Point(112, 33);
+            this.txtUsuario.Name = "txtUsuario";
+            this.txtUsuario.Size = new System.Drawing.Size(82, 20);
+            this.txtUsuario.TabIndex = 1;
+            // 
+            // lblBienvenido
+            // 
+            this.lblBienvenido.AutoSize = true;
+            this.lblBienvenido.Location = new System.Drawing.Point(6, 36);
+            this.lblBienvenido.Name = "lblBienvenido";
+            this.lblBienvenido.Size = new System.Drawing.Size(100, 13);
+            this.lblBienvenido.TabIndex = 0;
+            this.lblBienvenido.Text = "Bienvenido usuario:";
             // 
             // btnVolver
             // 
