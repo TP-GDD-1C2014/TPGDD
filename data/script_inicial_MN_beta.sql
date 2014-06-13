@@ -30,6 +30,7 @@ CREATE TABLE MERCADONEGRO.Funcionalidades
 CREATE TABLE MERCADONEGRO.Preguntas
 (
 	ID_Pregunta		NUMERIC(18,0) IDENTITY,
+	ID_User			NUMERIC(18,0) NOT NULL,
 	Pregunta		NVARCHAR(255) NOT NULL,
 	Respuesta		NVARCHAR(255) NULL,
 	Fecha_Respuesta DATETIME	  NULL,
@@ -344,10 +345,10 @@ GO
 
 /* SP Insertar Pregunta  */
 
-CREATE PROCEDURE MERCADONEGRO.InsertarPregunta(@pregunta nvarchar(255), @ret numeric (18,0) output)
+CREATE PROCEDURE MERCADONEGRO.InsertarPregunta(@pregunta nvarchar(255), @idUser numeric (18,0), @ret numeric (18,0) output)
 AS BEGIN
-		INSERT INTO MERCADONEGRO.Preguntas(Pregunta)
-			VALUES(@pregunta)
+		INSERT INTO MERCADONEGRO.Preguntas(Pregunta, ID_User)
+			VALUES(@pregunta, @idUser)
 			SET @ret = SCOPE_IDENTITY()
 END
 GO
