@@ -43,6 +43,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.codigoComboBox = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.limpiarButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -89,7 +90,6 @@
             this.nombreTextBox.Name = "nombreTextBox";
             this.nombreTextBox.Size = new System.Drawing.Size(100, 20);
             this.nombreTextBox.TabIndex = 1;
-           
             // 
             // costoTextBox
             // 
@@ -182,11 +182,22 @@
             this.label8.TabIndex = 13;
             this.label8.Text = "Nota: La visibilidad se agregará al final de la lista";
             // 
+            // limpiarButton
+            // 
+            this.limpiarButton.Location = new System.Drawing.Point(127, 244);
+            this.limpiarButton.Name = "limpiarButton";
+            this.limpiarButton.Size = new System.Drawing.Size(75, 23);
+            this.limpiarButton.TabIndex = 14;
+            this.limpiarButton.Text = "Limpiar";
+            this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
+            // 
             // EditorDeVisibilidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(342, 332);
+            this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.codigoComboBox);
             this.Controls.Add(this.label7);
@@ -226,5 +237,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox codigoComboBox;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button limpiarButton;
     }
 }

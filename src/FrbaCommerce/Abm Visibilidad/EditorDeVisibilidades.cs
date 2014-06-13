@@ -17,6 +17,8 @@ namespace FrbaCommerce.Abm_Visibilidad
     {
         private Button botonSeleccionado { get; set; }
         private DataGridView dgv { get; set; }
+        private List<Visibilidad> listaVisibilidadesBD { get; set; }
+        private Visibilidad visibilidadVieja { get; set; }
    
 
 
@@ -28,18 +30,26 @@ namespace FrbaCommerce.Abm_Visibilidad
             this.botonSeleccionado = botonSeleccionado;
             this.dgv = dgv;
 
-
+            
           
 
             if (botonSeleccionado.Text == "Modificar")
             {
-                Visibilidad visibilidad = dgv.CurrentRow.DataBoundItem as Visibilidad;
+                //Ocultando un label
                 this.label8.Hide();
 
+                //Genero la lista de visibilidades para usarla como referencia si hay algun cambio
+                listaVisibilidadesBD = this.generarVisibilidadesBD(this.dgv);
+            
+                //Guardando la visibilidad a modificar
+                visibilidadVieja = dgv.CurrentRow.DataBoundItem as Visibilidad;
+                
+                //Cargando la form con los datos de la fila del DGV seleccionada
                 //agregando al combo los codigos de visibilidad
                 this.cargarComboBoxCodigos();
 
-                this.cargarForm(visibilidad);
+                this.cargarForm(visibilidadVieja);
+
 
             }
             else if (botonSeleccionado.Text == "Nueva")
@@ -47,6 +57,14 @@ namespace FrbaCommerce.Abm_Visibilidad
                 this.label7.Hide();
                 this.codigoComboBox.Hide();
             }
+        }
+
+        private List<Visibilidad> generarVisibilidadesBD(DataGridView dgv)
+        {
+            List<Visibilidad> listaVisibilidades = Visibilidad.ObtenerVisibilidades();
+
+
+            return listaVisibilidades;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -94,32 +112,27 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         }
 
+
         private void ConfirmarButton_Click(object sender, EventArgs e)
         {
-            bool chequeado = false;
 
-            //chequeo de campos obligatorios
-            if (this.nombreTextBox.Text.Equals("") || this.costoTextBox.Text.Equals("") || this.porcentajeTextBox.Text.Equals(""))
-            {
-                MessageBox.Show("Por favor complete los campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (Convert.ToInt32(this.porcentajeTextBox.Text) < 0 || Convert.ToInt32(this.porcentajeTextBox.Text) > 100)
-            {
-                MessageBox.Show("Porcentaje de venta inválido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (BDSQL.existeString(nombreTextBox.Text, "MERCADONEGRO.VISIBILIDADES", "DESCRIPCION"))
-            {
-                MessageBox.Show("Ya existe una visibilidad con ese nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }else
-                 chequeado = true;
 
             //si la visibilidad es nueva
-            if (this.botonSeleccionado.Text == "Nueva" && chequeado)
+            if (this.botonSeleccionado.Text == "Nueva")
             {
-                string nombreVisibilidad = Convert.ToString(this.nombreTextBox.Text);
 
+                bool chequeado = this.chequearCampos();
 
-              
+                if (chequeado)
+                {
+
+                    //Datos de la form
+                    string nombre = this.nombreTextBox.Text;
+                    decimal costo = Convert.ToDecimal(this.costoTextBox.Text);
+                    decimal porcentajeVenta = Convert.ToDecimal(this.porcentajeTextBox.Text) / 100;
+                    int jerarquia = Convert.ToInt32(this.codigoComboBox.SelectedItem);
+                    
+
                     int habilitada = 0;
 
                     if (this.checkBox.Checked)
@@ -129,9 +142,9 @@ namespace FrbaCommerce.Abm_Visibilidad
                     List<SqlParameter> parametros = new List<SqlParameter>();
 
 
-                    BDSQL.agregarParametro(parametros, "@descripcion", nombreVisibilidad);
-                    BDSQL.agregarParametro(parametros, "@costoPublicacion", Convert.ToDecimal(this.costoTextBox.Text));
-                    BDSQL.agregarParametro(parametros, "@porcentajeVenta", Convert.ToDecimal(this.porcentajeTextBox.Text) / 100);
+                    BDSQL.agregarParametro(parametros, "@descripcion", nombre);
+                    BDSQL.agregarParametro(parametros, "@costoPublicacion", costo);
+                    BDSQL.agregarParametro(parametros, "@porcentajeVenta", porcentajeVenta);
                     BDSQL.agregarParametro(parametros, "@habilitada", habilitada);
 
                     SqlParameter paramRet = new SqlParameter("@ret", System.Data.SqlDbType.Decimal);
@@ -151,37 +164,163 @@ namespace FrbaCommerce.Abm_Visibilidad
 
 
                     Interfaz.diccionarioVisibilidades.Add(idInsertada, Convert.ToString(this.nombreTextBox.Text));
+                }
 
-                
-            }
-            else if (this.botonSeleccionado.Text == "Modificar" && chequeado)
+            }//si se quiere modificar
+            else if (this.botonSeleccionado.Text == "Modificar")
             {
-                List<SqlParameter> parametros = new List<SqlParameter>();
 
-                int habilitada = 0;
+                bool chequeado = this.chequearCampos();
 
-                if (this.checkBox.Checked)
-                    habilitada = 1;
+                if (chequeado)
+                {
 
-                
-                BDSQL.agregarParametro(parametros, "@descripcion", this.nombreTextBox.Text);
-                BDSQL.agregarParametro(parametros, "@costoPublicacion", Convert.ToDecimal(this.costoTextBox.Text));
-                BDSQL.agregarParametro(parametros, "@porcentajeVenta", Convert.ToDecimal(this.porcentajeTextBox.Text) / 100);
-                BDSQL.agregarParametro(parametros, "@habilitada", habilitada);
-                BDSQL.agregarParametro(parametros, "@jerarquia", Convert.ToInt32(this.codigoComboBox.SelectedItem));
+                    //Datos de la form
+                    string nombre = this.nombreTextBox.Text;
+                    decimal costo = Convert.ToDecimal(this.costoTextBox.Text);
+                    decimal porcentajeVenta = Convert.ToDecimal(this.porcentajeTextBox.Text) / 100;
+                    int jerarquia = Convert.ToInt32(this.codigoComboBox.SelectedItem);
+                    bool habilitada = this.checkBox.Checked;
 
-                
 
-                BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.EditarVisibilidad", parametros);
+                    Visibilidad visibilidadNueva = new Visibilidad(jerarquia, nombre, costo, porcentajeVenta, habilitada);
 
-                BDSQL.cerrarConexion();
+                    //me fijo si tengo que updatear la jeraquia
+                    if (visibilidadNueva.hayQueCambiarLaJerarquia(visibilidadVieja))
+                    {
+                        //Update unico de la jerarquia a la nueva visibilidad
+                        this.actualizarJerarquia(visibilidadNueva, visibilidadVieja.Descripcion);
+
+                        //updatear todas las demas jerarquias
+                        if (visibilidadNueva.jerarquia > this.visibilidadVieja.jerarquia)
+                        {
+                            int primerIndice = visibilidadVieja.jerarquia;
+                            int iteraciones = visibilidadNueva.jerarquia - this.visibilidadVieja.jerarquia;
+                            int i = 0;
+
+                            while (i < iteraciones)
+                            {
+                                Visibilidad visibilidadTemp = this.listaVisibilidadesBD.ElementAt(primerIndice+1);
+                                visibilidadTemp.jerarquia--;
+                                this.actualizarJerarquia(visibilidadTemp, visibilidadTemp.Descripcion);
+                                
+
+                                i++;
+                                primerIndice++;
+                            }
+
+                       
+
+                        }
+                        else if (visibilidadNueva.jerarquia < this.visibilidadVieja.jerarquia)
+                        {
+                            int ultimoIndice = visibilidadVieja.jerarquia;
+                            int iteraciones = this.visibilidadVieja.jerarquia - visibilidadNueva.jerarquia;
+                            int i = 0;
+
+                            while (i < iteraciones)
+                            {
+                                Visibilidad visibilidadTemp = this.listaVisibilidadesBD.ElementAt(ultimoIndice - 1);
+                                visibilidadTemp.jerarquia++;
+                                this.actualizarJerarquia(visibilidadTemp, visibilidadTemp.Descripcion);
+
+
+                                i++;
+                                ultimoIndice--;
+                            }
+
+                           
+
+
+                        }
+
+                        //updateando la nueva Visibilidad
+                        this.editarVisibilidad(visibilidadNueva, this.visibilidadVieja);
+                        this.Close();
+                        
+
+                    }
+                    else
+                    {
+                        //updatear solo la visibilidad nueva
+                        this.editarVisibilidad(visibilidadNueva, this.visibilidadVieja);
+
+                      
+                        this.Close();
+
+                    }
+
+                }
+
+
+
 
             }
+        }
+
+        private void editarVisibilidad(Visibilidad visibilidadNueva, Visibilidad visibilidadVieja)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
 
 
+            BDSQL.agregarParametro(parametros, "@descripcion", visibilidadNueva.Descripcion);
+            BDSQL.agregarParametro(parametros, "@costoPublicacion", visibilidadNueva.Costo_Publicacion);
+            BDSQL.agregarParametro(parametros, "@porcentajeVenta", visibilidadNueva.Porcentaje_Venta);
+            BDSQL.agregarParametro(parametros, "@habilitada", visibilidadNueva.habilitada);
 
+            //nombre viejo, para usarlo en el string
+            String nombreViejo = visibilidadVieja.Descripcion;
+
+            BDSQL.agregarParametro(parametros, "@descripcionVieja", nombreViejo);
+
+            //Exec storedProcedure
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.EditarVisibilidad", parametros);
+            BDSQL.cerrarConexion();
+
+
+            MessageBox.Show("¡Visibilidad Modificada!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
+
+        private void actualizarJerarquia(Visibilidad visibilidad, string descripcionVieja)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+
+            BDSQL.agregarParametro(parametros, "@jerarquia", visibilidad.jerarquia);
+            BDSQL.agregarParametro(parametros, "@descripcionVieja", descripcionVieja);
+
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.EditarJerarquia", parametros);
+            BDSQL.cerrarConexion();
+
+        }
+
+
+        private bool chequearCampos()
+        {
+
+            bool chequeado = false;
+
+            //chequeo de campos obligatorios
+            if (this.nombreTextBox.Text.Equals("") || this.costoTextBox.Text.Equals("") || this.porcentajeTextBox.Text.Equals(""))
+            {
+                MessageBox.Show("Por favor complete los campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (Convert.ToInt32(this.porcentajeTextBox.Text) < 0 || Convert.ToInt32(this.porcentajeTextBox.Text) > 100)
+            {
+                MessageBox.Show("Porcentaje de venta inválido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+           /* else if (BDSQL.existeString(nombreTextBox.Text, "MERCADONEGRO.VISIBILIDADES", "DESCRIPCION"))
+            {
+                MessageBox.Show("Ya existe una visibilidad con ese nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }*/
+            else
+                chequeado = true;
+
+
+            return chequeado;
+        }
+
 
         private void cancelarButton_Click(object sender, EventArgs e)
         {
@@ -197,19 +336,19 @@ namespace FrbaCommerce.Abm_Visibilidad
         {
             if (!char.IsControl(e.KeyChar)
                 && !char.IsDigit(e.KeyChar)
-                && e.KeyChar != '.')
+                && e.KeyChar != ',')
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point 
             if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1)
+                && (sender as TextBox).Text.IndexOf(',') > -1)
             {
                 e.Handled = true;
             }
 
-        if (Regex.IsMatch(costoTextBox.Text, @"\.\d\d"))
+        if (Regex.IsMatch(costoTextBox.Text, @"\,\d\d"))
             {
                 e.Handled = true;
             }
@@ -219,19 +358,27 @@ namespace FrbaCommerce.Abm_Visibilidad
         {
             if (!char.IsControl(e.KeyChar)
                 && !char.IsDigit(e.KeyChar)
-                && e.KeyChar != '.')
+                && e.KeyChar != ',')
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point 
             if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf('.') > -1)
+                && (sender as TextBox).Text.IndexOf(',') > -1)
             {
                 e.Handled = true;
             }
 
         }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            Interfaz.limpiarInterfaz(this);
+        }
+
+        
+
 
     }
 }

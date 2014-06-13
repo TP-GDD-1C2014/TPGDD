@@ -70,7 +70,9 @@
             this.dgvVisibilidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvVisibilidades.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvVisibilidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvVisibilidades.GridColor = System.Drawing.SystemColors.Window;
             this.dgvVisibilidades.Location = new System.Drawing.Point(34, 66);
+            this.dgvVisibilidades.MultiSelect = false;
             this.dgvVisibilidades.Name = "dgvVisibilidades";
             this.dgvVisibilidades.ReadOnly = true;
             this.dgvVisibilidades.RowHeadersVisible = false;
@@ -92,7 +94,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 281);
+            this.ClientSize = new System.Drawing.Size(671, 281);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.dgvVisibilidades);
             this.Controls.Add(this.eliminarButton);

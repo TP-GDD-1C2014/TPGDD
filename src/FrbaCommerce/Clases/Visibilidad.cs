@@ -14,10 +14,10 @@ namespace FrbaCommerce.Clases
         public int jerarquia { get; set; }
         public string Descripcion { get; set; }
         public decimal Costo_Publicacion { get; set; }
-        public int Porcentaje_Venta  { get; set; }
+        public decimal Porcentaje_Venta  { get; set; }
         public bool habilitada { get; set; }
 
-        public Visibilidad(int jerarquia, string descripcion, decimal costoPublicacion, int porcentajeVenta, bool habilitada)
+        public Visibilidad(int jerarquia, string descripcion, decimal costoPublicacion, decimal porcentajeVenta, bool habilitada)
         {
             this.jerarquia = jerarquia;
             this.Descripcion = descripcion;
@@ -56,6 +56,16 @@ namespace FrbaCommerce.Clases
 
             
         }
+
+        public bool hayQueCambiarLaJerarquia(Visibilidad visibilidadVieja)
+        {
+            if (this.jerarquia == visibilidadVieja.jerarquia)
+                return false;
+            else
+                return true;
+            
+        }
+
 
      }
 }
