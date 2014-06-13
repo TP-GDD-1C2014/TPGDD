@@ -190,7 +190,7 @@ namespace FrbaCommerce.Common
 
         }
 
-        //Metodo para obtener el "String" de la publicacion
+        //Metodo para obtener el "String" del diccionario
         public static string getDescripcion(int cod, string tabla)
         {
             string descripcion;
@@ -212,10 +212,18 @@ namespace FrbaCommerce.Common
                 default:
                     return "";
             }
-
-            
-
             
         }
+
+
+        public static void actualizarDiccionarioVisibilidades(string descripcionNueva, string descripcionVieja)
+        {
+            for (int i = 0; i < diccionarioVisibilidades.Count; i++)
+            {
+                if (diccionarioVisibilidades[i].Contains(descripcionVieja))
+                    diccionarioVisibilidades[i] = descripcionNueva;
+            }
+        }
+
     }
 }

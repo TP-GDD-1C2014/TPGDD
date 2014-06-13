@@ -30,7 +30,6 @@
         {
             this.nuevaButton = new System.Windows.Forms.Button();
             this.modificarButton = new System.Windows.Forms.Button();
-            this.eliminarButton = new System.Windows.Forms.Button();
             this.dgvVisibilidades = new System.Windows.Forms.DataGridView();
             this.volverButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidades)).BeginInit();
@@ -56,15 +55,6 @@
             this.modificarButton.UseVisualStyleBackColor = true;
             this.modificarButton.Click += new System.EventHandler(this.modificarButton_Click);
             // 
-            // eliminarButton
-            // 
-            this.eliminarButton.Location = new System.Drawing.Point(196, 28);
-            this.eliminarButton.Name = "eliminarButton";
-            this.eliminarButton.Size = new System.Drawing.Size(75, 23);
-            this.eliminarButton.TabIndex = 2;
-            this.eliminarButton.Text = "Eliminar";
-            this.eliminarButton.UseVisualStyleBackColor = true;
-            // 
             // dgvVisibilidades
             // 
             this.dgvVisibilidades.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -82,11 +72,11 @@
             // 
             // volverButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(576, 228);
+            this.volverButton.Location = new System.Drawing.Point(576, 213);
             this.volverButton.Name = "volverButton";
-            this.volverButton.Size = new System.Drawing.Size(75, 23);
+            this.volverButton.Size = new System.Drawing.Size(75, 38);
             this.volverButton.TabIndex = 4;
-            this.volverButton.Text = "Volver";
+            this.volverButton.Text = "< < Volver";
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
@@ -97,7 +87,6 @@
             this.ClientSize = new System.Drawing.Size(671, 281);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.dgvVisibilidades);
-            this.Controls.Add(this.eliminarButton);
             this.Controls.Add(this.modificarButton);
             this.Controls.Add(this.nuevaButton);
             this.Name = "ABMVisibilidad";
@@ -112,7 +101,6 @@
 
         private System.Windows.Forms.Button nuevaButton;
         private System.Windows.Forms.Button modificarButton;
-        private System.Windows.Forms.Button eliminarButton;
         private System.Windows.Forms.DataGridView dgvVisibilidades;
         private System.Windows.Forms.Button volverButton;
     }

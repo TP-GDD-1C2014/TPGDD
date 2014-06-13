@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
 using System.Data.SqlClient;
-using System.Text.RegularExpressions;
+
 
 namespace FrbaCommerce.Abm_Visibilidad
 {
@@ -125,45 +125,51 @@ namespace FrbaCommerce.Abm_Visibilidad
 
                 if (chequeado)
                 {
-
-                    //Datos de la form
-                    string nombre = this.nombreTextBox.Text;
-                    decimal costo = Convert.ToDecimal(this.costoTextBox.Text);
-                    decimal porcentajeVenta = Convert.ToDecimal(this.porcentajeTextBox.Text) / 100;
-                    int jerarquia = Convert.ToInt32(this.codigoComboBox.SelectedItem);
-                    
-
-                    int habilitada = 0;
-
-                    if (this.checkBox.Checked)
-                        habilitada = 1;
+                    if (!BDSQL.existeString(nombreTextBox.Text, "MERCADONEGRO.VISIBILIDADES", "DESCRIPCION"))
+                    {
 
 
-                    List<SqlParameter> parametros = new List<SqlParameter>();
+                        //Datos de la form
+                        string nombre = this.nombreTextBox.Text;
+                        decimal costo = Convert.ToDecimal(this.costoTextBox.Text);
+                        decimal porcentajeVenta = Convert.ToDecimal(this.porcentajeTextBox.Text) / 100;
+                        int jerarquia = Convert.ToInt32(this.codigoComboBox.SelectedItem);
 
 
-                    BDSQL.agregarParametro(parametros, "@descripcion", nombre);
-                    BDSQL.agregarParametro(parametros, "@costoPublicacion", costo);
-                    BDSQL.agregarParametro(parametros, "@porcentajeVenta", porcentajeVenta);
-                    BDSQL.agregarParametro(parametros, "@habilitada", habilitada);
+                        int habilitada = 0;
 
-                    SqlParameter paramRet = new SqlParameter("@ret", System.Data.SqlDbType.Decimal);
-                    paramRet.Direction = System.Data.ParameterDirection.Output;
-                    parametros.Add(paramRet);
+                        if (this.checkBox.Checked)
+                            habilitada = 1;
 
 
-
-                    int idInsertada = (int)BDSQL.ExecStoredProcedure("MERCADONEGRO.AgregarVisibilidad", parametros);
-                    BDSQL.cerrarConexion();
+                        List<SqlParameter> parametros = new List<SqlParameter>();
 
 
-                    MessageBox.Show("¡Visibilidad Agregada!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        BDSQL.agregarParametro(parametros, "@descripcion", nombre);
+                        BDSQL.agregarParametro(parametros, "@costoPublicacion", costo);
+                        BDSQL.agregarParametro(parametros, "@porcentajeVenta", porcentajeVenta);
+                        BDSQL.agregarParametro(parametros, "@habilitada", habilitada);
 
-                    this.Close();
+                        SqlParameter paramRet = new SqlParameter("@ret", System.Data.SqlDbType.Decimal);
+                        paramRet.Direction = System.Data.ParameterDirection.Output;
+                        parametros.Add(paramRet);
 
 
 
-                    Interfaz.diccionarioVisibilidades.Add(idInsertada, Convert.ToString(this.nombreTextBox.Text));
+                        int idInsertada = (int)BDSQL.ExecStoredProcedure("MERCADONEGRO.AgregarVisibilidad", parametros);
+                        BDSQL.cerrarConexion();
+
+
+                        MessageBox.Show("¡Visibilidad Agregada!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        this.Close();
+
+
+
+                        Interfaz.diccionarioVisibilidades.Add(idInsertada, this.nombreTextBox.Text);
+                    }
+                    else
+                        MessageBox.Show("Ya existe una visibilidad con ese nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
 
             }//si se quiere modificar
@@ -250,10 +256,10 @@ namespace FrbaCommerce.Abm_Visibilidad
 
                     }
 
+                    //updateando diccionario visibilidades
+                    Interfaz.actualizarDiccionarioVisibilidades(visibilidadNueva.Descripcion, this.visibilidadVieja.Descripcion);
+
                 }
-
-
-
 
             }
         }
@@ -306,14 +312,10 @@ namespace FrbaCommerce.Abm_Visibilidad
             {
                 MessageBox.Show("Por favor complete los campos obligatorios", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (Convert.ToInt32(this.porcentajeTextBox.Text) < 0 || Convert.ToInt32(this.porcentajeTextBox.Text) > 100)
+            else if (Convert.ToDecimal(this.porcentajeTextBox.Text) < 0 || Convert.ToDecimal(this.porcentajeTextBox.Text) > 100)
             {
                 MessageBox.Show("Porcentaje de venta inválido", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-           /* else if (BDSQL.existeString(nombreTextBox.Text, "MERCADONEGRO.VISIBILIDADES", "DESCRIPCION"))
-            {
-                MessageBox.Show("Ya existe una visibilidad con ese nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }*/
             else
                 chequeado = true;
 
@@ -334,42 +336,60 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void costoTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar)
-                && !char.IsDigit(e.KeyChar)
-                && e.KeyChar != ',')
+            if (costoTextBox.Text.Contains(','))
             {
-                e.Handled = true;
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
             }
 
-            // only allow one decimal point 
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf(',') > -1)
-            {
-                e.Handled = true;
-            }
-
-        if (Regex.IsMatch(costoTextBox.Text, @"\,\d\d"))
-            {
-                e.Handled = true;
-            }
+        
         }
 
         private void porcentajeTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar)
-                && !char.IsDigit(e.KeyChar)
-                && e.KeyChar != ',')
-            {
-                e.Handled = true;
-            }
+               if (porcentajeTextBox.Text.Contains(','))
+           {
+                      if(!char.IsDigit(e.KeyChar))
+                      {
+                               e.Handled = true;
+                       }
 
-            // only allow one decimal point 
-            if (e.KeyChar == '.'
-                && (sender as TextBox).Text.IndexOf(',') > -1)
-            {
-                e.Handled = true;
-            }
+                       if (e.KeyChar == '\b')
+                       {
+                                e.Handled = false;
+                        }
+           }
+           else
+           {
+                          if(!char.IsDigit(e.KeyChar))
+                          {
+                                  e.Handled = true;
+                           }
 
+                           if(e.KeyChar==',' || e.KeyChar=='\b')
+                          {
+                                   e.Handled = false;
+                          }
+            }
         }
 
         private void limpiarButton_Click(object sender, EventArgs e)
