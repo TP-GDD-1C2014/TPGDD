@@ -422,12 +422,22 @@ GO
 
 /* SP Editar Visibilidad */
 
-CREATE PROCEDURE MERCADONEGRO.EditarVisibilidad(@codVisibilidad numeric(18,0), @descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @jerarquia numeric(18,0))
+CREATE PROCEDURE MERCADONEGRO.EditarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit,@descripcionVieja nvarchar(255))
 AS BEGIN
 	UPDATE MERCADONEGRO.Visibilidades 
 		SET Descripcion = @descripcion, Costo_Publicacion = @costoPublicacion, Porcentaje_Venta = @porcentajeVenta,
-			Habilitada = @habilitada, Jerarquia = @jerarquia
-			WHERE Cod_Visibilidad = @codVisibilidad
+			Habilitada = @habilitada
+			WHERE Descripcion = @descripcionVieja
+END
+GO
+
+/* SP Editar Jerarquia de la Visibilidad */
+
+CREATE PROCEDURE MERCADONEGRO.EditarJerarquia (@jerarquia numeric(18,0), @descripcionVieja nvarchar(255))
+AS BEGIN
+	UPDATE MERCADONEGRO.Visibilidades 
+		SET Jerarquia = @jerarquia
+			WHERE Descripcion = @descripcionVieja
 END
 GO
 
