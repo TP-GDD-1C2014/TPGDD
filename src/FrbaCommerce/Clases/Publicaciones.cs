@@ -268,28 +268,42 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public static void actualizarPublicacion(Publicacion unaPublicacion, int visibilidad, int estado, int tipoPubli)
+        public static void actualizarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
         {
             //TODO Ingresar visibilidad, estado y tipo como codigos!!
-            List<SqlParameter> listaParametros = new List<SqlParameter>();
-            listaParametros.Add(new SqlParameter("@codPubli",unaPublicacion.Cod_Publicacion));
-            listaParametros.Add(new SqlParameter("@codVisib", visibilidad));
-            listaParametros.Add(new SqlParameter("@idUser", unaPublicacion.ID_Vendedor));
-            listaParametros.Add(new SqlParameter("@descrip", unaPublicacion.Descripcion));
-            listaParametros.Add(new SqlParameter("@stock", unaPublicacion.Stock));
-            listaParametros.Add(new SqlParameter("@fechaVto", unaPublicacion.Fecha_Vto));
-            listaParametros.Add(new SqlParameter("@fechaInic", unaPublicacion.Fecha_Inicio));
-            listaParametros.Add(new SqlParameter("@precio", unaPublicacion.Precio));
-            listaParametros.Add(new SqlParameter("@estado", estado));
-            listaParametros.Add(new SqlParameter("@tipo", tipoPubli));
-            listaParametros.Add(new SqlParameter("@permiso", unaPublicacion.Permiso_Preguntas));
-            listaParametros.Add(new SqlParameter("@stockInic", unaPublicacion.Stock_Inicial));
+            /*List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@Cod_Publicacion",unaPubli.Cod_Publicacion));
+            listaParametros.Add(new SqlParameter("@Cod_Visibilidad", visibilidad));
+            listaParametros.Add(new SqlParameter("@ID_Vendedor", unaPubli.ID_Vendedor));
+            listaParametros.Add(new SqlParameter("@Descripcion", unaPubli.Descripcion));
+            listaParametros.Add(new SqlParameter("@Stock", unaPubli.Stock));
+            listaParametros.Add(new SqlParameter("@Fecha_Vto", unaPubli.Fecha_Vto));
+            listaParametros.Add(new SqlParameter("@Fecha_Inic", unaPubli.Fecha_Inicio));
+            listaParametros.Add(new SqlParameter("@Precio", unaPubli.Precio));
+            listaParametros.Add(new SqlParameter("@Estado_Publicacion", estado));
+            listaParametros.Add(new SqlParameter("@Tipo_Publicacion", tipoPubli));
+            listaParametros.Add(new SqlParameter("@Permiso_Preguntas", unaPubli.Permiso_Preguntas));
+            listaParametros.Add(new SqlParameter("@Stock_Inicial", unaPubli.Stock_Inicial));*/
 
-            int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones SET Cod_Visibilidad=@codVisib, ID_Vendedor=@idUser, Descripcion=@descrip, Stock=@stock, Fecha_Vencimiento=@fechaVto, Fecha_Inicial=@fechaInic, Precio=@precio, Estado_Publicacion=@estado, Tipo_Publicacion=@tipo, Permisos_Preguntas=@permiso, Stock_Inicial=@stockInic WHERE Cod_Publicacion=@codPubli", listaParametros, BDSQL.iniciarConexion());
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros,"@Cod_Publicacion", unaPubli.Cod_Publicacion);
+            BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", unaPubli.ID_Vendedor);
+            BDSQL.agregarParametro(listaParametros, "@Descripcion", unaPubli.Descripcion);
+            BDSQL.agregarParametro(listaParametros, "@Stock", unaPubli.Stock);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Vto", unaPubli.Fecha_Vto);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Inic", unaPubli.Fecha_Inicio);
+            BDSQL.agregarParametro(listaParametros, "@Precio", unaPubli.Precio);
+            BDSQL.agregarParametro(listaParametros, "@Estado_Publicacion", estado);
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Publicacion", tipoPubli);
+            BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", unaPubli.Permiso_Preguntas);
+            BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
+
+            int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones SET Cod_Visibilidad=@Cod_Visibilidad, ID_Vendedor=@ID_Vendedor, Descripcion=@Descripcion, Stock=@Stock, Fecha_Vencimiento=@Fecha_Vto, Fecha_Inicial=@Fecha_Inic, Precio=@Precio, Cod_EstadoPublicacion=@Estado_Publicacion, Cod_TipoPublicacion=@Tipo_Publicacion, Permisos_Preguntas=@Permiso_Preguntas, Stock_Inicial=@Stock_Inicial WHERE Cod_Publicacion=@Cod_Publicacion", listaParametros, BDSQL.iniciarConexion());
             if (resultado == -1)
                 MessageBox.Show("Falló al actualizar Publicación", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
-                MessageBox.Show("Éxtio al actualizar Publicación", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Éxtio al actualizar Publicación", "Nice!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             BDSQL.cerrarConexion();
         }
 

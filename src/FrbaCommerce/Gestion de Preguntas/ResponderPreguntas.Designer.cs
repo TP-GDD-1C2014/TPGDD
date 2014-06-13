@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnVolver = new System.Windows.Forms.Button();
-            this.preguntasDataGrid = new System.Windows.Forms.DataGridView();
             this.btnResponder = new System.Windows.Forms.Button();
+            this.preguntasDataGrid = new System.Windows.Forms.DataGridView();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.preguntasDataGrid)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +45,25 @@
             this.groupBox1.Size = new System.Drawing.Size(529, 366);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Listado de preguntas sin responder:";
+            // 
+            // btnResponder
+            // 
+            this.btnResponder.Location = new System.Drawing.Point(448, 14);
+            this.btnResponder.Name = "btnResponder";
+            this.btnResponder.Size = new System.Drawing.Size(75, 23);
+            this.btnResponder.TabIndex = 1;
+            this.btnResponder.Text = "Responder";
+            this.btnResponder.UseVisualStyleBackColor = true;
+            this.btnResponder.Click += new System.EventHandler(this.btnResponder_Click);
+            // 
+            // preguntasDataGrid
+            // 
+            this.preguntasDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.preguntasDataGrid.Location = new System.Drawing.Point(6, 43);
+            this.preguntasDataGrid.Name = "preguntasDataGrid";
+            this.preguntasDataGrid.Size = new System.Drawing.Size(517, 317);
+            this.preguntasDataGrid.TabIndex = 0;
             // 
             // btnVolver
             // 
@@ -57,23 +75,6 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             // 
-            // preguntasDataGrid
-            // 
-            this.preguntasDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.preguntasDataGrid.Location = new System.Drawing.Point(6, 43);
-            this.preguntasDataGrid.Name = "preguntasDataGrid";
-            this.preguntasDataGrid.Size = new System.Drawing.Size(517, 317);
-            this.preguntasDataGrid.TabIndex = 0;
-            // 
-            // btnResponder
-            // 
-            this.btnResponder.Location = new System.Drawing.Point(448, 14);
-            this.btnResponder.Name = "btnResponder";
-            this.btnResponder.Size = new System.Drawing.Size(75, 23);
-            this.btnResponder.TabIndex = 1;
-            this.btnResponder.Text = "Responder";
-            this.btnResponder.UseVisualStyleBackColor = true;
-            // 
             // ResponderPreguntas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -82,7 +83,7 @@
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox1);
             this.Name = "ResponderPreguntas";
-            this.Text = "ResponderPreguntas";
+            this.Text = "Listado de preguntas";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.preguntasDataGrid)).EndInit();
             this.ResumeLayout(false);

@@ -130,15 +130,6 @@ namespace FrbaCommerce.Editar_Publicacion
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
         
         bool esAdmin;
-        /*public List<Publicacion> listaPublicaciones = new List<Publicacion>();
-        public List<Publicacion> listaEnBlanco  = new List<Publicacion>();
-        public Publicacion unaPublicacion { get; set; }     // = new Publicacion (); ? */
-
-        /*private void BuscarPubliForm_Load(object sender, EventArgs e) 
-        {
-            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-
-        }*/
 
         private void filtrar_button_Click(object sender, EventArgs e)
         {
@@ -277,7 +268,7 @@ namespace FrbaCommerce.Editar_Publicacion
             Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
 
             //Dependiendo el estado seleccionado, permite o no su modificación
-            if ((unaPubli.Estado_Publicacion == "Borrador") || (unaPubli.Estado_Publicacion == "Publicada"))
+            if ((unaPubli.Estado_Publicacion == "Borrador") || ((unaPubli.Estado_Publicacion == "Publicada") && (unaPubli.Tipo_Publicacion == "Compra Inmediata")))
             {
                 //Invoca la form de Generar Publicación
                 Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
@@ -287,7 +278,7 @@ namespace FrbaCommerce.Editar_Publicacion
             }
             else
             {
-                MessageBox.Show("El estado de la publicación no permite modificación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El estado o tipo de la publicación no permite modificación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //Averigua si el usuario es o no Admin
