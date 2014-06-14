@@ -54,7 +54,7 @@
             this.rendirButton.Name = "rendirButton";
             this.rendirButton.Size = new System.Drawing.Size(75, 43);
             this.rendirButton.TabIndex = 2;
-            this.rendirButton.Text = "Siguiente";
+            this.rendirButton.Text = "Generar Factura";
             this.rendirButton.UseVisualStyleBackColor = true;
             this.rendirButton.Click += new System.EventHandler(this.rendirButton_Click);
             // 
@@ -64,6 +64,7 @@
             this.dgvOperaciones.AllowUserToDeleteRows = false;
             this.dgvOperaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvOperaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvOperaciones.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgvOperaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOperaciones.GridColor = System.Drawing.SystemColors.Window;
             this.dgvOperaciones.Location = new System.Drawing.Point(41, 53);

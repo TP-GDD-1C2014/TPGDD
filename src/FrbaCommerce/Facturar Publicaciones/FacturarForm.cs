@@ -122,8 +122,11 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
                 }
 
-                
 
+                MessageBox.Show("¡Factura generada!", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.generarDataGrid(Interfaz.usuarioActual());
+                this.dgvOperaciones.Refresh();
 
             }
             

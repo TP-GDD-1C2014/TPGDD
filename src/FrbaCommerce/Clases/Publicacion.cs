@@ -72,19 +72,23 @@ namespace FrbaCommerce.Clases
             if (lector.HasRows)
             {
                 lector.Read();
-                
+
 
                 tipoPublicacion = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
-                
+
 
 
 
                 tipoPublicacionDescripcion = Interfaz.getDescripcion(tipoPublicacion, "tipoPublicacion");
 
+                BDSQL.cerrarConexion();
                 return tipoPublicacionDescripcion;
             }
             else
+            {
+                BDSQL.cerrarConexion();
                 return "";
+            }
             
         }
 
@@ -123,7 +127,7 @@ namespace FrbaCommerce.Clases
 
             BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
 
-            string commandText = "SELECT Precio FROM MERCADONEGRO.Publicaciones WHRE Cod_Publicacion = @codPublicacion";
+            string commandText = "SELECT Precio FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @codPublicacion";
 
             SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
 
