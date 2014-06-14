@@ -88,8 +88,8 @@ namespace FrbaCommerce.Generar_Publicacion
                         //llenarCombosModificables();
 
                         Visibilidad_ComboBox.Enabled = false;
-                        Descrip_TextBox.Enabled = false;
-                        //TODO Revisar cuestión de stock (permitir aumento)
+                        //Descrip_TextBox.Enabled = false;
+                        //Revisar cuestión de stock (permitir aumento)
                         FechaFin_DateTimePicker.Enabled = false;
                         TipoPubli_ComboBox.Enabled = false;
                         Precio_textBox.Enabled = false;
@@ -182,7 +182,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
                 //TODO Revisar la cuestión de las fechas (archivo config)
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
-                DateTime fechaInicio = DateTime.Today;
+                DateTime fechaInicio = Interfaz.obtenerFecha();
                 string estado = Convert.ToString(Estado_ComboBox.SelectedItem);
                 int estadoIndex = Estado_ComboBox.SelectedIndex;
                 string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
@@ -308,6 +308,8 @@ namespace FrbaCommerce.Generar_Publicacion
             this.TipoPubli_ComboBox.DataSource = listaTipos;
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            FechaFin_DateTimePicker.Text = Convert.ToString(Interfaz.obtenerFecha());
         }
 
        /* public void llenarCombosModificables()
@@ -383,5 +385,50 @@ namespace FrbaCommerce.Generar_Publicacion
             this.Close();
             this.formAnterior.Show();
         }*/
+
+        //Denegar el ingreso de datos no numéricos al textbox de Peso
+        private void Precio_textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Precio_textBox.Text.Contains(','))
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+        }
+
+        //Permitir unicamente el ingreso de datos numéricos enteros al textbox de Stock
+        private void Stock_TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

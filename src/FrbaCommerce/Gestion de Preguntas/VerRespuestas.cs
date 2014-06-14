@@ -29,5 +29,10 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         {
             VerRespuestaDlg verRespeustasDlg = new VerRespuestaDlg();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

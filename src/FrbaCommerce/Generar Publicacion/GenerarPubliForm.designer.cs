@@ -99,6 +99,7 @@
             this.Stock_TextBox.Size = new System.Drawing.Size(71, 20);
             this.Stock_TextBox.TabIndex = 5;
             this.Stock_TextBox.TextChanged += new System.EventHandler(this.Stock_TextBox_TextChanged);
+            this.Stock_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Stock_TextBox_KeyPress);
             // 
             // FechaFin_Label
             // 
@@ -160,6 +161,7 @@
             this.Precio_textBox.Size = new System.Drawing.Size(71, 20);
             this.Precio_textBox.TabIndex = 14;
             this.Precio_textBox.TextChanged += new System.EventHandler(this.Precio_textBox_TextChanged);
+            this.Precio_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Precio_textBox_KeyPress);
             // 
             // Precio_Label
             // 
