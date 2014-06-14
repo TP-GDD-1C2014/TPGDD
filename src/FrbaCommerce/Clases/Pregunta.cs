@@ -66,7 +66,7 @@ namespace FrbaCommerce.Clases
 
             if (modo == "preguntas")
             {
-                str += "WHERE pub.ID_Vendedor = 88"; //aca seria @idUser, pero uso 88 por ej para test.
+                str += "WHERE pub.ID_Vendedor = 88 AND p.Respuesta IS NULL"; //aca seria @idUser, pero uso 88 por ej para test.
             }
             else str += "WHERE p.ID_User = @idUser AND p.Respuesta IS NOT NULL";
 
