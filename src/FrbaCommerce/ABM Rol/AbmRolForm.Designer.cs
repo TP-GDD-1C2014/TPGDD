@@ -33,12 +33,15 @@
             this.Eliminar_Button = new System.Windows.Forms.Button();
             this.Volver_Button = new System.Windows.Forms.Button();
             this.Roles_Datagrid = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAsignarRoles = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Roles_Datagrid)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Nuevo_Button
             // 
-            this.Nuevo_Button.Location = new System.Drawing.Point(12, 12);
+            this.Nuevo_Button.Location = new System.Drawing.Point(6, 19);
             this.Nuevo_Button.Name = "Nuevo_Button";
             this.Nuevo_Button.Size = new System.Drawing.Size(75, 23);
             this.Nuevo_Button.TabIndex = 0;
@@ -48,7 +51,7 @@
             // 
             // Modificar_Button
             // 
-            this.Modificar_Button.Location = new System.Drawing.Point(93, 12);
+            this.Modificar_Button.Location = new System.Drawing.Point(87, 19);
             this.Modificar_Button.Name = "Modificar_Button";
             this.Modificar_Button.Size = new System.Drawing.Size(75, 23);
             this.Modificar_Button.TabIndex = 1;
@@ -58,7 +61,7 @@
             // 
             // Eliminar_Button
             // 
-            this.Eliminar_Button.Location = new System.Drawing.Point(174, 12);
+            this.Eliminar_Button.Location = new System.Drawing.Point(168, 19);
             this.Eliminar_Button.Name = "Eliminar_Button";
             this.Eliminar_Button.Size = new System.Drawing.Size(75, 23);
             this.Eliminar_Button.TabIndex = 2;
@@ -68,7 +71,7 @@
             // 
             // Volver_Button
             // 
-            this.Volver_Button.Location = new System.Drawing.Point(282, 284);
+            this.Volver_Button.Location = new System.Drawing.Point(261, 294);
             this.Volver_Button.Name = "Volver_Button";
             this.Volver_Button.Size = new System.Drawing.Size(75, 23);
             this.Volver_Button.TabIndex = 3;
@@ -81,27 +84,49 @@
             this.Roles_Datagrid.AllowUserToDeleteRows = false;
             this.Roles_Datagrid.AllowUserToOrderColumns = true;
             this.Roles_Datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Roles_Datagrid.Location = new System.Drawing.Point(12, 52);
+            this.Roles_Datagrid.Location = new System.Drawing.Point(6, 48);
             this.Roles_Datagrid.MultiSelect = false;
             this.Roles_Datagrid.Name = "Roles_Datagrid";
             this.Roles_Datagrid.ReadOnly = true;
             this.Roles_Datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Roles_Datagrid.Size = new System.Drawing.Size(343, 184);
+            this.Roles_Datagrid.Size = new System.Drawing.Size(318, 222);
             this.Roles_Datagrid.TabIndex = 4;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnAsignarRoles);
+            this.groupBox1.Controls.Add(this.Nuevo_Button);
+            this.groupBox1.Controls.Add(this.Roles_Datagrid);
+            this.groupBox1.Controls.Add(this.Modificar_Button);
+            this.groupBox1.Controls.Add(this.Eliminar_Button);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(330, 276);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Gestión de Roles";
+            // 
+            // btnAsignarRoles
+            // 
+            this.btnAsignarRoles.Location = new System.Drawing.Point(249, 19);
+            this.btnAsignarRoles.Name = "btnAsignarRoles";
+            this.btnAsignarRoles.Size = new System.Drawing.Size(75, 23);
+            this.btnAsignarRoles.TabIndex = 5;
+            this.btnAsignarRoles.Text = "Asignar roles";
+            this.btnAsignarRoles.UseVisualStyleBackColor = true;
+            this.btnAsignarRoles.Click += new System.EventHandler(this.btnAsignarRoles_Click);
             // 
             // AbmRolForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 319);
-            this.Controls.Add(this.Roles_Datagrid);
+            this.ClientSize = new System.Drawing.Size(355, 323);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Volver_Button);
-            this.Controls.Add(this.Eliminar_Button);
-            this.Controls.Add(this.Modificar_Button);
-            this.Controls.Add(this.Nuevo_Button);
             this.Name = "AbmRolForm";
             this.Text = "Gestionar Roles";
             ((System.ComponentModel.ISupportInitialize)(this.Roles_Datagrid)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -113,5 +138,7 @@
         private System.Windows.Forms.Button Eliminar_Button;
         private System.Windows.Forms.Button Volver_Button;
         private System.Windows.Forms.DataGridView Roles_Datagrid;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAsignarRoles;
     }
 }
