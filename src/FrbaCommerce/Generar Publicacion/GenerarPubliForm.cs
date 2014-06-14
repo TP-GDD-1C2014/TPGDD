@@ -23,7 +23,6 @@ namespace FrbaCommerce.Generar_Publicacion
         bool esNueva;
         int codPubli;
         int stockTraido;
-        int estadoIndex = -1;
         bool esBorrador;
         bool esGratuita;
 
