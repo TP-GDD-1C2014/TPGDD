@@ -25,7 +25,7 @@ namespace FrbaCommerce.Generar_Publicacion
         int stockTraido;
         int estadoIndex = -1;
         bool esBorrador;
-        bool esSubasta;
+        bool esGratuita;
 
         //Constructor para generar publicacion nueva
         public GenerarPubliForm(string modo)
@@ -61,7 +61,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 Estado_ComboBox.Text = unaPubli.Estado_Publicacion;
                 Precio_textBox.Text = Convert.ToString(unaPubli.Precio);
                 PermitirPreguntas_Checkbox.Checked = unaPubli.Permiso_Preguntas;
-
+                
                 stockTraido = Convert.ToInt32(unaPubli.Stock);
                 esNueva = false;
 
@@ -74,15 +74,14 @@ namespace FrbaCommerce.Generar_Publicacion
                     esBorrador = false;
                 }
 
-                if (unaPubli.Tipo_Publicacion == "Subasta")
+                if(unaPubli.Cod_Visibilidad == "Gratis")
                 {
-                    esSubasta = true;
+                    esGratuita = true;
                 }
-                else
-                {
-                    esSubasta = false;
+                else{
+                    esGratuita = false;
                 }
-
+                    
                 //Si se encuentra Publicada, sólo permitir modificar el estado a Pausada o Finalizada (Inmediata unicamente)
                 if (esBorrador == false) 
                 {
@@ -213,8 +212,9 @@ namespace FrbaCommerce.Generar_Publicacion
                     }
                     //Invocar funcion que inserta publicacion en la tabla Publicaciones
                     Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-
+                    this.Close();
                 }
+                //Caso que sea para Modificar
                 else
                 {
                     //Comprueba que no se haya decrementado el stock
@@ -224,19 +224,17 @@ namespace FrbaCommerce.Generar_Publicacion
                     }
                     else
                     {
-                        if (esBorrador == false)
+                        //Caso en que sea Publicada y quiera pasar a Borrador (no permitido)
+                        if ((esBorrador == false) && (estado == "Borrador"))
                         {
                             MessageBox.Show("No es posible modificar de Publicada a Borrador", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
-                        else if (esSubasta == false)
-                        {
-                            MessageBox.Show("No es posible modificar una Subasta que se encuentre Publicada", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
                         else
                         {
-                            //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
-                            if (visibilidad == "Gratis")
+                            //Comprueba que si la publi seleccionada no era gratuita y la modifica
+                            if (visibilidad == "Gratis" && (esGratuita == false))
                             {
+                                //Si selecciona visibilidad gratuita, controlar Cant_Publi_Gratuitas de la tabla Usuarios
                                 if (usuario.Cant_Publi_Gratuitas < 3)
                                 {
                                     //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
@@ -270,15 +268,22 @@ namespace FrbaCommerce.Generar_Publicacion
         public void llenarCombos()
         {
             //Crear listas para los combobox
-            List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
+            /*List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
             listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
             listaVisibilidades.Add(new visibilidadComboBox("Oro", 1));
             listaVisibilidades.Add(new visibilidadComboBox("Plata", 2));
             listaVisibilidades.Add(new visibilidadComboBox("Bronce", 3));
             listaVisibilidades.Add(new visibilidadComboBox("Gratis", 4));
-            this.Visibilidad_ComboBox.DataSource = listaVisibilidades;
-            this.Visibilidad_ComboBox.DisplayMember = "Nombre_Visibilidad";
+            this.Visibilidad_ComboBox.DataSource = listaVisibilidades;*/
+            List<Visibilidad> listaVisibilidades = Visibilidad.ObtenerVisibilidades();
+            for (int i = 0; i < listaVisibilidades.Count(); i++)
+            {
+                this.Visibilidad_ComboBox.Items.Add(new visibilidadComboBox((listaVisibilidades[i].Descripcion), i));
+            }
+
+            this.Visibilidad_ComboBox.DisplayMember = "Descripcion_Visibilidad";
             this.Visibilidad_ComboBox.ValueMember = "Cod_Visibilidad";
+            this.Visibilidad_ComboBox.SelectedIndex = 0;
             this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             //this.Visibilidad_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -295,11 +300,12 @@ namespace FrbaCommerce.Generar_Publicacion
             //Estado_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             List<tipoComboBox> listaTipos = new List<tipoComboBox>();
+            //Ojo con el index
             listaTipos.Add(new tipoComboBox("Subasta", 0));
-            listaTipos.Add(new tipoComboBox("Inmediata", 1));
-            this.TipoPubli_ComboBox.DataSource = listaTipos;
+            listaTipos.Add(new tipoComboBox("Compra Inmediata", 1));
             this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
+            this.TipoPubli_ComboBox.DataSource = listaTipos;
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         }
