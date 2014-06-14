@@ -68,7 +68,7 @@
             this.limpiarButton.Location = new System.Drawing.Point(43, 139);
             this.limpiarButton.Name = "limpiarButton";
             this.limpiarButton.Size = new System.Drawing.Size(75, 23);
-            this.limpiarButton.TabIndex = 7;
+            this.limpiarButton.TabIndex = 4;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
             this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
@@ -78,7 +78,7 @@
             this.buscarButton.Location = new System.Drawing.Point(509, 139);
             this.buscarButton.Name = "buscarButton";
             this.buscarButton.Size = new System.Drawing.Size(75, 23);
-            this.buscarButton.TabIndex = 6;
+            this.buscarButton.TabIndex = 3;
             this.buscarButton.Text = "Buscar";
             this.buscarButton.UseVisualStyleBackColor = true;
             this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
@@ -89,7 +89,7 @@
             this.tipoListadoCombo.Location = new System.Drawing.Point(136, 39);
             this.tipoListadoCombo.Name = "tipoListadoCombo";
             this.tipoListadoCombo.Size = new System.Drawing.Size(354, 21);
-            this.tipoListadoCombo.TabIndex = 5;
+            this.tipoListadoCombo.TabIndex = 0;
             this.tipoListadoCombo.SelectedIndexChanged += new System.EventHandler(this.tipoListadoCombo_SelectedIndexChanged);
             // 
             // TipoListadoLabel
@@ -107,7 +107,7 @@
             this.trimestreCombo.Location = new System.Drawing.Point(343, 96);
             this.trimestreCombo.Name = "trimestreCombo";
             this.trimestreCombo.Size = new System.Drawing.Size(121, 21);
-            this.trimestreCombo.TabIndex = 3;
+            this.trimestreCombo.TabIndex = 2;
             this.trimestreCombo.SelectedIndexChanged += new System.EventHandler(this.trimestreCombo_SelectedIndexChanged);
             // 
             // TrimestreLabel
@@ -147,6 +147,7 @@
             this.top5DataGriedView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.top5DataGriedView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.top5DataGriedView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.top5DataGriedView.GridColor = System.Drawing.SystemColors.Window;
             this.top5DataGriedView.Location = new System.Drawing.Point(89, 257);
             this.top5DataGriedView.Name = "top5DataGriedView";
             this.top5DataGriedView.ReadOnly = true;
@@ -177,9 +178,9 @@
             // 
             this.volverButton.Location = new System.Drawing.Point(89, 412);
             this.volverButton.Name = "volverButton";
-            this.volverButton.Size = new System.Drawing.Size(134, 43);
-            this.volverButton.TabIndex = 4;
-            this.volverButton.Text = "Volver";
+            this.volverButton.Size = new System.Drawing.Size(134, 27);
+            this.volverButton.TabIndex = 0;
+            this.volverButton.Text = "< < Volver";
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
@@ -187,7 +188,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 467);
+            this.ClientSize = new System.Drawing.Size(842, 448);
             this.ControlBox = false;
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.label1);

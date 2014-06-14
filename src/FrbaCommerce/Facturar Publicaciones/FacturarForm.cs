@@ -46,7 +46,39 @@ namespace FrbaCommerce.Facturar_Publicaciones
             this.Close();
         }
 
+        private void rendirButton_Click(object sender, EventArgs e)
+        {
 
+            bool sonConsecutivas = this.chequearFilasConsecutivas(this.dgvOperaciones);
+
+            
+            if (sonConsecutivas)
+                MessageBox.Show("OK");
+            else
+                MessageBox.Show("ERROR");
+
+
+        }
+
+        private bool chequearFilasConsecutivas(DataGridView dgv)
+        {
+            int filasSeleccionadas = this.dgvOperaciones.SelectedRows.Count;
+            int i = 0;
+            bool sonConsecutivas = true;
+
+            while (i < filasSeleccionadas)
+            {
+                if (!this.dgvOperaciones.Rows[i].Selected)
+                    sonConsecutivas = false;
+
+                i++;
+            }
+
+            return sonConsecutivas;
+
+        }
+
+             
 
     }
 }

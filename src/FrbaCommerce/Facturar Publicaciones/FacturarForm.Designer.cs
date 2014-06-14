@@ -40,9 +40,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(38, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.Size = new System.Drawing.Size(186, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Ventas sin facturar";
+            this.label1.Text = "Ventas que aún no fueron facturadas:";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // rendirButton
@@ -53,6 +53,7 @@
             this.rendirButton.TabIndex = 2;
             this.rendirButton.Text = "Siguiente";
             this.rendirButton.UseVisualStyleBackColor = true;
+            this.rendirButton.Click += new System.EventHandler(this.rendirButton_Click);
             // 
             // dgvOperaciones
             // 
@@ -61,10 +62,12 @@
             this.dgvOperaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvOperaciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvOperaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvOperaciones.GridColor = System.Drawing.SystemColors.Window;
             this.dgvOperaciones.Location = new System.Drawing.Point(41, 53);
             this.dgvOperaciones.Name = "dgvOperaciones";
             this.dgvOperaciones.ReadOnly = true;
             this.dgvOperaciones.RowHeadersVisible = false;
+            this.dgvOperaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOperaciones.Size = new System.Drawing.Size(705, 247);
             this.dgvOperaciones.TabIndex = 1;
             this.dgvOperaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOperaciones_CellContentClick);
@@ -75,7 +78,7 @@
             this.volverButton.Name = "volverButton";
             this.volverButton.Size = new System.Drawing.Size(76, 43);
             this.volverButton.TabIndex = 3;
-            this.volverButton.Text = "Volver";
+            this.volverButton.Text = "< < Volver";
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
