@@ -411,6 +411,16 @@ AS BEGIN
 END
 GO
 
+/* Agregar oferta */
+
+CREATE PROCEDURE MERCADONEGRO.InsertarOFerta ( @idComprador numeric (18,0), @idVendedor numeric (18,0), @codPublicacion numeric (18,0), 
+											   @tipoOperacion bit, @fechaOferta datetime, @montoOferta numeric (18,2) )
+AS BEGIN
+		INSERT INTO MERCADONEGRO.Subastas (ID_Vendedor,ID_Comprador,Cod_Publicacion, Tipo_Operacion, Fecha_Oferta, Monto_Oferta)
+		VALUES (@idComprador, @idVendedor, @codPublicacion,@tipoOperacion,@fechaOferta, @montoOferta )
+END
+GO
+
 /* Agregar Visibilidad */
 
 CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @ret numeric(18,0) output)
@@ -488,6 +498,50 @@ AS BEGIN
 		VALUES(@codPublicacion, @formaDePago, @fechaFactura, 0)
 		SET @ret = SCOPE_IDENTITY()
 END
+GO
+
+CREATE PROCEDURE MERCADONEGRO.pObtenerCompras
+	@pagina INT,
+	@ID_User NUMERIC(18,0)
+AS
+	SELECT * FROM (
+		SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion, ROW_NUMBER() OVER(ORDER BY Fecha_Operacion ASC) AS ROW_NUMBER
+		FROM MERCADONEGRO.Operaciones
+		WHERE ID_Comprador = @ID_User
+		AND Cod_TipoOperacion = 0
+	) AS T
+	WHERE
+		ROW_NUMBER BETWEEN ((@pagina) + (9*(@pagina-1))) AND ((@pagina) + (9*(@pagina-1))) + 9
+	ORDER BY Fecha_Operacion
+GO
+
+CREATE PROCEDURE MERCADONEGRO.pObtenerOfertasGanadas
+	@pagina INT,
+	@ID_User NUMERIC(18,0)
+AS
+	SELECT * FROM (
+		SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion, ROW_NUMBER() OVER(ORDER BY Fecha_Operacion ASC) AS ROW_NUMBER
+		FROM MERCADONEGRO.Operaciones
+		WHERE ID_Comprador = @ID_User
+		AND Cod_TipoOperacion = 1
+	) AS T
+	WHERE
+		ROW_NUMBER BETWEEN ((@pagina) + (9*(@pagina-1))) AND ((@pagina) + (9*(@pagina-1))) + 9
+	ORDER BY Fecha_Operacion
+GO
+
+CREATE PROCEDURE MERCADONEGRO.pObtenerOfertas
+	@pagina INT,
+	@ID_User NUMERIC(18,0)
+AS
+	SELECT * FROM (
+		SELECT ID_Vendedor, Cod_Publicacion, Fecha_Oferta, Monto_Oferta, ROW_NUMBER() OVER(ORDER BY Fecha_Oferta ASC) AS ROW_NUMBER
+		FROM MERCADONEGRO.Subastas
+		WHERE ID_Comprador = @ID_User
+	) AS T
+	WHERE
+		ROW_NUMBER BETWEEN ((@pagina) + (9*(@pagina-1))) AND ((@pagina) + (9*(@pagina-1))) + 9
+	ORDER BY Fecha_Oferta
 GO
 
 CREATE PROCEDURE MERCADONEGRO.obtenerCompras
@@ -896,6 +950,25 @@ CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS
 	
 GO
 
+-------------------------------VISTA PARA VER LAS RESPUESTA A PRGUNTAS DEL USUARIO-----------------------
+CREATE VIEW MERCADONEGRO.VerRespuestasView AS 
+
+	SELECT  u.ID_User						  AS ID_User,
+			u.Username						  AS Username,
+			pub.Descripcion					  AS Descripcion_Publ,
+			pub.Precio						  AS Precio,
+			p.Pregunta   					  AS Pregunta,
+			p.Respuesta						  AS Respuesta,
+			p.Fecha_Respuesta				  AS Fecha_Respuesta
+								 
+	FROM MERCADONEGRO.Preguntas p
+	JOIN MERCADONEGRO.Pregunta_Publicacion pp ON p.ID_Pregunta       = pp.ID_Pregunta
+    JOIN MERCADONEGRO.Publicaciones pub       ON pub.Cod_Publicacion = pp.Cod_Publicacion 
+    JOIN MERCADONEGRO.Usuarios u		      ON u.ID_User           = p.ID_User
+	
+	WHERE p.Respuesta IS NOT NULL
+	
+GO
 
 
 
@@ -1348,6 +1421,8 @@ GO
 DROP VIEW MERCADONEGRO.OperacionesSinFacturar
 GO
 DROP VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView
+GO
+DROP VIEW MERCADONEGRO.VerRespuestasView
 GO
 */
 

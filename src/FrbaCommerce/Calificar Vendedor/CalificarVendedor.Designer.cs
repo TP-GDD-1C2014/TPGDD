@@ -30,8 +30,9 @@
         {
             this.calificacionesDataGrid = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnCalificar = new System.Windows.Forms.Button();
             this.btnVerPublicacion = new System.Windows.Forms.Button();
+            this.btnCalificar = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.calificacionesDataGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -57,16 +58,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Lista de compras realizadas:";
             // 
-            // btnCalificar
-            // 
-            this.btnCalificar.Location = new System.Drawing.Point(422, 19);
-            this.btnCalificar.Name = "btnCalificar";
-            this.btnCalificar.Size = new System.Drawing.Size(75, 23);
-            this.btnCalificar.TabIndex = 1;
-            this.btnCalificar.Text = "Calificar";
-            this.btnCalificar.UseVisualStyleBackColor = true;
-            this.btnCalificar.Click += new System.EventHandler(this.button1_Click);
-            // 
             // btnVerPublicacion
             // 
             this.btnVerPublicacion.Location = new System.Drawing.Point(303, 19);
@@ -77,11 +68,32 @@
             this.btnVerPublicacion.UseVisualStyleBackColor = true;
             this.btnVerPublicacion.Click += new System.EventHandler(this.btnVerPublicacion_Click);
             // 
+            // btnCalificar
+            // 
+            this.btnCalificar.Location = new System.Drawing.Point(422, 19);
+            this.btnCalificar.Name = "btnCalificar";
+            this.btnCalificar.Size = new System.Drawing.Size(75, 23);
+            this.btnCalificar.TabIndex = 1;
+            this.btnCalificar.Text = "Calificar";
+            this.btnCalificar.UseVisualStyleBackColor = true;
+            this.btnCalificar.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnVolver.Location = new System.Drawing.Point(440, 394);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 2;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            // 
             // CalificarVendedor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(527, 400);
+            this.ClientSize = new System.Drawing.Size(524, 425);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox1);
             this.Name = "CalificarVendedor";
             this.Text = "Calificar al Vendedor";
@@ -97,5 +109,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnCalificar;
         private System.Windows.Forms.Button btnVerPublicacion;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

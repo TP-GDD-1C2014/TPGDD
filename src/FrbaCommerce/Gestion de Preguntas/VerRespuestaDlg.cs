@@ -11,9 +11,12 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 {
     public partial class VerRespuestaDlg : Form
     {
-        public VerRespuestaDlg()
+        public VerRespuestaDlg(string pregunta, string respuesta, DateTime fechaRespuesta)
         {
             InitializeComponent();
+            txtPregunta.Text = pregunta;
+            txtRespuesta.Text = respuesta;
+            txtFechaRespuesta.Text = Convert.ToString(fechaRespuesta);
         }
     }
 }

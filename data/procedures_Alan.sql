@@ -1,42 +1,43 @@
-CREATE PROCEDURE MERCADONEGRO.obtenerCompras
+CREATE PROCEDURE MERCADONEGRO.pObtenerCompras
+	@pagina INT,
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 0
+	SELECT * FROM (
+		SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion, ROW_NUMBER() OVER(ORDER BY Fecha_Operacion ASC) AS ROW_NUMBER
+		FROM MERCADONEGRO.Operaciones
+		WHERE ID_Comprador = @ID_User
+		AND Cod_TipoOperacion = 0
+	) AS T
+	WHERE
+		ROW_NUMBER BETWEEN ((@pagina) + (9*(@pagina-1))) AND ((@pagina) + (9*(@pagina-1))) + 9
+	ORDER BY Fecha_Operacion
 GO
 
-CREATE PROCEDURE MERCADONEGRO.obtenerOfertasGanadas
+CREATE PROCEDURE MERCADONEGRO.pObtenerOfertasGanadas
+	@pagina INT,
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Tipo_Operacion = 1
+	SELECT * FROM (
+		SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion, ROW_NUMBER() OVER(ORDER BY Fecha_Operacion ASC) AS ROW_NUMBER
+		FROM MERCADONEGRO.Operaciones
+		WHERE ID_Comprador = @ID_User
+		AND Cod_TipoOperacion = 1
+	) AS T
+	WHERE
+		ROW_NUMBER BETWEEN ((@pagina) + (9*(@pagina-1))) AND ((@pagina) + (9*(@pagina-1))) + 9
+	ORDER BY Fecha_Operacion
 GO
 
-CREATE PROCEDURE MERCADONEGRO.obtenerOfertas
+CREATE PROCEDURE MERCADONEGRO.pObtenerOfertas
+	@pagina INT,
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Fecha_Oferta, Monto_Oferta FROM MERCADONEGRO.Subastas WHERE ID_Comprador = @ID_User
-GO
-
-CREATE PROCEDURE MERCADONEGRO.eliminarRubro
-	@ID_Rubro NUMERIC(18,0)
-AS
-	UPDATE MERCADONEGRO.Rubro_Publicacion SET ID_Rubro = 1 WHERE ID_Rubro = @ID_Rubro
-	DELETE FROM MERCADONEGRO.Rubros WHERE ID_Rubro = @ID_Rubro
-GO
-
-CREATE PROCEDURE MERCADONEGRO.obtenerVendedor
-	@ID_Vendedor NUMERIC(18,0)
-AS
-	SELECT Username FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_Vendedor
-GO
-
-CREATE PROCEDURE MERCADONEGRO.obtenerPublicacion
-	@Cod_Publicacion NUMERIC(18,0)
-AS
-	SELECT Descripcion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @Cod_Publicacion
-GO
-
-CREATE PROCEDURE MERCADONEGRO.obtenerCalificacion
-	@Cod_Calificacion NUMERIC(18,0)
-AS
-	SELECT Puntaje, Descripcion FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion
+	SELECT * FROM (
+		SELECT ID_Vendedor, Cod_Publicacion, Fecha_Oferta, Monto_Oferta, ROW_NUMBER() OVER(ORDER BY Fecha_Oferta ASC) AS ROW_NUMBER
+		FROM MERCADONEGRO.Subastas
+		WHERE ID_Comprador = @ID_User
+	) AS T
+	WHERE
+		ROW_NUMBER BETWEEN ((@pagina) + (9*(@pagina-1))) AND ((@pagina) + (9*(@pagina-1))) + 9
+	ORDER BY Fecha_Oferta
 GO

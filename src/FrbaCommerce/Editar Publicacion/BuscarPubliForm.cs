@@ -110,8 +110,25 @@ namespace FrbaCommerce.Editar_Publicacion
                 return Nombre_Tipo;
             }
         }
+
+        //Combobox Rubro
+        /*public class rubroComboBox
+        {
+            public string Nombre_Rubro { get; set; }
+            public int Cod_Rubro { get; set; }
+            public rubroComboBox(string nombre, int cod)
+            {
+                Nombre_Rubro = nombre;
+                Cod_Rubro = cod;
+            }
+            public override string ToString()
+            {
+                return Nombre_Rubro;
+            }
+        }*/
+
         //Combobox Preguntas (bit)
-        public class permitirPreg_combobox
+        /*public class permitirPreg_combobox
         {
             public string Permiso_Pregunta { get; set; }
             public int Cod_Pregunta { get; set; }
@@ -124,7 +141,7 @@ namespace FrbaCommerce.Editar_Publicacion
             {
                 return Permiso_Pregunta;
             }
-        }
+        }*/
 
         //Obtiene el usuario loggeado
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario; 
@@ -337,6 +354,17 @@ namespace FrbaCommerce.Editar_Publicacion
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
 
+            /*List<Rubro> listaRubros = Rubro.obtenerRubros();
+            for (int i = 0; i < listaRubros.Count(); i++)
+            {
+                this.Rubro_comboBox.Items.Add(new rubroComboBox((listaRubros[i].Descripcion), listaRubros[i].ID_Rubro));
+            }
+
+            this.Rubro_comboBox.DisplayMember = "Nombre_Rubro";
+            this.Rubro_comboBox.ValueMember = "Cod_Rubro";
+            this.Rubro_comboBox.SelectedIndex = 0;
+            this.Rubro_comboBox.SelectedIndexChanged += new System.EventHandler(this.Rubro_comboBox_SelectedIndexChanged);*/
+
             dateTimePicker1.Text = Convert.ToString(Interfaz.obtenerFecha());
             dateTimePicker2.Text = Convert.ToString(Interfaz.obtenerFecha());
         }
@@ -370,6 +398,10 @@ namespace FrbaCommerce.Editar_Publicacion
         }
 
         private void TipoPubli_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Rubro_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
 
@@ -475,6 +507,8 @@ namespace FrbaCommerce.Editar_Publicacion
                 }
             }
         }
+
+
 
     }
 }

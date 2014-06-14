@@ -123,6 +123,12 @@ namespace FrbaCommerce.ABM_Rol
             }
         }
 
+        private void btnAsignarRoles_Click(object sender, EventArgs e)
+        {
+            AsignarRolesUsuario asignarForm = new AsignarRolesUsuario();
+            asignarForm.ShowDialog();
+        }
+
         
     }
 }
