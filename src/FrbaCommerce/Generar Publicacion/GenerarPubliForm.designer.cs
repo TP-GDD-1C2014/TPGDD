@@ -46,20 +46,22 @@
             this.Guardar_button = new System.Windows.Forms.Button();
             this.PermitirPreg_label = new System.Windows.Forms.Label();
             this.PermitirPreguntas_Checkbox = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Descrip_TextBox
             // 
-            this.Descrip_TextBox.Location = new System.Drawing.Point(144, 51);
+            this.Descrip_TextBox.Location = new System.Drawing.Point(156, 59);
             this.Descrip_TextBox.Name = "Descrip_TextBox";
-            this.Descrip_TextBox.Size = new System.Drawing.Size(215, 20);
+            this.Descrip_TextBox.Size = new System.Drawing.Size(200, 20);
             this.Descrip_TextBox.TabIndex = 0;
             this.Descrip_TextBox.TextChanged += new System.EventHandler(this.Descrip_TextBox_TextChanged);
             // 
             // Visibilidad_Label
             // 
             this.Visibilidad_Label.AutoSize = true;
-            this.Visibilidad_Label.Location = new System.Drawing.Point(15, 27);
+            this.Visibilidad_Label.Location = new System.Drawing.Point(16, 35);
             this.Visibilidad_Label.Name = "Visibilidad_Label";
             this.Visibilidad_Label.Size = new System.Drawing.Size(53, 13);
             this.Visibilidad_Label.TabIndex = 1;
@@ -68,7 +70,7 @@
             // Descripcion_Label
             // 
             this.Descripcion_Label.AutoSize = true;
-            this.Descripcion_Label.Location = new System.Drawing.Point(15, 54);
+            this.Descripcion_Label.Location = new System.Drawing.Point(16, 62);
             this.Descripcion_Label.Name = "Descripcion_Label";
             this.Descripcion_Label.Size = new System.Drawing.Size(63, 13);
             this.Descripcion_Label.TabIndex = 2;
@@ -77,16 +79,16 @@
             // Visibilidad_ComboBox
             // 
             this.Visibilidad_ComboBox.FormattingEnabled = true;
-            this.Visibilidad_ComboBox.Location = new System.Drawing.Point(144, 24);
+            this.Visibilidad_ComboBox.Location = new System.Drawing.Point(156, 32);
             this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
-            this.Visibilidad_ComboBox.Size = new System.Drawing.Size(215, 21);
+            this.Visibilidad_ComboBox.Size = new System.Drawing.Size(200, 21);
             this.Visibilidad_ComboBox.TabIndex = 3;
             this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             // 
             // Stock_Label
             // 
             this.Stock_Label.AutoSize = true;
-            this.Stock_Label.Location = new System.Drawing.Point(15, 80);
+            this.Stock_Label.Location = new System.Drawing.Point(16, 88);
             this.Stock_Label.Name = "Stock_Label";
             this.Stock_Label.Size = new System.Drawing.Size(35, 13);
             this.Stock_Label.TabIndex = 4;
@@ -94,9 +96,9 @@
             // 
             // Stock_TextBox
             // 
-            this.Stock_TextBox.Location = new System.Drawing.Point(144, 77);
+            this.Stock_TextBox.Location = new System.Drawing.Point(156, 85);
             this.Stock_TextBox.Name = "Stock_TextBox";
-            this.Stock_TextBox.Size = new System.Drawing.Size(71, 20);
+            this.Stock_TextBox.Size = new System.Drawing.Size(200, 20);
             this.Stock_TextBox.TabIndex = 5;
             this.Stock_TextBox.TextChanged += new System.EventHandler(this.Stock_TextBox_TextChanged);
             this.Stock_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Stock_TextBox_KeyPress);
@@ -104,7 +106,7 @@
             // FechaFin_Label
             // 
             this.FechaFin_Label.AutoSize = true;
-            this.FechaFin_Label.Location = new System.Drawing.Point(15, 107);
+            this.FechaFin_Label.Location = new System.Drawing.Point(16, 115);
             this.FechaFin_Label.Name = "FechaFin_Label";
             this.FechaFin_Label.Size = new System.Drawing.Size(110, 13);
             this.FechaFin_Label.TabIndex = 6;
@@ -113,7 +115,7 @@
             // Estado_Label
             // 
             this.Estado_Label.AutoSize = true;
-            this.Estado_Label.Location = new System.Drawing.Point(15, 132);
+            this.Estado_Label.Location = new System.Drawing.Point(16, 140);
             this.Estado_Label.Name = "Estado_Label";
             this.Estado_Label.Size = new System.Drawing.Size(40, 13);
             this.Estado_Label.TabIndex = 8;
@@ -122,16 +124,16 @@
             // Estado_ComboBox
             // 
             this.Estado_ComboBox.FormattingEnabled = true;
-            this.Estado_ComboBox.Location = new System.Drawing.Point(144, 129);
+            this.Estado_ComboBox.Location = new System.Drawing.Point(156, 137);
             this.Estado_ComboBox.Name = "Estado_ComboBox";
-            this.Estado_ComboBox.Size = new System.Drawing.Size(149, 21);
+            this.Estado_ComboBox.Size = new System.Drawing.Size(200, 21);
             this.Estado_ComboBox.TabIndex = 9;
             this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
             // 
             // Tipo_Label
             // 
             this.Tipo_Label.AutoSize = true;
-            this.Tipo_Label.Location = new System.Drawing.Point(15, 159);
+            this.Tipo_Label.Location = new System.Drawing.Point(16, 167);
             this.Tipo_Label.Name = "Tipo_Label";
             this.Tipo_Label.Size = new System.Drawing.Size(28, 13);
             this.Tipo_Label.TabIndex = 11;
@@ -140,25 +142,25 @@
             // TipoPubli_ComboBox
             // 
             this.TipoPubli_ComboBox.FormattingEnabled = true;
-            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(144, 156);
+            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(155, 164);
             this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
-            this.TipoPubli_ComboBox.Size = new System.Drawing.Size(149, 21);
+            this.TipoPubli_ComboBox.Size = new System.Drawing.Size(200, 21);
             this.TipoPubli_ComboBox.TabIndex = 12;
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             // 
             // FechaFin_DateTimePicker
             // 
-            this.FechaFin_DateTimePicker.Location = new System.Drawing.Point(144, 103);
+            this.FechaFin_DateTimePicker.Location = new System.Drawing.Point(155, 111);
             this.FechaFin_DateTimePicker.Name = "FechaFin_DateTimePicker";
-            this.FechaFin_DateTimePicker.Size = new System.Drawing.Size(213, 20);
+            this.FechaFin_DateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.FechaFin_DateTimePicker.TabIndex = 13;
             this.FechaFin_DateTimePicker.ValueChanged += new System.EventHandler(this.FechaFin_DateTimePicker_ValueChanged);
             // 
             // Precio_textBox
             // 
-            this.Precio_textBox.Location = new System.Drawing.Point(144, 183);
+            this.Precio_textBox.Location = new System.Drawing.Point(155, 191);
             this.Precio_textBox.Name = "Precio_textBox";
-            this.Precio_textBox.Size = new System.Drawing.Size(71, 20);
+            this.Precio_textBox.Size = new System.Drawing.Size(200, 20);
             this.Precio_textBox.TabIndex = 14;
             this.Precio_textBox.TextChanged += new System.EventHandler(this.Precio_textBox_TextChanged);
             this.Precio_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Precio_textBox_KeyPress);
@@ -166,7 +168,7 @@
             // Precio_Label
             // 
             this.Precio_Label.AutoSize = true;
-            this.Precio_Label.Location = new System.Drawing.Point(15, 186);
+            this.Precio_Label.Location = new System.Drawing.Point(16, 194);
             this.Precio_Label.Name = "Precio_Label";
             this.Precio_Label.Size = new System.Drawing.Size(37, 13);
             this.Precio_Label.TabIndex = 15;
@@ -174,7 +176,7 @@
             // 
             // Limpiar_button
             // 
-            this.Limpiar_button.Location = new System.Drawing.Point(252, 252);
+            this.Limpiar_button.Location = new System.Drawing.Point(236, 250);
             this.Limpiar_button.Name = "Limpiar_button";
             this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
             this.Limpiar_button.TabIndex = 19;
@@ -184,7 +186,7 @@
             // 
             // Guardar_button
             // 
-            this.Guardar_button.Location = new System.Drawing.Point(80, 252);
+            this.Guardar_button.Location = new System.Drawing.Point(65, 250);
             this.Guardar_button.Name = "Guardar_button";
             this.Guardar_button.Size = new System.Drawing.Size(105, 38);
             this.Guardar_button.TabIndex = 20;
@@ -195,7 +197,7 @@
             // PermitirPreg_label
             // 
             this.PermitirPreg_label.AutoSize = true;
-            this.PermitirPreg_label.Location = new System.Drawing.Point(15, 212);
+            this.PermitirPreg_label.Location = new System.Drawing.Point(16, 217);
             this.PermitirPreg_label.Name = "PermitirPreg_label";
             this.PermitirPreg_label.Size = new System.Drawing.Size(92, 13);
             this.PermitirPreg_label.TabIndex = 21;
@@ -204,40 +206,51 @@
             // PermitirPreguntas_Checkbox
             // 
             this.PermitirPreguntas_Checkbox.AutoSize = true;
-            this.PermitirPreguntas_Checkbox.Location = new System.Drawing.Point(144, 212);
+            this.PermitirPreguntas_Checkbox.Location = new System.Drawing.Point(155, 217);
             this.PermitirPreguntas_Checkbox.Name = "PermitirPreguntas_Checkbox";
             this.PermitirPreguntas_Checkbox.Size = new System.Drawing.Size(15, 14);
             this.PermitirPreguntas_Checkbox.TabIndex = 23;
             this.PermitirPreguntas_Checkbox.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.PermitirPreguntas_Checkbox);
+            this.groupBox1.Controls.Add(this.PermitirPreg_label);
+            this.groupBox1.Controls.Add(this.Guardar_button);
+            this.groupBox1.Controls.Add(this.Limpiar_button);
+            this.groupBox1.Controls.Add(this.Precio_Label);
+            this.groupBox1.Controls.Add(this.Precio_textBox);
+            this.groupBox1.Controls.Add(this.FechaFin_DateTimePicker);
+            this.groupBox1.Controls.Add(this.TipoPubli_ComboBox);
+            this.groupBox1.Controls.Add(this.Tipo_Label);
+            this.groupBox1.Controls.Add(this.Estado_ComboBox);
+            this.groupBox1.Controls.Add(this.Estado_Label);
+            this.groupBox1.Controls.Add(this.FechaFin_Label);
+            this.groupBox1.Controls.Add(this.Stock_TextBox);
+            this.groupBox1.Controls.Add(this.Stock_Label);
+            this.groupBox1.Controls.Add(this.Visibilidad_ComboBox);
+            this.groupBox1.Controls.Add(this.Descripcion_Label);
+            this.groupBox1.Controls.Add(this.Visibilidad_Label);
+            this.groupBox1.Controls.Add(this.Descrip_TextBox);
+            this.groupBox1.Location = new System.Drawing.Point(17, 14);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(393, 304);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Creación o Modificación de Publicación";
             // 
             // GenerarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 332);
-            this.Controls.Add(this.PermitirPreguntas_Checkbox);
-            this.Controls.Add(this.PermitirPreg_label);
-            this.Controls.Add(this.Guardar_button);
-            this.Controls.Add(this.Limpiar_button);
-            this.Controls.Add(this.Precio_Label);
-            this.Controls.Add(this.Precio_textBox);
-            this.Controls.Add(this.FechaFin_DateTimePicker);
-            this.Controls.Add(this.TipoPubli_ComboBox);
-            this.Controls.Add(this.Tipo_Label);
-            this.Controls.Add(this.Estado_ComboBox);
-            this.Controls.Add(this.Estado_Label);
-            this.Controls.Add(this.FechaFin_Label);
-            this.Controls.Add(this.Stock_TextBox);
-            this.Controls.Add(this.Stock_Label);
-            this.Controls.Add(this.Visibilidad_ComboBox);
-            this.Controls.Add(this.Descripcion_Label);
-            this.Controls.Add(this.Visibilidad_Label);
-            this.Controls.Add(this.Descrip_TextBox);
+            this.Controls.Add(this.groupBox1);
             this.Name = "GenerarPubliForm";
-            this.Text = "Generar o Modificar Publicación";
+            this.Text = "Administrar Publicaciones - Mercado Negro";
             this.Load += new System.EventHandler(this.GenerarPubliForm_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -261,5 +274,6 @@
         private System.Windows.Forms.Button Guardar_button;
         private System.Windows.Forms.Label PermitirPreg_label;
         private System.Windows.Forms.CheckBox PermitirPreguntas_Checkbox;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
