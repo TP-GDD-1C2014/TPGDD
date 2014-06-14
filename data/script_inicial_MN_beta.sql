@@ -1410,5 +1410,7 @@ DROP VIEW MERCADONEGRO.OperacionesSinFacturar
 GO
 DROP VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView
 GO
+DROP VIEW MERCADONEGRO.VerRespuestasView
+GO
 */
 
