@@ -68,16 +68,16 @@ namespace FrbaCommerce.Editar_Publicacion
         //Combobox Visibilidad (numeric(18,0) )
         public class visibilidadComboBox
         {
-            public string Nombre_Visibilidad { get; set; }
+            public string Descripcion_Visibilidad { get; set; }
             public int Cod_Visibilidad { get; set; }
-            public visibilidadComboBox(string nombre, int cod)
+            public visibilidadComboBox(string descripcion, int cod)
             {
-                Nombre_Visibilidad = nombre;
+                Descripcion_Visibilidad = descripcion;
                 Cod_Visibilidad = cod;
             }
             public override string ToString()
             {
-                return Nombre_Visibilidad;
+                return Descripcion_Visibilidad;
             }
         }
         //Combobox Estado (tinyint)
@@ -127,8 +127,8 @@ namespace FrbaCommerce.Editar_Publicacion
         }
 
         //Obtiene el usuario loggeado
-        Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
-        
+        Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario; 
+        //private List<Visibilidad> listaVisibilidades;
         bool esAdmin;
 
         private void filtrar_button_Click(object sender, EventArgs e)
@@ -268,10 +268,11 @@ namespace FrbaCommerce.Editar_Publicacion
             Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
 
             //Dependiendo el estado seleccionado, permite o no su modificación
-            if ((unaPubli.Estado_Publicacion == "Borrador") || ((unaPubli.Estado_Publicacion == "Publicada") && (unaPubli.Tipo_Publicacion == "Compra Inmediata")))
+            if ((unaPubli.Estado_Publicacion == "Borrador") || ((unaPubli.Estado_Publicacion == "Publicada")&& (unaPubli.Tipo_Publicacion == "Compra Inmediata")))
             {
                 //Invoca la form de Generar Publicación
                 Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
+                
                 this.Hide(); 
                 editForm.ShowDialog();
                 this.Show();
@@ -296,18 +297,25 @@ namespace FrbaCommerce.Editar_Publicacion
 
         }
 
+
         public void llenarCombos()
         {
             //Crear listas para los combobox
-            List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
+            /*List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
             listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
             listaVisibilidades.Add(new visibilidadComboBox("Oro", 1));
             listaVisibilidades.Add(new visibilidadComboBox("Plata", 2));
             listaVisibilidades.Add(new visibilidadComboBox("Bronce", 3));
-            listaVisibilidades.Add(new visibilidadComboBox("Gratis", 4));
-            this.Visibilidad_ComboBox.DataSource = listaVisibilidades;
-            this.Visibilidad_ComboBox.DisplayMember = "Nombre_Visibilidad";
+            listaVisibilidades.Add(new visibilidadComboBox("Gratis", 4));*/
+            List<Visibilidad> listaVisibilidades = Visibilidad.ObtenerVisibilidades();
+            for (int i = 0; i < listaVisibilidades.Count(); i++)
+            {
+                this.Visibilidad_ComboBox.Items.Add(new visibilidadComboBox((listaVisibilidades[i].Descripcion), i));
+            }
+
+            this.Visibilidad_ComboBox.DisplayMember = "Descripcion_Visibilidad";
             this.Visibilidad_ComboBox.ValueMember = "Cod_Visibilidad";
+            //this.Visibilidad_ComboBox.DataSource = listaVisibilidades;
             this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
 
             List<estadoComboBox> listaEstados = new List<estadoComboBox>();
@@ -323,7 +331,7 @@ namespace FrbaCommerce.Editar_Publicacion
             List<tipoComboBox> listaTipos = new List<tipoComboBox>();
             //Ojo con el index
             listaTipos.Add(new tipoComboBox("Subasta", 0));
-            listaTipos.Add(new tipoComboBox("Inmediata", 1));
+            listaTipos.Add(new tipoComboBox("Compra Inmediata", 1));
             this.TipoPubli_ComboBox.DataSource = listaTipos;
             this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
