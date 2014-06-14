@@ -98,6 +98,7 @@
             this.StockInicial_TextBox.Name = "StockInicial_TextBox";
             this.StockInicial_TextBox.Size = new System.Drawing.Size(71, 20);
             this.StockInicial_TextBox.TabIndex = 4;
+            this.StockInicial_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enteros_KeyPress);
             // 
             // CodPubli_textBox
             // 
@@ -105,6 +106,7 @@
             this.CodPubli_textBox.Name = "CodPubli_textBox";
             this.CodPubli_textBox.Size = new System.Drawing.Size(71, 20);
             this.CodPubli_textBox.TabIndex = 5;
+            this.CodPubli_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enteros_KeyPress);
             // 
             // codPubli_label
             // 
@@ -241,6 +243,7 @@
             this.precio_textBox.Size = new System.Drawing.Size(71, 20);
             this.precio_textBox.TabIndex = 31;
             this.precio_textBox.TextChanged += new System.EventHandler(this.precio_textBox_TextChanged);
+            this.precio_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.precio_textBox_KeyPress);
             // 
             // label1
             // 

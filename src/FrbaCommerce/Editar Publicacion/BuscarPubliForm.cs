@@ -336,6 +336,9 @@ namespace FrbaCommerce.Editar_Publicacion
             this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
             this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
+
+            dateTimePicker1.Text = Convert.ToString(Interfaz.obtenerFecha());
+            dateTimePicker2.Text = Convert.ToString(Interfaz.obtenerFecha());
         }
 
         void dataGridView1_DataSourceChanged(object sender, EventArgs e)
@@ -425,6 +428,51 @@ namespace FrbaCommerce.Editar_Publicacion
             {
                 dateTimePicker2.CustomFormat = null;
                 dateTimePicker2.Format = DateTimePickerFormat.Long;
+            }
+        }
+
+        //Permitir unicamente el ingreso de datos numéricos enteros al textbox requerido
+        private void Enteros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        //Denegar el ingreso de datos no numéricos al textbox de Peso
+        private void precio_textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (precio_textBox.Text.Contains(','))
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+                if (e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
+            }
+            else
+            {
+                if (!char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (e.KeyChar == ',' || e.KeyChar == '\b')
+                {
+                    e.Handled = false;
+                }
             }
         }
 
