@@ -262,6 +262,8 @@ namespace FrbaCommerce.Editar_Publicacion
             if (resultado == DialogResult.Yes)
             {
                 //Elimina publicacion de la BD y vuelve a cargar el datagrid
+                List<int> listaRubrosDePublicacion = Rubro.obtenerRubrosDePublicacion(unaPubli.Cod_Publicacion);
+                Rubro.eliminarRubroPublicacion(listaRubrosDePublicacion, unaPubli.Cod_Publicacion);
                 Publicaciones.eliminarPublicacion(unaPubli);
 
                 //Re-checkea si el usuario es admin o no, para saber cómo completar el datagridview

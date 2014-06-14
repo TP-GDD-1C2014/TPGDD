@@ -272,6 +272,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
                             //Invocar funcion que actualiza la publicacion en la tabla Publicaciones
                             Publicaciones.actualizarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                            Rubro.actualizarRubroPublicacion(listaRubrosSeleccionados, codPubli);
                             //TODO Revisar en caso de que sea borrador y pase a ser generada como gratuita!
                             this.Close();
                         }
