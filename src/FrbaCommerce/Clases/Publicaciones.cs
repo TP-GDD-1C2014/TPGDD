@@ -225,7 +225,7 @@ namespace FrbaCommerce.Clases
 
             }
 
-            commandtext += "WHERE Cod_EstadoPublicacion = 1 AND Stock > 0 AND Fecha_Vencimiento < GETUTCDATE() ";
+            commandtext += "WHERE Cod_EstadoPublicacion = 1 AND Stock > 0";
 
             if (filtro != "")
                 commandtext += " AND " + filtro;

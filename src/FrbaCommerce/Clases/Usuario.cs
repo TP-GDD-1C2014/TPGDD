@@ -262,5 +262,14 @@ namespace FrbaCommerce.Clases
             {
                 while (lector.Read())
                 {*/
+
+        public static DataTable obtenerUsuarios()
+        {
+            string str = "SELECT ID_User, Username from MERCADONEGRO.Usuarios";
+
+            DataTable dataTable = BDSQL.obtenerDataTable(str, "T");
+
+            return dataTable;
+        }
     }
 }

@@ -92,11 +92,23 @@
     <Compile Include="ABM Rol\AbmRolForm.Designer.cs">
       <DependentUpon>AbmRolForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM Rol\AsignarRolesUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\AsignarRolesUsuario.Designer.cs">
+      <DependentUpon>AsignarRolesUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM Rol\EditorDeRoles.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ABM Rol\EditorDeRoles.Designer.cs">
       <DependentUpon>EditorDeRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\RolesUsuarioDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\RolesUsuarioDlg.Designer.cs">
+      <DependentUpon>RolesUsuarioDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Rubro\ABMRubro.cs">
       <SubType>Form</SubType>
@@ -332,8 +344,14 @@
     <EmbeddedResource Include="ABM Rol\AbmRolForm.resx">
       <DependentUpon>AbmRolForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\AsignarRolesUsuario.resx">
+      <DependentUpon>AsignarRolesUsuario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM Rol\EditorDeRoles.resx">
       <DependentUpon>EditorDeRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\RolesUsuarioDlg.resx">
+      <DependentUpon>RolesUsuarioDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Rubro\ABMRubro.resx">
       <DependentUpon>ABMRubro.cs</DependentUpon>

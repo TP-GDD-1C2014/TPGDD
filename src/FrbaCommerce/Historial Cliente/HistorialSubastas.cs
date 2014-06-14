@@ -16,14 +16,16 @@ namespace FrbaCommerce.Historial_Cliente
         public SeleccionHistorial formAnterior { get; set; }
         public List<Clases.Compra> ofertasGanadas = new List<Clases.Compra>();
         public SqlConnection conexion { get; set; }
+        public int paginaActual { get; set; }
 
-        public int obtenerOfertasGanadas()
+        public int obtenerOfertasGanadas(int pagina)
         {
             int cont = 0;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
+            BDSQL.agregarParametro(listaParametros, "@Pagina", pagina);
             this.conexion = BDSQL.iniciarConexion();
-            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerOfertasGanadas @ID_User", listaParametros, this.conexion);
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.pObtenerOfertasGanadas @Pagina, @ID_User", listaParametros, this.conexion);
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -54,10 +56,96 @@ namespace FrbaCommerce.Historial_Cliente
         public HistorialSubastas(SeleccionHistorial _formAnterior)
         {
             this.formAnterior = _formAnterior;
+            this.paginaActual = 1;
+
             InitializeComponent();
-            obtenerOfertasGanadas();
+
+            pAnterior.Enabled = false;
+
+            if (obtenerOfertasGanadas(paginaActual) <= 9)
+            {
+                pSiguiente.Enabled = false;
+            }
+            else
+            {
+                pSiguiente.Enabled = true;
+            }
 
             dgSubastasGanadas.DataSource = ofertasGanadas;
+            formateo();
+        }
+
+        public Clases.Calificacion obtenerCalificacion(int codCalificacion)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Cod_Calificacion", codCalificacion);
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerCalificacion @Cod_Calificacion", listaParametros, this.conexion);
+            lector.Read();
+            Clases.Calificacion calificacion = new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
+            return calificacion;
+        }
+
+        private void HistorialSubastas_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            formAnterior.Show();
+        }
+
+        private void dgSubastasGanadas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                VerPublicacion formP1 = new VerPublicacion(Convert.ToInt32(dgSubastasGanadas.Rows[e.RowIndex].Cells[2].Value));
+                formP1.Show();
+            }
+        }
+
+        public void reformateo()
+        {
+            dgSubastasGanadas.Columns[2].Visible = false;
+            dgSubastasGanadas.Columns[5].Visible = false;
+            dgSubastasGanadas.Columns[6].Visible = false;
+            dgSubastasGanadas.Columns[7].Visible = false;
+            dgSubastasGanadas.Columns[8].Visible = false;
+            dgSubastasGanadas.Columns[9].Visible = false;
+            dgSubastasGanadas.Columns[10].Visible = false;
+            dgSubastasGanadas.Columns[11].Visible = false;
+
+            DataGridViewColumn compras_cBoton = dgSubastasGanadas.Columns[0];
+            DataGridViewColumn compras_cFecha = dgSubastasGanadas.Columns[1];
+            DataGridViewColumn compras_cCalificacion = dgSubastasGanadas.Columns[3];
+            DataGridViewColumn compras_cComentarios = dgSubastasGanadas.Columns[4];
+
+            compras_cBoton.DisplayIndex = 4;
+            compras_cFecha.DisplayIndex = 0;
+            compras_cCalificacion.DisplayIndex = 1;
+            compras_cComentarios.DisplayIndex = 3;
+
+            compras_cFecha.Resizable = DataGridViewTriState.False;
+            compras_cCalificacion.Resizable = DataGridViewTriState.False;
+            compras_cComentarios.Resizable = DataGridViewTriState.False;
+
+            compras_cFecha.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            compras_cCalificacion.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            compras_cComentarios.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            compras_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            compras_cCalificacion.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            compras_cComentarios.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            compras_cFecha.Width = 70;
+            compras_cCalificacion.Width = 70;
+            compras_cComentarios.Width = 311;
+        }
+
+        public void formateo()
+        {
             dgSubastasGanadas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgSubastasGanadas.RowHeadersVisible = false;
 
@@ -113,37 +201,48 @@ namespace FrbaCommerce.Historial_Cliente
             ofertasGanadas_cPublicacion.Width = 70;
             ofertasGanadas_cFecha.Width = 70;
             ofertasGanadas_cCalificacion.Width = 70;
-            ofertasGanadas_cComentarios.Width = 295;
+            ofertasGanadas_cComentarios.Width = 311;
         }
 
-        public Clases.Calificacion obtenerCalificacion(int codCalificacion)
+        private void pSiguiente_Click_1(object sender, EventArgs e)
         {
-            List<SqlParameter> listaParametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(listaParametros, "@Cod_Calificacion", codCalificacion);
-            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerCalificacion @Cod_Calificacion", listaParametros, this.conexion);
-            lector.Read();
-            Clases.Calificacion calificacion = new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
-            return calificacion;
-        }
+            this.paginaActual++;
 
-        private void HistorialSubastas_Load(object sender, EventArgs e)
-        {
+            dgSubastasGanadas.DataSource = null;
+            ofertasGanadas.Clear();
 
-        }
+            pAnterior.Enabled = true;
 
-        private void bBack_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            formAnterior.Show();
-        }
-
-        private void dgSubastasGanadas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
+            if (obtenerOfertasGanadas(paginaActual) <= 9)
             {
-                VerPublicacion formP1 = new VerPublicacion(Convert.ToInt32(dgSubastasGanadas.Rows[e.RowIndex].Cells[2].Value));
-                formP1.Show();
+                pSiguiente.Enabled = false;
             }
+            else
+            {
+                pSiguiente.Enabled = true;
+            }
+
+            dgSubastasGanadas.DataSource = ofertasGanadas;
+            reformateo();
+        }
+
+        private void pAnterior_Click_1(object sender, EventArgs e)
+        {
+            this.paginaActual--;
+
+            dgSubastasGanadas.DataSource = null;
+            ofertasGanadas.Clear();
+
+            pSiguiente.Enabled = true;
+            obtenerOfertasGanadas(paginaActual);
+
+            if (this.paginaActual == 1)
+            {
+                pAnterior.Enabled = false;
+            }
+
+            dgSubastasGanadas.DataSource = ofertasGanadas;
+            reformateo();
         }
     }
 }

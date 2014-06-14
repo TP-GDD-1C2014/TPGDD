@@ -1,4 +1,4 @@
-CREATE PROCEDURE pObtenerCompras
+CREATE PROCEDURE MERCADONEGRO.pObtenerCompras
 	@pagina INT,
 	@ID_User NUMERIC(18,0)
 AS
@@ -13,7 +13,7 @@ AS
 	ORDER BY Fecha_Operacion
 GO
 
-CREATE PROCEDURE pObtenerOfertasGanadas
+CREATE PROCEDURE MERCADONEGRO.pObtenerOfertasGanadas
 	@pagina INT,
 	@ID_User NUMERIC(18,0)
 AS
@@ -28,7 +28,7 @@ AS
 	ORDER BY Fecha_Operacion
 GO
 
-CREATE PROCEDURE pObtenerOfertas
+CREATE PROCEDURE MERCADONEGRO.pObtenerOfertas
 	@pagina INT,
 	@ID_User NUMERIC(18,0)
 AS

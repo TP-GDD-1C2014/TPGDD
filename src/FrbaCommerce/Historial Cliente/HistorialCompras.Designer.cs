@@ -45,41 +45,43 @@
             this.groupBox1.Controls.Add(this.bBack);
             this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(590, 265);
+            this.groupBox1.Size = new System.Drawing.Size(590, 308);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Compras";
+            this.groupBox1.Text = "Compras realizadas";
             // 
             // pAnterior
             // 
-            this.pAnterior.Location = new System.Drawing.Point(504, 227);
+            this.pAnterior.Location = new System.Drawing.Point(504, 270);
             this.pAnterior.Name = "pAnterior";
             this.pAnterior.Size = new System.Drawing.Size(35, 30);
             this.pAnterior.TabIndex = 9;
             this.pAnterior.Text = "<<";
             this.pAnterior.UseVisualStyleBackColor = true;
+            this.pAnterior.Click += new System.EventHandler(this.pAnterior_Click);
             // 
             // pSiguiente
             // 
-            this.pSiguiente.Location = new System.Drawing.Point(546, 227);
+            this.pSiguiente.Location = new System.Drawing.Point(546, 270);
             this.pSiguiente.Name = "pSiguiente";
             this.pSiguiente.Size = new System.Drawing.Size(35, 30);
             this.pSiguiente.TabIndex = 8;
             this.pSiguiente.Text = ">>";
             this.pSiguiente.UseVisualStyleBackColor = true;
+            this.pSiguiente.Click += new System.EventHandler(this.pSiguiente_Click);
             // 
             // dgCompras
             // 
             this.dgCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgCompras.Location = new System.Drawing.Point(10, 20);
             this.dgCompras.Name = "dgCompras";
-            this.dgCompras.Size = new System.Drawing.Size(570, 200);
+            this.dgCompras.Size = new System.Drawing.Size(570, 243);
             this.dgCompras.TabIndex = 7;
             this.dgCompras.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgCompras_CellContentClick_1);
             // 
             // bBack
             // 
-            this.bBack.Location = new System.Drawing.Point(9, 227);
+            this.bBack.Location = new System.Drawing.Point(9, 270);
             this.bBack.Name = "bBack";
             this.bBack.Size = new System.Drawing.Size(120, 30);
             this.bBack.TabIndex = 6;
@@ -91,7 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(612, 286);
+            this.ClientSize = new System.Drawing.Size(612, 329);
             this.Controls.Add(this.groupBox1);
             this.Name = "HistorialCompras";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

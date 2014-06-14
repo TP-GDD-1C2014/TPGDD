@@ -16,14 +16,16 @@ namespace FrbaCommerce.Historial_Cliente
         public SeleccionHistorial formAnterior { get; set; }
         public List<Clases.Oferta> ofertas = new List<Clases.Oferta>();
         public SqlConnection conexion { get; set; }
+        public int paginaActual { get; set; }
 
-        public int obtenerOfertas()
+        public int obtenerOfertas(int pagina)
         {
             int cont = 0;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@ID_User", Interfaz.usuario.ID_User);
+            BDSQL.agregarParametro(listaParametros, "@Pagina", pagina);
             this.conexion = BDSQL.iniciarConexion();
-            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerOfertas @ID_User", listaParametros, this.conexion);
+            SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.pObtenerOfertas @Pagina, @ID_User", listaParametros, this.conexion);
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -44,10 +46,55 @@ namespace FrbaCommerce.Historial_Cliente
         public HistorialOfertas(SeleccionHistorial _formAnterior)
         {
             this.formAnterior = _formAnterior;
+            this.paginaActual = 1;
+
             InitializeComponent();
-            obtenerOfertas();
+
+            pAnterior.Enabled = false;
+
+            if (obtenerOfertas(paginaActual) <= 9)
+            {
+                pSiguiente.Enabled = false;
+            }
+            else
+            {
+                pSiguiente.Enabled = true;
+            }
 
             dgOfertas.DataSource = ofertas;
+            formateo();
+        }
+
+        public void reformateo()
+        {
+            dgOfertas.Columns[2].Visible = false;
+            dgOfertas.Columns[4].Visible = false;
+            dgOfertas.Columns[5].Visible = false;
+            dgOfertas.Columns[6].Visible = false;
+            dgOfertas.Columns[7].Visible = false;
+
+            DataGridViewColumn ofertas_cBoton = dgOfertas.Columns[0];
+            DataGridViewColumn ofertas_cFecha = dgOfertas.Columns[1];
+            DataGridViewColumn ofertas_cMonto = dgOfertas.Columns[3];
+
+            ofertas_cBoton.DisplayIndex = 3;
+            ofertas_cFecha.DisplayIndex = 0;
+            ofertas_cMonto.DisplayIndex = 1;
+
+            ofertas_cFecha.Resizable = DataGridViewTriState.False;
+            ofertas_cMonto.Resizable = DataGridViewTriState.False;
+
+            ofertas_cFecha.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ofertas_cMonto.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            ofertas_cFecha.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            ofertas_cMonto.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            ofertas_cFecha.Width = 70;
+            ofertas_cMonto.Width = 381;
+        }
+
+        public void formateo(){
             dgOfertas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgOfertas.RowHeadersVisible = false;
 
@@ -92,7 +139,7 @@ namespace FrbaCommerce.Historial_Cliente
 
             ofertas_cPublicacion.Width = 245;
             ofertas_cFecha.Width = 70;
-            ofertas_cMonto.Width = 365;
+            ofertas_cMonto.Width = 381;
         }
 
         private void HistorialOfertas_Load(object sender, EventArgs e)
@@ -114,5 +161,48 @@ namespace FrbaCommerce.Historial_Cliente
                 formP1.Show();
             }
         }
+
+        private void pAnterior_Click(object sender, EventArgs e)
+        {
+            this.paginaActual--;
+
+            dgOfertas.DataSource = null;
+            ofertas.Clear();
+
+            pSiguiente.Enabled = true;
+            obtenerOfertas(paginaActual);
+
+            if (this.paginaActual == 1)
+            {
+                pAnterior.Enabled = false;
+            }
+
+            dgOfertas.DataSource = ofertas;
+            reformateo();
+        }
+
+        private void pSiguiente_Click(object sender, EventArgs e)
+        {
+            this.paginaActual++;
+
+            dgOfertas.DataSource = null;
+            ofertas.Clear();
+
+            pAnterior.Enabled = true;
+
+            if (obtenerOfertas(paginaActual) <= 9)
+            {
+                pSiguiente.Enabled = false;
+            }
+            else
+            {
+                pSiguiente.Enabled = true;
+            }
+
+            dgOfertas.DataSource = ofertas;
+            reformateo();
+        }
+
+
     }
 }

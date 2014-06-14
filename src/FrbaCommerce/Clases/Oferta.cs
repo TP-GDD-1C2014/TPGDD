@@ -68,24 +68,29 @@ namespace FrbaCommerce.Clases
             ListaParametros.Add(new SqlParameter("@idComprador", oferta.Comprador));
             ListaParametros.Add(new SqlParameter("@codPublicacion", oferta.Cod_Publicacion));
             ListaParametros.Add(new SqlParameter("@tipoOperacion", oferta.Tipo_Operacion));
-            ListaParametros.Add(new SqlParameter("@fechaOferta", oferta.Fecha));
+            ListaParametros.Add(new SqlParameter("@fechaOferta", Interfaz.obtenerFecha()));
             ListaParametros.Add(new SqlParameter("@montoOferta", oferta.Monto));
             
-            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.AgregarSubasta",ListaParametros);
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.InsertarOFerta",ListaParametros);
             BDSQL.cerrarConexion();
         }
 
-        public static int cargarOfertaMasAlta(int codPublicacion)
+        public static double cargarOfertaMasAlta(int codPublicacion)
         {
-            int ofertaMasGrande = 0;
-            
+            double ofertaMasGrande = 0.00;
+
             List<SqlParameter> ListaParametros = new List<SqlParameter>();
             ListaParametros.Add(new SqlParameter("@codPublicacion", codPublicacion));
 
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT MAX(Monto_Oferta) as Max FROM MERCADONEGRO.Subastas WHERE Cod_Publicacion = @codPublicacion", ListaParametros,BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT ISNULL (MAX(Monto_Oferta), 0) as Maxima FROM MERCADONEGRO.Subastas WHERE Cod_Publicacion = @codPublicacion", ListaParametros, BDSQL.iniciarConexion());
+
             if (lector.HasRows)
-                ofertaMasGrande = Convert.ToInt32(lector["Max"]);
-            
+            {
+                lector.Read();
+
+                ofertaMasGrande = Convert.ToDouble(lector["Maxima"]);               
+            }
+                          
             BDSQL.cerrarConexion();
             return ofertaMasGrande;
 

@@ -15,7 +15,7 @@ namespace FrbaCommerce.Comprar_Ofertar
     public partial class OfertaDlg : Form
     {
         Publicacion publicacion;
-        int ofertaMasGrande;
+        double ofertaMasGrande;
         
         public OfertaDlg(Publicacion publi)
         {
@@ -47,11 +47,13 @@ namespace FrbaCommerce.Comprar_Ofertar
 
                     Oferta oferta = new Oferta(publicacion.ID_Vendedor, Interfaz.usuario.ID_User, publicacion.Cod_Publicacion, 1, valor);
                     Oferta.insertarOferta(oferta);
-                    
+
                     MessageBox.Show("Oferta realizada con éxito! Actualmente usted tiene la oferta mas alta.", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.None);
-                    ofertaMasGrande = Oferta.cargarOfertaMasAlta(publicacion.Cod_Publicacion);
-                    
+                    ofertaMasGrande = valor;
+                    txtOfertaActual.Text = Convert.ToString(valor);
+
                 }
+                else MessageBox.Show("Por favor ingrese un valor numerico entero, mayor que la oferta actual.", "ATENCIÓN!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
