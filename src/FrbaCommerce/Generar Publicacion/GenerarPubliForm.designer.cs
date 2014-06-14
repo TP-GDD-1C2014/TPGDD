@@ -47,8 +47,8 @@
             this.PermitirPreg_label = new System.Windows.Forms.Label();
             this.PermitirPreguntas_Checkbox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Rubro_comboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Rubro_checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,7 +144,7 @@
             // TipoPubli_ComboBox
             // 
             this.TipoPubli_ComboBox.FormattingEnabled = true;
-            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(155, 164);
+            this.TipoPubli_ComboBox.Location = new System.Drawing.Point(156, 164);
             this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
             this.TipoPubli_ComboBox.Size = new System.Drawing.Size(200, 21);
             this.TipoPubli_ComboBox.TabIndex = 12;
@@ -152,7 +152,7 @@
             // 
             // FechaFin_DateTimePicker
             // 
-            this.FechaFin_DateTimePicker.Location = new System.Drawing.Point(155, 111);
+            this.FechaFin_DateTimePicker.Location = new System.Drawing.Point(156, 111);
             this.FechaFin_DateTimePicker.Name = "FechaFin_DateTimePicker";
             this.FechaFin_DateTimePicker.Size = new System.Drawing.Size(200, 20);
             this.FechaFin_DateTimePicker.TabIndex = 13;
@@ -160,7 +160,7 @@
             // 
             // Precio_textBox
             // 
-            this.Precio_textBox.Location = new System.Drawing.Point(155, 219);
+            this.Precio_textBox.Location = new System.Drawing.Point(156, 307);
             this.Precio_textBox.Name = "Precio_textBox";
             this.Precio_textBox.Size = new System.Drawing.Size(200, 20);
             this.Precio_textBox.TabIndex = 14;
@@ -170,7 +170,7 @@
             // Precio_Label
             // 
             this.Precio_Label.AutoSize = true;
-            this.Precio_Label.Location = new System.Drawing.Point(16, 222);
+            this.Precio_Label.Location = new System.Drawing.Point(16, 310);
             this.Precio_Label.Name = "Precio_Label";
             this.Precio_Label.Size = new System.Drawing.Size(37, 13);
             this.Precio_Label.TabIndex = 15;
@@ -178,7 +178,7 @@
             // 
             // Limpiar_button
             // 
-            this.Limpiar_button.Location = new System.Drawing.Point(222, 276);
+            this.Limpiar_button.Location = new System.Drawing.Point(216, 368);
             this.Limpiar_button.Name = "Limpiar_button";
             this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
             this.Limpiar_button.TabIndex = 19;
@@ -188,7 +188,7 @@
             // 
             // Guardar_button
             // 
-            this.Guardar_button.Location = new System.Drawing.Point(65, 276);
+            this.Guardar_button.Location = new System.Drawing.Point(65, 368);
             this.Guardar_button.Name = "Guardar_button";
             this.Guardar_button.Size = new System.Drawing.Size(105, 38);
             this.Guardar_button.TabIndex = 20;
@@ -199,7 +199,7 @@
             // PermitirPreg_label
             // 
             this.PermitirPreg_label.AutoSize = true;
-            this.PermitirPreg_label.Location = new System.Drawing.Point(16, 245);
+            this.PermitirPreg_label.Location = new System.Drawing.Point(16, 333);
             this.PermitirPreg_label.Name = "PermitirPreg_label";
             this.PermitirPreg_label.Size = new System.Drawing.Size(92, 13);
             this.PermitirPreg_label.TabIndex = 21;
@@ -208,7 +208,7 @@
             // PermitirPreguntas_Checkbox
             // 
             this.PermitirPreguntas_Checkbox.AutoSize = true;
-            this.PermitirPreguntas_Checkbox.Location = new System.Drawing.Point(155, 245);
+            this.PermitirPreguntas_Checkbox.Location = new System.Drawing.Point(156, 332);
             this.PermitirPreguntas_Checkbox.Name = "PermitirPreguntas_Checkbox";
             this.PermitirPreguntas_Checkbox.Size = new System.Drawing.Size(15, 14);
             this.PermitirPreguntas_Checkbox.TabIndex = 23;
@@ -216,8 +216,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.Rubro_checkedListBox);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.Rubro_comboBox);
             this.groupBox1.Controls.Add(this.PermitirPreguntas_Checkbox);
             this.groupBox1.Controls.Add(this.PermitirPreg_label);
             this.groupBox1.Controls.Add(this.Guardar_button);
@@ -238,19 +238,10 @@
             this.groupBox1.Controls.Add(this.Descrip_TextBox);
             this.groupBox1.Location = new System.Drawing.Point(17, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(393, 333);
+            this.groupBox1.Size = new System.Drawing.Size(393, 427);
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creación o Modificación de Publicación";
-            // 
-            // Rubro_comboBox
-            // 
-            this.Rubro_comboBox.FormattingEnabled = true;
-            this.Rubro_comboBox.Location = new System.Drawing.Point(156, 192);
-            this.Rubro_comboBox.Name = "Rubro_comboBox";
-            this.Rubro_comboBox.Size = new System.Drawing.Size(200, 21);
-            this.Rubro_comboBox.TabIndex = 24;
-            this.Rubro_comboBox.SelectedIndexChanged += new System.EventHandler(this.Rubro_comboBox_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -261,11 +252,20 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "Rubro";
             // 
+            // Rubro_checkedListBox
+            // 
+            this.Rubro_checkedListBox.FormattingEnabled = true;
+            this.Rubro_checkedListBox.Location = new System.Drawing.Point(156, 192);
+            this.Rubro_checkedListBox.Name = "Rubro_checkedListBox";
+            this.Rubro_checkedListBox.Size = new System.Drawing.Size(200, 109);
+            this.Rubro_checkedListBox.TabIndex = 26;
+            this.Rubro_checkedListBox.SelectedIndexChanged += new System.EventHandler(this.Rubro_checkedListBox_SelectedIndexChanged);
+            // 
             // GenerarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 373);
+            this.ClientSize = new System.Drawing.Size(434, 453);
             this.Controls.Add(this.groupBox1);
             this.Name = "GenerarPubliForm";
             this.Text = "Administrar Publicaciones - Mercado Negro";
@@ -297,7 +297,7 @@
         private System.Windows.Forms.Label PermitirPreg_label;
         private System.Windows.Forms.CheckBox PermitirPreguntas_Checkbox;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox Rubro_comboBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckedListBox Rubro_checkedListBox;
     }
 }

@@ -308,7 +308,7 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public static void agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli, string rubro, int rubroIndex)
+        public static void agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 

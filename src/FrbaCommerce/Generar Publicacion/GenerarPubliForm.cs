@@ -203,11 +203,12 @@ namespace FrbaCommerce.Generar_Publicacion
                 int estadoIndex = Estado_ComboBox.SelectedIndex;
                 string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
                 int tipoPubliIndex = TipoPubli_ComboBox.SelectedIndex;
-                string rubro = Convert.ToString(Rubro_comboBox.SelectedItem);
-                int rubroIndex = Rubro_comboBox.SelectedIndex;
+                string rubro = Convert.ToString(Rubro_checkedListBox.SelectedItem);
+                int rubroIndex = Rubro_checkedListBox.SelectedIndex;
                 decimal precio = Convert.ToDecimal(Precio_textBox.Text);
                 bool permisoPreg = PermitirPreguntas_Checkbox.Checked;
-                
+
+                List<Rubro> listaRubrosSeleccionados = filtrarRubrosSeleccionados();
 
                 //Crear la publicacion con los parametros asignados
                 Publicacion publi = new Publicacion(codPubli, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli, permisoPreg, stock);
@@ -230,10 +231,10 @@ namespace FrbaCommerce.Generar_Publicacion
                         }
                     }
                     //Invocar funcion que inserta publicacion en la tabla Publicaciones
-                    Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex, rubro, rubroIndex);
+                    Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
                     int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
                     MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    //Publicaciones.agregarRubroPublicacion(rubroIndex, codPubli);
+                    Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
                     this.Close();
                 }
                 //Caso que sea para Modificar
@@ -332,15 +333,12 @@ namespace FrbaCommerce.Generar_Publicacion
             //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
             List<Rubro> listaRubros = Rubro.obtenerRubros();
+            Rubro_checkedListBox.DisplayMember = "Descripcion";
+            Rubro_checkedListBox.ValueMember = "ID_Rubro";
             for (int i = 0; i < listaRubros.Count(); i++)
             {
-                this.Rubro_comboBox.Items.Add(new rubroComboBox((listaRubros[i].Descripcion), listaRubros[i].ID_Rubro));
+                Rubro_checkedListBox.Items.Add(new Rubro(listaRubros[i].ID_Rubro, listaRubros[i].Descripcion));
             }
-
-            this.Rubro_comboBox.DisplayMember = "Nombre_Rubro";
-            this.Rubro_comboBox.ValueMember = "Cod_Rubro";
-            this.Rubro_comboBox.SelectedIndex = 0;
-            this.Rubro_comboBox.SelectedIndexChanged += new System.EventHandler(this.Rubro_comboBox_SelectedIndexChanged);
 
             FechaFin_DateTimePicker.Text = Convert.ToString(Interfaz.obtenerFecha());
         }
@@ -369,7 +367,7 @@ namespace FrbaCommerce.Generar_Publicacion
         {
         }
 
-        private void Rubro_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Rubro_checkedListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
 
@@ -430,6 +428,21 @@ namespace FrbaCommerce.Generar_Publicacion
             {
                 e.Handled = true;
             }
+        }
+
+        private List<Rubro> filtrarRubrosSeleccionados()
+        {
+            List<Rubro> rubrosSeleccionados = new List<Rubro>();
+
+            for (int i = 0; i < Rubro_checkedListBox.Items.Count; i++)
+            {
+                if (Rubro_checkedListBox.GetItemChecked(i))
+                {
+                    Rubro func = Rubro_checkedListBox.Items[i] as Rubro;
+                    rubrosSeleccionados.Add(func);
+                }
+            }
+            return rubrosSeleccionados;
         }
 
 
