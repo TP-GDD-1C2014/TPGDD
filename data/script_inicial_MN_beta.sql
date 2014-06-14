@@ -533,6 +533,16 @@ AS
 	SELECT Puntaje, Descripcion FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion
 GO
 
+CREATE PROCEDURE MERCADONEGRO.InsertarItem (@idFactura numeric(18,0), @cantidadVendida numeric(18,0),
+												@descripcion nvarchar(255), @precioItem numeric(18,0))
+AS BEGIN
+	INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Precio_Item)
+		VALUES(@idFactura, @cantidadVendida, @descripcion, @precioItem)
+		
+	UPDATE MERCADONEGRO.Facturaciones SET Total_Facturacion = Total_Facturacion + @precioItem
+END
+GO
+
 /*
 CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
 											  @numDoc numeric(18,0), @nombre nvarchar(255),
@@ -885,6 +895,8 @@ CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS
 	WHERE Operaciones.Operacion_Facturada = 0
 	
 GO
+
+
 
 
 ---------------------------USUARIOS------------------------------
