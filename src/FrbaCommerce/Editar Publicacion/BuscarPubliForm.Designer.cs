@@ -62,15 +62,15 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(27, 205);
+            this.dataGridView1.Location = new System.Drawing.Point(27, 218);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(684, 251);
+            this.dataGridView1.Size = new System.Drawing.Size(684, 265);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
             // modificar_button
             // 
-            this.modificar_button.Location = new System.Drawing.Point(27, 476);
+            this.modificar_button.Location = new System.Drawing.Point(27, 498);
             this.modificar_button.Name = "modificar_button";
             this.modificar_button.Size = new System.Drawing.Size(125, 45);
             this.modificar_button.TabIndex = 22;
@@ -80,7 +80,7 @@
             // 
             // borrar_button
             // 
-            this.borrar_button.Location = new System.Drawing.Point(303, 476);
+            this.borrar_button.Location = new System.Drawing.Point(303, 498);
             this.borrar_button.Name = "borrar_button";
             this.borrar_button.Size = new System.Drawing.Size(125, 45);
             this.borrar_button.TabIndex = 35;
@@ -90,7 +90,7 @@
             // 
             // volver_button
             // 
-            this.volver_button.Location = new System.Drawing.Point(586, 476);
+            this.volver_button.Location = new System.Drawing.Point(586, 498);
             this.volver_button.Name = "volver_button";
             this.volver_button.Size = new System.Drawing.Size(125, 45);
             this.volver_button.TabIndex = 36;
@@ -161,7 +161,7 @@
             // Estado_ComboBox
             // 
             this.Estado_ComboBox.FormattingEnabled = true;
-            this.Estado_ComboBox.Location = new System.Drawing.Point(450, 74);
+            this.Estado_ComboBox.Location = new System.Drawing.Point(450, 73);
             this.Estado_ComboBox.Name = "Estado_ComboBox";
             this.Estado_ComboBox.Size = new System.Drawing.Size(200, 21);
             this.Estado_ComboBox.TabIndex = 10;
@@ -187,7 +187,7 @@
             // 
             // limpiar_button
             // 
-            this.limpiar_button.Location = new System.Drawing.Point(521, 138);
+            this.limpiar_button.Location = new System.Drawing.Point(521, 145);
             this.limpiar_button.Name = "limpiar_button";
             this.limpiar_button.Size = new System.Drawing.Size(150, 30);
             this.limpiar_button.TabIndex = 20;
@@ -198,7 +198,7 @@
             // filtrar_button
             // 
             this.filtrar_button.BackColor = System.Drawing.SystemColors.Control;
-            this.filtrar_button.Location = new System.Drawing.Point(337, 138);
+            this.filtrar_button.Location = new System.Drawing.Point(337, 145);
             this.filtrar_button.Name = "filtrar_button";
             this.filtrar_button.Size = new System.Drawing.Size(150, 30);
             this.filtrar_button.TabIndex = 21;
@@ -226,7 +226,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(450, 21);
+            this.dateTimePicker1.Location = new System.Drawing.Point(450, 22);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 27;
@@ -322,7 +322,7 @@
             this.groupBox1.Controls.Add(this.descrip_label);
             this.groupBox1.Location = new System.Drawing.Point(27, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(684, 184);
+            this.groupBox1.Size = new System.Drawing.Size(684, 190);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buscar Publicación";
@@ -331,7 +331,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 533);
+            this.ClientSize = new System.Drawing.Size(738, 555);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.volver_button);
             this.Controls.Add(this.borrar_button);

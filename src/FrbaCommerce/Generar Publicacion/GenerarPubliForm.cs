@@ -143,8 +143,25 @@ namespace FrbaCommerce.Generar_Publicacion
                 return Nombre_Tipo;
             }
         }
+
+        //Combobox Rubro
+        public class rubroComboBox
+        {
+            public string Nombre_Rubro { get; set; }
+            public int Cod_Rubro { get; set; }
+            public rubroComboBox(string nombre, int cod)
+            {
+                Nombre_Rubro = nombre;
+                Cod_Rubro = cod;
+            }
+            public override string ToString()
+            {
+                return Nombre_Rubro;
+            }
+        }
+
         //Combobox Preguntas (bit)
-        public class preguntasComboBox
+        /*public class preguntasComboBox
         {
             public string Permiso_Pregunta { get; set; }
             public int Cod_Pregunta { get; set; }
@@ -157,7 +174,7 @@ namespace FrbaCommerce.Generar_Publicacion
             {
                 return Permiso_Pregunta;
             }
-        }
+        }*/
 
 
         private void Limpiar_button_Click(object sender, EventArgs e)
@@ -186,8 +203,11 @@ namespace FrbaCommerce.Generar_Publicacion
                 int estadoIndex = Estado_ComboBox.SelectedIndex;
                 string tipoPubli = Convert.ToString(TipoPubli_ComboBox.SelectedItem);
                 int tipoPubliIndex = TipoPubli_ComboBox.SelectedIndex;
+                string rubro = Convert.ToString(Rubro_comboBox.SelectedItem);
+                int rubroIndex = Rubro_comboBox.SelectedIndex;
                 decimal precio = Convert.ToDecimal(Precio_textBox.Text);
                 bool permisoPreg = PermitirPreguntas_Checkbox.Checked;
+                
 
                 //Crear la publicacion con los parametros asignados
                 Publicacion publi = new Publicacion(codPubli, visibilidad, idVendedor, descripcion, stock, fechaFin, fechaInicio, precio, estado, tipoPubli, permisoPreg, stock);
@@ -210,7 +230,10 @@ namespace FrbaCommerce.Generar_Publicacion
                         }
                     }
                     //Invocar funcion que inserta publicacion en la tabla Publicaciones
-                    Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                    Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex, rubro, rubroIndex);
+                    int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                    MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    //Publicaciones.agregarRubroPublicacion(rubroIndex, codPubli);
                     this.Close();
                 }
                 //Caso que sea para Modificar
@@ -308,44 +331,19 @@ namespace FrbaCommerce.Generar_Publicacion
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            List<Rubro> listaRubros = Rubro.obtenerRubros();
+            for (int i = 0; i < listaRubros.Count(); i++)
+            {
+                this.Rubro_comboBox.Items.Add(new rubroComboBox((listaRubros[i].Descripcion), listaRubros[i].ID_Rubro));
+            }
+
+            this.Rubro_comboBox.DisplayMember = "Nombre_Rubro";
+            this.Rubro_comboBox.ValueMember = "Cod_Rubro";
+            this.Rubro_comboBox.SelectedIndex = 0;
+            this.Rubro_comboBox.SelectedIndexChanged += new System.EventHandler(this.Rubro_comboBox_SelectedIndexChanged);
+
             FechaFin_DateTimePicker.Text = Convert.ToString(Interfaz.obtenerFecha());
         }
-
-       /* public void llenarCombosModificables()
-        {
-            //Crear listas para los combobox
-            List<visibilidadComboBox> listaVisibilidades = new List<visibilidadComboBox>();
-            listaVisibilidades.Add(new visibilidadComboBox("Platino", 0));
-            listaVisibilidades.Add(new visibilidadComboBox("Oro", 1));
-            listaVisibilidades.Add(new visibilidadComboBox("Plata", 2));
-            listaVisibilidades.Add(new visibilidadComboBox("Bronce", 3));
-            listaVisibilidades.Add(new visibilidadComboBox("Gratis", 4));
-            this.Visibilidad_ComboBox.DataSource = listaVisibilidades;
-            this.Visibilidad_ComboBox.DisplayMember = "Nombre_Visibilidad";
-            this.Visibilidad_ComboBox.ValueMember = "Cod_Visibilidad";
-            this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
-            //this.Visibilidad_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            List<estadoComboBox> listaEstados = new List<estadoComboBox>();
-            //TODO Controlar index!
-            listaEstados.Add(new estadoComboBox("Publicada", 1));
-            listaEstados.Add(new estadoComboBox("Pausada", 2));
-            listaEstados.Add(new estadoComboBox("Finalizada", 3));
-            this.Estado_ComboBox.DataSource = listaEstados;
-            this.Estado_ComboBox.DisplayMember = "Nombre_Estado";
-            this.Estado_ComboBox.ValueMember = "Cod_Estado";
-            this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
-            //Estado_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            List<tipoComboBox> listaTipos = new List<tipoComboBox>();
-            listaTipos.Add(new tipoComboBox("Subasta", 0));
-            listaTipos.Add(new tipoComboBox("Inmediata", 1));
-            this.TipoPubli_ComboBox.DataSource = listaTipos;
-            this.TipoPubli_ComboBox.DisplayMember = "Nombre_Tipo";
-            this.TipoPubli_ComboBox.ValueMember = "Cod_Tipo";
-            this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
-            //TipoPubli_ComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-        }*/
 
         private void Visibilidad_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -368,6 +366,10 @@ namespace FrbaCommerce.Generar_Publicacion
         }
 
         private void TipoPubli_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void Rubro_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
 
@@ -429,6 +431,8 @@ namespace FrbaCommerce.Generar_Publicacion
                 e.Handled = true;
             }
         }
+
+
 
     }
 }

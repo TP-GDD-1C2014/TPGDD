@@ -308,7 +308,7 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public static void agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
+        public static void agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli, string rubro, int rubroIndex)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
@@ -325,18 +325,68 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
 
             int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones(Cod_visibilidad,ID_Vendedor,Descripcion,Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Cod_EstadoPublicacion,Cod_TipoPublicacion,Permisos_Preguntas,Stock_Inicial) VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock,@Fecha_Vto,@Fecha_Inic,@Precio,@Estado_Publicacion,@Tipo_Publicacion,@Permiso_Preguntas,@Stock_Inicial)", listaParametros, BDSQL.iniciarConexion());
-
+            
             if (resultado == -1)
             {
-                MessageBox.Show("Falló al generar Publicacion", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Falló al generar Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                MessageBox.Show("Éxito al generar Publicacion", "Nice!", MessageBoxButtons.OK);
+                MessageBox.Show("Éxito al generar Publicacion", "Felicitaciones", MessageBoxButtons.OK);
             }
             BDSQL.cerrarConexion();
         }
 
+        public static int obtenerCodPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
+            BDSQL.agregarParametro(listaParametros, "@ID_Vendedor", unaPubli.ID_Vendedor);
+            BDSQL.agregarParametro(listaParametros, "@Descripcion", unaPubli.Descripcion);
+            BDSQL.agregarParametro(listaParametros, "@Stock", unaPubli.Stock);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Vto", unaPubli.Fecha_Vto);
+            BDSQL.agregarParametro(listaParametros, "@Fecha_Inic", unaPubli.Fecha_Inicio);
+            BDSQL.agregarParametro(listaParametros, "@Precio", unaPubli.Precio);
+            BDSQL.agregarParametro(listaParametros, "@Estado_Publicacion", estado);
+            BDSQL.agregarParametro(listaParametros, "@Tipo_Publicacion", tipoPubli);
+            BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", unaPubli.Permiso_Preguntas);
+            BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
+
+            int codPubli=0;
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE Cod_visibilidad=@Cod_visibilidad AND ID_Vendedor=@ID_Vendedor AND Descripcion=@Descripcion AND Stock=@Stock AND Fecha_Vencimiento=@Fecha_Vto AND Fecha_Inicial=@Fecha_Inic AND Precio=@Precio AND Cod_EstadoPublicacion=@Estado_Publicacion AND Cod_TipoPublicacion=@Tipo_Publicacion AND Permisos_Preguntas=@Permiso_Preguntas AND Stock_Inicial=@Stock_Inicial", listaParametros, BDSQL.iniciarConexion());
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    codPubli = (int)(decimal)lector["Cod_Publicacion"];
+                }
+            }
+ 
+            BDSQL.cerrarConexion();
+            return codPubli;
+        }
+
+        public static void agregarRubroPublicacion(int rubroIndex, int codPubli)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", codPubli);
+            BDSQL.agregarParametro(listaParametros, "@ID_Rubro", rubroIndex);
+
+            int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Rubro_Publicacion(Cod_Publicacion,ID_Rubro) VALUES(@Cod_Publicacion,@ID_Rubro)", listaParametros, BDSQL.iniciarConexion());
+
+
+            if (resultado == -1)
+            {
+                MessageBox.Show("Falló al generar campo en Rubro_Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Éxito al generar campo en Rubro_Publicacion", "Felicitaciones", MessageBoxButtons.OK);
+            }
+
+            BDSQL.cerrarConexion();
+        }
 
     }
 }
