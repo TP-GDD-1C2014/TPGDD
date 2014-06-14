@@ -57,6 +57,93 @@ namespace FrbaCommerce.Clases
             //
         }
         */
-        
+
+        public static string obtenerTipoPublicacion(int codPublicacion)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
+            
+            string commandText = "SELECT Cod_TipoPublicacion FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @codPublicacion";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
+            int tipoPublicacion = -1;
+            string tipoPublicacionDescripcion;
+
+            if (lector.HasRows)
+            {
+                lector.Read();
+                
+
+                tipoPublicacion = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
+                
+
+
+
+                tipoPublicacionDescripcion = Interfaz.getDescripcion(tipoPublicacion, "tipoPublicacion");
+
+                return tipoPublicacionDescripcion;
+            }
+            else
+                return "";
+            
+        }
+
+        public static int obtenerStock(int codPublicacion)
+        {
+            int stock;
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
+
+            string commandText = "SELECT Stock_Inicial FROM MERCADONEGRO.Publicaciones WHERE Publicaciones.Cod_Publicacion = @codPublicacion";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
+
+            if (lector.HasRows)
+            {
+                lector.Read();
+
+                stock = Convert.ToInt32(lector["Stock_Inicial"]);
+
+                BDSQL.cerrarConexion();
+                return stock;
+            }
+            else
+            {
+                BDSQL.cerrarConexion();
+                return -1;
+            }
+        }
+
+        public static float obtenerPrecio(int codPublicacion)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            float precio;
+
+            BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
+
+            string commandText = "SELECT Precio FROM MERCADONEGRO.Publicaciones WHRE Cod_Publicacion = @codPublicacion";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
+
+            if (lector.HasRows)
+            {
+                lector.Read();
+
+                precio = Convert.ToInt32(lector["Precio"]);
+
+                BDSQL.cerrarConexion();
+                return precio;
+            }
+            else
+            {
+                BDSQL.cerrarConexion();
+                return -1;
+            }
+        }
+
+
+
     }
 }

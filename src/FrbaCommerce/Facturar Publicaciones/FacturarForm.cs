@@ -54,8 +54,9 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
             if (chequeado)
             {
-                //se empiezan a facturar todas las ordenes en orden
+                //se empiezan a facturar todas las ventas en orden
               
+                //obtengo la lista de los diferentes codigos de las publicaciones
                 List<int> listaCodigos = this.obtenerFacturas(this.dgvOperaciones.SelectedRows);
 
                 int codigoIndex = 0;
@@ -74,14 +75,50 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
                     while (i < cantidadFilas)
                     {
+                        //si el item corresponde a esa factura...
                         if (factura.Cod_Publicacion == Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[1].Value))
                         {
                             //insertar item
+                            Item item = new Item();
+                            
+                            //1. Nro factura
+                            item.ID_Facturacion = idFactura;
+
+                            //primero obtengo el tipo de publicacion para saber cuánto stock se ha vendido
+
+                            string tipoPublicacion = Publicacion.obtenerTipoPublicacion(factura.Cod_Publicacion);
+
+                            //2. Cantidad Vendida
+                            if (tipoPublicacion == "Compra Inmediata")
+                            {
+                                item.Cantidad_Vendida = 1;
+
+                            }
+                            else if (tipoPublicacion == "Subasta")
+                            {
+                                item.Cantidad_Vendida = Publicacion.obtenerStock(factura.Cod_Publicacion);
+                            }
+
+                            //3. Precio unitario
+                            item.Precio_Unitario = Publicacion.obtenerPrecio(factura.Cod_Publicacion);
+
+                            //4. Descripcion
+                            item.Descripcion = Convert.ToString(this.dgvOperaciones.SelectedRows[i].Cells[0].Value);
+
+                            //Inserto el item y ACTUALIZO EL TOTAL_FACTURACION (de la tabla facturas)
+                            item.InsertarItem(idFactura);
+
+                            //Actualizo la operacion a facturada
+                            int idOperacion = Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[2].Value);
+
+                            Operacion.facturarOperacion(idOperacion);
+                    
                         }
 
                         i++;
                     }
 
+                    codigoIndex++;
 
                 }
 

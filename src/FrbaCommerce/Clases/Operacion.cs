@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.SqlClient;
+using FrbaCommerce.Common;
 
 namespace FrbaCommerce.Clases
 {
@@ -27,5 +29,19 @@ namespace FrbaCommerce.Clases
             this.Operacion_Facturada = operacionFacturada;
             this.Cod_Calificacion = codCalificacion;
         }
+
+        public static void facturarOperacion(int idOperacion)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(parametros, "@idOperacion", idOperacion);
+
+            string commandText = "UPDATE MERCADONEGRO.Operaciones SET Operacion_Facturada = 1 WHERE ID_Operacion = @idOperacion";
+
+            BDSQL.ejecutarQuery(commandText, parametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+
+        }
+
     }
 }
