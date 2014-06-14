@@ -32,6 +32,9 @@
             this.rendirButton = new System.Windows.Forms.Button();
             this.dgvOperaciones = new System.Windows.Forms.DataGridView();
             this.volverButton = new System.Windows.Forms.Button();
+            this.formaDePagoComboBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOperaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +72,7 @@
             this.dgvOperaciones.RowHeadersVisible = false;
             this.dgvOperaciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvOperaciones.Size = new System.Drawing.Size(705, 247);
-            this.dgvOperaciones.TabIndex = 1;
+            this.dgvOperaciones.TabIndex = 0;
             this.dgvOperaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvOperaciones_CellContentClick);
             // 
             // volverButton
@@ -82,11 +85,40 @@
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
+            // formaDePagoComboBox
+            // 
+            this.formaDePagoComboBox.FormattingEnabled = true;
+            this.formaDePagoComboBox.Location = new System.Drawing.Point(517, 330);
+            this.formaDePagoComboBox.Name = "formaDePagoComboBox";
+            this.formaDePagoComboBox.Size = new System.Drawing.Size(121, 21);
+            this.formaDePagoComboBox.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(416, 330);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Forma de Pago (*):";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(496, 390);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(250, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Los campos marcados con (*) son OBLIGATORIOS";
+            // 
             // FacturarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 412);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.formaDePagoComboBox);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.rendirButton);
             this.Controls.Add(this.dgvOperaciones);
@@ -105,5 +137,8 @@
         private System.Windows.Forms.Button rendirButton;
         private System.Windows.Forms.DataGridView dgvOperaciones;
         private System.Windows.Forms.Button volverButton;
+        private System.Windows.Forms.ComboBox formaDePagoComboBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

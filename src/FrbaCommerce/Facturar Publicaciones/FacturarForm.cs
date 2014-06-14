@@ -18,6 +18,8 @@ namespace FrbaCommerce.Facturar_Publicaciones
             InitializeComponent();
 
             this.generarDataGrid(Interfaz.usuarioActual());
+            this.formaDePagoComboBox.Items.Add("Efectivo");
+            this.formaDePagoComboBox.Items.Add("Tarjeta de Crédito");
 
         }
 
@@ -48,17 +50,64 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private void rendirButton_Click(object sender, EventArgs e)
         {
+            bool chequeado = this.chequearCampos(this.dgvOperaciones, this.formaDePagoComboBox);
 
-            bool sonConsecutivas = this.chequearFilasConsecutivas(this.dgvOperaciones);
+            if (chequeado)
+            {
+                //se empiezan a facturar todas las ordenes en orden
+              
+                List<int> listaCodigos = this.obtenerFacturas(this.dgvOperaciones.SelectedRows);
 
+                int codigoIndex = 0;
+                int cantidadFacturas = listaCodigos.Count;
+
+                while (codigoIndex < cantidadFacturas)
+                {
+                    //crear la factura
+                    Facturacion factura = new Facturacion(listaCodigos[codigoIndex],this.formaDePagoComboBox.Text);
+
+                    int idFactura = factura.crearFactura();
+
+                    //recorro los selectedRows del datagridview para insertar los items a la factura creada
+                    int i = 0;
+                    int cantidadFilas = this.dgvOperaciones.SelectedRows.Count;
+
+                    while (i < cantidadFilas)
+                    {
+                        if (factura.Cod_Publicacion == Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[1].Value))
+                        {
+                            //insertar item
+                        }
+
+                        i++;
+                    }
+
+
+                }
+
+                
+
+
+            }
             
-            if (sonConsecutivas)
-                MessageBox.Show("OK");
-            else
-                MessageBox.Show("ERROR");
-
 
         }
+
+        private bool chequearCampos(DataGridView dgv, ComboBox formaDePago)
+        {
+            if(!this.chequearFilasConsecutivas(dgv))
+            {
+                 MessageBox.Show("Deben facturarse sólo las ventas más antiguas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            else if(formaDePago.Text == "")
+            {
+                MessageBox.Show("Por favor, complete los datos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }else
+	            return true;
+	    }
+            
 
         private bool chequearFilasConsecutivas(DataGridView dgv)
         {
@@ -75,6 +124,28 @@ namespace FrbaCommerce.Facturar_Publicaciones
             }
 
             return sonConsecutivas;
+
+        }
+
+        private List<int> obtenerFacturas(DataGridViewSelectedRowCollection dgv)
+        {
+            int i = 0;
+            int cantidadFilas = dgv.Count;
+
+            List<int> codigosPublicaciones = new List<int>();
+
+            foreach(DataGridViewRow fila in dgv)
+            {
+                
+                int codPublicacion = Convert.ToInt32(fila.Cells[1].Value);
+
+                if(!codigosPublicaciones.Contains(codPublicacion))
+                    codigosPublicaciones.Add(codPublicacion);
+
+                i++;
+            }
+
+            return codigosPublicaciones;
 
         }
 
