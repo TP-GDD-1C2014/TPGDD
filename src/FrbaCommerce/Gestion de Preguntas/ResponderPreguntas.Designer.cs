@@ -61,7 +61,10 @@
             // 
             this.preguntasDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.preguntasDataGrid.Location = new System.Drawing.Point(6, 43);
+            this.preguntasDataGrid.MultiSelect = false;
             this.preguntasDataGrid.Name = "preguntasDataGrid";
+            this.preguntasDataGrid.ReadOnly = true;
+            this.preguntasDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.preguntasDataGrid.Size = new System.Drawing.Size(517, 317);
             this.preguntasDataGrid.TabIndex = 0;
             // 

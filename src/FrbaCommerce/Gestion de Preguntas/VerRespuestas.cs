@@ -22,17 +22,29 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         private void cargarRespuestas()
         {
-            respuestasDataGrid.DataSource = Pregunta.obtenerPreguntas(Interfaz.usuario.ID_User, "respuestas");  
+            respuestasDataGrid.DataSource = Pregunta.obtenerRespuestas(Interfaz.usuario.ID_User);
+            respuestasDataGrid.Columns["ID_User"].Visible = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnVerDetalle_Click(object sender, EventArgs e)
         {
-            VerRespuestaDlg verRespeustasDlg = new VerRespuestaDlg();
+            if (respuestasDataGrid.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = respuestasDataGrid.CurrentRow;
+
+                string pregunta = Convert.ToString(row.Cells[4].Value);
+                string respuesta = Convert.ToString(row.Cells[5].Value);
+                DateTime fechaRespuesta = Convert.ToDateTime(row.Cells[6].Value);
+
+                VerRespuestaDlg verRespeustasDlg = new VerRespuestaDlg(pregunta, respuesta, fechaRespuesta);
+
+                verRespeustasDlg.ShowDialog();
+            }
+            else MessageBox.Show("Seleccione un elemento de la lista por favor.", "Atención!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
+    
 
-        }
+        
     }
 }

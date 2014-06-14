@@ -53,7 +53,7 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public static List<Pregunta> obtenerPreguntas(int idUser, string modo)
+        public static List<Pregunta> obtenerPreguntas(int idUser )
         {
             List<Pregunta> preguntas = new List<Pregunta>();
 
@@ -63,12 +63,9 @@ namespace FrbaCommerce.Clases
             string str = "SELECT p.ID_Pregunta, p.ID_User, p.Pregunta, p.Respuesta, p.Fecha_Respuesta FROM MERCADONEGRO.Preguntas p " +
                          "JOIN MERCADONEGRO.Pregunta_Publicacion pp ON p.ID_Pregunta = pp.ID_Pregunta " +
                          "JOIN MERCADONEGRO.Publicaciones pub ON pub.Cod_Publicacion = pp.Cod_Publicacion ";
-
-            if (modo == "preguntas")
-            {
-                str += "WHERE pub.ID_Vendedor = 88 AND p.Respuesta IS NULL"; //aca seria @idUser, pero uso 88 por ej para test.
-            }
-            else str += "WHERE p.ID_User = @idUser AND p.Respuesta IS NOT NULL";
+      
+            str += "WHERE pub.ID_Vendedor = 88 AND p.Respuesta IS NULL"; //aca seria @idUser, pero uso 88 por ej para test.
+            
 
             
             SqlDataReader lector = BDSQL.ejecutarReader( str, ListaParametros,  BDSQL.iniciarConexion());
@@ -114,6 +111,18 @@ namespace FrbaCommerce.Clases
 
 
 
+        }
+
+        public static DataTable obtenerRespuestas(int idUser)
+        {
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@idUser", idUser));
+            
+            string str = "select * from MERCADONEGRO.VerRespuestasView WHERE ID_User = @idUser";
+
+            DataTable dataTable = BDSQL.obtenerDataTable(str, "T", ListaParametros);
+
+            return dataTable;
         }
 
         public static bool actualizarRespuesta(Pregunta pregunta)

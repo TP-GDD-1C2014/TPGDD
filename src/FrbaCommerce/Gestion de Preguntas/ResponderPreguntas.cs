@@ -23,19 +23,23 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         private void cargarPreguntas()
         {
-            preguntasDataGrid.DataSource = Pregunta.obtenerPreguntas(Interfaz.usuario.ID_User, "preguntas");
-
+            preguntasDataGrid.DataSource = Pregunta.obtenerPreguntas(Interfaz.usuario.ID_User);
+            preguntasDataGrid.Columns["ID_User"].Visible = false;
+            preguntasDataGrid.Columns["ID_Pregunta"].Visible = false;
         }
 
         private void btnResponder_Click(object sender, EventArgs e)
         {
-            Pregunta unaPregunta = preguntasDataGrid.CurrentRow.DataBoundItem as Pregunta;
+            if (preguntasDataGrid.SelectedRows.Count > 0)
+            {
+                Pregunta unaPregunta = preguntasDataGrid.CurrentRow.DataBoundItem as Pregunta;
 
+                ResponderDlg responderDlg = new ResponderDlg(unaPregunta);
+                responderDlg.ShowDialog();
 
-            ResponderDlg responderDlg = new ResponderDlg(unaPregunta);
-            responderDlg.ShowDialog();
-
-            cargarPreguntas();
+                cargarPreguntas();
+            }
+            else MessageBox.Show("Seleccione un elemento de la lista por favor.", "Atención!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 }

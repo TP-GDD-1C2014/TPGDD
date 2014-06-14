@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnVolver = new System.Windows.Forms.Button();
-            this.txtPregunta = new System.Windows.Forms.TextBox();
-            this.lblPregunta = new System.Windows.Forms.Label();
-            this.lblRespuesta = new System.Windows.Forms.Label();
-            this.txtRespuesta = new System.Windows.Forms.TextBox();
+            this.txtFechaRespuesta = new System.Windows.Forms.TextBox();
             this.lblFechaRespuesta = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtRespuesta = new System.Windows.Forms.TextBox();
+            this.lblRespuesta = new System.Windows.Forms.Label();
+            this.lblPregunta = new System.Windows.Forms.Label();
+            this.txtPregunta = new System.Windows.Forms.TextBox();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txtFechaRespuesta);
             this.groupBox1.Controls.Add(this.lblFechaRespuesta);
             this.groupBox1.Controls.Add(this.txtRespuesta);
             this.groupBox1.Controls.Add(this.lblRespuesta);
@@ -54,52 +54,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ver respuesta en detalle:";
             // 
-            // btnVolver
+            // txtFechaRespuesta
             // 
-            this.btnVolver.Location = new System.Drawing.Point(205, 244);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 0;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            // 
-            // txtPregunta
-            // 
-            this.txtPregunta.Location = new System.Drawing.Point(101, 38);
-            this.txtPregunta.Multiline = true;
-            this.txtPregunta.Name = "txtPregunta";
-            this.txtPregunta.ReadOnly = true;
-            this.txtPregunta.Size = new System.Drawing.Size(161, 59);
-            this.txtPregunta.TabIndex = 5;
-            // 
-            // lblPregunta
-            // 
-            this.lblPregunta.AutoSize = true;
-            this.lblPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPregunta.Location = new System.Drawing.Point(6, 41);
-            this.lblPregunta.Name = "lblPregunta";
-            this.lblPregunta.Size = new System.Drawing.Size(53, 13);
-            this.lblPregunta.TabIndex = 6;
-            this.lblPregunta.Text = "Pregunta:";
-            // 
-            // lblRespuesta
-            // 
-            this.lblRespuesta.AutoSize = true;
-            this.lblRespuesta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRespuesta.Location = new System.Drawing.Point(6, 106);
-            this.lblRespuesta.Name = "lblRespuesta";
-            this.lblRespuesta.Size = new System.Drawing.Size(61, 13);
-            this.lblRespuesta.TabIndex = 7;
-            this.lblRespuesta.Text = "Respuesta:";
-            // 
-            // txtRespuesta
-            // 
-            this.txtRespuesta.Location = new System.Drawing.Point(101, 103);
-            this.txtRespuesta.Multiline = true;
-            this.txtRespuesta.Name = "txtRespuesta";
-            this.txtRespuesta.ReadOnly = true;
-            this.txtRespuesta.Size = new System.Drawing.Size(161, 59);
-            this.txtRespuesta.TabIndex = 8;
+            this.txtFechaRespuesta.Location = new System.Drawing.Point(101, 168);
+            this.txtFechaRespuesta.Name = "txtFechaRespuesta";
+            this.txtFechaRespuesta.ReadOnly = true;
+            this.txtFechaRespuesta.Size = new System.Drawing.Size(161, 20);
+            this.txtFechaRespuesta.TabIndex = 10;
             // 
             // lblFechaRespuesta
             // 
@@ -111,13 +72,53 @@
             this.lblFechaRespuesta.TabIndex = 9;
             this.lblFechaRespuesta.Text = "Fecha respuesta:";
             // 
-            // textBox1
+            // txtRespuesta
             // 
-            this.textBox1.Location = new System.Drawing.Point(101, 168);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(161, 20);
-            this.textBox1.TabIndex = 10;
+            this.txtRespuesta.Location = new System.Drawing.Point(101, 103);
+            this.txtRespuesta.Multiline = true;
+            this.txtRespuesta.Name = "txtRespuesta";
+            this.txtRespuesta.ReadOnly = true;
+            this.txtRespuesta.Size = new System.Drawing.Size(161, 59);
+            this.txtRespuesta.TabIndex = 8;
+            // 
+            // lblRespuesta
+            // 
+            this.lblRespuesta.AutoSize = true;
+            this.lblRespuesta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRespuesta.Location = new System.Drawing.Point(6, 106);
+            this.lblRespuesta.Name = "lblRespuesta";
+            this.lblRespuesta.Size = new System.Drawing.Size(61, 13);
+            this.lblRespuesta.TabIndex = 7;
+            this.lblRespuesta.Text = "Respuesta:";
+            // 
+            // lblPregunta
+            // 
+            this.lblPregunta.AutoSize = true;
+            this.lblPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPregunta.Location = new System.Drawing.Point(6, 41);
+            this.lblPregunta.Name = "lblPregunta";
+            this.lblPregunta.Size = new System.Drawing.Size(53, 13);
+            this.lblPregunta.TabIndex = 6;
+            this.lblPregunta.Text = "Pregunta:";
+            // 
+            // txtPregunta
+            // 
+            this.txtPregunta.Location = new System.Drawing.Point(101, 38);
+            this.txtPregunta.Multiline = true;
+            this.txtPregunta.Name = "txtPregunta";
+            this.txtPregunta.ReadOnly = true;
+            this.txtPregunta.Size = new System.Drawing.Size(161, 59);
+            this.txtPregunta.TabIndex = 5;
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnVolver.Location = new System.Drawing.Point(205, 244);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 0;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
             // 
             // VerRespuestaDlg
             // 
@@ -142,7 +143,7 @@
         private System.Windows.Forms.Label lblPregunta;
         private System.Windows.Forms.Label lblRespuesta;
         private System.Windows.Forms.TextBox txtRespuesta;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtFechaRespuesta;
         private System.Windows.Forms.Label lblFechaRespuesta;
     }
 }
