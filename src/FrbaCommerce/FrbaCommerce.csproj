@@ -249,6 +249,30 @@
     <Compile Include="Historial Cliente\Historial.Designer.cs">
       <DependentUpon>Historial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Historial Cliente\HistorialCompras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Historial Cliente\HistorialCompras.Designer.cs">
+      <DependentUpon>HistorialCompras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Historial Cliente\HistorialOfertas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Historial Cliente\HistorialOfertas.Designer.cs">
+      <DependentUpon>HistorialOfertas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Historial Cliente\HistorialSubastas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Historial Cliente\HistorialSubastas.Designer.cs">
+      <DependentUpon>HistorialSubastas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Historial Cliente\SeleccionHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Historial Cliente\SeleccionHistorial.Designer.cs">
+      <DependentUpon>SeleccionHistorial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Historial Cliente\VerPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -373,6 +397,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\Historial.resx">
       <DependentUpon>Historial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial Cliente\HistorialCompras.resx">
+      <DependentUpon>HistorialCompras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial Cliente\HistorialOfertas.resx">
+      <DependentUpon>HistorialOfertas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial Cliente\HistorialSubastas.resx">
+      <DependentUpon>HistorialSubastas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Historial Cliente\SeleccionHistorial.resx">
+      <DependentUpon>SeleccionHistorial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Historial Cliente\VerPublicacion.resx">
       <DependentUpon>VerPublicacion.cs</DependentUpon>

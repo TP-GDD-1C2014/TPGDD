@@ -157,14 +157,12 @@ namespace FrbaCommerce.Login
                     case 1:
                         Abm_Cliente.ABMClientes form1 = new Abm_Cliente.ABMClientes(this);
                         this.Hide();
-                        form1.ShowDialog();
-                        this.Show();
+                        form1.Show();
                         break;
                     case 2:
                         Abm_Empresa.ABMEmpresas form2 = new Abm_Empresa.ABMEmpresas(this);
                         this.Hide();
-                        form2.ShowDialog();
-                        this.Show();
+                        form2.Show();
                         break;
                     case 3:
                         ABM_Rol.AbmRolForm form3 = new ABM_Rol.AbmRolForm();
@@ -175,8 +173,7 @@ namespace FrbaCommerce.Login
                     case 4:
                         Abm_Rubro.ABMRubro form4 = new Abm_Rubro.ABMRubro(this);
                         this.Hide();
-                        form4.ShowDialog();
-                        this.Show();
+                        form4.Show();
                         break;
                     case 5:
                         Abm_Visibilidad.ABMVisibilidad form5 = new Abm_Visibilidad.ABMVisibilidad();
@@ -217,10 +214,9 @@ namespace FrbaCommerce.Login
                         this.Show();
                         break;
                     case 11:
-                        Historial_Cliente.Historial form11 = new Historial_Cliente.Historial(this);
+                        Historial_Cliente.SeleccionHistorial form11 = new Historial_Cliente.SeleccionHistorial(this);
                         this.Hide();
-                        form11.ShowDialog();
-                        this.Show();
+                        form11.Show();
                         break;
                     case 12:
                         Facturar_Publicaciones.FacturarForm form12 = new Facturar_Publicaciones.FacturarForm();
