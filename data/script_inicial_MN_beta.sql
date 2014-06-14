@@ -480,6 +480,16 @@ DEALLOCATE trigger_cursor;
 END
 GO
 
+/* SP Crear Factura */
+CREATE PROCEDURE MERCADONEGRO.crearFactura(@codPublicacion numeric(18,0), @formaDePago nvarchar(255),
+											@fechaFactura datetime, @ret numeric(18,0) output)
+AS BEGIN
+	INSERT INTO MERCADONEGRO.Facturaciones(Cod_Publicacion, Forma_Pago, Factura_Fecha, Total_Facturacion)
+		VALUES(@codPublicacion, @formaDePago, @fechaFactura, 0)
+		SET @ret = SCOPE_IDENTITY()
+END
+GO
+
 CREATE PROCEDURE MERCADONEGRO.obtenerCompras
 	@ID_User NUMERIC(18,0)
 AS
