@@ -12,7 +12,7 @@ namespace FrbaCommerce.Clases
         public int ID_Facturacion { get; set; }
         public int Cantidad_Vendida { get; set; }
         public string Descripcion { get; set; }
-        public float Precio_Unitario { get; set; }
+        public decimal Precio_Unitario { get; set; }
 
     public void InsertarItem(int idFactura)
     {

@@ -119,15 +119,21 @@ namespace FrbaCommerce.Clases
             }
         }
 
-        public static float obtenerPrecio(int codPublicacion)
+        public static decimal obtenerPrecio(int codPublicacion)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
-            float precio;
+            decimal precio;
+            decimal comisionPorVisibilidad;
 
             BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
 
-            string commandText = "SELECT Precio FROM MERCADONEGRO.Publicaciones WHERE Cod_Publicacion = @codPublicacion";
+            //obtengo el precio x unidad y la comision por la visibiliad
+             
+
+            string commandText = "SELECT Precio, Porcentaje_Venta FROM MERCADONEGRO.Publicaciones "+
+                                "JOIN MERCADONEGRO.Visibilidades ON Publicaciones.Cod_Visibilidad = Visibilidades.Cod_Visibilidad " +
+                                "WHERE Cod_Publicacion = @codPublicacion";
 
             SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
 
@@ -135,10 +141,11 @@ namespace FrbaCommerce.Clases
             {
                 lector.Read();
 
-                precio = Convert.ToInt32(lector["Precio"]);
+                precio = Convert.ToDecimal(lector["Precio"]);
+                comisionPorVisibilidad = Convert.ToDecimal(lector["Porcentaje_Venta"]);
 
                 BDSQL.cerrarConexion();
-                return precio;
+                return precio * comisionPorVisibilidad;
             }
             else
             {
