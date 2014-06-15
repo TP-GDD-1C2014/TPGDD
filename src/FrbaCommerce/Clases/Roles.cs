@@ -94,5 +94,32 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
+        public static List<Rol> obtenerRolesUsuario(int idUser)
+        {
+            List<Rol> roles = new List<Rol>();
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@idUser", idUser);
+
+            SqlDataReader lectorRolesUsuario = BDSQL.ejecutarReader("SELECT r.ID_Rol, Nombre, Habilitado " +
+                                                                    "FROM MERCADONEGRO.Roles r " +
+                                                                    "JOIN MERCADONEGRO.Roles_Usuarios ru ON r.ID_Rol = ru.ID_Rol " +
+                                                                    "WHERE ru.ID_User = @idUser", 
+                                                                    listaParametros, BDSQL.iniciarConexion());
+            if (lectorRolesUsuario.HasRows)
+            {
+                while (lectorRolesUsuario.Read())
+                {                   
+                    Rol nuevoRol = new Rol(Convert.ToInt32(lectorRolesUsuario["ID_Rol"]), 
+                                           Convert.ToString(lectorRolesUsuario["Nombre"]), 
+                                           Convert.ToBoolean(lectorRolesUsuario["Habilitado"])
+                                           );
+                    roles.Add(nuevoRol);
+                }
+            }
+
+            BDSQL.cerrarConexion();
+            return roles;         
+        }
+
     }
 }

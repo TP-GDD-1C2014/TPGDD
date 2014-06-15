@@ -25,9 +25,9 @@ namespace FrbaCommerce.ABM_Rol
             CenterToScreen();
             if (modo == "nuevo")
             {
-                List<Funcionalidad> lista = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion() , 0);
+                List<Funcionalidad> lista = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion() , 0); //0 son todas
 
-                Funcionalidades_Checkboxlist.DisplayMember = "Nombre"; //TODO checkear
+                Funcionalidades_Checkboxlist.DisplayMember = "Nombre"; 
                 Funcionalidades_Checkboxlist.ValueMember = "ID_Funcionalidad";
                 cargarCheckboxList(lista);
 
@@ -53,7 +53,7 @@ namespace FrbaCommerce.ABM_Rol
                 Nombre_Textbox.Focus();
                 Nombre_Textbox.SelectAll();
                 nombreAux = unRol.Nombre;
-                //TODO checkear esto:
+                
                 Funcionalidades_Checkboxlist.DisplayMember = "Nombre";
                 Funcionalidades_Checkboxlist.ValueMember = "ID_Funcionalidad";
                 
