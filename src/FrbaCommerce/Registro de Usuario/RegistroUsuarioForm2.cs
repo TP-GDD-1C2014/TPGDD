@@ -177,11 +177,18 @@ namespace FrbaCommerce.Registro_de_Usuario
                     {
                         if (Interfaz.esNumerico(telefono.Text, System.Globalization.NumberStyles.Integer) || telefono.Text.Equals(""))
                         {
-                            registrarCliente(username, password, cbTipoDocumento.SelectedItem.ToString(), numeroDocumento.Text, nombre.Text, apellido.Text, email.Text, telefono.Text, direccion.Text, codigoPostal.Text, fechaNacimiento(cbDia.SelectedItem.ToString(), cbMes.SelectedItem.ToString(), cbAno.SelectedItem.ToString()));
-                            MessageBox.Show("Alta finalizada. Puede ingresar al sistema.", "Registro exitoso");
-                            Login.LoginForm form = new Login.LoginForm();
-                            this.Hide();
-                            form.Show();
+                            if (!BDSQL.existeTelefono(Convert.ToInt32(telefono.Text)))
+                            {
+                                registrarCliente(username, password, cbTipoDocumento.SelectedItem.ToString(), numeroDocumento.Text, nombre.Text, apellido.Text, email.Text, telefono.Text, direccion.Text, codigoPostal.Text, fechaNacimiento(cbDia.SelectedItem.ToString(), cbMes.SelectedItem.ToString(), cbAno.SelectedItem.ToString()));
+                                MessageBox.Show("Alta finalizada. Puede ingresar al sistema.", "Registro exitoso");
+                                Login.LoginForm form = new Login.LoginForm();
+                                this.Hide();
+                                form.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Teléfono existente.", "Error");
+                            }
                         }
                         else
                         {
