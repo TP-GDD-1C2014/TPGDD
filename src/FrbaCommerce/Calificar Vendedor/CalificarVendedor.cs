@@ -20,18 +20,21 @@ namespace FrbaCommerce.Calificar_Vendedor
             actualizar();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCalificar_Click(object sender, EventArgs e)
         {
-            Calificacion calif = calificacionesDataGrid.CurrentRow.DataBoundItem as Calificacion;
-
-            if (calif.Puntaje == null)
+            if (calificacionesDataGrid.SelectedRows.Count > 0)
             {
-                CalificarDlg calificarDlg = new CalificarDlg(calif.Cod_Calificacion);
-                calificarDlg.ShowDialog();
-            }
-            else MessageBox.Show("Esta compra ya fue calificada, no puede volver a hacerlo.", "ATENCIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Calificacion calif = calificacionesDataGrid.CurrentRow.DataBoundItem as Calificacion;
 
-            actualizar();
+                if (calif.Puntaje == null)
+                {
+                    CalificarDlg calificarDlg = new CalificarDlg(calif.Cod_Calificacion);
+                    calificarDlg.ShowDialog();
+                }
+                else MessageBox.Show("Esta compra ya fue calificada, no puede volver a hacerlo.", "ATENCIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                actualizar();
+            }
         }
 
         private void actualizar()
@@ -41,11 +44,15 @@ namespace FrbaCommerce.Calificar_Vendedor
 
         private void btnVerPublicacion_Click(object sender, EventArgs e)
         {
-            Calificacion calif = calificacionesDataGrid.CurrentRow.DataBoundItem as Calificacion;
+            if (calificacionesDataGrid.SelectedRows.Count > 0)
+            {
 
-            int codPublicacion = Calificacion.getCodPublicacion(calif.Cod_Calificacion);
-            Historial_Cliente.VerPublicacion verPublicacionForm = new FrbaCommerce.Historial_Cliente.VerPublicacion(codPublicacion);
-            verPublicacionForm.ShowDialog();
+                Calificacion calif = calificacionesDataGrid.CurrentRow.DataBoundItem as Calificacion;
+
+                int codPublicacion = Calificacion.getCodPublicacion(calif.Cod_Calificacion);
+                Historial_Cliente.VerPublicacion verPublicacionForm = new FrbaCommerce.Historial_Cliente.VerPublicacion(codPublicacion);
+                verPublicacionForm.ShowDialog();
+            }
         }
 
         

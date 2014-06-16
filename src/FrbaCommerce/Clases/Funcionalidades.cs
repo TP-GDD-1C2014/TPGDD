@@ -9,6 +9,24 @@ namespace FrbaCommerce.Clases
 {
     class Funcionalidades
     {
+        public static List<Funcionalidad> obtenerTodasLasFuncionalidades(SqlConnection conexion)
+        {
+            List<Funcionalidad> listaFuncionalidades = new List<Funcionalidad>();
+
+            SqlDataReader lectorFuncionalidades = BDSQL.ejecutarReader("SELECT ID_Funcionalidad, Nombre FROM MERCADONEGRO.Funcionalidades" , conexion);
+
+            if (lectorFuncionalidades.HasRows)
+            {
+                while (lectorFuncionalidades.Read())
+                {
+                    Funcionalidad unaFuncionalidad = new Funcionalidad((int)(decimal)lectorFuncionalidades["ID_Funcionalidad"], (string)lectorFuncionalidades["Nombre"]);
+                    listaFuncionalidades.Add(unaFuncionalidad);
+                }
+            }
+            BDSQL.cerrarConexion();
+            return listaFuncionalidades;
+        }
+        
         public static List<Funcionalidad> obtenerFuncionalidades(SqlConnection conexion, int ID_Rol)
         {
             List<Funcionalidad> listaFuncionalidades = new List<Funcionalidad>();

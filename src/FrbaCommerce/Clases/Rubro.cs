@@ -104,6 +104,38 @@ namespace FrbaCommerce.Clases
             }
         }
 
+        public static string obtenerStringRubros(int codPubli)
+        {
+            string rubros = "";
+            
+            List<Rubro> listaRubros = new List<Rubro>();
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@Cod_Publicacion", codPubli));
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT r.Descripcion FROM MERCADONEGRO.Rubros r " +
+                                                        "JOIN MERCADONEGRO.Rubro_Publicacion rp ON rp.ID_Rubro = r.ID_Rubro " +                                            
+                                                        "WHERE rp.Cod_Publicacion = @Cod_Publicacion", listaParametros, BDSQL.iniciarConexion());
+            if (lector.HasRows)
+            {
+                bool primero = true;
+
+                while (lector.Read())
+                {
+                    if (primero)
+                    {
+                        rubros += Convert.ToString(lector["Descripcion"]);
+                        primero = false;
+                    }
+                    else
+                        rubros += ", " + Convert.ToString(lector["Descripcion"]);
+                }
+            }
+
+            BDSQL.cerrarConexion();
+            return rubros;
+
+        }
+
 
 
 

@@ -22,8 +22,12 @@ namespace FrbaCommerce.Gestion_de_Preguntas
 
         private void cargarRespuestas()
         {
-            respuestasDataGrid.DataSource = Pregunta.obtenerRespuestas(Interfaz.usuario.ID_User);
-            respuestasDataGrid.Columns["ID_User"].Visible = false;
+            DataTable dt = Pregunta.obtenerRespuestas(Interfaz.usuario.ID_User);
+            if ( dt != null )
+            {
+                respuestasDataGrid.DataSource = dt;
+                respuestasDataGrid.Columns["ID_User"].Visible = false;
+            }
         }
 
         private void btnVerDetalle_Click(object sender, EventArgs e)

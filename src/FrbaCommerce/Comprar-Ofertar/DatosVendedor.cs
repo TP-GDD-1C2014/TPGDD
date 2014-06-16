@@ -17,19 +17,12 @@ namespace FrbaCommerce.Comprar_Ofertar
         public static string vendedor;
         
         public DatosVendedor(int idVendedor)
-        {
+        {      
             InitializeComponent();
-
             SqlDataReader lector = Compra.clienteEmpresa(idVendedor);
-
             cargarDatos(lector);
-            
-            
-
-            //test, aca se debera usar el lector antes de cerrar
             BDSQL.cerrarConexion();
-
-
+     
         }
 
         private void cargarDatos(SqlDataReader lector)
@@ -48,7 +41,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 txtNombreContacto_Nombre.Text = Convert.ToString(lector["Nombre"]);
                 txtFechaCreacion_FechaNacimiento.Text = Convert.ToString(lector["Fecha_Nacimiento"]);
             }
-            else
+            else 
             {
                 txtCuit_NumDoc.Text = Convert.ToString(lector["CUIT"]);
                 txtRazonSocial_TipoDoc.Text = Convert.ToString(lector["Razon_Social"]);

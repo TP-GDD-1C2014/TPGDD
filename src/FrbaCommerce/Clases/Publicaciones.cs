@@ -254,7 +254,7 @@ namespace FrbaCommerce.Clases
                     publi.Fecha_Vto = Convert.ToDateTime(lector["Fecha_Vencimiento"]);
                     publi.Fecha_Inicio = Convert.ToDateTime(lector["Fecha_Inicial"]);
                     publi.Precio = Convert.ToDecimal(lector["Precio"]);
-                    publi.Estado_Publicacion = Convert.ToString(lector["Cod_EstadoPublicacion"]);
+                    publi.Estado_Publicacion = Interfaz.getDescripcion(Convert.ToInt32(lector["Cod_EstadoPublicacion"]), "estado" );
                     publi.Tipo_Publicacion = Interfaz.getDescripcion(Convert.ToInt32(lector["Cod_TipoPublicacion"]), "tipoPublicacion");
                     publi.Permiso_Preguntas = Convert.ToBoolean(lector["Permisos_Preguntas"]);
                     publi.Stock_Inicial = Convert.ToInt32(lector["Stock_Inicial"]);

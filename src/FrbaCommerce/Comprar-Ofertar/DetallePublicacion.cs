@@ -24,17 +24,20 @@ namespace FrbaCommerce.Comprar_Ofertar
 
             publi = unaPublicacion;
 
-            txtCodPublicacion.Text = Convert.ToString(unaPublicacion.Cod_Publicacion);
-            txtCodVisibilidad.Text = Convert.ToString(unaPublicacion.Cod_Visibilidad);
-            txtDescripcion.Text = unaPublicacion.Descripcion;
-            txtEstadoPublicacion.Text = unaPublicacion.Estado_Publicacion;
-            txtFechaFinalizacion.Text = Convert.ToString(unaPublicacion.Fecha_Vto);
-            txtFechaInicio.Text = Convert.ToString(unaPublicacion.Fecha_Inicio);
-            txtIdVendedor.Text = Convert.ToString(unaPublicacion.ID_Vendedor);
-            txtPrecio.Text = Convert.ToString(unaPublicacion.Precio);
-            txtStockDisponible.Text = Convert.ToString(unaPublicacion.Stock);
-            txtStockInicial.Text = Convert.ToString(unaPublicacion.Stock_Inicial);
-            txtTipoPublicacion.Text = unaPublicacion.Tipo_Publicacion;
+            txtUsername.Text = Usuario.obtenerUsername(publi.ID_Vendedor);
+
+            txtCodPublicacion.Text = Convert.ToString(publi.Cod_Publicacion);
+            txtCodVisibilidad.Text = Convert.ToString(publi.Cod_Visibilidad);
+            txtDescripcion.Text = publi.Descripcion;
+            txtEstadoPublicacion.Text = publi.Estado_Publicacion;
+            txtFechaFinalizacion.Text = Convert.ToString(publi.Fecha_Vto);
+            txtFechaInicio.Text = Convert.ToString(publi.Fecha_Inicio);
+            txtPrecio.Text = Convert.ToString(publi.Precio);
+            txtStockDisponible.Text = Convert.ToString(publi.Stock);
+            txtStockInicial.Text = Convert.ToString(publi.Stock_Inicial);
+            txtTipoPublicacion.Text = publi.Tipo_Publicacion;
+
+            cargarTxtRubros();
 
             if (!unaPublicacion.Permiso_Preguntas)
             {
@@ -46,6 +49,15 @@ namespace FrbaCommerce.Comprar_Ofertar
 
             if (publi.Tipo_Publicacion != "Compra Inmediata")
                 btnComprar.Text = "Ofertar";
+
+            if (publi.ID_Vendedor == Interfaz.usuario.ID_User)
+            {
+                btnComprar.Enabled = false;
+                btnEnviar.Enabled = false;
+                btnLimpiar.Enabled = false;
+                txtPregunta.Text = "No puede realizar preguntas o comprarse a si mismo.";
+                txtPregunta.Enabled = false;
+            }
 
         }
 
@@ -87,7 +99,8 @@ namespace FrbaCommerce.Comprar_Ofertar
                 MessageBox.Show("No hay mas stock disponibles!", "ATENCIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            
+
+           
             if (publi.Tipo_Publicacion == "Compra Inmediata")
             {
                 DialogResult res = MessageBox.Show("Esta seguro que desea realizar la compra?", "Importante", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
@@ -108,6 +121,12 @@ namespace FrbaCommerce.Comprar_Ofertar
                         MessageBox.Show("Usted tiene 5 compras (inmediata o subasta ganada) sin calificar, " +
                         "no podrá seguir comprando hasta que no califique a los vendedores.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
+
+                    if (publi.ID_Vendedor == 0)
+                    {
+                        MessageBox.Show("Publicacion creada por el Administrador General, no puede ver sus datos.", "Atención", MessageBoxButtons.OK);
+                        return;
+                    }
                     
                     DatosVendedor datosVendedorForm = new DatosVendedor(publi.ID_Vendedor);
                     datosVendedorForm.ShowDialog();
@@ -118,6 +137,12 @@ namespace FrbaCommerce.Comprar_Ofertar
                 OfertaDlg ofertaDlg = new OfertaDlg(publi);
                 ofertaDlg.ShowDialog();
             }
+        }
+
+        private void cargarTxtRubros()
+        {
+            string rubros = Rubro.obtenerStringRubros(publi.Cod_Publicacion);
+            txtRubros.Text = rubros;
         }
 
       

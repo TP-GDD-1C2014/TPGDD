@@ -107,7 +107,7 @@ namespace FrbaCommerce.Clases
                 DatosVendedor.vendedor = "Empresa";
                 return lector2;
             }
-            else
+            else 
             {
                 DatosVendedor.vendedor = "Cliente";
                 return lector1;

@@ -23,13 +23,27 @@ namespace FrbaCommerce.Comprar_Ofertar
             rubrosSeleccionados = rubrosFiltro;
             rubros = Rubro.obtenerRubros();
 
-
-
             cblRubros.DisplayMember = "Descripcion";
             cblRubros.ValueMember = "ID_Rubro";
             cargarCheckboxlist();
+            actualizarCheckboxList();
         }
 
+        private void actualizarCheckboxList()
+        {
+            foreach (Rubro rubro in rubrosSeleccionados)
+            {
+                for (int i = 0; i < cblRubros.Items.Count; i++)
+                {
+                    Rubro otroRubro = cblRubros.Items[i] as Rubro;
+
+                    if (rubro.ID_Rubro == otroRubro.ID_Rubro)
+                    {
+                        cblRubros.SetItemCheckState(i, CheckState.Checked);
+                    }
+                }
+            }
+        }
 
         private void cargarCheckboxlist()
         {

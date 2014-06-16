@@ -64,7 +64,7 @@ namespace FrbaCommerce.Clases
                          "JOIN MERCADONEGRO.Pregunta_Publicacion pp ON p.ID_Pregunta = pp.ID_Pregunta " +
                          "JOIN MERCADONEGRO.Publicaciones pub ON pub.Cod_Publicacion = pp.Cod_Publicacion ";
       
-            str += "WHERE pub.ID_Vendedor = 88 AND p.Respuesta IS NULL"; //aca seria @idUser, pero uso 88 por ej para test.
+            str += "WHERE pub.ID_Vendedor = @idUser AND p.Respuesta IS NULL"; //aca seria @idUser, pero uso 88 por ej para test.
             
 
             

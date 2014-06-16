@@ -271,5 +271,22 @@ namespace FrbaCommerce.Clases
 
             return dataTable;
         }
+
+        public static string obtenerUsername(int idUser)
+        {
+            string username = "";
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", idUser);
+            SqlConnection conexion = BDSQL.iniciarConexion();
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Username FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_User", listaParametros, conexion);
+            lector.Read();
+
+            username = Convert.ToString(lector["Username"]);
+
+            BDSQL.cerrarConexion();
+            return username;
+        }
     }
 }

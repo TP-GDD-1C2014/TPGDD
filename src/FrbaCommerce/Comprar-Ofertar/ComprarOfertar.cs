@@ -31,9 +31,6 @@ namespace FrbaCommerce.Comprar_Ofertar
             filtroRubros = false;
             contarPublicaciones();
             cargarPublicaciones();
-
-            //cmbRubros.DisplayMember = "Descripcion";
-            //cmbRubros.ValueMember = "ID_Rubro";
         }
 
         public class itemComboBox
@@ -53,9 +50,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         }
         
         public void cargarPublicaciones()
-        {
-            
-            //Common.Interfaz.limpiarInterfaz(this);
+        {         
             actualizarDisplay();
 
             int desde;
@@ -95,16 +90,13 @@ namespace FrbaCommerce.Comprar_Ofertar
             List<Publicacion> listaPublicaciones = Publicaciones.obtenerPublicacionesPaginadas(desde, hasta, filtro, filtroRubros);
 
             Publicaciones_Datagrid.DataSource = listaPublicaciones;
+            Publicaciones_Datagrid.Columns["ID_Vendedor"].Visible = false;
             Publicaciones_Datagrid.Columns["Cod_Publicacion"].Visible = false;
             Publicaciones_Datagrid.Columns["Estado_Publicacion"].Visible = false;
             Publicaciones_Datagrid.Columns["Permiso_Preguntas"].Visible = false;
             Publicaciones_Datagrid.Columns["Stock_Inicial"].Visible = false;
-            
           
-            
         }
-
-      
 
         private void btnSiguientePag_Click(object sender, EventArgs e)
         {
@@ -173,22 +165,26 @@ namespace FrbaCommerce.Comprar_Ofertar
             AgregarRubros agregarRubros = new AgregarRubros(rubros);
             agregarRubros.ShowDialog();
 
-
-            //borrarComboRubros();
-            cmbRubros.Items.Clear();
-            cargarComboRubros();
+            cargarTxtRubros();
             
         }
 
-        private void cargarComboRubros()
+        private void cargarTxtRubros()
         {
+            string str = "";
+
             for (int i = 0; i < rubros.Count; i++)
             {
-                cmbRubros.Items.Add(new itemComboBox(rubros[i].Descripcion.ToString(), rubros[i].ID_Rubro));
+                if (i == 0)
+                    str += rubros[i].Descripcion;
+                else
+                    str += ", " + rubros[i].Descripcion;
             }
+
+            txtRubros.Text = str;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnBuscar_Click(object sender, EventArgs e)
         {
             paginaActual = 0;
             armarFiltro();
@@ -235,8 +231,12 @@ namespace FrbaCommerce.Comprar_Ofertar
         private void btnReset_Click(object sender, EventArgs e)
         {
             txtDescripcion.Text = "";
-            cmbRubros.Items.Clear();
+            txtRubros.Text = "";
             rubros.Clear();
+
+            paginaActual = 0;
+            filtro = "";
+            contarPublicaciones();
             cargarPublicaciones();
 
         }
@@ -246,23 +246,6 @@ namespace FrbaCommerce.Comprar_Ofertar
             txtCantPublicaciones.Text = Convert.ToString(cantPublicacionesTotal );
             txtPaginaActual.Text = Convert.ToString(paginaActual + 1);
         }
-
-
-
-        /*
-        private void borrarComboRubros()
-        {
-            for (int i = 0; i < cmbRubros.Items.Count; i++)
-            {
-                cmbRubros.Items.RemoveAt(i);
-            }
-        }
-         * */
-
-      
-
-
-            
 
 
     }
