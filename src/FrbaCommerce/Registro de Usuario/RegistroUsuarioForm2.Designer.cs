@@ -145,6 +145,7 @@
             this.numeroDocumento.Name = "numeroDocumento";
             this.numeroDocumento.Size = new System.Drawing.Size(144, 20);
             this.numeroDocumento.TabIndex = 10;
+            this.numeroDocumento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // nombre
             // 
@@ -177,7 +178,7 @@
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(144, 20);
             this.telefono.TabIndex = 14;
-            this.telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telefono_KeyPress);
+            this.telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // direccion
             // 
@@ -194,6 +195,7 @@
             this.codigoPostal.Name = "codigoPostal";
             this.codigoPostal.Size = new System.Drawing.Size(144, 20);
             this.codigoPostal.TabIndex = 16;
+            this.codigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // button1
             // 

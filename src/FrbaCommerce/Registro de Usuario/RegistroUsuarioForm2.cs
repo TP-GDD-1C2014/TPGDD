@@ -228,7 +228,7 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         }
 
-        private void telefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void textboxNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
                         
                 if (!char.IsControl(e.KeyChar) 

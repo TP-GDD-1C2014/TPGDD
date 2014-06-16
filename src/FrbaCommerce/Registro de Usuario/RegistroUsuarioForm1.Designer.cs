@@ -148,8 +148,7 @@
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(158, 20);
             this.telefono.TabIndex = 10;
-            this.telefono.TextChanged += new System.EventHandler(this.telefono_TextChanged);
-            this.telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telefono_KeyPress);
+            this.telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // direccion
             // 
@@ -166,6 +165,7 @@
             this.codigoPostal.Name = "codigoPostal";
             this.codigoPostal.Size = new System.Drawing.Size(158, 20);
             this.codigoPostal.TabIndex = 12;
+            this.codigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // ciudad
             // 

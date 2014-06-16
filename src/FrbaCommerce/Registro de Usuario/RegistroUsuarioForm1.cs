@@ -169,10 +169,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             }
         }
 
-        private void telefono_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void cancel_Click(object sender, EventArgs e)
         {
@@ -181,7 +178,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             form.Show();
         }
 
-        private void telefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void textboxNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar)
                    && !char.IsDigit(e.KeyChar)
