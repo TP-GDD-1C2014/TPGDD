@@ -71,7 +71,8 @@
             // 
             // Volver_Button
             // 
-            this.Volver_Button.Location = new System.Drawing.Point(261, 294);
+            this.Volver_Button.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.Volver_Button.Location = new System.Drawing.Point(347, 294);
             this.Volver_Button.Name = "Volver_Button";
             this.Volver_Button.Size = new System.Drawing.Size(75, 23);
             this.Volver_Button.TabIndex = 3;
@@ -89,7 +90,7 @@
             this.Roles_Datagrid.Name = "Roles_Datagrid";
             this.Roles_Datagrid.ReadOnly = true;
             this.Roles_Datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Roles_Datagrid.Size = new System.Drawing.Size(318, 222);
+            this.Roles_Datagrid.Size = new System.Drawing.Size(398, 222);
             this.Roles_Datagrid.TabIndex = 4;
             // 
             // groupBox1
@@ -101,16 +102,17 @@
             this.groupBox1.Controls.Add(this.Eliminar_Button);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(330, 276);
+            this.groupBox1.Size = new System.Drawing.Size(410, 276);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Gestión de Roles";
             // 
             // btnAsignarRoles
             // 
-            this.btnAsignarRoles.Location = new System.Drawing.Point(249, 19);
+            this.btnAsignarRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAsignarRoles.Location = new System.Drawing.Point(308, 19);
             this.btnAsignarRoles.Name = "btnAsignarRoles";
-            this.btnAsignarRoles.Size = new System.Drawing.Size(75, 23);
+            this.btnAsignarRoles.Size = new System.Drawing.Size(96, 23);
             this.btnAsignarRoles.TabIndex = 5;
             this.btnAsignarRoles.Text = "Asignar roles";
             this.btnAsignarRoles.UseVisualStyleBackColor = true;
@@ -120,7 +122,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(355, 323);
+            this.ClientSize = new System.Drawing.Size(436, 323);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Volver_Button);
             this.Name = "AbmRolForm";

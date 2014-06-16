@@ -114,8 +114,8 @@ namespace FrbaCommerce.ABM_Rol
 
                 if (result == DialogResult.Yes)
                 {
-                    Roles.deshabilitarRol(unRol);
-                    Roles.eliminarUsuariosPorRol(unRol);
+                    Roles.deshabilitarRol(unRol.ID_Rol);
+                    Roles.eliminarUsuariosPorRol(unRol.ID_Rol);
                     cargarTodosLosRoles();
                 }
 

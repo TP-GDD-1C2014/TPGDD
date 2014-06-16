@@ -35,7 +35,8 @@
             this.txtIdUser = new System.Windows.Forms.TextBox();
             this.cblRoles = new System.Windows.Forms.CheckedListBox();
             this.lblRoles = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,14 +50,15 @@
             this.groupBox1.Controls.Add(this.lblRoles);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(291, 229);
+            this.groupBox1.Size = new System.Drawing.Size(264, 215);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Asigne los roles al Usuario:";
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsername.Location = new System.Drawing.Point(6, 38);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(58, 13);
@@ -65,7 +67,7 @@
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(95, 38);
+            this.txtUsername.Location = new System.Drawing.Point(70, 35);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.ReadOnly = true;
             this.txtUsername.Size = new System.Drawing.Size(182, 20);
@@ -74,6 +76,7 @@
             // lblIdUser
             // 
             this.lblIdUser.AutoSize = true;
+            this.lblIdUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIdUser.Location = new System.Drawing.Point(6, 64);
             this.lblIdUser.Name = "lblIdUser";
             this.lblIdUser.Size = new System.Drawing.Size(46, 13);
@@ -82,7 +85,7 @@
             // 
             // txtIdUser
             // 
-            this.txtIdUser.Location = new System.Drawing.Point(95, 64);
+            this.txtIdUser.Location = new System.Drawing.Point(70, 64);
             this.txtIdUser.Name = "txtIdUser";
             this.txtIdUser.ReadOnly = true;
             this.txtIdUser.Size = new System.Drawing.Size(182, 20);
@@ -91,7 +94,7 @@
             // cblRoles
             // 
             this.cblRoles.FormattingEnabled = true;
-            this.cblRoles.Location = new System.Drawing.Point(95, 101);
+            this.cblRoles.Location = new System.Drawing.Point(70, 90);
             this.cblRoles.Name = "cblRoles";
             this.cblRoles.Size = new System.Drawing.Size(182, 109);
             this.cblRoles.TabIndex = 6;
@@ -99,31 +102,43 @@
             // lblRoles
             // 
             this.lblRoles.AutoSize = true;
-            this.lblRoles.Location = new System.Drawing.Point(6, 101);
+            this.lblRoles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRoles.Location = new System.Drawing.Point(6, 90);
             this.lblRoles.Name = "lblRoles";
             this.lblRoles.Size = new System.Drawing.Size(37, 13);
             this.lblRoles.TabIndex = 7;
             this.lblRoles.Text = "Roles:";
             // 
-            // button1
+            // btnGuardar
             // 
-            this.button1.Location = new System.Drawing.Point(228, 247);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnGuardar.Location = new System.Drawing.Point(201, 233);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardar.TabIndex = 0;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnCancelar.Location = new System.Drawing.Point(120, 233);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
             // 
             // RolesUsuarioDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 282);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(284, 264);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.groupBox1);
             this.Name = "RolesUsuarioDlg";
-            this.Text = "RolesUsuarioDlg";
+            this.Text = "Asignar roles a Usuarios";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -133,12 +148,13 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label lblIdUser;
         private System.Windows.Forms.TextBox txtIdUser;
         private System.Windows.Forms.CheckedListBox cblRoles;
         private System.Windows.Forms.Label lblRoles;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

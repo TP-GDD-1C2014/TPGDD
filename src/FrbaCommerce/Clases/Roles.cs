@@ -72,10 +72,10 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public static void deshabilitarRol(Rol unRol)
+        public static void deshabilitarRol(int idRol)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(parametros, "@idRol", unRol.ID_Rol);
+            BDSQL.agregarParametro(parametros, "@idRol", idRol);
             int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Roles SET Habilitado = 0 WHERE ID_Rol = @idRol", parametros, BDSQL.iniciarConexion());
 
             if (resultado == -1)
@@ -83,10 +83,10 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public static void eliminarUsuariosPorRol(Rol unRol)
+        public static void eliminarUsuariosPorRol(int idRol)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
-            BDSQL.agregarParametro(parametros, "@idRol", unRol.ID_Rol);
+            BDSQL.agregarParametro(parametros, "@idRol", idRol);
             int resultado = BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Roles_Usuarios WHERE ID_Rol = @idRol", parametros, BDSQL.iniciarConexion());
 
             if (resultado == -1)
@@ -120,6 +120,34 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
             return roles;         
         }
+
+        public static void BorrarRolEnUsuario(int idUser, int idRol)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(parametros, "@idRol", idRol);
+            BDSQL.agregarParametro(parametros, "@idUser", idUser);
+
+            int resultado = BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Roles_Usuarios WHERE ID_Rol = @idRol AND ID_User = @idUser", parametros, BDSQL.iniciarConexion());
+
+            if (resultado == -1)
+                MessageBox.Show("Falló al eliminar Usuarios por Rol", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            BDSQL.cerrarConexion();
+        }
+
+        public static void AgregarRolEnUsuario(int idUser, int idRol)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(parametros, "@idRol", idRol);
+            BDSQL.agregarParametro(parametros, "@idUser", idUser);
+
+            int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User, ID_Rol) VALUES ( @idUser ,  @idRol )", parametros, BDSQL.iniciarConexion());
+
+            if (resultado == -1)
+                MessageBox.Show("Falló al insertar Usuarios por Rol", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            BDSQL.cerrarConexion();
+        }
+
+      
 
     }
 }

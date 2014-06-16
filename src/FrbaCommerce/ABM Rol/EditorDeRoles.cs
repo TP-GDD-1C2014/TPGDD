@@ -47,7 +47,7 @@ namespace FrbaCommerce.ABM_Rol
             if (modo == "modificar")
             {
                 List<Funcionalidad> listaFuncQueTiene = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion(), unRol.ID_Rol);
-                List<Funcionalidad> listaTodasLasFunc = Funcionalidades.obtenerFuncionalidades(BDSQL.iniciarConexion(), 0);
+                List<Funcionalidad> listaTodasLasFunc = Funcionalidades.obtenerTodasLasFuncionalidades(BDSQL.iniciarConexion());
 
                 Nombre_Textbox.Text = unRol.Nombre;
                 Nombre_Textbox.Focus();

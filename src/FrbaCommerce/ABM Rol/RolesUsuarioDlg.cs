@@ -66,10 +66,17 @@ namespace FrbaCommerce.ABM_Rol
         private void button1_Click(object sender, EventArgs e)
         {
             List<Rol> rolesSeleccionados = filtrarSeleccionadas();
+            rolesUsuario = Roles.obtenerRolesUsuario(idUser);
 
             if (sonIguales(rolesSeleccionados))
             {
                 MessageBox.Show("Por favor realice al menos un cambio", "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                actualizarRolPorUsuario(rolesSeleccionados);
+                MessageBox.Show("Modificacion realizada con éxito!", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.None);
+
             }
         }
 
@@ -110,6 +117,44 @@ namespace FrbaCommerce.ABM_Rol
                     return false;
             }
             return true;
+        }
+
+        private void actualizarRolPorUsuario(List<Rol> rolesSeleccionados)
+        {
+            for (int i = 0; i < rolesUsuario.Count; i++)
+            {
+                bool encontro = false;
+
+                for (int j = 0; j < rolesSeleccionados.Count; j++)
+                {
+                    if (rolesSeleccionados[j].ID_Rol == rolesUsuario[i].ID_Rol)
+                    {
+                        encontro = true;
+                        break;
+                    }
+                }
+
+                if (!encontro)
+                    //delete
+                    Roles.BorrarRolEnUsuario(idUser, rolesUsuario[i].ID_Rol);
+            }
+
+            for (int i = 0; i < rolesSeleccionados.Count; i++)
+            {
+                bool encontro = false;
+
+                for (int j = 0; j < rolesUsuario.Count; j++)
+                {
+                    if (rolesUsuario[j].ID_Rol == rolesSeleccionados[i].ID_Rol)
+                    {
+                        encontro = true;
+                        break;
+                    }
+                }
+                if (!encontro)
+                    //agregar
+                    Roles.AgregarRolEnUsuario(idUser, rolesSeleccionados[i].ID_Rol);
+            }
         }
     }
 }
