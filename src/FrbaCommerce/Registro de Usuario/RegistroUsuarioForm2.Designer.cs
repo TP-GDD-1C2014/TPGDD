@@ -177,6 +177,7 @@
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(144, 20);
             this.telefono.TabIndex = 14;
+            this.telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telefono_KeyPress);
             // 
             // direccion
             // 

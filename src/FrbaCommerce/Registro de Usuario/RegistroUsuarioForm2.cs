@@ -220,5 +220,18 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
 
         }
+
+        private void telefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+                        
+                if (!char.IsControl(e.KeyChar) 
+                    && !char.IsDigit(e.KeyChar) 
+                   )
+                {
+                    e.Handled = true;
+                }
+
+       
+        }
     }
 }

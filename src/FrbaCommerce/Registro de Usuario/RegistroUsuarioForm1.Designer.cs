@@ -149,6 +149,7 @@
             this.telefono.Size = new System.Drawing.Size(158, 20);
             this.telefono.TabIndex = 10;
             this.telefono.TextChanged += new System.EventHandler(this.telefono_TextChanged);
+            this.telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.telefono_KeyPress);
             // 
             // direccion
             // 
