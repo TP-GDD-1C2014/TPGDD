@@ -88,7 +88,8 @@ namespace FrbaCommerce.Registro_de_Usuario
                 BDSQL.agregarParametro(listaParametros, "@Cant_Publi_Gratuitas", 0);
                 BDSQL.agregarParametro(listaParametros, "@Reputacion", 0);
                 BDSQL.agregarParametro(listaParametros, "@Ventas_Sin_Rendir", 0);
-                BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios VALUES (@Username, @Password, @Intentos_Login, @Habilitado, @Primera_Vez, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir)", listaParametros, BDSQL.iniciarConexion());
+                BDSQL.agregarParametro(listaParametros, "@Habilitado_Compra", 1);
+                BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios VALUES (@Username, @Password, @Intentos_Login, @Habilitado, @Primera_Vez, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir, @Habilitado_Compra)", listaParametros, BDSQL.iniciarConexion());
                 BDSQL.cerrarConexion();
 
                 List<SqlParameter> listaParametros2 = new List<SqlParameter>();
@@ -168,7 +169,7 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (cbTipoDocumento.SelectedIndex != -1 && !numeroDocumento.Text.Equals("") && !nombre.Text.Equals("") && !apellido.Text.Equals("") && !email.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && cbDia.SelectedIndex != -1 && cbMes.SelectedIndex != -1 && cbAno.SelectedIndex != -1)
+            if (cbTipoDocumento.SelectedIndex != -1 && !numeroDocumento.Text.Equals("") && !nombre.Text.Equals("") && !apellido.Text.Equals("") && !email.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && cbDia.SelectedIndex != -1 && cbMes.SelectedIndex != -1 && cbAno.SelectedIndex != -1 && !telefono.Text.Equals(""))
             {
                 if (Interfaz.esNumerico(numeroDocumento.Text, System.Globalization.NumberStyles.Integer))
                 {

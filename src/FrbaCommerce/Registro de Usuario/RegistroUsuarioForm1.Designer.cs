@@ -92,9 +92,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 20);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.Size = new System.Drawing.Size(62, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Teléfono";
+            this.label3.Text = "Teléfono (*)";
             // 
             // label4
             // 
