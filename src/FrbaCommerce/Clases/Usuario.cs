@@ -21,6 +21,7 @@ namespace FrbaCommerce.Clases
         public int Cant_Publi_Gratuitas { get; set; }
         public float Reputacion { get; set; }
         public int Ventas_Sin_Rendir { get; set; }
+        //public bool Habilitado_Compra { get; set; }
 
         public List<Rol> Roles = new List<Rol>(); 
 
@@ -287,6 +288,33 @@ namespace FrbaCommerce.Clases
 
             BDSQL.cerrarConexion();
             return username;
+        }
+
+        public static bool habilitadoCompra(int idUser)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", idUser);
+            SqlConnection conexion = BDSQL.iniciarConexion();
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Habilitado_Compra FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_User", listaParametros, conexion);
+            lector.Read();
+
+            bool puedeComprar = Convert.ToBoolean(lector["Habilitado_Compra"]);
+
+            BDSQL.cerrarConexion();
+            return puedeComprar;
+        }
+
+        public static void updateHabilitadoCompra(int idUser, bool habilitadoCompra)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@idUser", idUser);
+            BDSQL.agregarParametro(listaParametros, "@habilitadoCompra", habilitadoCompra);
+            SqlConnection conexion = BDSQL.iniciarConexion();
+
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Habilitado_Compra = @habilitadoCompra WHERE ID_User = @idUser", listaParametros, conexion);
+
+            BDSQL.cerrarConexion();        
         }
     }
 }

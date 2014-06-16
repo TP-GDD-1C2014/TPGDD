@@ -44,7 +44,7 @@ namespace FrbaCommerce.Clases
             SqlDataReader lector = BDSQL.ejecutarReader("SELECT c.Cod_Calificacion, c.Puntaje, c.Descripcion, c.Fecha_Calificacion " +
                                                         "FROM MERCADONEGRO.Calificaciones c " +
                                                         "JOIN MERCADONEGRO.Operaciones o ON o.Cod_Calificacion = c.Cod_Calificacion "+
-                                                        "WHERE o.ID_Comprador = @idUser", ListaParametros, BDSQL.iniciarConexion());
+                                                        "WHERE o.ID_Comprador = @idUser AND c.Puntaje IS NULL", ListaParametros, BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
                 while (lector.Read())

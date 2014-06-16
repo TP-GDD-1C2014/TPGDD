@@ -34,6 +34,12 @@ namespace FrbaCommerce.Calificar_Vendedor
                 else MessageBox.Show("Esta compra ya fue calificada, no puede volver a hacerlo.", "ATENCIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 actualizar();
+
+                if (calificacionesDataGrid.RowCount == 0 && (!Usuario.habilitadoCompra(Interfaz.usuario.ID_User)))
+                {
+                    Usuario.updateHabilitadoCompra(Interfaz.usuario.ID_User, true);
+                    MessageBox.Show("Gracias por calificar a los vendedores! Está nuevamente habilitado para comprar.", "Congratz!", MessageBoxButtons.OK, MessageBoxIcon.None);
+                }
             }
         }
 
@@ -52,6 +58,7 @@ namespace FrbaCommerce.Calificar_Vendedor
                 int codPublicacion = Calificacion.getCodPublicacion(calif.Cod_Calificacion);
                 Historial_Cliente.VerPublicacion verPublicacionForm = new FrbaCommerce.Historial_Cliente.VerPublicacion(codPublicacion);
                 verPublicacionForm.ShowDialog();
+              
             }
         }
 

@@ -156,6 +156,7 @@ CREATE TABLE MERCADONEGRO.Usuarios
 	Cant_Publi_Gratuitas TINYINT		   NULL,
 	Reputacion			 FLOAT			   NULL, /*Solo vendedores*/
 	Ventas_Sin_Rendir	 TINYINT		   NULL, /*Solo vendedores*/
+	Habilitado_Compra	 BIT DEFAULT 1	   NOT NULL,
 	
 	UNIQUE (Username),
 	PRIMARY KEY(ID_User)

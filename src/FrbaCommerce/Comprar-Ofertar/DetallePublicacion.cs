@@ -81,17 +81,13 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            //chequeo que no tenga mas de 5 compras sin calificar o si esta habilitado
-            bool puedeComprar = Calificacion.verificarCantidadCalificaciones(Interfaz.usuario.ID_User);
-
-            if (!puedeComprar)
+            if (!Usuario.habilitadoCompra(Interfaz.usuario.ID_User))
             {
-                //TODO: deshabilitar funcioanlidad compra
                 MessageBox.Show("Usted tiene 5 compras (inmediata o subasta ganada) sin calificar, " +
-                "no podrá seguir comprando hasta que no califique a los vendedores.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                "no podrá seguir comprando hasta que no califique a TODOS los vendedores.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            
+                 
             int stock = int.Parse(txtStockDisponible.Text);
             
             if (stock == 0)
@@ -118,8 +114,10 @@ namespace FrbaCommerce.Comprar_Ofertar
                     if (!puedeComprarLaProx)
                     {
                         //TODO: deshabilitar funcioanlidad compra
-                        MessageBox.Show("Usted tiene 5 compras (inmediata o subasta ganada) sin calificar, " +
-                        "no podrá seguir comprando hasta que no califique a los vendedores.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Usted ha llegado a 5 compras (inmediata o subasta ganada) sin calificar, " +
+                        "no podrá seguir comprando hasta que no se ponga al día.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                        Usuario.updateHabilitadoCompra(Interfaz.usuario.ID_User, false);
                     }
 
                     if (publi.ID_Vendedor == 0)
