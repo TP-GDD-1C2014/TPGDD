@@ -124,7 +124,7 @@ namespace FrbaCommerce.Listado_Estadistico
 
                 if (anioYTrimestre != null && anioYTrimestre.Text == "")
                 {
-                    string str = "Los campos no pueden destar vacios";
+                    string str = "Los campos obligatorios no pueden estar vacios";
                     DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                 }
@@ -133,7 +133,7 @@ namespace FrbaCommerce.Listado_Estadistico
 
                 if (tipoListado != null && tipoListado.SelectedIndex == -1)
                 {
-                    string str = "Los campos no pueden destar vacios";
+                    string str = "Los campos obligatorios no pueden estar vacios";
                     DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return false;
                     

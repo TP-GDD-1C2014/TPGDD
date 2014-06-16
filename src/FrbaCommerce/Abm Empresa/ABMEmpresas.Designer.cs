@@ -101,6 +101,7 @@
             this.tNombreDeContacto.Name = "tNombreDeContacto";
             this.tNombreDeContacto.Size = new System.Drawing.Size(152, 20);
             this.tNombreDeContacto.TabIndex = 30;
+            this.tNombreDeContacto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tNombreDeContacto_KeyPress);
             // 
             // tCuit
             // 
