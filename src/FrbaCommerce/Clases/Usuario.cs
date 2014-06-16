@@ -75,6 +75,34 @@ namespace FrbaCommerce.Clases
             }
         }
 
+        public int cantidadVentasSinRendir()
+        {
+            int idUser = this.ID_User;
+            int cantidadVentasSinRendir;
+
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(parametros, "@idUser", idUser);
+
+            string commandtext = "SELECT Ventas_Sin_Rendir FROM MERCADONEGRO.Usuarios WHERE ID_USER = @idUser";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandtext, "T", parametros);
+
+            if (lector.HasRows)
+            {
+                lector.Read();
+                cantidadVentasSinRendir = Convert.ToInt32(lector["Ventas_Sin_Rendir"]);
+
+                BDSQL.cerrarConexion();
+                return cantidadVentasSinRendir;
+            }
+            else
+            {
+                    BDSQL.cerrarConexion();
+                    return -1;
+            }
+        }
+
         public int primeraVez()
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
