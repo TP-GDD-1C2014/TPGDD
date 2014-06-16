@@ -41,9 +41,9 @@ namespace FrbaCommerce.Registro_de_Usuario
                 BDSQL.agregarParametro(listaParametros, "@Intentos_Login", 0);
                 BDSQL.agregarParametro(listaParametros, "@Habilitado", 1);
                 BDSQL.agregarParametro(listaParametros, "@Primera_Vez", 0);
-                BDSQL.agregarParametro(listaParametros, "@Cant_Publi_Gratuitas", DBNull.Value);
-                BDSQL.agregarParametro(listaParametros, "@Reputacion", DBNull.Value);
-                BDSQL.agregarParametro(listaParametros, "@Ventas_Sin_Rendir", DBNull.Value);
+                BDSQL.agregarParametro(listaParametros, "@Cant_Publi_Gratuitas", 0);
+                BDSQL.agregarParametro(listaParametros, "@Reputacion", 0);
+                BDSQL.agregarParametro(listaParametros, "@Ventas_Sin_Rendir", 0);
                 BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios VALUES (@Username, @Password, @Intentos_Login, @Habilitado, @Primera_Vez, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir)", listaParametros, BDSQL.iniciarConexion());
                 BDSQL.cerrarConexion();
 
