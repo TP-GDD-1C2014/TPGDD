@@ -137,17 +137,27 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
         private bool chequearCampos(DataGridView dgv, ComboBox formaDePago)
         {
-            if(!this.chequearFilasConsecutivas(dgv))
+            if (dgv.RowCount > 0)
             {
-                 MessageBox.Show("Deben facturarse sólo las ventas más antiguas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (!this.chequearFilasConsecutivas(dgv))
+                {
+                    MessageBox.Show("Deben facturarse sólo las ventas más antiguas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+                else if (formaDePago.Text == "")
+                {
+                    MessageBox.Show("Por favor, complete los datos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+                else
+                    return true;
+            }
+            else
+            {
+                MessageBox.Show("Usted no debe ninguna venta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-            else if(formaDePago.Text == "")
-            {
-                MessageBox.Show("Por favor, complete los datos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }else
-	            return true;
 	    }
             
 
