@@ -69,7 +69,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            int idPregunta = Pregunta.insertarPregunta(txtPregunta.Text, Interfaz.usuario.ID_User);
+            int idPregunta = Pregunta.insertarPregunta(txtPregunta.Text, Interfaz.usuarioActual().ID_User);
 
             if (idPregunta != -1)
             {
@@ -83,8 +83,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         {
             if (!Usuario.habilitadoCompra(Interfaz.usuario.ID_User))
             {
-                MessageBox.Show("Usted tiene 5 compras (inmediata o subasta ganada) sin calificar, " +
-                "no podrá seguir comprando hasta que no califique a TODOS los vendedores.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Usted se encuentra actualmente inhabilitado para comprar.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
                  
@@ -99,7 +98,7 @@ namespace FrbaCommerce.Comprar_Ofertar
            
             if (publi.Tipo_Publicacion == "Compra Inmediata")
             {
-                DialogResult res = MessageBox.Show("Esta seguro que desea realizar la compra?", "Importante", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("¿Esta seguro que desea realizar la compra?", "Importante", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
                 if (res == DialogResult.Yes)
                 {
@@ -107,19 +106,24 @@ namespace FrbaCommerce.Comprar_Ofertar
                     txtStockDisponible.Text = Convert.ToString(stock);
 
                     Compra compra = new Compra(publi.ID_Vendedor, Interfaz.usuario.ID_User, publi.Cod_Publicacion, 0 , publi.Precio, false);
+                    //inserto la compra a operaciones y updateo el campo ventas_sin_rendir al id_vendedor
                     Compra.insertarCompra(compra);
+                    Usuario.updateVentasSinRendir(compra);
 
-                    bool puedeComprarLaProx = Calificacion.verificarCantidadCalificaciones(Interfaz.usuario.ID_User);
+                    bool puedeComprarLaProxPorCalific = Calificacion.verificarCantidadCalificaciones(Interfaz.usuarioActual().ID_User);
 
-                    if (!puedeComprarLaProx)
+                    
+
+                    if (!puedeComprarLaProxPorCalific)
                     {
                         //TODO: deshabilitar funcioanlidad compra
                         MessageBox.Show("Usted ha llegado a 5 compras (inmediata o subasta ganada) sin calificar, " +
                         "no podrá seguir comprando hasta que no se ponga al día.", "Importante", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                        Usuario.updateHabilitadoCompra(Interfaz.usuario.ID_User, false);
+                        Usuario.updateHabilitadoCompra(Interfaz.usuarioActual().ID_User, false);
                     }
 
+           
                     if (publi.ID_Vendedor == 0)
                     {
                         MessageBox.Show("Publicacion creada por el Administrador General, no puede ver sus datos.", "Atención", MessageBoxButtons.OK);

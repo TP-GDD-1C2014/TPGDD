@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 
 namespace FrbaCommerce.Clases
 {
+
     public class Usuario
     {
         public int ID_User { get; set; }
@@ -31,6 +32,10 @@ namespace FrbaCommerce.Clases
             this.Username = username;
             this.Password = password;
             Interfaz.loguearUsuario(this);
+        }
+
+        public Usuario()
+        {
         }
 
         public Boolean obtenerPK()
@@ -315,6 +320,73 @@ namespace FrbaCommerce.Clases
             BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Habilitado_Compra = @habilitadoCompra WHERE ID_User = @idUser", listaParametros, conexion);
 
             BDSQL.cerrarConexion();        
+        }
+
+        public static void restarVentaSinRendir()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@idUser", Interfaz.usuarioActual().ID_User);
+
+            string commandText = "UPDATE MERCADONEGRO.Usuarios SET Ventas_Sin_Rendir = Ventas_Sin_Rendir - 1 WHERE ID_USER = @idUser";
+
+            BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public static void updateVentasSinRendir(Compra compra)
+        {
+            int idUser = compra.Vendedor;
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@idUser", idUser);
+
+            string commandText = "UPDATE MERCADONEGRO.Usuarios SET Ventas_Sin_Rendir = Ventas_Sin_Rendir + 1 WHERE ID_USER = @idUser";
+
+            BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+
+            //verifico que haya llegado a las 10
+            bool puedeComprarLaProxPorVentas = Usuario.verificarCantidadVentasSinRendir(compra.Vendedor);
+
+            if (!puedeComprarLaProxPorVentas)
+            {
+                //inhabilita al usuario
+                Usuario usuario = new Usuario();
+                usuario.ID_User = compra.Vendedor;
+
+                usuario.inhabilitarUsuario();
+
+                //updatea todas sus publicaciones a Pausadas
+                Publicacion.pausarPublicaciones(compra.Vendedor);
+            }
+
+        }
+
+        public static bool verificarCantidadVentasSinRendir(int idUser)
+        {
+            bool puedeComprar;
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@idUser", idUser);
+
+            string commandText = "SELECT Ventas_Sin_Rendir FROM MERCADONEGRO.Usuarios WHERE ID_User = @idUser";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+
+            lector.Read();
+
+            int cant = Convert.ToInt32(lector["Ventas_Sin_Rendir"]);
+
+            BDSQL.cerrarConexion();
+
+            if (cant >= 10)
+                puedeComprar = false;
+            else puedeComprar = true;
+
+            return puedeComprar;
+
         }
     }
 }

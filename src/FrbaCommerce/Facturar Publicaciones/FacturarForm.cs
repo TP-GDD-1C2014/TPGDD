@@ -112,6 +112,8 @@ namespace FrbaCommerce.Facturar_Publicaciones
                             int idOperacion = Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[2].Value);
 
                             Operacion.facturarOperacion(idOperacion);
+
+                            Usuario.restarVentaSinRendir();
                     
                         }
 

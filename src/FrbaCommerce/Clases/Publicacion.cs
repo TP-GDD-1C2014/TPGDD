@@ -154,7 +154,43 @@ namespace FrbaCommerce.Clases
             }
         }
 
+        public static void pausarPublicaciones(int idUser)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
 
+            int idPublicacionPausada = Publicacion.getCodigoEstadoPublicacionDe("Pausada");
+
+            int idPublicacionActiva = Publicacion.getCodigoEstadoPublicacionDe("Publicada");
+
+
+            BDSQL.agregarParametro(listaParametros, "@idUser", idUser);
+            BDSQL.agregarParametro(listaParametros, "@idPublicacionPausada", idPublicacionPausada);
+            BDSQL.agregarParametro(listaParametros, "@idPublicacionActiva", idPublicacionActiva);
+
+            string commandText = "UPDATE MERCADONEGRO.Publicaciones SET Cod_EstadoPublicacion = @idPublicacionPausada WHERE ID_User = @idUser "+
+                                    " AND Cod_EstadoPublicacion = @idPublicacionActiva";
+
+            BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+
+        }
+
+        public static int getCodigoEstadoPublicacionDe(string descripcionEstado)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@descripcion", descripcionEstado);
+
+            string commanText = "SELECT Descripcion FROM MERCADONEGRO.Estados_Publicacion WHERE DESCRIPCION = @descripcion";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commanText, "T", listaParametros);
+
+            lector.Read();
+
+            int codigoEstado = Convert.ToInt32(lector["Descripcion"]);
+
+            return codigoEstado;
+
+        }
 
     }
 }
