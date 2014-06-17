@@ -110,7 +110,17 @@ namespace FrbaCommerce.Login
                     }
                     else
                     {
-                        MessageBox.Show("El usuario se encuentra inhabilitado.", "Error");
+                        //viendo la causa de la inhabiltacion
+                        int ventasSinRendir = usuarioLogin.cantidadVentasSinRendir();
+
+                        if (ventasSinRendir >= 10)
+                        {
+                            MessageBox.Show("Usted se encuentra inhabilitado debido a que llegó a 10 ventas sin haber las comisiones. " +
+                                              "Volverá a estar habilitado hasta que regularice su situación ", "Error");
+                        }
+                        else
+                            MessageBox.Show("El usuario se encuentra inhabilitado.", "Error");
+                       
                     }
                 }
                 else

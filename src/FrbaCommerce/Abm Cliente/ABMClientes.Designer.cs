@@ -151,6 +151,7 @@
             this.tNombre.Name = "tNombre";
             this.tNombre.Size = new System.Drawing.Size(152, 20);
             this.tNombre.TabIndex = 15;
+            this.tNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tNombre_KeyPress);
             // 
             // tApellido
             // 
@@ -159,6 +160,7 @@
             this.tApellido.Name = "tApellido";
             this.tApellido.Size = new System.Drawing.Size(152, 20);
             this.tApellido.TabIndex = 14;
+            this.tApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tNombre_KeyPress);
             // 
             // tCodigoPostal
             // 

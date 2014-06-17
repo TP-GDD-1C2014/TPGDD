@@ -25,7 +25,7 @@ namespace FrbaCommerce.Calificar_Vendedor
 
         private void cargarCombos()
         {
-            for (int i = 1; i < 11; i++)
+            for (int i = 1; i < 6; i++)
             {
                 cmbEstrellas.Items.Add(Convert.ToString(i));
             }

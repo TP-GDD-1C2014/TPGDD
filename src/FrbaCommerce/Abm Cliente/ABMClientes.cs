@@ -406,5 +406,13 @@ namespace FrbaCommerce.Abm_Cliente
                     break;
             }
         }
+
+        private void tNombre_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar < 65 || e.KeyChar > 122)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

@@ -24,6 +24,35 @@ namespace FrbaCommerce.Common
             return res;
         }
 
+        public static Boolean existeTelefono(int numero)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            agregarParametro(listaParametros, "@valor", numero);
+
+            //tabla clientes
+            SqlDataReader lector = ejecutarReader("SELECT * FROM MERCADONEGRO.Clientes WHERE Telefono = @valor", listaParametros, iniciarConexion());
+            Boolean res = lector.HasRows;
+            if (res)
+            {
+                cerrarConexion();
+                return res;
+            }
+            else
+            {
+                //me fijo en empresas
+                cerrarConexion();
+                lector = ejecutarReader("SELECT * FROM MERCADONEGRO.Empresas WHERE Telefono = @valor", listaParametros, iniciarConexion());
+                res = lector.HasRows;
+                if (res)
+                {
+                    cerrarConexion();
+                    return res;
+                }
+            }
+            cerrarConexion();
+            return res;
+        }
+
         //---------------------------------------------------------------------------------------------------------------------------------------------- 
 
         public static Boolean existenSimultaneamente(string valor1, string valor2, string nombreTabla, string nombreColumna1, string nombreColumna2)

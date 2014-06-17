@@ -136,13 +136,21 @@ namespace FrbaCommerce.Registro_de_Usuario
                     {
                         if (Interfaz.esNumerico(telefono.Text, System.Globalization.NumberStyles.Integer) || telefono.Text.Equals(""))
                         {
-                            registrarEmpresa(username, password, razonSocial.Text, cuit.Text, telefono.Text, direccion.Text, codigoPostal.Text, ciudad.Text, email.Text, nombreContacto.Text, Interfaz.obtenerFecha());
-                            MessageBox.Show("Alta finalizada. Puede ingresar al sistema.", "Registro exitoso");
-                            Login.LoginForm form = new Login.LoginForm();
-                            this.Hide();
-                            form.Show();
+                            if (!BDSQL.existeTelefono(Convert.ToInt32(telefono.Text)))
+                            {
+
+                                registrarEmpresa(username, password, razonSocial.Text, cuit.Text, telefono.Text, direccion.Text, codigoPostal.Text, ciudad.Text, email.Text, nombreContacto.Text, Interfaz.obtenerFecha());
+                                MessageBox.Show("Alta finalizada. Puede ingresar al sistema.", "Registro exitoso");
+                                Login.LoginForm form = new Login.LoginForm();
+                                this.Hide();
+                                form.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Teléfono existente.", "Error");
+                            }
                         } else {
-                            MessageBox.Show("Teléfono inválido.", "Error");
+                            MessageBox.Show("Teléfono inválido existente.", "Error");
                         }
                     }
                     else
@@ -161,10 +169,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             }
         }
 
-        private void telefono_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void cancel_Click(object sender, EventArgs e)
         {
@@ -173,7 +178,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             form.Show();
         }
 
-        private void telefono_KeyPress(object sender, KeyPressEventArgs e)
+        private void textboxNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar)
                    && !char.IsDigit(e.KeyChar)
