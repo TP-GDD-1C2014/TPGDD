@@ -292,7 +292,7 @@ GO
 
 CREATE TABLE MERCADONEGRO.Bonificaciones
 (
-	ID_Bonificacion	NUMERIC(18,0) IDENTITY, 
+	ID_Bonificacion	NUMERIC(18,0) IDENTITY(0,1), 
 	ID_User		    NUMERIC(18,0) NOT NULL,
 	Cantidad        NUMERIC(18,0) NOT NULL,
 	Visibilidad		NUMERIC(18,0) NOT NULL,
@@ -608,6 +608,26 @@ AS BEGIN
 		VALUES(@idFactura, @cantidadVendida, @descripcion, @precioItem)
 		
 	UPDATE MERCADONEGRO.Facturaciones SET Total_Facturacion = Total_Facturacion + @precioItem
+END
+GO
+
+/* Insert registro bonificacion usuario visibilidad */
+
+CREATE PROCEDURE MERCADONEGRO.InsertarBonificacionUsuarioVisibilidad(@idVendedor numeric(18,0), @visibilidad numeric(18,0), @ret numeric(18,0) output)
+AS BEGIN
+	INSERT INTO MERCADONEGRO.Bonificaciones(ID_User,Cantidad,Visibilidad)
+	VALUES (@idVendedor,0,@visibilidad)
+	SET @ret = SCOPE_IDENTITY();
+END
+GO
+
+/* Sumar 1 a bonificacin (por venta facturada) */
+
+CREATE PROCEDURE MERCADONEGRO.SumarCantidadBonificacion ( @idBonificacion numeric (18,0))
+AS BEGIN
+		UPDATE  MERCADONEGRO.Bonificaciones 
+		SET Cantidad = Cantidad + 1 
+		WHERE ID_Bonificacion = @idBonificacion
 END
 GO
 

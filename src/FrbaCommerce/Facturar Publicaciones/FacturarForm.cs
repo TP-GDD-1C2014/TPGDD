@@ -108,8 +108,8 @@ namespace FrbaCommerce.Facturar_Publicaciones
                                 item.Cantidad_Vendida = Publicacion.obtenerStock(factura.Cod_Publicacion);
                             }
 
-                            //3. Precio unitario
-                            item.Precio_Unitario = Publicacion.obtenerPrecio(factura.Cod_Publicacion);
+                            //3. Sumar 1 en bonificaciones, y obtene Precio unitario (si esta bonificada devuelve 0)
+                            item.Precio_Unitario = Publicacion.sumarObtenerPrecio(factura.Cod_Publicacion);
 
                             //4. Descripcion
                             item.Descripcion = Convert.ToString(this.dgvOperaciones.SelectedRows[i].Cells[3].Value);

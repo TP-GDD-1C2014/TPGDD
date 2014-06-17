@@ -66,17 +66,18 @@ namespace FrbaCommerce.Clases
             
         }
 
-        public static bool esLaNovenaVenta(int codPublicacion, int visibilidad)
+        public static bool esLaNovenaVenta(int idVendedor, int visibilidad)
         {         
-            List<SqlParameter> parametros = new List<SqlParameter>();
+                  
+            List<SqlParameter> parametros2 = new List<SqlParameter>();
 
-            BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
-            BDSQL.agregarParametro(parametros, "@visibilidad", visibilidad);
+            BDSQL.agregarParametro(parametros2, "@idVendedor", idVendedor);
+            BDSQL.agregarParametro(parametros2, "@visibilidad", visibilidad);
             
-            string commandText = "SELECT b.Cantidad FROM MERCADONEGRO.Bonificaciones b, MERCADONEGRO.Publicaciones p, MERCADONEGRO.Usuarios u " +
-                                 "WHERE p.Cod_Publicacion = @Cod_Publicacion AND u.ID_User = p.ID_Vendedor AND b.Visibilidad = @visibilidad";
+            string commandText = "SELECT b.Cantidad FROM MERCADONEGRO.Bonificaciones b " +
+                                 "WHERE b.ID_User = @idVendedor AND b.Visibilidad = @visibilidad";
 
-            SqlDataReader lector = BDSQL.ejecutarReader(commandText, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader(commandText, parametros2, BDSQL.iniciarConexion());
 
             lector.Read();
           

@@ -119,20 +119,21 @@ namespace FrbaCommerce.Clases
             }
         }
 
-        public static decimal obtenerPrecio(int codPublicacion)
+        public static decimal sumarObtenerPrecio(int codPublicacion)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
             decimal precio;
             decimal comisionPorVisibilidad;
             int visibilidad;
+            int idVendedor;
 
             BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
 
             //obtengo el precio x unidad y la comision por la visibiliad
              
 
-            string commandText = "SELECT p.Precio, v.Porcentaje_Venta, v.Cod_Visibilidad  FROM MERCADONEGRO.Publicaciones p"+
+            string commandText = "SELECT p.ID_Vendedor, p.Precio, v.Porcentaje_Venta, v.Cod_Visibilidad  FROM MERCADONEGRO.Publicaciones p "+
                                 "JOIN MERCADONEGRO.Visibilidades v ON p.Cod_Visibilidad = v.Cod_Visibilidad " +
                                 "WHERE p.Cod_Publicacion = @codPublicacion";
 
@@ -142,11 +143,17 @@ namespace FrbaCommerce.Clases
             {
                 lector.Read();
 
+                idVendedor = Convert.ToInt32(lector["ID_Vendedor"]);
                 precio = Convert.ToDecimal(lector["Precio"]);
                 comisionPorVisibilidad = Convert.ToDecimal(lector["Porcentaje_Venta"]);
                 visibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
-             
-                if (Visibilidad.esLaNovenaVenta(codPublicacion, visibilidad))
+                BDSQL.cerrarConexion();
+
+                //inserto registro en Bonificaciones (si no existia) y suma uno a la cant de esa visibilidad para ese vendedor
+                insertar_SumarUno(idVendedor, visibilidad);
+                
+                //chequea si es la novena y obtiene el precio
+                if (Visibilidad.esLaNovenaVenta(idVendedor, visibilidad))
                 {
                     BDSQL.cerrarConexion();
                     return 0;
@@ -203,6 +210,49 @@ namespace FrbaCommerce.Clases
 
             return codigoEstado;
 
+        }
+
+        public static void insertar_SumarUno (int idVendedor, int visibilidad)
+        {
+            int idBonificacion;
+            
+            //Me fijo si existe ya la visibilidad para el idVendedor
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(parametros, "@idVendedor", idVendedor);
+            BDSQL.agregarParametro(parametros, "@visibilidad", visibilidad);
+
+            string commandText = "SELECT b.ID_Bonificacion FROM MERCADONEGRO.Bonificaciones b " +
+                                 "WHERE b.ID_User = @idVendedor AND b.Visibilidad = @visibilidad";
+
+            SqlDataReader lector = BDSQL.ejecutarReader(commandText, parametros, BDSQL.iniciarConexion());
+
+            //si existe me quedo con el idBonificacion
+            if (lector.HasRows)
+            {
+                lector.Read();
+                idBonificacion = Convert.ToInt32(lector["ID_Bonificacion"]);
+                BDSQL.cerrarConexion();
+            }
+            else
+            {
+                //sino existe inserto un nuevo registro y me traigo el idBonificacion
+                List<SqlParameter> parametros2 = new List<SqlParameter>();
+
+                BDSQL.agregarParametro(parametros2, "@idVendedor", idVendedor);
+                BDSQL.agregarParametro(parametros2, "@visibilidad", visibilidad);
+
+                idBonificacion = (int)BDSQL.ExecStoredProcedure("MERCADONEGRO.InsertarBonificacionUsuarioVisibilidad", parametros2);
+                BDSQL.cerrarConexion();
+            }
+            
+            //cualquiera sea el caso, sumo uno a la cantidad, de esa visibilidad, para ese vendedor (por el idBonificacion obtenido)
+            List<SqlParameter> parametros3 = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(parametros3, "@idBonificacion", idBonificacion);
+
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.SumarCantidadBonificacion", parametros3);
+            BDSQL.cerrarConexion();
         }
 
     }
