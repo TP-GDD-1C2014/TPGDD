@@ -20,7 +20,12 @@ namespace FrbaCommerce.Listado_Estadistico
         {
             InitializeComponent();
 
-          
+            this.visibilidadLabel.Hide();
+            this.visibilidadComboBox.Hide();
+            this.mesLabel.Hide();
+            this.mesTextBox.Hide();
+
+            this.cargarComboVisibilidad();
 
             //Cargando combo de trimestre
             this.trimestreCombo.Items.Add(1);
@@ -37,6 +42,16 @@ namespace FrbaCommerce.Listado_Estadistico
 
         }
 
+        private void cargarComboVisibilidad()
+        {
+            List<Visibilidad> listaVisibilidades = Visibilidad.ObtenerVisibilidades();
+
+            foreach (Visibilidad visibilidad in listaVisibilidades)
+            {
+                this.visibilidadComboBox.Items.Add(visibilidad.Descripcion);
+            }
+        }
+
         private void anioLabel_Click(object sender, EventArgs e)
         {
 
@@ -49,6 +64,20 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void tipoListadoCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (tipoListadoCombo.SelectedIndex == 0)
+            {
+                this.visibilidadLabel.Show();
+                this.visibilidadComboBox.Show();
+                this.mesLabel.Show();
+                this.mesTextBox.Show();
+            }
+            else
+            {
+                this.visibilidadLabel.Hide();
+                this.visibilidadComboBox.Hide();
+                this.mesLabel.Hide();
+                this.mesTextBox.Hide();
+            }
 
         }
 
@@ -72,18 +101,40 @@ namespace FrbaCommerce.Listado_Estadistico
                 int trimestre = this.trimestreCombo.SelectedIndex + 1;
                 int opcionElegida = this.tipoListadoCombo.SelectedIndex + 1;
 
-                ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
-
-                this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
-
-                if (this.top5DataGriedView.DataSource == null)
+            
+                if(!(this.visibilidadComboBox.SelectedIndex == -1))
                 {
-                    MessageBox.Show("¡No se encontraron resultados!. Por favor, verifique los filtros seleccionados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio, this.visibilidadComboBox.SelectedItem.ToString(), this.mesTextBox.Text);
+
+                    this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
+
+                    if (this.top5DataGriedView.DataSource == null)
+                    {
+                        MessageBox.Show("¡No se encontraron resultados!. Por favor, verifique los filtros seleccionados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    this.top5DataGriedView.Refresh();
+
                 }
-                this.top5DataGriedView.Refresh();
+                else
+                {
+                    
+                    ListadoEstadistico listado = new ListadoEstadistico(trimestre, anio);
+
+                    this.top5DataGriedView.DataSource = listado.buscar(opcionElegida);
+
+                    if (this.top5DataGriedView.DataSource == null)
+                    {
+                        MessageBox.Show("¡No se encontraron resultados!. Por favor, verifique los filtros seleccionados.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    this.top5DataGriedView.Refresh();
+                }
+
+                    
 
 
-                this.top5DataGriedView = Interfaz.bloquearDataGridView(this.top5DataGriedView);
+                    this.top5DataGriedView = Interfaz.bloquearDataGridView(this.top5DataGriedView);
+                
 
             }
         }
@@ -106,12 +157,7 @@ namespace FrbaCommerce.Listado_Estadistico
 
         }
 
-        private void limpiarButton_Click(object sender, EventArgs e)
-        {
-            Interfaz.limpiarInterfaz(this);
-                         
-        }
-
+       
         private bool verificarCampos(Control control)
         {
             
@@ -139,6 +185,8 @@ namespace FrbaCommerce.Listado_Estadistico
                     
                 }
 
+              
+
             }
 
             return true;
@@ -152,6 +200,18 @@ namespace FrbaCommerce.Listado_Estadistico
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
+
+        }
+
+        private void visibilidadComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void limpiarBoton_Click(object sender, EventArgs e)
+        {
+
+            Interfaz.limpiarInterfaz(this);
 
         }
 

@@ -12,12 +12,23 @@ namespace FrbaCommerce.Clases
     {
         public int anio { get; set; }
         public int trimestre { get; set; }
+        public string tipoVisibilidad { get; set; }
+        public string mes { get; set; }
        
 
         public ListadoEstadistico(int trimestre, int anio){
             this.trimestre = this.obtenerRangoTrimestre(trimestre);
             this.anio = anio;
           
+        }
+
+        public ListadoEstadistico(int trimestre, int anio, string tipoVisibilidad, string mes)
+        {
+            this.trimestre = this.obtenerRangoTrimestre(trimestre);
+            this.anio = anio;
+            this.tipoVisibilidad = tipoVisibilidad;
+            this.mes = mes;
+
         }
 
         private int obtenerRangoTrimestre(int trimestre)
@@ -46,7 +57,15 @@ namespace FrbaCommerce.Clases
 
         public DataTable buscar(int opcionElegida)
         {
-            if (opcionElegida == 2)
+            if (opcionElegida == 1)
+            {
+                
+                    ListadoProdNoVendidos listadoFacturacion = new ListadoProdNoVendidos(trimestre, anio, this.tipoVisibilidad, this.mes);
+                    return listadoFacturacion.obtenerListado();
+                   
+               
+            }
+            else if (opcionElegida == 2)
             {
                 ListadoMayorFact listadoFacturacion = new ListadoMayorFact(trimestre, anio);
                 return listadoFacturacion.obtenerListado();
