@@ -81,6 +81,7 @@
             // nuevoRubro
             // 
             this.nuevoRubro.Location = new System.Drawing.Point(10, 20);
+            this.nuevoRubro.MaxLength = 255;
             this.nuevoRubro.Name = "nuevoRubro";
             this.nuevoRubro.Size = new System.Drawing.Size(190, 20);
             this.nuevoRubro.TabIndex = 6;

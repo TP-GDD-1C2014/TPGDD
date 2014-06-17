@@ -128,7 +128,7 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!razonSocial.Text.Equals("") && !cuit.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && !email.Text.Equals("") && !telefono.Text.Equals(""))
+            if (!razonSocial.Text.Equals("") && !cuit.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && !email.Text.Equals(""))
             {
                 if (!BDSQL.existeString(razonSocial.Text, "MERCADONEGRO.Empresas", "Razon_Social"))
                 {
@@ -138,7 +138,6 @@ namespace FrbaCommerce.Registro_de_Usuario
                         {
                             if (!BDSQL.existeTelefono(Convert.ToInt32(telefono.Text)))
                             {
-
                                 registrarEmpresa(username, password, razonSocial.Text, cuit.Text, telefono.Text, direccion.Text, codigoPostal.Text, ciudad.Text, email.Text, nombreContacto.Text, Interfaz.obtenerFecha());
                                 MessageBox.Show("Alta finalizada. Puede ingresar al sistema.", "Registro exitoso");
                                 Login.LoginForm form = new Login.LoginForm();
@@ -183,6 +182,14 @@ namespace FrbaCommerce.Registro_de_Usuario
             if (!char.IsControl(e.KeyChar)
                    && !char.IsDigit(e.KeyChar)
                    )
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textboxNoNumerico_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar < 65 || e.KeyChar > 122)
             {
                 e.Handled = true;
             }

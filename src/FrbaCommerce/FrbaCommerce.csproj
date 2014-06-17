@@ -62,6 +62,12 @@
     <Compile Include="Abm Cliente\BuscarCliente.Designer.cs">
       <DependentUpon>BuscarCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Abm Cliente\Confirmacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Cliente\Confirmacion.Designer.cs">
+      <DependentUpon>Confirmacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Abm Cliente\ModificarCliente.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -328,6 +334,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\BuscarCliente.resx">
       <DependentUpon>BuscarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Cliente\Confirmacion.resx">
+      <DependentUpon>Confirmacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Abm Cliente\ModificarCliente.resx">
       <DependentUpon>ModificarCliente.cs</DependentUpon>

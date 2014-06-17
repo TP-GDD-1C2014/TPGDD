@@ -151,7 +151,7 @@
             this.tNombre.Name = "tNombre";
             this.tNombre.Size = new System.Drawing.Size(152, 20);
             this.tNombre.TabIndex = 15;
-            this.tNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tNombre_KeyPress);
+            this.tNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tApellido
             // 
@@ -160,7 +160,7 @@
             this.tApellido.Name = "tApellido";
             this.tApellido.Size = new System.Drawing.Size(152, 20);
             this.tApellido.TabIndex = 14;
-            this.tApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tNombre_KeyPress);
+            this.tApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tCodigoPostal
             // 
@@ -169,6 +169,7 @@
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(152, 20);
             this.tCodigoPostal.TabIndex = 13;
+            this.tCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tDireccion
             // 
@@ -185,6 +186,7 @@
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(152, 20);
             this.tTelefono.TabIndex = 11;
+            this.tTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tEmail
             // 
@@ -201,6 +203,7 @@
             this.tNumeroDocumento.Name = "tNumeroDocumento";
             this.tNumeroDocumento.Size = new System.Drawing.Size(152, 20);
             this.tNumeroDocumento.TabIndex = 9;
+            this.tNumeroDocumento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // label9
             // 

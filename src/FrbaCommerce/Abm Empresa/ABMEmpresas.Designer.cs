@@ -101,7 +101,7 @@
             this.tNombreDeContacto.Name = "tNombreDeContacto";
             this.tNombreDeContacto.Size = new System.Drawing.Size(152, 20);
             this.tNombreDeContacto.TabIndex = 30;
-            this.tNombreDeContacto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tNombreDeContacto_KeyPress);
+            this.tNombreDeContacto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tCuit
             // 
@@ -126,6 +126,7 @@
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(152, 20);
             this.tCodigoPostal.TabIndex = 27;
+            this.tCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tDireccion
             // 
@@ -142,6 +143,7 @@
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(152, 20);
             this.tTelefono.TabIndex = 25;
+            this.tTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tEmail
             // 

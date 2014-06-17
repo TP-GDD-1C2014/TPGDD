@@ -169,7 +169,7 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (cbTipoDocumento.SelectedIndex != -1 && !numeroDocumento.Text.Equals("") && !nombre.Text.Equals("") && !apellido.Text.Equals("") && !email.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && cbDia.SelectedIndex != -1 && cbMes.SelectedIndex != -1 && cbAno.SelectedIndex != -1 && !telefono.Text.Equals(""))
+            if (cbTipoDocumento.SelectedIndex != -1 && !numeroDocumento.Text.Equals("") && !nombre.Text.Equals("") && !apellido.Text.Equals("") && !email.Text.Equals("") && !direccion.Text.Equals("") && !codigoPostal.Text.Equals("") && cbDia.SelectedIndex != -1 && cbMes.SelectedIndex != -1 && cbAno.SelectedIndex != -1)
             {
                 if (Interfaz.esNumerico(numeroDocumento.Text, System.Globalization.NumberStyles.Integer))
                 {
@@ -230,15 +230,18 @@ namespace FrbaCommerce.Registro_de_Usuario
 
         private void textboxNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
-                        
-                if (!char.IsControl(e.KeyChar) 
-                    && !char.IsDigit(e.KeyChar) 
-                   )
-                {
-                    e.Handled = true;
-                }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
 
-       
+        private void textboxNoNumerico_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar < 65 || e.KeyChar > 122)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

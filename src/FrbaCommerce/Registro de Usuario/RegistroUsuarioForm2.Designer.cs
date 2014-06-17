@@ -107,9 +107,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 110);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.Size = new System.Drawing.Size(49, 13);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Teléfono (*)";
+            this.label6.Text = "Teléfono";
             // 
             // label7
             // 
@@ -154,6 +154,7 @@
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(144, 20);
             this.nombre.TabIndex = 11;
+            this.nombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // apellido
             // 
@@ -162,6 +163,7 @@
             this.apellido.Name = "apellido";
             this.apellido.Size = new System.Drawing.Size(144, 20);
             this.apellido.TabIndex = 12;
+            this.apellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // email
             // 

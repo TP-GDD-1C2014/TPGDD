@@ -69,7 +69,7 @@ namespace FrbaCommerce.Login
                         if (pass1.Text == pass2.Text)
                         {
                             Interfaz.usuario.cambiarPassword(pass1.Text);
-                            MessageBox.Show("Contraseña modificada.\nYa puede ingresar al sistema.");
+                            MessageBox.Show("Contraseña modificada.");
                             this.Hide();
                         }
                         else

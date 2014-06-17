@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.nuevoNombre = new System.Windows.Forms.TextBox();
             this.mod = new System.Windows.Forms.Button();
+            this.nuevoNombre = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,13 +45,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cambiar nombre";
             // 
-            // nuevoNombre
-            // 
-            this.nuevoNombre.Location = new System.Drawing.Point(10, 20);
-            this.nuevoNombre.Name = "nuevoNombre";
-            this.nuevoNombre.Size = new System.Drawing.Size(180, 20);
-            this.nuevoNombre.TabIndex = 0;
-            // 
             // mod
             // 
             this.mod.Location = new System.Drawing.Point(199, 14);
@@ -61,6 +54,14 @@
             this.mod.Text = "Modificar";
             this.mod.UseVisualStyleBackColor = true;
             this.mod.Click += new System.EventHandler(this.mod_Click);
+            // 
+            // nuevoNombre
+            // 
+            this.nuevoNombre.Location = new System.Drawing.Point(10, 20);
+            this.nuevoNombre.MaxLength = 255;
+            this.nuevoNombre.Name = "nuevoNombre";
+            this.nuevoNombre.Size = new System.Drawing.Size(180, 20);
+            this.nuevoNombre.TabIndex = 0;
             // 
             // Modificar
             // 

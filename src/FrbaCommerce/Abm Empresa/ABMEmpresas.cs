@@ -269,7 +269,8 @@ namespace FrbaCommerce.Abm_Empresa
                 //MessageBox.Show("Empresa:\n\nrazonSocial: " + this.razonSocial + "\ncuit: " + this.cuit + "\ntelefono: " + this.telefono + "\ndireccion: " + this.direccion + "\ncodigoPostal: " + this.codigoPostal + "\nciudad: " + this.ciudad + "\nmail: " + this.mail + "\nnombreContacto: " + this.nombreContacto + "\nfechaCreacion: " + this.fechaCreacion.ToString());
                 cargarUsuario();
                 cargarEmpresa();
-                MessageBox.Show("Alta de usuario realizada exitosamente.\n\nPuede ingresar al sistema mediante con los siguientes datos:\nUsername: " + this.username + "\nPassword: " + this.passwordNoHash);
+                //MessageBox.Show("Alta de usuario realizada exitosamente.\n\nPuede ingresar al sistema mediante con los siguientes datos:\nUsername: " + this.username + "\nPassword: " + this.passwordNoHash);
+                new Abm_Cliente.Confirmacion(this.username, this.passwordNoHash).Show();
             }
         }
 
@@ -323,7 +324,17 @@ namespace FrbaCommerce.Abm_Empresa
             }
         }
 
-        private void tNombreDeContacto_KeyPress(object sender, KeyPressEventArgs e)
+        private void textboxNumerico_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                   && !char.IsDigit(e.KeyChar)
+                   )
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textboxNoNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar < 65 || e.KeyChar > 122)
             {
