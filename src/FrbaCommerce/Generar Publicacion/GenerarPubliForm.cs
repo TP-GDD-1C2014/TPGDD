@@ -17,12 +17,11 @@ namespace FrbaCommerce.Generar_Publicacion
     {
         //Obtiene el usuario loggeado
         Clases.Usuario usuario = FrbaCommerce.Common.Interfaz.usuario;
-        //public SeleccionFuncionalidades formAnterior { get; set; }
         bool esNueva;
         int codPubli;
         int stockTraido;
         bool esBorrador;
-        //bool esGratuita;
+        int dueñoPublicacion;
 
         //Constructor para Generar publicacion
         public GenerarPubliForm(string modo)
@@ -58,7 +57,8 @@ namespace FrbaCommerce.Generar_Publicacion
                 Estado_ComboBox.Text = unaPubli.Estado_Publicacion;
                 Precio_textBox.Text = Convert.ToString(unaPubli.Precio);
                 PermitirPreguntas_Checkbox.Checked = unaPubli.Permiso_Preguntas;
-                
+                dueñoPublicacion = unaPubli.ID_Vendedor;
+
                 stockTraido = Convert.ToInt32(unaPubli.Stock);
                 esNueva = false;
 
@@ -68,13 +68,6 @@ namespace FrbaCommerce.Generar_Publicacion
                 else{
                     esBorrador = false;
                 }
-
-                /*if(unaPubli.Cod_Visibilidad == "Gratis"){
-                    esGratuita = true;
-                }
-                else{
-                    esGratuita = false;
-                }*/
                     
                 //Si estado=Publicada => permitir modificar el estado a Pausada o Finalizada (Inmediata unicamente)
                 if (esBorrador == false) 
@@ -164,7 +157,6 @@ namespace FrbaCommerce.Generar_Publicacion
         //BOTON GUARDAR
         private void Guardar_button_Click(object sender, EventArgs e)
         {
-            //TODO Agregar condicion de seleccionar minimo 1 rubro
             int cantRubrosSelecc = Rubro_checkedListBox.CheckedItems.Count;
             //Controlar que se completen todos los datos y asignar
             if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !Precio_textBox.Text.Equals("") && (cantRubrosSelecc >= 1))
@@ -177,7 +169,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 }
                 string visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
                 int visibilidadIndex = Visibilidad_ComboBox.SelectedIndex;
-                int idVendedor = usuario.ID_User;
+                int idVendedor = dueñoPublicacion;
                 string descripcion = Descrip_TextBox.Text;
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
@@ -259,11 +251,6 @@ namespace FrbaCommerce.Generar_Publicacion
                                 MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK);
                                 Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
                             }
-
-                            /*Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                            int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                            MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);*/
                         }
 
                         this.Close();
@@ -297,27 +284,26 @@ namespace FrbaCommerce.Generar_Publicacion
                         else
                         {
                             // Modificar + StockBien + No(Publicada-->Borrador) + (Gratis + NoBorrador)
-                            if (visibilidad == "Gratis" && esBorrador == false/*&& (esGratuita == false)*/)
+                            if (visibilidad == "Gratis" && estado == "Publicada")
                             {
                                 //Obtiene la cantidad de publicaciones gratuitas del usuario
                                 int idUser = Convert.ToInt32(usuario.ID_User);
                                 int cantidadPubliGratuitas = Usuario.obtenerPublisGratuitas(idUser);
-
+                                MessageBox.Show(string.Format("Tiene {0}", cantidadPubliGratuitas), "CantPubliGratuitas", MessageBoxButtons.OK);
                                 if (cantidadPubliGratuitas < 3)
                                 {
                                     //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
                                     usuario.sumarPubliGratuita();
 
-                                    //Elimina los rubros que estaban seleccionados
+                                    //Actualiza los rubros
                                     List<int> listaRubrosDePublicacion = Rubro.obtenerRubrosDePublicacion(publi.Cod_Publicacion);
                                     Rubro.eliminarRubroPublicacion(listaRubrosDePublicacion, publi.Cod_Publicacion);
-                                    Publicaciones.eliminarPublicacion(publi);
-
+                                    //Publicaciones.eliminarPublicacion(publi);
                                     Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, codPubli);
 
                                     //Actualiza la publicacion en la tabla Publicaciones
                                     Publicaciones.actualizarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                                    //Rubro.actualizarRubroPublicacion(listaRubrosSeleccionados, codPubli);
+
                                     this.Close();
                                 }
                                 else
@@ -401,6 +387,8 @@ namespace FrbaCommerce.Generar_Publicacion
             //Setea FechaFin por defecto
             FechaFin_DateTimePicker.Text = Convert.ToString(Interfaz.obtenerFecha());
         }
+
+
 
         public void llenarCheckedList(int codPubli)
         {
