@@ -18,7 +18,15 @@ namespace FrbaCommerce.Facturar_Publicaciones
             InitializeComponent();
 
             this.generarDataGrid(Interfaz.usuarioActual());
-            this.formaDePagoComboBox.Items.Add("Efectivo");
+
+            if (!Interfaz.usuarioActual().esAdmin())
+            {
+                this.formaDePagoComboBox.Items.Add("Efectivo");
+                this.nombreUserLabel.Hide();
+                this.usernameTextBox.Hide();
+                this.buscarButton.Hide();
+            }
+
             this.formaDePagoComboBox.Items.Add("Tarjeta de Crédito");
 
         }
@@ -76,7 +84,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     while (i < cantidadFilas)
                     {
                         //si el item corresponde a esa factura...
-                        if (factura.Cod_Publicacion == Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[1].Value))
+                        if (factura.Cod_Publicacion == Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[2].Value))
                         {
                             //insertar item
                             Item item = new Item();
@@ -103,17 +111,17 @@ namespace FrbaCommerce.Facturar_Publicaciones
                             item.Precio_Unitario = Publicacion.obtenerPrecio(factura.Cod_Publicacion);
 
                             //4. Descripcion
-                            item.Descripcion = Convert.ToString(this.dgvOperaciones.SelectedRows[i].Cells[0].Value);
+                            item.Descripcion = Convert.ToString(this.dgvOperaciones.SelectedRows[i].Cells[3].Value);
 
                             //Inserto el item y ACTUALIZO EL TOTAL_FACTURACION (de la tabla facturas)
                             item.InsertarItem(idFactura);
 
                             //Actualizo la operacion a facturada
-                            int idOperacion = Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[2].Value);
+                            int idOperacion = Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[1].Value);
 
                             Operacion.facturarOperacion(idOperacion);
 
-                            Usuario.restarVentaSinRendir();
+                            Usuario.restarVentaSinRendir(idOperacion);
                     
                         }
 
@@ -189,7 +197,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
             foreach(DataGridViewRow fila in dgv)
             {
                 
-                int codPublicacion = Convert.ToInt32(fila.Cells[1].Value);
+                int codPublicacion = Convert.ToInt32(fila.Cells[2].Value);
 
                 if(!codigosPublicaciones.Contains(codPublicacion))
                     codigosPublicaciones.Add(codPublicacion);
@@ -199,6 +207,16 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
             return codigosPublicaciones;
 
+        }
+
+        private void buscarButton_Click(object sender, EventArgs e)
+        {
+            if (this.usernameTextBox.Text != "" && this.usernameTextBox != null)
+            {
+                Facturacion factura = new Facturacion();
+
+                //TODO THIS FUCKING PIECE OF SHIT
+            }
         }
 
              

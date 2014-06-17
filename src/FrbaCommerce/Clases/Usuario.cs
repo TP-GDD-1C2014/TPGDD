@@ -420,16 +420,30 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();        
         }
 
-        public static void restarVentaSinRendir()
+        public static void restarVentaSinRendir(int idOperacion)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "idOperacion", idOperacion);
 
-            BDSQL.agregarParametro(listaParametros, "@idUser", Interfaz.usuarioActual().ID_User);
+            string commandText = "SELECT ID_Vendedor FROM MERCADONEGRO.Operaciones WHERE ID_Operacion = @idOperacion";
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
 
-            string commandText = "UPDATE MERCADONEGRO.Usuarios SET Ventas_Sin_Rendir = Ventas_Sin_Rendir - 1 WHERE ID_USER = @idUser";
+            if (lector.HasRows)
+            {
+                lector.Read();
+                int idVendedor = Convert.ToInt32(lector["ID_Vendedor"]);
+                BDSQL.cerrarConexion();
 
-            BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
-            BDSQL.cerrarConexion();
+                listaParametros.Clear();
+
+
+                BDSQL.agregarParametro(listaParametros, "@idUser", idVendedor);
+
+                commandText = "UPDATE MERCADONEGRO.Usuarios SET Ventas_Sin_Rendir = Ventas_Sin_Rendir - 1 WHERE ID_USER = @idUser";
+
+                BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
+                BDSQL.cerrarConexion();
+            }
         }
 
         public static void updateVentasSinRendir(Compra compra)
