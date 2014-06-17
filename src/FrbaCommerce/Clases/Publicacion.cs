@@ -221,11 +221,14 @@ namespace FrbaCommerce.Clases
 
             BDSQL.agregarParametro(parametros, "@idVendedor", idVendedor);
             BDSQL.agregarParametro(parametros, "@visibilidad", visibilidad);
+            
+
+
 
             string commandText = "SELECT b.ID_Bonificacion FROM MERCADONEGRO.Bonificaciones b " +
                                  "WHERE b.ID_User = @idVendedor AND b.Visibilidad = @visibilidad";
 
-            SqlDataReader lector = BDSQL.ejecutarReader(commandText, parametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
 
             //si existe me quedo con el idBonificacion
             if (lector.HasRows)
@@ -236,11 +239,15 @@ namespace FrbaCommerce.Clases
             }
             else
             {
+                BDSQL.cerrarConexion();
                 //sino existe inserto un nuevo registro y me traigo el idBonificacion
                 List<SqlParameter> parametros2 = new List<SqlParameter>();
 
                 BDSQL.agregarParametro(parametros2, "@idVendedor", idVendedor);
                 BDSQL.agregarParametro(parametros2, "@visibilidad", visibilidad);
+                SqlParameter paramRet = new SqlParameter("@ret", System.Data.SqlDbType.Decimal);
+                paramRet.Direction = System.Data.ParameterDirection.Output;
+                parametros2.Add(paramRet);
 
                 idBonificacion = (int)BDSQL.ExecStoredProcedure("MERCADONEGRO.InsertarBonificacionUsuarioVisibilidad", parametros2);
                 BDSQL.cerrarConexion();

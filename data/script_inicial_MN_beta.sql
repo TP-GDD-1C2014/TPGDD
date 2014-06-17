@@ -295,7 +295,7 @@ CREATE TABLE MERCADONEGRO.Bonificaciones
 	ID_Bonificacion	NUMERIC(18,0) IDENTITY(0,1), 
 	ID_User		    NUMERIC(18,0) NOT NULL,
 	Cantidad        NUMERIC(18,0) NOT NULL,
-	Visibilidad		NUMERIC(18,0) NOT NULL,
+	Visibilidad		NVARCHAR(255) NOT NULL,
 	
 	
 	PRIMARY KEY (ID_Bonificacion),
@@ -398,7 +398,7 @@ GO
 
 CREATE PROCEDURE MERCADONEGRO.ObtenerOperacionesSinFacturar(@username nvarchar(255))
 AS BEGIN
-		SELECT Descripcion, Publicacion AS [Publicacion Nro], Venta AS [Venta Nro], [Fecha de la Operacion] FROM MERCADONEGRO.OperacionesSinFacturar
+		SELECT [Fecha de la Operacion], Venta AS [Venta Nro], Publicacion AS [Publicacion Nro], Descripcion  FROM MERCADONEGRO.OperacionesSinFacturar
 			WHERE @username = Username
 			ORDER BY [Fecha de la Operacion]
 END

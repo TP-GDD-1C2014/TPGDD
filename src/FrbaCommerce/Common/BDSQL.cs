@@ -309,8 +309,9 @@ namespace FrbaCommerce.Common
                 comando.ExecuteNonQuery();
                 return (decimal)comando.Parameters["@ret"].Value;
             }
-            catch
+            catch(SqlException e)
             {
+                MessageBox.Show("" + e.Message, "Error");
                 return 0;
             }
         }
