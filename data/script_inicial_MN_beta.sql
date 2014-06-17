@@ -290,18 +290,18 @@ CREATE TABLE MERCADONEGRO.Subastas
 )
 GO
 
-CREATE TABLE MERCADONEGRO.Modificaciones
+CREATE TABLE MERCADONEGRO.Bonificaciones
 (
-	ID_Modificacion	NUMERIC(18,0) IDENTITY, 
+	ID_Bonificacion	NUMERIC(18,0) IDENTITY, 
 	ID_User		    NUMERIC(18,0) NOT NULL,
 	Cantidad        NUMERIC(18,0) NOT NULL,
 	Visibilidad		NUMERIC(18,0) NOT NULL,
 	
 	
-	PRIMARY KEY (ID_Modificacion),
+	PRIMARY KEY (ID_Bonificacion),
 	FOREIGN KEY(ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
 )
-
+GO
 -----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
 
 /* SP Agregar FUNCIONALIDAD al ROL */
@@ -431,7 +431,7 @@ CREATE PROCEDURE MERCADONEGRO.InsertarOFerta ( @idComprador numeric (18,0), @idV
 											   @tipoOperacion bit, @fechaOferta datetime, @montoOferta numeric (18,2) )
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Subastas (ID_Vendedor,ID_Comprador,Cod_Publicacion, Tipo_Operacion, Fecha_Oferta, Monto_Oferta)
-		VALUES (@idComprador, @idVendedor, @codPublicacion,@tipoOperacion,@fechaOferta, @montoOferta )
+		VALUES ( @idVendedor, @idComprador, @codPublicacion,@tipoOperacion,@fechaOferta, @montoOferta )
 END
 GO
 

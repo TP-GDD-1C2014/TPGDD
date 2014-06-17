@@ -35,6 +35,9 @@
             this.formaDePagoComboBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.nombreUserLabel = new System.Windows.Forms.Label();
+            this.usernameTextBox = new System.Windows.Forms.TextBox();
+            this.buscarButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOperaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,11 +115,40 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Los campos marcados con (*) son OBLIGATORIOS";
             // 
+            // nombreUserLabel
+            // 
+            this.nombreUserLabel.AutoSize = true;
+            this.nombreUserLabel.Location = new System.Drawing.Point(321, 24);
+            this.nombreUserLabel.Name = "nombreUserLabel";
+            this.nombreUserLabel.Size = new System.Drawing.Size(55, 13);
+            this.nombreUserLabel.TabIndex = 7;
+            this.nombreUserLabel.Text = "Username";
+            // 
+            // usernameTextBox
+            // 
+            this.usernameTextBox.Location = new System.Drawing.Point(382, 24);
+            this.usernameTextBox.Name = "usernameTextBox";
+            this.usernameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.usernameTextBox.TabIndex = 8;
+            // 
+            // buscarButton
+            // 
+            this.buscarButton.Location = new System.Drawing.Point(517, 24);
+            this.buscarButton.Name = "buscarButton";
+            this.buscarButton.Size = new System.Drawing.Size(75, 23);
+            this.buscarButton.TabIndex = 9;
+            this.buscarButton.Text = "Buscar";
+            this.buscarButton.UseVisualStyleBackColor = true;
+            this.buscarButton.Click += new System.EventHandler(this.buscarButton_Click);
+            // 
             // FacturarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(803, 412);
+            this.Controls.Add(this.buscarButton);
+            this.Controls.Add(this.usernameTextBox);
+            this.Controls.Add(this.nombreUserLabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.formaDePagoComboBox);
@@ -141,5 +173,8 @@
         private System.Windows.Forms.ComboBox formaDePagoComboBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label nombreUserLabel;
+        private System.Windows.Forms.TextBox usernameTextBox;
+        private System.Windows.Forms.Button buscarButton;
     }
 }

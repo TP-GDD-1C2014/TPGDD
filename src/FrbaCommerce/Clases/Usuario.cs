@@ -38,6 +38,48 @@ namespace FrbaCommerce.Clases
         {
         }
 
+        public Boolean esAdmin()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@idUser", this.ID_User);
+
+            string commandText = "SELECT ID_Rol FROM MERCADONEGRO.Roles_Usuarios WHERE ID_User = @idUser";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+            if (lector.HasRows)
+            {
+                lector.Read();
+
+                int idRol = Convert.ToInt32(lector["ID_Rol"]);
+                BDSQL.cerrarConexion();
+
+
+                listaParametros.Clear();
+                BDSQL.agregarParametro(listaParametros, "@idRol", idRol);
+
+                commandText = "SELECT Nombre FROM MERCADONEGRO.Roles WHERE ID_ROL = @idRol";
+
+                lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+
+                if (lector.HasRows)
+                {
+                    lector.Read();
+
+                    string nombre = Convert.ToString(lector["Nombre"]);
+                    BDSQL.cerrarConexion();
+
+                    if (nombre == "Administrador General")
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            return false;
+        }
+
+
+
+
         public Boolean obtenerPK()
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -378,16 +420,30 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();        
         }
 
-        public static void restarVentaSinRendir()
+        public static void restarVentaSinRendir(int idOperacion)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "idOperacion", idOperacion);
 
-            BDSQL.agregarParametro(listaParametros, "@idUser", Interfaz.usuarioActual().ID_User);
+            string commandText = "SELECT ID_Vendedor FROM MERCADONEGRO.Operaciones WHERE ID_Operacion = @idOperacion";
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
 
-            string commandText = "UPDATE MERCADONEGRO.Usuarios SET Ventas_Sin_Rendir = Ventas_Sin_Rendir - 1 WHERE ID_USER = @idUser";
+            if (lector.HasRows)
+            {
+                lector.Read();
+                int idVendedor = Convert.ToInt32(lector["ID_Vendedor"]);
+                BDSQL.cerrarConexion();
 
-            BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
-            BDSQL.cerrarConexion();
+                listaParametros.Clear();
+
+
+                BDSQL.agregarParametro(listaParametros, "@idUser", idVendedor);
+
+                commandText = "UPDATE MERCADONEGRO.Usuarios SET Ventas_Sin_Rendir = Ventas_Sin_Rendir - 1 WHERE ID_USER = @idUser";
+
+                BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
+                BDSQL.cerrarConexion();
+            }
         }
 
         public static void updateVentasSinRendir(Compra compra)

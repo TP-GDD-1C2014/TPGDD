@@ -277,8 +277,18 @@ namespace FrbaCommerce.Generar_Publicacion
                         // Nueva + Subasta + Publicada + (NuevoEstado = Finalizada)
                         else if ((tipoPubli == "Subasta") && (esBorrador == false) && (estado == "Finalizada"))
                         {
-                            //TODO Incluir última Subasta en Operaciones
-//-------------------------->
+                            
+                            //Incluir última Subasta en Operaciones
+                            decimal montoOferta = Oferta.cargarOfertaMasAlta(codPubli);
+                            int idGanador = Oferta.getIdGanador(codPubli, montoOferta);
+
+                            Compra compra = new Compra(idVendedor, idGanador, codPubli, 0, montoOferta, false);
+                            //inserto la compra a operaciones y 
+                            Compra.insertarCompra(compra);
+
+                            //updateo el campo ventas_sin_rendir al id_vendedor
+                            Usuario.updateVentasSinRendir(compra);
+                      
 
                         }
                         else
