@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using FrbaCommerce.Clases;
 using FrbaCommerce.Common;
+using System.Data.SqlClient;
 
 namespace FrbaCommerce.Facturar_Publicaciones
 {
@@ -213,9 +214,13 @@ namespace FrbaCommerce.Facturar_Publicaciones
         {
             if (this.usernameTextBox.Text != "" && this.usernameTextBox != null)
             {
-                Facturacion factura = new Facturacion();
+                string username = this.usernameTextBox.Text;
 
-                //TODO THIS FUCKING PIECE OF SHIT
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+                BDSQL.agregarParametro(listaParametros, "@username", username);
+
+                this.dgvOperaciones.DataSource = BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerOperacionesSinFacturar", "SP", listaParametros);
             }
         }
 

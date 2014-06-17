@@ -500,5 +500,28 @@ namespace FrbaCommerce.Clases
             return puedeComprar;
 
         }
+
+        public static int obtenerIDUser(string username)
+        {
+            int idUser;
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@username", username);
+
+            string commandText = "SELECT ID_User FROM MERCADONEGRO.Usuarios WHERE Username = @username";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+
+            if (lector.HasRows)
+            {
+                lector.Read();
+                idUser = Convert.ToInt32(lector["ID_User"]);
+                BDSQL.cerrarConexion();
+                return idUser;
+            }
+            else
+                return -1;
+        }
     }
 }
