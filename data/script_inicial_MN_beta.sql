@@ -431,7 +431,7 @@ CREATE PROCEDURE MERCADONEGRO.InsertarOFerta ( @idComprador numeric (18,0), @idV
 											   @tipoOperacion bit, @fechaOferta datetime, @montoOferta numeric (18,2) )
 AS BEGIN
 		INSERT INTO MERCADONEGRO.Subastas (ID_Vendedor,ID_Comprador,Cod_Publicacion, Tipo_Operacion, Fecha_Oferta, Monto_Oferta)
-		VALUES (@idComprador, @idVendedor, @codPublicacion,@tipoOperacion,@fechaOferta, @montoOferta )
+		VALUES ( @idVendedor, @idComprador, @codPublicacion,@tipoOperacion,@fechaOferta, @montoOferta )
 END
 GO
 

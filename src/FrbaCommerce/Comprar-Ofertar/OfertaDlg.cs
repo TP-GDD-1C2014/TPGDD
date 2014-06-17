@@ -15,7 +15,7 @@ namespace FrbaCommerce.Comprar_Ofertar
     public partial class OfertaDlg : Form
     {
         Publicacion publicacion;
-        double ofertaMasGrande;
+        decimal ofertaMasGrande;
         
         public OfertaDlg(Publicacion publi)
         {

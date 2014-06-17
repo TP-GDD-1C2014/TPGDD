@@ -75,9 +75,9 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
-        public static double cargarOfertaMasAlta(int codPublicacion)
+        public static decimal cargarOfertaMasAlta(int codPublicacion)
         {
-            double ofertaMasGrande = 0.00;
+            decimal ofertaMasGrande = 0;
 
             List<SqlParameter> ListaParametros = new List<SqlParameter>();
             ListaParametros.Add(new SqlParameter("@codPublicacion", codPublicacion));
@@ -88,12 +88,33 @@ namespace FrbaCommerce.Clases
             {
                 lector.Read();
 
-                ofertaMasGrande = Convert.ToDouble(lector["Maxima"]);               
+                ofertaMasGrande = Convert.ToDecimal(lector["Maxima"]);               
             }
                           
             BDSQL.cerrarConexion();
             return ofertaMasGrande;
 
+        }
+
+        public static int getIdGanador(int codPubli, decimal montoOferta)
+        {
+            int ganador = -1;
+
+            List<SqlParameter> ListaParametros = new List<SqlParameter>();
+            ListaParametros.Add(new SqlParameter("@codPublicacion", codPubli));
+            ListaParametros.Add(new SqlParameter("@montoOferta", montoOferta));
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT ID_Comprador FROM MERCADONEGRO.Subastas WHERE Cod_Publicacion = @codPublicacion AND Monto_Oferta = @montoOferta", ListaParametros, BDSQL.iniciarConexion());
+
+            if (lector.HasRows)
+            {
+                lector.Read();
+
+                ganador = Convert.ToInt32(lector["ID_Comprador"]);               
+            }
+                          
+            BDSQL.cerrarConexion();
+            return ganador;
         }
     }
 }
