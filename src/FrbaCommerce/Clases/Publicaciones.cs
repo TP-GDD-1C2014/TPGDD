@@ -32,18 +32,7 @@ namespace FrbaCommerce.Clases
                     string desc_tipo = Interfaz.getDescripcion(cod_tipo, "tipoPublicacion");
 
                     Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
-                    /*unaPublicacion.Cod_Publicacion = (int)(decimal)lector["Cod_Publicacion"];
-                    unaPublicacion.Cod_Visibilidad = (int)(decimal)lector["Cod_Visibilidad"];
-                    unaPublicacion.ID_Vendedor = (int)(decimal)lector["ID_Vendedor"];
-                    unaPublicacion.Descripcion = (String)lector["Descripcion"];
-                    unaPublicacion.Stock = (int)(decimal)lector["Stock"];
-                    unaPublicacion.Fecha_Vto = (DateTime)lector["Fecha_Vto"];
-                    unaPublicacion.Fecha_Inicio = (DateTime)lector["Fecha_Inic"];
-                    unaPublicacion.Precio = (int)(decimal)lector["Precio"];
-                    unaPublicacion.Estado_Publicacion = (String)lector["Estado_Public"];
-                    unaPublicacion.Tipo_Publicacion = (String)lector["Tipo_Public"];
-                    unaPublicacion.Permiso_Preguntas = (int)(decimal)lector["Permisos_Preguntas"];
-                    unaPublicacion.Stock_Inicial = (int)(decimal)lector["Stock_Inicial"];*/
+
                     publicaciones.Add(unaPublicacion);
                 }
             }
@@ -247,7 +236,6 @@ namespace FrbaCommerce.Clases
 
                     publi.Cod_Publicacion = Convert.ToInt32(lector["Cod_Publicacion"]);
                     publi.Cod_Visibilidad = Interfaz.getDescripcion(Convert.ToInt32(lector["Cod_Visibilidad"]), "visibilidad");
-                    //publi.Cod_Visibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
                     publi.ID_Vendedor = Convert.ToInt32(lector["ID_Vendedor"]);
                     publi.Descripcion = Convert.ToString(lector["Descripcion"]);
                     publi.Stock = Convert.ToInt32(lector["Stock"]);
@@ -270,21 +258,6 @@ namespace FrbaCommerce.Clases
 
         public static void actualizarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
         {
-            //TODO Ingresar visibilidad, estado y tipo como codigos!!
-            /*List<SqlParameter> listaParametros = new List<SqlParameter>();
-            listaParametros.Add(new SqlParameter("@Cod_Publicacion",unaPubli.Cod_Publicacion));
-            listaParametros.Add(new SqlParameter("@Cod_Visibilidad", visibilidad));
-            listaParametros.Add(new SqlParameter("@ID_Vendedor", unaPubli.ID_Vendedor));
-            listaParametros.Add(new SqlParameter("@Descripcion", unaPubli.Descripcion));
-            listaParametros.Add(new SqlParameter("@Stock", unaPubli.Stock));
-            listaParametros.Add(new SqlParameter("@Fecha_Vto", unaPubli.Fecha_Vto));
-            listaParametros.Add(new SqlParameter("@Fecha_Inic", unaPubli.Fecha_Inicio));
-            listaParametros.Add(new SqlParameter("@Precio", unaPubli.Precio));
-            listaParametros.Add(new SqlParameter("@Estado_Publicacion", estado));
-            listaParametros.Add(new SqlParameter("@Tipo_Publicacion", tipoPubli));
-            listaParametros.Add(new SqlParameter("@Permiso_Preguntas", unaPubli.Permiso_Preguntas));
-            listaParametros.Add(new SqlParameter("@Stock_Inicial", unaPubli.Stock_Inicial));*/
-
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros,"@Cod_Publicacion", unaPubli.Cod_Publicacion);
             BDSQL.agregarParametro(listaParametros, "@Cod_Visibilidad", visibilidad);
