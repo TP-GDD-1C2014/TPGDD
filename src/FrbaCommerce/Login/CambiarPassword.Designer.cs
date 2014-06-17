@@ -32,9 +32,9 @@
             this.pass2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.passViejoNH = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.passViejoNH = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -53,7 +53,7 @@
             this.pass2.Location = new System.Drawing.Point(10, 20);
             this.pass2.Name = "pass2";
             this.pass2.Size = new System.Drawing.Size(196, 20);
-            this.pass2.TabIndex = 3;
+            this.pass2.TabIndex = 0;
             this.pass2.TextChanged += new System.EventHandler(this.pass2_TextChanged);
             // 
             // button1
@@ -61,7 +61,7 @@
             this.button1.Location = new System.Drawing.Point(107, 203);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(120, 30);
-            this.button1.TabIndex = 4;
+            this.button1.TabIndex = 0;
             this.button1.Text = "Continuar >>";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -75,6 +75,15 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Contraseña vieja";
+            // 
+            // passViejoNH
+            // 
+            this.passViejoNH.Location = new System.Drawing.Point(10, 20);
+            this.passViejoNH.Multiline = true;
+            this.passViejoNH.Name = "passViejoNH";
+            this.passViejoNH.Size = new System.Drawing.Size(196, 20);
+            this.passViejoNH.TabIndex = 0;
+            this.passViejoNH.TextChanged += new System.EventHandler(this.passViejo_TextChanged);
             // 
             // groupBox2
             // 
@@ -95,15 +104,6 @@
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Confirmar nueva contraseña";
-            // 
-            // passViejoNH
-            // 
-            this.passViejoNH.Location = new System.Drawing.Point(10, 20);
-            this.passViejoNH.Multiline = true;
-            this.passViejoNH.Name = "passViejoNH";
-            this.passViejoNH.Size = new System.Drawing.Size(196, 20);
-            this.passViejoNH.TabIndex = 0;
-            this.passViejoNH.TextChanged += new System.EventHandler(this.passViejo_TextChanged);
             // 
             // CambiarPassword
             // 

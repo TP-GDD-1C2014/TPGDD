@@ -59,7 +59,7 @@
             this.continuar_Boton.Location = new System.Drawing.Point(139, 50);
             this.continuar_Boton.Name = "continuar_Boton";
             this.continuar_Boton.Size = new System.Drawing.Size(120, 30);
-            this.continuar_Boton.TabIndex = 2;
+            this.continuar_Boton.TabIndex = 1;
             this.continuar_Boton.Text = "Continuar >>";
             this.continuar_Boton.UseVisualStyleBackColor = true;
             this.continuar_Boton.Click += new System.EventHandler(this.button1_Click);

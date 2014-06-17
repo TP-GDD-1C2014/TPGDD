@@ -47,7 +47,7 @@
             this.Username_TextBox.MaxLength = 255;
             this.Username_TextBox.Name = "Username_TextBox";
             this.Username_TextBox.Size = new System.Drawing.Size(196, 20);
-            this.Username_TextBox.TabIndex = 1;
+            this.Username_TextBox.TabIndex = 0;
             this.Username_TextBox.TextChanged += new System.EventHandler(this.Username_TextBox_TextChanged);
             this.Username_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Username_KeyPress);
             // 
@@ -57,7 +57,7 @@
             this.Password_TextBox.MaxLength = 255;
             this.Password_TextBox.Name = "Password_TextBox";
             this.Password_TextBox.Size = new System.Drawing.Size(196, 20);
-            this.Password_TextBox.TabIndex = 4;
+            this.Password_TextBox.TabIndex = 0;
             this.Password_TextBox.TextChanged += new System.EventHandler(this.Password_TextBox_TextChanged);
             // 
             // Registrar_Button
@@ -65,7 +65,7 @@
             this.Registrar_Button.Location = new System.Drawing.Point(123, 203);
             this.Registrar_Button.Name = "Registrar_Button";
             this.Registrar_Button.Size = new System.Drawing.Size(104, 30);
-            this.Registrar_Button.TabIndex = 6;
+            this.Registrar_Button.TabIndex = 0;
             this.Registrar_Button.Text = "Continuar >>";
             this.Registrar_Button.UseVisualStyleBackColor = true;
             this.Registrar_Button.Click += new System.EventHandler(this.Registrar_Button_Click);
@@ -75,7 +75,7 @@
             this.Limpiar_Button.Location = new System.Drawing.Point(10, 203);
             this.Limpiar_Button.Name = "Limpiar_Button";
             this.Limpiar_Button.Size = new System.Drawing.Size(104, 30);
-            this.Limpiar_Button.TabIndex = 7;
+            this.Limpiar_Button.TabIndex = 1;
             this.Limpiar_Button.Text = "<< Volver";
             this.Limpiar_Button.UseVisualStyleBackColor = true;
             this.Limpiar_Button.Click += new System.EventHandler(this.Limpiar_Button_Click);
@@ -86,7 +86,7 @@
             this.Rol_Combo.Location = new System.Drawing.Point(10, 20);
             this.Rol_Combo.Name = "Rol_Combo";
             this.Rol_Combo.Size = new System.Drawing.Size(196, 21);
-            this.Rol_Combo.TabIndex = 8;
+            this.Rol_Combo.TabIndex = 0;
             this.Rol_Combo.SelectedIndexChanged += new System.EventHandler(this.Rol_Combo_SelectedIndexChanged);
             // 
             // groupBox1

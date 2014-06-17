@@ -46,7 +46,7 @@
             this.cbRubros.Location = new System.Drawing.Point(10, 20);
             this.cbRubros.Name = "cbRubros";
             this.cbRubros.Size = new System.Drawing.Size(190, 21);
-            this.cbRubros.TabIndex = 1;
+            this.cbRubros.TabIndex = 0;
             // 
             // eliminar
             // 
@@ -63,7 +63,7 @@
             this.crear.Location = new System.Drawing.Point(111, 50);
             this.crear.Name = "crear";
             this.crear.Size = new System.Drawing.Size(90, 30);
-            this.crear.TabIndex = 3;
+            this.crear.TabIndex = 1;
             this.crear.Text = "Crear";
             this.crear.UseVisualStyleBackColor = true;
             this.crear.Click += new System.EventHandler(this.nuevo_Click);
@@ -73,7 +73,7 @@
             this.modificar.Location = new System.Drawing.Point(10, 50);
             this.modificar.Name = "modificar";
             this.modificar.Size = new System.Drawing.Size(90, 30);
-            this.modificar.TabIndex = 4;
+            this.modificar.TabIndex = 1;
             this.modificar.Text = "Modificar";
             this.modificar.UseVisualStyleBackColor = true;
             this.modificar.Click += new System.EventHandler(this.modificar_Click);
@@ -84,7 +84,7 @@
             this.nuevoRubro.MaxLength = 255;
             this.nuevoRubro.Name = "nuevoRubro";
             this.nuevoRubro.Size = new System.Drawing.Size(190, 20);
-            this.nuevoRubro.TabIndex = 6;
+            this.nuevoRubro.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -114,7 +114,7 @@
             this.back.Location = new System.Drawing.Point(10, 210);
             this.back.Name = "back";
             this.back.Size = new System.Drawing.Size(85, 30);
-            this.back.TabIndex = 9;
+            this.back.TabIndex = 0;
             this.back.Text = "<< Volver";
             this.back.UseVisualStyleBackColor = true;
             this.back.Click += new System.EventHandler(this.back_Click);

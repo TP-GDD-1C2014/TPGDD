@@ -68,7 +68,7 @@
             this.razonSocial.MaxLength = 255;
             this.razonSocial.Name = "razonSocial";
             this.razonSocial.Size = new System.Drawing.Size(158, 20);
-            this.razonSocial.TabIndex = 1;
+            this.razonSocial.TabIndex = 0;
             // 
             // label2
             // 
@@ -85,7 +85,7 @@
             this.cuit.MaxLength = 50;
             this.cuit.Name = "cuit";
             this.cuit.Size = new System.Drawing.Size(158, 20);
-            this.cuit.TabIndex = 3;
+            this.cuit.TabIndex = 1;
             // 
             // label3
             // 
@@ -147,7 +147,7 @@
             this.telefono.MaxLength = 18;
             this.telefono.Name = "telefono";
             this.telefono.Size = new System.Drawing.Size(158, 20);
-            this.telefono.TabIndex = 10;
+            this.telefono.TabIndex = 0;
             this.telefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // direccion
@@ -156,7 +156,7 @@
             this.direccion.MaxLength = 255;
             this.direccion.Name = "direccion";
             this.direccion.Size = new System.Drawing.Size(158, 20);
-            this.direccion.TabIndex = 11;
+            this.direccion.TabIndex = 1;
             // 
             // codigoPostal
             // 
@@ -164,7 +164,7 @@
             this.codigoPostal.MaxLength = 50;
             this.codigoPostal.Name = "codigoPostal";
             this.codigoPostal.Size = new System.Drawing.Size(158, 20);
-            this.codigoPostal.TabIndex = 12;
+            this.codigoPostal.TabIndex = 2;
             this.codigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // ciudad
@@ -173,7 +173,7 @@
             this.ciudad.MaxLength = 50;
             this.ciudad.Name = "ciudad";
             this.ciudad.Size = new System.Drawing.Size(158, 20);
-            this.ciudad.TabIndex = 13;
+            this.ciudad.TabIndex = 3;
             // 
             // email
             // 
@@ -181,7 +181,7 @@
             this.email.MaxLength = 50;
             this.email.Name = "email";
             this.email.Size = new System.Drawing.Size(158, 20);
-            this.email.TabIndex = 14;
+            this.email.TabIndex = 4;
             // 
             // nombreContacto
             // 
@@ -189,14 +189,14 @@
             this.nombreContacto.MaxLength = 50;
             this.nombreContacto.Name = "nombreContacto";
             this.nombreContacto.Size = new System.Drawing.Size(158, 20);
-            this.nombreContacto.TabIndex = 15;
+            this.nombreContacto.TabIndex = 5;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(159, 332);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(135, 30);
-            this.button1.TabIndex = 16;
+            this.button1.TabIndex = 0;
             this.button1.Text = "Registrarse";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -249,7 +249,7 @@
             this.cancel.Location = new System.Drawing.Point(10, 332);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(135, 30);
-            this.cancel.TabIndex = 21;
+            this.cancel.TabIndex = 1;
             this.cancel.Text = "Cancelar";
             this.cancel.UseVisualStyleBackColor = true;
             this.cancel.Click += new System.EventHandler(this.cancel_Click);

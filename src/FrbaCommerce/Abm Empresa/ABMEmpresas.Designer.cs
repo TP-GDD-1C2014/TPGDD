@@ -89,7 +89,7 @@
             this.registrar.Location = new System.Drawing.Point(140, 257);
             this.registrar.Name = "registrar";
             this.registrar.Size = new System.Drawing.Size(152, 30);
-            this.registrar.TabIndex = 31;
+            this.registrar.TabIndex = 8;
             this.registrar.Text = "Registrar";
             this.registrar.UseVisualStyleBackColor = true;
             this.registrar.Click += new System.EventHandler(this.registrar_Click);
@@ -100,7 +100,7 @@
             this.tNombreDeContacto.MaxLength = 50;
             this.tNombreDeContacto.Name = "tNombreDeContacto";
             this.tNombreDeContacto.Size = new System.Drawing.Size(152, 20);
-            this.tNombreDeContacto.TabIndex = 30;
+            this.tNombreDeContacto.TabIndex = 7;
             this.tNombreDeContacto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tCuit
@@ -109,7 +109,7 @@
             this.tCuit.MaxLength = 50;
             this.tCuit.Name = "tCuit";
             this.tCuit.Size = new System.Drawing.Size(152, 20);
-            this.tCuit.TabIndex = 29;
+            this.tCuit.TabIndex = 6;
             // 
             // tCiudad
             // 
@@ -117,7 +117,7 @@
             this.tCiudad.MaxLength = 50;
             this.tCiudad.Name = "tCiudad";
             this.tCiudad.Size = new System.Drawing.Size(152, 20);
-            this.tCiudad.TabIndex = 28;
+            this.tCiudad.TabIndex = 5;
             // 
             // tCodigoPostal
             // 
@@ -125,7 +125,7 @@
             this.tCodigoPostal.MaxLength = 50;
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(152, 20);
-            this.tCodigoPostal.TabIndex = 27;
+            this.tCodigoPostal.TabIndex = 4;
             this.tCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tDireccion
@@ -134,7 +134,7 @@
             this.tDireccion.MaxLength = 255;
             this.tDireccion.Name = "tDireccion";
             this.tDireccion.Size = new System.Drawing.Size(152, 20);
-            this.tDireccion.TabIndex = 26;
+            this.tDireccion.TabIndex = 3;
             // 
             // tTelefono
             // 
@@ -142,7 +142,7 @@
             this.tTelefono.MaxLength = 18;
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(152, 20);
-            this.tTelefono.TabIndex = 25;
+            this.tTelefono.TabIndex = 2;
             this.tTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tEmail
@@ -151,7 +151,7 @@
             this.tEmail.MaxLength = 50;
             this.tEmail.Name = "tEmail";
             this.tEmail.Size = new System.Drawing.Size(152, 20);
-            this.tEmail.TabIndex = 24;
+            this.tEmail.TabIndex = 1;
             // 
             // tRazonSocial
             // 
@@ -159,7 +159,7 @@
             this.tRazonSocial.MaxLength = 255;
             this.tRazonSocial.Name = "tRazonSocial";
             this.tRazonSocial.Size = new System.Drawing.Size(152, 20);
-            this.tRazonSocial.TabIndex = 23;
+            this.tRazonSocial.TabIndex = 0;
             // 
             // label11
             // 
@@ -260,7 +260,7 @@
             this.buscar.Location = new System.Drawing.Point(238, 37);
             this.buscar.Name = "buscar";
             this.buscar.Size = new System.Drawing.Size(55, 30);
-            this.buscar.TabIndex = 7;
+            this.buscar.TabIndex = 2;
             this.buscar.Text = "Buscar";
             this.buscar.UseVisualStyleBackColor = true;
             this.buscar.Click += new System.EventHandler(this.buscar_Click);
@@ -280,21 +280,21 @@
             this.cbFiltro.Location = new System.Drawing.Point(11, 43);
             this.cbFiltro.Name = "cbFiltro";
             this.cbFiltro.Size = new System.Drawing.Size(82, 21);
-            this.cbFiltro.TabIndex = 5;
+            this.cbFiltro.TabIndex = 0;
             // 
             // tBusqueda
             // 
             this.tBusqueda.Location = new System.Drawing.Point(102, 43);
             this.tBusqueda.Name = "tBusqueda";
             this.tBusqueda.Size = new System.Drawing.Size(130, 20);
-            this.tBusqueda.TabIndex = 4;
+            this.tBusqueda.TabIndex = 1;
             // 
             // back
             // 
             this.back.Location = new System.Drawing.Point(10, 395);
             this.back.Name = "back";
             this.back.Size = new System.Drawing.Size(85, 30);
-            this.back.TabIndex = 11;
+            this.back.TabIndex = 0;
             this.back.Text = "<< Volver";
             this.back.UseVisualStyleBackColor = true;
             this.back.Click += new System.EventHandler(this.back_Click);

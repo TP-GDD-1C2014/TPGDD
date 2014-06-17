@@ -107,7 +107,7 @@
             this.registrar.Location = new System.Drawing.Point(140, 287);
             this.registrar.Name = "registrar";
             this.registrar.Size = new System.Drawing.Size(152, 30);
-            this.registrar.TabIndex = 20;
+            this.registrar.TabIndex = 11;
             this.registrar.Text = "Registrar";
             this.registrar.UseVisualStyleBackColor = true;
             this.registrar.Click += new System.EventHandler(this.registrar_Click);
@@ -118,7 +118,7 @@
             this.cbAno.Location = new System.Drawing.Point(240, 257);
             this.cbAno.Name = "cbAno";
             this.cbAno.Size = new System.Drawing.Size(52, 21);
-            this.cbAno.TabIndex = 19;
+            this.cbAno.TabIndex = 10;
             // 
             // cbMes
             // 
@@ -126,7 +126,7 @@
             this.cbMes.Location = new System.Drawing.Point(190, 257);
             this.cbMes.Name = "cbMes";
             this.cbMes.Size = new System.Drawing.Size(40, 21);
-            this.cbMes.TabIndex = 18;
+            this.cbMes.TabIndex = 9;
             // 
             // cbDia
             // 
@@ -134,7 +134,7 @@
             this.cbDia.Location = new System.Drawing.Point(140, 257);
             this.cbDia.Name = "cbDia";
             this.cbDia.Size = new System.Drawing.Size(40, 21);
-            this.cbDia.TabIndex = 17;
+            this.cbDia.TabIndex = 8;
             // 
             // cbTipoDocumento
             // 
@@ -142,7 +142,7 @@
             this.cbTipoDocumento.Location = new System.Drawing.Point(140, 77);
             this.cbTipoDocumento.Name = "cbTipoDocumento";
             this.cbTipoDocumento.Size = new System.Drawing.Size(152, 21);
-            this.cbTipoDocumento.TabIndex = 16;
+            this.cbTipoDocumento.TabIndex = 2;
             // 
             // tNombre
             // 
@@ -150,7 +150,7 @@
             this.tNombre.MaxLength = 255;
             this.tNombre.Name = "tNombre";
             this.tNombre.Size = new System.Drawing.Size(152, 20);
-            this.tNombre.TabIndex = 15;
+            this.tNombre.TabIndex = 0;
             this.tNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tApellido
@@ -159,7 +159,7 @@
             this.tApellido.MaxLength = 255;
             this.tApellido.Name = "tApellido";
             this.tApellido.Size = new System.Drawing.Size(152, 20);
-            this.tApellido.TabIndex = 14;
+            this.tApellido.TabIndex = 1;
             this.tApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tCodigoPostal
@@ -168,7 +168,7 @@
             this.tCodigoPostal.MaxLength = 50;
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(152, 20);
-            this.tCodigoPostal.TabIndex = 13;
+            this.tCodigoPostal.TabIndex = 7;
             this.tCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tDireccion
@@ -177,7 +177,7 @@
             this.tDireccion.MaxLength = 255;
             this.tDireccion.Name = "tDireccion";
             this.tDireccion.Size = new System.Drawing.Size(152, 20);
-            this.tDireccion.TabIndex = 12;
+            this.tDireccion.TabIndex = 6;
             // 
             // tTelefono
             // 
@@ -185,7 +185,7 @@
             this.tTelefono.MaxLength = 18;
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(152, 20);
-            this.tTelefono.TabIndex = 11;
+            this.tTelefono.TabIndex = 5;
             this.tTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tEmail
@@ -194,7 +194,7 @@
             this.tEmail.MaxLength = 255;
             this.tEmail.Name = "tEmail";
             this.tEmail.Size = new System.Drawing.Size(152, 20);
-            this.tEmail.TabIndex = 10;
+            this.tEmail.TabIndex = 4;
             // 
             // tNumeroDocumento
             // 
@@ -202,7 +202,7 @@
             this.tNumeroDocumento.MaxLength = 18;
             this.tNumeroDocumento.Name = "tNumeroDocumento";
             this.tNumeroDocumento.Size = new System.Drawing.Size(152, 20);
-            this.tNumeroDocumento.TabIndex = 9;
+            this.tNumeroDocumento.TabIndex = 3;
             this.tNumeroDocumento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // label9
@@ -306,7 +306,7 @@
             this.cbFiltroTipoDocumento.Location = new System.Drawing.Point(100, 42);
             this.cbFiltroTipoDocumento.Name = "cbFiltroTipoDocumento";
             this.cbFiltroTipoDocumento.Size = new System.Drawing.Size(130, 21);
-            this.cbFiltroTipoDocumento.TabIndex = 4;
+            this.cbFiltroTipoDocumento.TabIndex = 1;
             this.cbFiltroTipoDocumento.Visible = false;
             // 
             // button2
@@ -314,7 +314,7 @@
             this.button2.Location = new System.Drawing.Point(236, 36);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(55, 30);
-            this.button2.TabIndex = 3;
+            this.button2.TabIndex = 2;
             this.button2.Text = "Buscar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -334,12 +334,13 @@
             this.cbFiltro.Location = new System.Drawing.Point(9, 42);
             this.cbFiltro.Name = "cbFiltro";
             this.cbFiltro.Size = new System.Drawing.Size(82, 21);
-            this.cbFiltro.TabIndex = 1;
+            this.cbFiltro.TabIndex = 0;
             this.cbFiltro.SelectedIndexChanged += new System.EventHandler(this.cbFiltro_SelectedIndexChanged);
             // 
             // tBusqueda
             // 
             this.tBusqueda.Location = new System.Drawing.Point(100, 42);
+            this.tBusqueda.MaxLength = 255;
             this.tBusqueda.Name = "tBusqueda";
             this.tBusqueda.Size = new System.Drawing.Size(130, 20);
             this.tBusqueda.TabIndex = 0;
@@ -349,7 +350,7 @@
             this.back.Location = new System.Drawing.Point(10, 425);
             this.back.Name = "back";
             this.back.Size = new System.Drawing.Size(85, 30);
-            this.back.TabIndex = 10;
+            this.back.TabIndex = 0;
             this.back.Text = "<< Volver";
             this.back.UseVisualStyleBackColor = true;
             this.back.Click += new System.EventHandler(this.back_Click_1);

@@ -64,7 +64,7 @@
             this.Username_TextBox.Location = new System.Drawing.Point(13, 45);
             this.Username_TextBox.Name = "Username_TextBox";
             this.Username_TextBox.Size = new System.Drawing.Size(220, 20);
-            this.Username_TextBox.TabIndex = 2;
+            this.Username_TextBox.TabIndex = 0;
             this.Username_TextBox.TextChanged += new System.EventHandler(this.Username_TextBox_TextChanged);
             this.Username_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Username_KeyPress);
             // 
@@ -73,7 +73,7 @@
             this.Password_TextBox.Location = new System.Drawing.Point(13, 95);
             this.Password_TextBox.Name = "Password_TextBox";
             this.Password_TextBox.Size = new System.Drawing.Size(220, 20);
-            this.Password_TextBox.TabIndex = 3;
+            this.Password_TextBox.TabIndex = 1;
             this.Password_TextBox.TextChanged += new System.EventHandler(this.Password_TextBox_TextChanged);
             // 
             // Login_Button
@@ -81,7 +81,7 @@
             this.Login_Button.Location = new System.Drawing.Point(129, 125);
             this.Login_Button.Name = "Login_Button";
             this.Login_Button.Size = new System.Drawing.Size(105, 38);
-            this.Login_Button.TabIndex = 4;
+            this.Login_Button.TabIndex = 2;
             this.Login_Button.Text = "Ingresar";
             this.Login_Button.UseVisualStyleBackColor = true;
             this.Login_Button.Click += new System.EventHandler(this.Login_Button_Click);
@@ -91,7 +91,7 @@
             this.RegistrarUsuario_Button.Location = new System.Drawing.Point(13, 125);
             this.RegistrarUsuario_Button.Name = "RegistrarUsuario_Button";
             this.RegistrarUsuario_Button.Size = new System.Drawing.Size(105, 38);
-            this.RegistrarUsuario_Button.TabIndex = 5;
+            this.RegistrarUsuario_Button.TabIndex = 3;
             this.RegistrarUsuario_Button.Text = "Registrarme";
             this.RegistrarUsuario_Button.UseVisualStyleBackColor = true;
             this.RegistrarUsuario_Button.Click += new System.EventHandler(this.RegistrarUsuario_Button_Click);

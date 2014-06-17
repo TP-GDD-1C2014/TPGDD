@@ -42,14 +42,14 @@
             this.cbFuncionalidades.Location = new System.Drawing.Point(10, 20);
             this.cbFuncionalidades.Name = "cbFuncionalidades";
             this.cbFuncionalidades.Size = new System.Drawing.Size(248, 21);
-            this.cbFuncionalidades.TabIndex = 1;
+            this.cbFuncionalidades.TabIndex = 0;
             // 
             // continuar
             // 
             this.continuar.Location = new System.Drawing.Point(139, 50);
             this.continuar.Name = "continuar";
             this.continuar.Size = new System.Drawing.Size(120, 30);
-            this.continuar.TabIndex = 2;
+            this.continuar.TabIndex = 1;
             this.continuar.Text = "Continuar >>";
             this.continuar.UseVisualStyleBackColor = true;
             this.continuar.Click += new System.EventHandler(this.continuar_Click);
@@ -59,7 +59,7 @@
             this.volver.Location = new System.Drawing.Point(10, 50);
             this.volver.Name = "volver";
             this.volver.Size = new System.Drawing.Size(120, 30);
-            this.volver.TabIndex = 3;
+            this.volver.TabIndex = 2;
             this.volver.Text = "<< Volver";
             this.volver.UseVisualStyleBackColor = true;
             this.volver.Click += new System.EventHandler(this.volver_Click);

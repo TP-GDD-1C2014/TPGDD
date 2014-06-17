@@ -270,6 +270,15 @@ namespace FrbaCommerce.Abm_Empresa
             BDSQL.cerrarConexion();
         }
 
+        public void cambiarNullEmpresas(string columna)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@Valor", DBNull.Value);
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Empresas SET " + columna + " = @Valor WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
         public void cambiarFecha(string columna, DateTime fecha)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -331,7 +340,7 @@ namespace FrbaCommerce.Abm_Empresa
                 else
                 {
                     //MessageBox.Show("Nombre de usuario inválido.", "Error");
-                    resumenErrores = resumenErrores + "\nNombre de usuario (ya existente)";
+                    resumenErrores = resumenErrores + "\nNombre de usuario (no ingresado o ya existente)";
                     error = true;
                 }
             }
@@ -352,30 +361,46 @@ namespace FrbaCommerce.Abm_Empresa
 
             if (cambioString(this.vPublicacionesGratuitas, tPublicacionesGratuitas.Text))
             {
-                if ((Convert.ToInt32(tPublicacionesGratuitas.Text) <= 255) && (Convert.ToInt32(tPublicacionesGratuitas.Text) >= 0))
+                if (!tPublicacionesGratuitas.Text.Equals(""))
                 {
-                    cambiarIntUsuarios("Cant_Publi_Gratuitas", (Convert.ToInt32(tPublicacionesGratuitas.Text)));
-                    resumenModificaciones = resumenModificaciones + "\nPublicaciones gratuitas";
-                    modificacion = true;
+                    if ((Convert.ToInt32(tPublicacionesGratuitas.Text) <= 255) && (Convert.ToInt32(tPublicacionesGratuitas.Text) >= 0))
+                    {
+                        cambiarIntUsuarios("Cant_Publi_Gratuitas", (Convert.ToInt32(tPublicacionesGratuitas.Text)));
+                        resumenModificaciones = resumenModificaciones + "\nPublicaciones gratuitas";
+                        modificacion = true;
+                    }
+                    else
+                    {
+                        //MessageBox.Show("Cantidad de publicaciones gratuitas inválida.", "Error");
+                        resumenErrores = resumenErrores + "\nPublicaciones gratuitas (valor muy grande o negativo)";
+                        error = true;
+                    }
                 }
                 else
                 {
-                    //MessageBox.Show("Cantidad de publicaciones gratuitas inválida.", "Error");
-                    resumenErrores = resumenErrores + "\nPublicaciones gratuitas (valor muy grande o negativo)";
+                    resumenErrores = resumenErrores + "\nPublicaciones gratuitas (no ingresadas)";
                     error = true;
                 }
             }
 
             if (cambioString(this.vRazonSocial, tRazonSocial.Text))
             {
-                cambiarStringEmpresas("Razon_Social", tRazonSocial.Text);
-                resumenModificaciones = resumenModificaciones + "\nRazón Social";
-                modificacion = true;
+                if (!tRazonSocial.Text.Equals("") && !BDSQL.existeString(tRazonSocial.Text, "MERCADONEGRO.Empresas", "Razon_Social"))
+                {
+                    cambiarStringEmpresas("Razon_Social", tRazonSocial.Text);
+                    resumenModificaciones = resumenModificaciones + "\nRazón Social";
+                    modificacion = true;
+                }
+                else
+                {
+                    resumenErrores = resumenErrores + "\nRazón Social (no ingresada o ya existente)";
+                    error = true;
+                }
             }
 
             if (cambioString(this.vCUIT, tCUIT.Text))
             {
-                if (tCUIT.Text.Length <= 50)
+                if (!tCUIT.Text.Equals("") && !BDSQL.existeString(tCUIT.Text, "MERCADONEGRO.Empresas", "CUIT") && tCUIT.Text.Length <= 50)
                 {
                     cambiarStringEmpresas("CUIT", tCUIT.Text);
                     resumenModificaciones = resumenModificaciones + "\nCUIT";
@@ -384,22 +409,30 @@ namespace FrbaCommerce.Abm_Empresa
                 else
                 {
                     //MessageBox.Show("CUIT inválido.", "Error");
-                    resumenErrores = resumenErrores + "\nCUIT (valor muy grande)";
+                    resumenErrores = resumenErrores + "\nCUIT (no ingresado o ya existente)";
                     error = true;
                 }
             }
 
             if (cambioString(this.vTelefono, tTelefono.Text))
             {
-                if ((Interfaz.esNumerico(tTelefono.Text, System.Globalization.NumberStyles.Integer)) && (tTelefono.Text.Length <= 18))
+                if (tTelefono.Text.Equals("") || ((Interfaz.esNumerico(tTelefono.Text, System.Globalization.NumberStyles.Integer)) && (tTelefono.Text.Length <= 18)))
                 {
-                    cambiarLongIntEmpresas("Telefono", Convert.ToInt64(tTelefono.Text));
-                    resumenModificaciones = resumenModificaciones + "\nTeléfono";
-                    modificacion = true;
+                    if (tTelefono.Text.Equals(""))
+                    {
+                        cambiarNullEmpresas("Telefono");
+                        resumenModificaciones = resumenModificaciones + "\nTeléfono";
+                        modificacion = true;
+                    }
+                    else
+                    {
+                        cambiarLongIntEmpresas("Telefono", Convert.ToInt64(tTelefono.Text));
+                        resumenModificaciones = resumenModificaciones + "\nTeléfono";
+                        modificacion = true;
+                    }
                 }
                 else
                 {
-                    //MessageBox.Show("Teléfono inválido.", "Error");
                     resumenErrores = resumenErrores + "\nTeléfono (valor no numérico o muy grande)";
                     error = true;
                 }
@@ -407,14 +440,22 @@ namespace FrbaCommerce.Abm_Empresa
 
             if (cambioString(this.vDireccion, tDireccion.Text))
             {
-                cambiarStringEmpresas("Direccion", tDireccion.Text);
-                resumenModificaciones = resumenModificaciones + "\nDirección";
-                modificacion = true;
+                if (!tDireccion.Text.Equals(""))
+                {
+                    cambiarStringEmpresas("Direccion", tDireccion.Text);
+                    resumenModificaciones = resumenModificaciones + "\nDirección";
+                    modificacion = true;
+                }
+                else
+                {
+                    resumenErrores = resumenErrores + "\nDireccion (no ingresada)";
+                    error = true;
+                }
             }
 
             if (cambioString(this.vCodigoPostal, tCodigoPostal.Text))
             {
-                if (tCodigoPostal.Text.Length <= 50)
+                if (!tCodigoPostal.Text.Equals("") && tCodigoPostal.Text.Length <= 50)
                 {
                     cambiarStringEmpresas("Codigo_Postal", tCodigoPostal.Text);
                     resumenModificaciones = resumenModificaciones + "\nCódigo postal";
@@ -422,19 +463,27 @@ namespace FrbaCommerce.Abm_Empresa
                 }
                 else
                 {
-                    //MessageBox.Show("Código postal inválido.", "Error");
-                    resumenErrores = resumenErrores + "\nCódigo postal (valor muy grande)";
+                    resumenErrores = resumenErrores + "\nCódigo postal (no ingresado)";
                     error = true;
                 }
             }
 
             if (cambioString(this.vCiudad, tCiudad.Text))
             {
-                if (tCiudad.Text.Length <= 50)
+                if (tCiudad.Text.Equals("") || tCiudad.Text.Length <= 50)
                 {
-                    cambiarStringEmpresas("Ciudad", tCiudad.Text);
-                    resumenModificaciones = resumenModificaciones + "\nCiudad";
-                    modificacion = true;
+                    if (tCiudad.Text.Equals(""))
+                    {
+                        cambiarNullEmpresas("Ciudad");
+                        resumenModificaciones = resumenModificaciones + "\nCiudad";
+                        modificacion = true;
+                    }
+                    else
+                    {
+                        cambiarStringEmpresas("Ciudad", tCiudad.Text);
+                        resumenModificaciones = resumenModificaciones + "\nCiudad";
+                        modificacion = true;
+                    }
                 }
                 else
                 {
@@ -446,18 +495,35 @@ namespace FrbaCommerce.Abm_Empresa
 
             if (cambioString(this.vEmail, tEmail.Text))
             {
-                cambiarStringEmpresas("Mail", tEmail.Text);
-                resumenModificaciones = resumenModificaciones + "\nE-mail";
-                modificacion = true;
+                if (!tEmail.Text.Equals(""))
+                {
+                    cambiarStringEmpresas("Mail", tEmail.Text);
+                    resumenModificaciones = resumenModificaciones + "\nE-mail";
+                    modificacion = true;
+                }
+                else
+                {
+                    resumenErrores = resumenErrores + "\nE-mail (no ingresado)";
+                    error = true;
+                }
             }
 
             if (cambioString(this.vNombreDeContacto, tNombreDeContacto.Text))
             {
-                if (tNombreDeContacto.Text.Length <= 50)
+                if (tNombreDeContacto.Text.Equals("") || tNombreDeContacto.Text.Length <= 50)
                 {
-                    cambiarStringEmpresas("Nombre_Contacto", tNombreDeContacto.Text);
-                    resumenModificaciones = resumenModificaciones + "\nNombre de contacto";
-                    modificacion = true;
+                    if (!tNombreDeContacto.Text.Equals(""))
+                    {
+                        cambiarStringEmpresas("Nombre_Contacto", tNombreDeContacto.Text);
+                        resumenModificaciones = resumenModificaciones + "\nNombre de contacto";
+                        modificacion = true;
+                    }
+                    else
+                    {
+                        cambiarNullEmpresas("Nombre_Contacto");
+                        resumenModificaciones = resumenModificaciones + "\nNombre de contacto";
+                        modificacion = true;
+                    }
                 }
                 else
                 {
@@ -489,6 +555,24 @@ namespace FrbaCommerce.Abm_Empresa
             {
                 this.Close();
                 formAnterior.Show();
+            }
+        }
+
+        private void textboxNumerico_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)
+                   && !char.IsDigit(e.KeyChar)
+                   )
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textboxNoNumerico_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar < 65 || e.KeyChar > 122)
+            {
+                e.Handled = true;
             }
         }
     }

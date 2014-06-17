@@ -82,7 +82,7 @@
             this.tUsername.Name = "tUsername";
             this.tUsername.ReadOnly = true;
             this.tUsername.Size = new System.Drawing.Size(150, 20);
-            this.tUsername.TabIndex = 4;
+            this.tUsername.TabIndex = 0;
             // 
             // tPassword
             // 
@@ -91,7 +91,7 @@
             this.tPassword.Name = "tPassword";
             this.tPassword.ReadOnly = true;
             this.tPassword.Size = new System.Drawing.Size(150, 20);
-            this.tPassword.TabIndex = 5;
+            this.tPassword.TabIndex = 1;
             // 
             // tGB
             // 
@@ -111,7 +111,7 @@
             this.button1.Location = new System.Drawing.Point(202, 150);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 30);
-            this.button1.TabIndex = 7;
+            this.button1.TabIndex = 0;
             this.button1.Text = "Aceptar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);

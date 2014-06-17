@@ -87,7 +87,7 @@
             this.cbHabilitado.Location = new System.Drawing.Point(127, 77);
             this.cbHabilitado.Name = "cbHabilitado";
             this.cbHabilitado.Size = new System.Drawing.Size(165, 21);
-            this.cbHabilitado.TabIndex = 8;
+            this.cbHabilitado.TabIndex = 2;
             // 
             // tPassword
             // 
@@ -95,7 +95,7 @@
             this.tPassword.MaxLength = 255;
             this.tPassword.Name = "tPassword";
             this.tPassword.Size = new System.Drawing.Size(165, 20);
-            this.tPassword.TabIndex = 7;
+            this.tPassword.TabIndex = 1;
             // 
             // tUsername
             // 
@@ -103,7 +103,7 @@
             this.tUsername.MaxLength = 255;
             this.tUsername.Name = "tUsername";
             this.tUsername.Size = new System.Drawing.Size(165, 20);
-            this.tUsername.TabIndex = 6;
+            this.tUsername.TabIndex = 0;
             // 
             // tPublicacionesGratuitas
             // 
@@ -111,7 +111,7 @@
             this.tPublicacionesGratuitas.MaxLength = 50;
             this.tPublicacionesGratuitas.Name = "tPublicacionesGratuitas";
             this.tPublicacionesGratuitas.Size = new System.Drawing.Size(165, 20);
-            this.tPublicacionesGratuitas.TabIndex = 5;
+            this.tPublicacionesGratuitas.TabIndex = 3;
             // 
             // label5
             // 
@@ -184,7 +184,7 @@
             this.cbAno.Location = new System.Drawing.Point(232, 257);
             this.cbAno.Name = "cbAno";
             this.cbAno.Size = new System.Drawing.Size(60, 21);
-            this.cbAno.TabIndex = 22;
+            this.cbAno.TabIndex = 10;
             // 
             // cbMes
             // 
@@ -192,7 +192,7 @@
             this.cbMes.Location = new System.Drawing.Point(180, 257);
             this.cbMes.Name = "cbMes";
             this.cbMes.Size = new System.Drawing.Size(45, 21);
-            this.cbMes.TabIndex = 21;
+            this.cbMes.TabIndex = 9;
             // 
             // cbDia
             // 
@@ -200,7 +200,7 @@
             this.cbDia.Location = new System.Drawing.Point(127, 257);
             this.cbDia.Name = "cbDia";
             this.cbDia.Size = new System.Drawing.Size(45, 21);
-            this.cbDia.TabIndex = 20;
+            this.cbDia.TabIndex = 8;
             // 
             // tNombreDeContacto
             // 
@@ -208,7 +208,8 @@
             this.tNombreDeContacto.MaxLength = 50;
             this.tNombreDeContacto.Name = "tNombreDeContacto";
             this.tNombreDeContacto.Size = new System.Drawing.Size(165, 20);
-            this.tNombreDeContacto.TabIndex = 16;
+            this.tNombreDeContacto.TabIndex = 7;
+            this.tNombreDeContacto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tEmail
             // 
@@ -216,7 +217,7 @@
             this.tEmail.MaxLength = 50;
             this.tEmail.Name = "tEmail";
             this.tEmail.Size = new System.Drawing.Size(165, 20);
-            this.tEmail.TabIndex = 15;
+            this.tEmail.TabIndex = 6;
             // 
             // tCiudad
             // 
@@ -224,7 +225,7 @@
             this.tCiudad.MaxLength = 50;
             this.tCiudad.Name = "tCiudad";
             this.tCiudad.Size = new System.Drawing.Size(165, 20);
-            this.tCiudad.TabIndex = 14;
+            this.tCiudad.TabIndex = 5;
             // 
             // tCodigoPostal
             // 
@@ -232,7 +233,8 @@
             this.tCodigoPostal.MaxLength = 50;
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(165, 20);
-            this.tCodigoPostal.TabIndex = 13;
+            this.tCodigoPostal.TabIndex = 4;
+            this.tCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tDireccion
             // 
@@ -240,7 +242,7 @@
             this.tDireccion.MaxLength = 255;
             this.tDireccion.Name = "tDireccion";
             this.tDireccion.Size = new System.Drawing.Size(165, 20);
-            this.tDireccion.TabIndex = 12;
+            this.tDireccion.TabIndex = 3;
             // 
             // tTelefono
             // 
@@ -248,7 +250,8 @@
             this.tTelefono.MaxLength = 18;
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(165, 20);
-            this.tTelefono.TabIndex = 11;
+            this.tTelefono.TabIndex = 2;
+            this.tTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tCUIT
             // 
@@ -256,7 +259,7 @@
             this.tCUIT.MaxLength = 50;
             this.tCUIT.Name = "tCUIT";
             this.tCUIT.Size = new System.Drawing.Size(165, 20);
-            this.tCUIT.TabIndex = 10;
+            this.tCUIT.TabIndex = 1;
             // 
             // tRazonSocial
             // 
@@ -264,7 +267,7 @@
             this.tRazonSocial.MaxLength = 255;
             this.tRazonSocial.Name = "tRazonSocial";
             this.tRazonSocial.Size = new System.Drawing.Size(165, 20);
-            this.tRazonSocial.TabIndex = 9;
+            this.tRazonSocial.TabIndex = 0;
             // 
             // label13
             // 
@@ -352,7 +355,7 @@
             this.bVolver.Location = new System.Drawing.Point(10, 447);
             this.bVolver.Name = "bVolver";
             this.bVolver.Size = new System.Drawing.Size(85, 30);
-            this.bVolver.TabIndex = 11;
+            this.bVolver.TabIndex = 1;
             this.bVolver.Text = "<< Volver";
             this.bVolver.UseVisualStyleBackColor = true;
             this.bVolver.Click += new System.EventHandler(this.bVolver_Click);
@@ -362,7 +365,7 @@
             this.bModificar.Location = new System.Drawing.Point(137, 447);
             this.bModificar.Name = "bModificar";
             this.bModificar.Size = new System.Drawing.Size(173, 30);
-            this.bModificar.TabIndex = 12;
+            this.bModificar.TabIndex = 0;
             this.bModificar.Text = "Modificar";
             this.bModificar.UseVisualStyleBackColor = true;
             this.bModificar.Click += new System.EventHandler(this.bModificar_Click);
