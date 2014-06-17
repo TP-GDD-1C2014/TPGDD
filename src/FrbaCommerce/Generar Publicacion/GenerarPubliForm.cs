@@ -22,6 +22,7 @@ namespace FrbaCommerce.Generar_Publicacion
         int stockTraido;
         bool esBorrador;
         int dueñoPublicacion;
+        bool esAdmin = false;
 
         //Constructor para Generar publicacion
         public GenerarPubliForm(string modo)
@@ -78,6 +79,9 @@ namespace FrbaCommerce.Generar_Publicacion
                         Precio_textBox.Enabled = false;
                         PermitirPreguntas_Checkbox.Enabled = false;
                 }
+
+                //Comprueba si el usuario es administrador o no
+                esAdmin = Usuario.controlarRol(usuario.ID_User);
             }
         }
 
@@ -169,7 +173,15 @@ namespace FrbaCommerce.Generar_Publicacion
                 }
                 string visibilidad = Visibilidad_ComboBox.SelectedItem.ToString();
                 int visibilidadIndex = Visibilidad_ComboBox.SelectedIndex;
-                int idVendedor = dueñoPublicacion;
+                int idVendedor;
+                if (esAdmin == true)
+                {
+                    idVendedor = dueñoPublicacion;
+                }
+                else
+                {
+                    idVendedor = usuario.ID_User;
+                }
                 string descripcion = Descrip_TextBox.Text;
                 int stock = Convert.ToInt32(Stock_TextBox.Text);
                 DateTime fechaFin = Convert.ToDateTime(FechaFin_DateTimePicker.Text);
