@@ -46,6 +46,7 @@ namespace FrbaCommerce.Generar_Publicacion
                 InitializeComponent();
                 CenterToScreen();
                 llenarCombos();
+                llenarCheckedList(unaPubli.Cod_Publicacion);
 
                 //Completar form con datos traido de BuscarPubliForm
                 codPubli = unaPubli.Cod_Publicacion;
@@ -164,8 +165,9 @@ namespace FrbaCommerce.Generar_Publicacion
         private void Guardar_button_Click(object sender, EventArgs e)
         {
             //TODO Agregar condicion de seleccionar minimo 1 rubro
+            int cantRubrosSelecc = Rubro_checkedListBox.CheckedItems.Count;
             //Controlar que se completen todos los datos y asignar
-            if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !Precio_textBox.Text.Equals(""))
+            if (!Visibilidad_ComboBox.Text.Equals("") && !Descrip_TextBox.Text.Equals("") && !Stock_TextBox.Text.Equals("") && !FechaFin_DateTimePicker.Text.Equals("") && !Estado_ComboBox.Text.Equals("") && !TipoPubli_ComboBox.Text.Equals("") && !Precio_textBox.Text.Equals("") && (cantRubrosSelecc >= 1))
             {
                 //Asigna los valores a la publicacion
                 
@@ -289,7 +291,7 @@ namespace FrbaCommerce.Generar_Publicacion
                         else if ((tipoPubli == "Subasta") && (esBorrador == false) && (estado == "Finalizada"))
                         {
                             //TODO Incluir última Subasta en Operaciones
-
+//-------------------------->
 
                         }
                         else
@@ -400,7 +402,23 @@ namespace FrbaCommerce.Generar_Publicacion
             FechaFin_DateTimePicker.Text = Convert.ToString(Interfaz.obtenerFecha());
         }
 
+        public void llenarCheckedList(int codPubli)
+        {
+            List<Rubro> listaRubros = Rubro.obtenerRubros();
+            Rubro_checkedListBox.DisplayMember = "Descripcion";
+            Rubro_checkedListBox.ValueMember = "ID_Rubro";
+            for (int i = 0; i < listaRubros.Count(); i++)
+            {
+                Rubro_checkedListBox.Items.Add(new Rubro(listaRubros[i].ID_Rubro, listaRubros[i].Descripcion));
+                int rubroExistente = Rubro.encontrarRubroPublicacion(codPubli, listaRubros[i].ID_Rubro);
 
+                if (rubroExistente == 1)
+                {
+                    Rubro_checkedListBox.CheckOnClick = true;
+                }
+
+            }
+        }
 
         private void Visibilidad_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {

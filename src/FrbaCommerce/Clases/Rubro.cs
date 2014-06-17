@@ -60,6 +60,7 @@ namespace FrbaCommerce.Clases
 
         }
 
+
         //Agrega los rubros seleccionados al crear una publicacion
         public static void agregarRubroPublicacion(List<Rubro> listaRubrosSeleccionados, int nuevoCodPubli)
         {
@@ -137,6 +138,27 @@ namespace FrbaCommerce.Clases
         }
 
 
+        public static int encontrarRubroPublicacion(int codPubli, int idRubro)
+        {
+            int resultado;
+            List<int> listaRubros = new List<int>();
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            listaParametros.Add(new SqlParameter("@Cod_Publicacion", codPubli));
+            listaParametros.Add(new SqlParameter("@ID_Rubro", idRubro));
+
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Rubro_Publicacion WHERE Cod_Publicacion=@Cod_Publicacion AND ID_Rubro=@ID_Rubro", listaParametros, BDSQL.iniciarConexion());
+            if (lector.HasRows)
+            {
+                resultado = 1;
+            }
+            else
+            {
+                resultado = -1;
+            }
+
+            BDSQL.cerrarConexion();
+            return resultado;
+        }
 
 
     }
