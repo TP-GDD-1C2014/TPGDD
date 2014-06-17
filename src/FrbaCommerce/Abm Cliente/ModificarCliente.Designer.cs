@@ -217,6 +217,7 @@
             this.tCodigoPostal.Name = "tCodigoPostal";
             this.tCodigoPostal.Size = new System.Drawing.Size(165, 20);
             this.tCodigoPostal.TabIndex = 7;
+            this.tCodigoPostal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tDireccion
             // 
@@ -233,6 +234,7 @@
             this.tTelefono.Name = "tTelefono";
             this.tTelefono.Size = new System.Drawing.Size(165, 20);
             this.tTelefono.TabIndex = 5;
+            this.tTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // tEmail
             // 
@@ -249,6 +251,7 @@
             this.tApellido.Name = "tApellido";
             this.tApellido.Size = new System.Drawing.Size(165, 20);
             this.tApellido.TabIndex = 3;
+            this.tApellido.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tNombre
             // 
@@ -257,6 +260,7 @@
             this.tNombre.Name = "tNombre";
             this.tNombre.Size = new System.Drawing.Size(165, 20);
             this.tNombre.TabIndex = 2;
+            this.tNombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNoNumerico_KeyPress);
             // 
             // tNumeroDeDocumento
             // 
@@ -265,6 +269,7 @@
             this.tNumeroDeDocumento.Name = "tNumeroDeDocumento";
             this.tNumeroDeDocumento.Size = new System.Drawing.Size(165, 20);
             this.tNumeroDeDocumento.TabIndex = 1;
+            this.tNumeroDeDocumento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // label13
             // 
