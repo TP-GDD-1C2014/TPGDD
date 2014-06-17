@@ -411,10 +411,9 @@ namespace FrbaCommerce.Generar_Publicacion
             {
                 Rubro_checkedListBox.Items.Add(new Rubro(listaRubros[i].ID_Rubro, listaRubros[i].Descripcion));
                 int rubroExistente = Rubro.encontrarRubroPublicacion(codPubli, listaRubros[i].ID_Rubro);
-
                 if (rubroExistente == 1)
                 {
-                    Rubro_checkedListBox.CheckOnClick = true;
+                    Rubro_checkedListBox.SetItemChecked(i, true);
                 }
 
             }
