@@ -871,9 +871,9 @@ GO
 CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
 
 	SELECT	Usuarios.Username					AS Username,
-			Publicaciones.Cod_Publicacion		AS CodigoPublicacion,
-			Visibilidades.Jerarquia				AS JerarquiaVisibilidad,
-			Visibilidades.Descripcion			AS DescripcionVisibilidad,
+			Publicaciones.Cod_Publicacion		AS [Codigo Publicacion],
+			Visibilidades.Jerarquia				AS Jerarquia,
+			Visibilidades.Descripcion			AS Descripcion,
 			Publicaciones.Stock					AS Stock,
 			MONTH(Publicaciones.Fecha_Inicial)	AS Mes,
 			YEAR(Publicaciones.Fecha_Inicial)	AS Año
@@ -885,6 +885,7 @@ CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
 			JOIN MERCADONEGRO.Visibilidades AS Visibilidades
 				ON Publicaciones.Cod_Visibilidad = Visibilidades.Cod_Visibilidad
 GO	
+
 -------------------------------VISTA DE LAS OPERACIONES QUE NO FUERON FACTURADAS------------------------
 CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS 
 	SELECT  Username						 AS Username,
@@ -1364,6 +1365,8 @@ GO
 
 --Drops de vistas que SI tienen que estar en el sistema
 /*
+DROP VIEW MERCADONEGRO.MayorCantProductosNoVendidos
+GO
 DROP VIEW MERCADONEGRO.MayorFacturacionView
 GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
