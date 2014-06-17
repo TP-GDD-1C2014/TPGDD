@@ -196,7 +196,7 @@ namespace FrbaCommerce.Abm_Empresa
             BDSQL.agregarParametro(listaParametros, "@Cant_Publi_Gratuitas", this.cantPubliGratuitas);
             BDSQL.agregarParametro(listaParametros, "@Reputacion", this.reputacion);
             BDSQL.agregarParametro(listaParametros, "@Ventas_Sin_Rendir", this.ventasSinRendir);
-            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios VALUES (@Username, @Password, @Intentos_Login, @Habilitado, @Primera_Vez, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir)", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios VALUES (@Username, @Password, @Intentos_Login, @Habilitado, @Primera_Vez, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir, 0)", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
         }
 
