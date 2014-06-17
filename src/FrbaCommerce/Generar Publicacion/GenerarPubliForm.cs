@@ -152,6 +152,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
 
 
+        //BOTON LIMPIAR
         private void Limpiar_button_Click(object sender, EventArgs e)
         {
             Interfaz.limpiarInterfaz(this);
@@ -159,7 +160,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
 
 
-
+        //BOTON GUARDAR
         private void Guardar_button_Click(object sender, EventArgs e)
         {
             //TODO Agregar condicion de seleccionar minimo 1 rubro
@@ -198,20 +199,52 @@ namespace FrbaCommerce.Generar_Publicacion
                 //Nueva
                 if ((esNueva == true))
                 {
-                    //Nueva + Gratis + Publicada
-                    if ((visibilidad == "Gratis") && (estadoIndex == 1))
+                    //Nueva + (Stock<=0)
+                    if (stock < 1)
                     {
-                        //Obtiene la cantidad de publicaciones gratuitas del usuario
-                        int idUser = Convert.ToInt32(usuario.ID_User);
-                        int cantidadPubliGratuitas = Usuario.obtenerPublisGratuitas(idUser);
-                        
+                        MessageBox.Show("El Stock no puede ser menor a 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
-                        //Nueva + Gratis + Publicada + (CantGratis<3)
-                        if (cantidadPubliGratuitas < 3)
+                    else
+                    {
+                        //Nueva + Gratis + Publicada
+                        if ((visibilidad == "Gratis") && (estadoIndex == 1))
                         {
-                            //Sumar 1 a Cant_Publi_Gratuitas
-                            usuario.sumarPubliGratuita();
+                            //Obtiene la cantidad de publicaciones gratuitas del usuario
+                            int idUser = Convert.ToInt32(usuario.ID_User);
+                            int cantidadPubliGratuitas = Usuario.obtenerPublisGratuitas(idUser);
 
+
+                            //Nueva + Gratis + Publicada + (CantGratis<3)
+                            if (cantidadPubliGratuitas < 3)
+                            {
+                                //Sumar 1 a Cant_Publi_Gratuitas
+                                usuario.sumarPubliGratuita();
+
+                                //Inserta publicacion en la tabla Publicaciones
+                                int publiExitosa = Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                                if (publiExitosa == -1)
+                                {
+                                    MessageBox.Show("Falló al generar Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                else
+                                {
+                                    int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                                    MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK);
+                                    Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
+                                }
+
+                            }
+                            //Nueva + Gratis + Publicada + (CantGratis>=3)
+                            else
+                            {
+                                MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                        }
+
+                        //Nueva + No (Gratis + Publicada) + No (Subasta + Publicada)
+                        else
+                        {
                             //Inserta publicacion en la tabla Publicaciones
                             int publiExitosa = Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
                             if (publiExitosa == -1)
@@ -224,38 +257,16 @@ namespace FrbaCommerce.Generar_Publicacion
                                 MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK);
                                 Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
                             }
-                            
-                        }
-                        //Nueva + Gratis + Publicada + (CantGratis>=3)
-                        else
-                        {
-                            MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        }
-                    }
 
-                    //Nueva + No (Gratis + Publicada) + No (Subasta + Publicada)
-                    else
-                    {
-                        //Inserta publicacion en la tabla Publicaciones
-                        int publiExitosa = Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                        if (publiExitosa == -1)
-                        {
-                            MessageBox.Show("Falló al generar Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
+                            /*Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
                             int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                            MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK);
-                            Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
+                            MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);*/
                         }
 
-                        /*Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                        int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                        MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);*/
+                        this.Close();
                     }
 
-                    this.Close();
                 }
 
                 //Modificar
@@ -295,9 +306,16 @@ namespace FrbaCommerce.Generar_Publicacion
                                     //Si no tiene Cant_Publi_Gratuitas en numero limite, sumar 1 a Cant_Publi_Gratuitas
                                     usuario.sumarPubliGratuita();
 
+                                    //Elimina los rubros que estaban seleccionados
+                                    List<int> listaRubrosDePublicacion = Rubro.obtenerRubrosDePublicacion(publi.Cod_Publicacion);
+                                    Rubro.eliminarRubroPublicacion(listaRubrosDePublicacion, publi.Cod_Publicacion);
+                                    Publicaciones.eliminarPublicacion(publi);
+
+                                    Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, codPubli);
+
                                     //Actualiza la publicacion en la tabla Publicaciones
                                     Publicaciones.actualizarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                                    Rubro.actualizarRubroPublicacion(listaRubrosSeleccionados, codPubli);
+                                    //Rubro.actualizarRubroPublicacion(listaRubrosSeleccionados, codPubli);
                                     this.Close();
                                 }
                                 else
