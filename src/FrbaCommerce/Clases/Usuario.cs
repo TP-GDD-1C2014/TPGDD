@@ -38,6 +38,48 @@ namespace FrbaCommerce.Clases
         {
         }
 
+        public Boolean esAdmin()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@idUser", this.ID_User);
+
+            string commandText = "SELECT ID_Rol FROM MERCADONEGRO.Roles_Usuarios WHERE ID_User = @idUser";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+            if (lector.HasRows)
+            {
+                lector.Read();
+
+                int idRol = Convert.ToInt32(lector["ID_Rol"]);
+                BDSQL.cerrarConexion();
+
+
+                listaParametros.Clear();
+                BDSQL.agregarParametro(listaParametros, "@idRol", idRol);
+
+                commandText = "SELECT Nombre FROM MERCADONEGRO.Roles WHERE ID_ROL = @idRol";
+
+                lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+
+                if (lector.HasRows)
+                {
+                    lector.Read();
+
+                    string nombre = Convert.ToString(lector["Nombre"]);
+                    BDSQL.cerrarConexion();
+
+                    if (nombre == "Administrador General")
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            return false;
+        }
+
+
+
+
         public Boolean obtenerPK()
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();

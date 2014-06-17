@@ -30,9 +30,21 @@ namespace FrbaCommerce.Clases
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
-            BDSQL.agregarParametro(listaParametros, "@username", usuario.Username);
+            if (usuario.esAdmin())
+            {
+                //buscar todas las ventas sin rendir, tal que los users esten inhabilitados y las ventas_sin_Rendir > 10
+                string commandText = "SELECT * FROM MERCADONEGRO.OperacionesSinFacturar";
 
-            return BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerOperacionesSinFacturar", "SP", listaParametros);
+                return BDSQL.obtenerDataTable(commandText, "T");
+
+            }
+            else
+            {
+
+                BDSQL.agregarParametro(listaParametros, "@username", usuario.Username);
+
+                return BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerOperacionesSinFacturar", "SP", listaParametros);
+            }
 
         }
 
