@@ -178,7 +178,6 @@ namespace FrbaCommerce.Login
 
         private void Username_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = e.KeyChar == ' ';
         }
 
         private void LoginForm_Load(object sender, EventArgs e)

@@ -295,7 +295,7 @@ CREATE TABLE MERCADONEGRO.Bonificaciones
 	ID_Bonificacion	NUMERIC(18,0) IDENTITY(0,1), 
 	ID_User		    NUMERIC(18,0) NOT NULL,
 	Cantidad        NUMERIC(18,0) NOT NULL,
-	Visibilidad		NVARCHAR(255) NOT NULL,
+	Visibilidad		NUMERIC(18,0) NOT NULL,
 	
 	
 	PRIMARY KEY (ID_Bonificacion),
