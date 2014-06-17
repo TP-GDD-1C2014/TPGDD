@@ -21,6 +21,7 @@ namespace FrbaCommerce.Abm_Rubro
             this.formAnterior = formAnt;
             this.id = idRubro;
             InitializeComponent();
+            this.CenterToScreen();
         }
 
         public void modificarRubro(int id, string nuevoNombre)

@@ -72,6 +72,7 @@
             // 
             // dgCompras
             // 
+            this.dgCompras.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgCompras.Location = new System.Drawing.Point(10, 20);
             this.dgCompras.Name = "dgCompras";

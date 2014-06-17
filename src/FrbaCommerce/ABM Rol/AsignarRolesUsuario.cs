@@ -16,6 +16,7 @@ namespace FrbaCommerce.ABM_Rol
         public AsignarRolesUsuario()
         {
             InitializeComponent();
+            this.CenterToScreen();
             cargarUsuarios();
         }
 

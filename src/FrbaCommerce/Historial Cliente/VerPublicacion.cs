@@ -81,6 +81,8 @@ namespace FrbaCommerce.Historial_Cliente
             this.codPublicacion = _codPublicacion;
             InitializeComponent();
 
+            this.CenterToScreen();
+
             this.conexion = BDSQL.iniciarConexion();
 
             List<SqlParameter> listaParametros2 = new List<SqlParameter>();

@@ -59,6 +59,9 @@
             // 
             // usuariosDataGrid
             // 
+            this.usuariosDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.usuariosDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.usuariosDataGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.usuariosDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.usuariosDataGrid.Location = new System.Drawing.Point(6, 48);
             this.usuariosDataGrid.MultiSelect = false;

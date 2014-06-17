@@ -59,6 +59,9 @@
             // 
             // respuestasDataGrid
             // 
+            this.respuestasDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.respuestasDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.respuestasDataGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.respuestasDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.respuestasDataGrid.Location = new System.Drawing.Point(6, 48);
             this.respuestasDataGrid.MultiSelect = false;

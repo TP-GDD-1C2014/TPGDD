@@ -24,6 +24,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             this.password = pass;
             this.rol = rol;
             InitializeComponent();
+            this.CenterToScreen();
         }
 
         public Boolean registrarEmpresa(string username, string passwordNoHash, string razonSocial, string cuit, string telefono, string direccion, string codigoPostal, string ciudad, string email, string nombreContacto, DateTime fechaCreacion)

@@ -39,6 +39,9 @@
             // 
             // calificacionesDataGrid
             // 
+            this.calificacionesDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.calificacionesDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.calificacionesDataGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.calificacionesDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.calificacionesDataGrid.Location = new System.Drawing.Point(6, 48);
             this.calificacionesDataGrid.Name = "calificacionesDataGrid";

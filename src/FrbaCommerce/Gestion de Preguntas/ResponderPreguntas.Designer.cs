@@ -59,6 +59,9 @@
             // 
             // preguntasDataGrid
             // 
+            this.preguntasDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.preguntasDataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.preguntasDataGrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.preguntasDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.preguntasDataGrid.Location = new System.Drawing.Point(6, 43);
             this.preguntasDataGrid.MultiSelect = false;

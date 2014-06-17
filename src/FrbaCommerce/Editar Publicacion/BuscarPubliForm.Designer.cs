@@ -61,10 +61,13 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(27, 218);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(684, 265);
+            this.dataGridView1.Size = new System.Drawing.Size(722, 265);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
@@ -322,7 +325,7 @@
             this.groupBox1.Controls.Add(this.descrip_label);
             this.groupBox1.Location = new System.Drawing.Point(27, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(684, 190);
+            this.groupBox1.Size = new System.Drawing.Size(722, 190);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buscar Publicación";
@@ -331,7 +334,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 555);
+            this.ClientSize = new System.Drawing.Size(778, 555);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.volver_button);
             this.Controls.Add(this.borrar_button);

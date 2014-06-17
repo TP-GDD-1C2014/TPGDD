@@ -17,6 +17,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         public GestionPreguntas()
         {
             InitializeComponent();
+            this.CenterToScreen();
             txtUsuario.Text = Interfaz.usuario.Username;
         }
 

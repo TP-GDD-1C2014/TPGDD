@@ -19,6 +19,7 @@ namespace FrbaCommerce.Calificar_Vendedor
         {
             Cod_Calificacion = codCalificacion;
             InitializeComponent();
+            this.CenterToScreen();
             cargarCombos();
             rbOpciones.Checked = true;
         }

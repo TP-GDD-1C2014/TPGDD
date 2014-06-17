@@ -21,6 +21,7 @@ namespace FrbaCommerce.ABM_Rol
         public RolesUsuarioDlg(int _idUser, string _username)
         {
             InitializeComponent();
+            this.CenterToScreen();
             idUser = _idUser;
             username = _username;
 

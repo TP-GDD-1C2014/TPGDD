@@ -37,6 +37,7 @@ namespace FrbaCommerce.Abm_Rubro
             this.formAnterior = formAnt;
 
             InitializeComponent();
+            this.CenterToScreen();
 
             cbRubros.DropDownStyle = ComboBoxStyle.DropDownList;
             llenarCbRubros();

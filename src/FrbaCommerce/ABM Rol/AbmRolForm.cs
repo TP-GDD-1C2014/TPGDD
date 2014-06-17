@@ -71,6 +71,7 @@ namespace FrbaCommerce.ABM_Rol
         public AbmRolForm()
         {
             InitializeComponent();
+            this.CenterToScreen();
             cargarTodosLosRoles();
         }
 

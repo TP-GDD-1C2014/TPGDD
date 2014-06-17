@@ -58,6 +58,7 @@ namespace FrbaCommerce.Historial_Cliente
             this.formAnterior = formAnt;
 
             InitializeComponent();
+            this.CenterToScreen();
 
             obtenerCompras();
             obtenerOfertasGanadas();

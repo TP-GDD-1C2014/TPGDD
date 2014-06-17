@@ -72,6 +72,7 @@
             // 
             // dgOfertas
             // 
+            this.dgOfertas.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgOfertas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgOfertas.Location = new System.Drawing.Point(10, 20);
             this.dgOfertas.Name = "dgOfertas";

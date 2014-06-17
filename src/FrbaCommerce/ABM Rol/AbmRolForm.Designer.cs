@@ -84,6 +84,9 @@
             this.Roles_Datagrid.AllowUserToAddRows = false;
             this.Roles_Datagrid.AllowUserToDeleteRows = false;
             this.Roles_Datagrid.AllowUserToOrderColumns = true;
+            this.Roles_Datagrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.Roles_Datagrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.Roles_Datagrid.BackgroundColor = System.Drawing.SystemColors.Window;
             this.Roles_Datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.Roles_Datagrid.Location = new System.Drawing.Point(6, 48);
             this.Roles_Datagrid.MultiSelect = false;

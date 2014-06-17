@@ -18,6 +18,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         public ResponderDlg(Pregunta preg)
         {
             InitializeComponent();
+            this.CenterToScreen();
             pregunta = preg;
             txtPregunta.Text = pregunta._Pregunta;
         }

@@ -46,6 +46,7 @@
             // 
             // dgResultados
             // 
+            this.dgResultados.BackgroundColor = System.Drawing.SystemColors.Menu;
             this.dgResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgResultados.Location = new System.Drawing.Point(9, 20);
             this.dgResultados.Name = "dgResultados";

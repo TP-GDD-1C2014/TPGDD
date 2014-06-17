@@ -17,6 +17,7 @@ namespace FrbaCommerce.Historial_Cliente
         {
             this.formAnterior = _formAnterior;
             InitializeComponent();
+            this.CenterToScreen();
         }
 
         private void bCompras_Click(object sender, EventArgs e)

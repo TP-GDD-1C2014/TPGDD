@@ -60,6 +60,7 @@
             // 
             this.dgCompras.AllowUserToAddRows = false;
             this.dgCompras.AllowUserToDeleteRows = false;
+            this.dgCompras.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgCompras.Location = new System.Drawing.Point(10, 20);
             this.dgCompras.Name = "dgCompras";
@@ -80,6 +81,7 @@
             // 
             // dgOfertas
             // 
+            this.dgOfertas.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgOfertas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgOfertas.Location = new System.Drawing.Point(10, 20);
             this.dgOfertas.Name = "dgOfertas";

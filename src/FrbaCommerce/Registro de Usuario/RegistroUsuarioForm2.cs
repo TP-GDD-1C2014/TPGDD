@@ -24,6 +24,7 @@ namespace FrbaCommerce.Registro_de_Usuario
             this.password = pass;
             this.rol = rol;
             InitializeComponent();
+            this.CenterToScreen();
 
             cbDia.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMes.DropDownStyle = ComboBoxStyle.DropDownList;

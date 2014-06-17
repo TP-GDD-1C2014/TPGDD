@@ -14,6 +14,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         public VerRespuestaDlg(string pregunta, string respuesta, DateTime fechaRespuesta)
         {
             InitializeComponent();
+            this.CenterToScreen();
             txtPregunta.Text = pregunta;
             txtRespuesta.Text = respuesta;
             txtFechaRespuesta.Text = Convert.ToString(fechaRespuesta);

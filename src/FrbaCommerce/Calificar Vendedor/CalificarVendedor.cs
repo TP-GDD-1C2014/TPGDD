@@ -17,6 +17,7 @@ namespace FrbaCommerce.Calificar_Vendedor
         public CalificarVendedor()
         {
             InitializeComponent();
+            this.CenterToScreen();
             actualizar();
         }
 

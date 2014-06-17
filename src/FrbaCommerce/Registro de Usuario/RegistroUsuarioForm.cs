@@ -18,6 +18,7 @@ namespace FrbaCommerce.Registro_de_Usuario
         {
             this.formAnterior = formAnt;
             InitializeComponent();
+            this.CenterToScreen();
             Rol_Combo.Items.Add("Cliente");
             Rol_Combo.Items.Add("Empresa");
             Rol_Combo.DropDownStyle = ComboBoxStyle.DropDownList;

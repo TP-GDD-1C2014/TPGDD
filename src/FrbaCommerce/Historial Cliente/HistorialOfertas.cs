@@ -49,6 +49,7 @@ namespace FrbaCommerce.Historial_Cliente
             this.paginaActual = 1;
 
             InitializeComponent();
+            this.CenterToScreen();
 
             pAnterior.Enabled = false;
 

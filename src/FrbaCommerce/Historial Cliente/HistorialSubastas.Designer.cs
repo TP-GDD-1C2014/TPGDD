@@ -72,6 +72,7 @@
             // 
             // dgSubastasGanadas
             // 
+            this.dgSubastasGanadas.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dgSubastasGanadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgSubastasGanadas.Location = new System.Drawing.Point(10, 20);
             this.dgSubastasGanadas.Name = "dgSubastasGanadas";

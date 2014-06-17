@@ -17,6 +17,7 @@ namespace FrbaCommerce.Gestion_de_Preguntas
         public VerRespuestas()
         {
             InitializeComponent();
+            this.CenterToScreen();
             cargarRespuestas();
         }
 
