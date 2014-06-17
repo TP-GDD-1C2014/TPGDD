@@ -41,6 +41,11 @@
             this.top5Label = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.volverButton = new System.Windows.Forms.Button();
+            this.visibilidadLabel = new System.Windows.Forms.Label();
+            this.visibilidadComboBox = new System.Windows.Forms.ComboBox();
+            this.mesLabel = new System.Windows.Forms.Label();
+            this.mesTextBox = new System.Windows.Forms.TextBox();
+            this.limpiarBoton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.top5DataGriedView)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +76,6 @@
             this.limpiarButton.TabIndex = 4;
             this.limpiarButton.Text = "Limpiar";
             this.limpiarButton.UseVisualStyleBackColor = true;
-            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
             // 
             // buscarButton
             // 
@@ -184,14 +188,64 @@
             this.volverButton.UseVisualStyleBackColor = true;
             this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
+            // visibilidadLabel
+            // 
+            this.visibilidadLabel.AutoSize = true;
+            this.visibilidadLabel.Location = new System.Drawing.Point(360, 230);
+            this.visibilidadLabel.Name = "visibilidadLabel";
+            this.visibilidadLabel.Size = new System.Drawing.Size(53, 13);
+            this.visibilidadLabel.TabIndex = 4;
+            this.visibilidadLabel.Text = "Visibilidad";
+            // 
+            // visibilidadComboBox
+            // 
+            this.visibilidadComboBox.FormattingEnabled = true;
+            this.visibilidadComboBox.Location = new System.Drawing.Point(432, 230);
+            this.visibilidadComboBox.Name = "visibilidadComboBox";
+            this.visibilidadComboBox.Size = new System.Drawing.Size(92, 21);
+            this.visibilidadComboBox.TabIndex = 6;
+            this.visibilidadComboBox.SelectedIndexChanged += new System.EventHandler(this.visibilidadComboBox_SelectedIndexChanged);
+            // 
+            // mesLabel
+            // 
+            this.mesLabel.AutoSize = true;
+            this.mesLabel.Location = new System.Drawing.Point(545, 230);
+            this.mesLabel.Name = "mesLabel";
+            this.mesLabel.Size = new System.Drawing.Size(27, 13);
+            this.mesLabel.TabIndex = 7;
+            this.mesLabel.Text = "Mes";
+            // 
+            // mesTextBox
+            // 
+            this.mesTextBox.Location = new System.Drawing.Point(573, 230);
+            this.mesTextBox.Name = "mesTextBox";
+            this.mesTextBox.Size = new System.Drawing.Size(100, 20);
+            this.mesTextBox.TabIndex = 8;
+            this.mesTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.anioTextbox_KeyPress);
+            // 
+            // limpiarBoton
+            // 
+            this.limpiarBoton.Location = new System.Drawing.Point(229, 412);
+            this.limpiarBoton.Name = "limpiarBoton";
+            this.limpiarBoton.Size = new System.Drawing.Size(134, 27);
+            this.limpiarBoton.TabIndex = 9;
+            this.limpiarBoton.Text = "Limpiar";
+            this.limpiarBoton.UseVisualStyleBackColor = true;
+            this.limpiarBoton.Click += new System.EventHandler(this.limpiarBoton_Click);
+            // 
             // ListadoEstadisticoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 448);
+            this.ClientSize = new System.Drawing.Size(761, 448);
             this.ControlBox = false;
+            this.Controls.Add(this.limpiarBoton);
+            this.Controls.Add(this.mesTextBox);
+            this.Controls.Add(this.mesLabel);
+            this.Controls.Add(this.visibilidadComboBox);
             this.Controls.Add(this.volverButton);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.visibilidadLabel);
             this.Controls.Add(this.top5Label);
             this.Controls.Add(this.top5DataGriedView);
             this.Controls.Add(this.groupBox1);
@@ -221,5 +275,10 @@
         private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button volverButton;
+        private System.Windows.Forms.Label visibilidadLabel;
+        private System.Windows.Forms.ComboBox visibilidadComboBox;
+        private System.Windows.Forms.Label mesLabel;
+        private System.Windows.Forms.TextBox mesTextBox;
+        private System.Windows.Forms.Button limpiarBoton;
     }
 }

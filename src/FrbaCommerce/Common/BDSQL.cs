@@ -41,8 +41,10 @@ namespace FrbaCommerce.Common
             {
                 //me fijo en empresas
                 cerrarConexion();
-                lector = ejecutarReader("SELECT * FROM MERCADONEGRO.Empresas WHERE Telefono = @valor", listaParametros, iniciarConexion());
-                res = lector.HasRows;
+                List<SqlParameter> listaParametros2 = new List<SqlParameter>();
+                agregarParametro(listaParametros2, "@valor", numero);
+                SqlDataReader lector2 = ejecutarReader("SELECT * FROM MERCADONEGRO.Empresas WHERE Telefono = @valor", listaParametros2, iniciarConexion());
+                res = lector2.HasRows;
                 if (res)
                 {
                     cerrarConexion();

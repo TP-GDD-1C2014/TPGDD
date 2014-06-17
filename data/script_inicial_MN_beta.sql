@@ -598,53 +598,6 @@ AS BEGIN
 END
 GO
 
-/*
-CREATE PROCEDURE MERCADONEGRO.InsertarCliente(@tipoDoc nvarchar(50),
-											  @numDoc numeric(18,0), @nombre nvarchar(255),
-											  @apellido nvarchar(255), @mail nvarchar(255),
-											  @telefono numeric(18,0), @direccion nvarchar(255),
-											  @codPostal nvarchar(50), @fechaNacimiento datetime)
-BEGIN
-	INSERT INTO MERCADONEGRO.Clientes(ID_User, Tipo_Doc, Num_Doc, Nombre, Apellido, Mail, Telefono, Direccion,
-									 Codigo_Postal, Fecha_Nacimiento) 
-			VALUES((SELECT ID_User FROM MERCADONEGRO.Usuarios WHERE  = @numDoc),
-					(SELECT
-*/
-
-/*
-CREATE TRIGGER Trigger_InsertarFactura
-	ON MERCADONEGRO.Publicaciones
-	AFTER INSERT AS
-	SET NOCOUNT ON
-	
-	INSERT INTO MERCADONEGRO.Facturaciones
-	SELECT DISTINCT Factura_Nro, 
-					Cod_Publicacion, 
-					Forma_Pago_Desc, 
-					Factura_Total
-				
-	FROM gd_esquema.Maestra, MERCADONEGRO.Publicaciones
-		WHERE gd_esquema.Maestra.Factura_Nro IS NOT NULL AND gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion
-GO
-*/
-
-		/*			
-				
-CREATE TRIGGER Trigger_InsertarItemAFactura
-	ON MERCADONEGRO.Facturaciones AFTER INSERT AS
-	SET NOCOUNT ON
-	
-	INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Precio_Item)
-		SELECT Nro_Factura, 
-			   Item_Factura_Cantidad, 
-			   Publicacion_Descripcion,
-			   Item_Factura_Monto
-			   
-		 
-		 FROM MERCADONEGRO.Facturaciones, gd_esquema.Maestra
-			WHERE MERCADONEGRO.Facturaciones.Nro_Factura = gd_esquema.Maestra.Factura_Nro
-GO		
-		*/					
 ----------------------------------------------------Datos Iniciales-----------------------------------------------
 
 PRINT 'Creando valores por defecto...'
@@ -915,26 +868,23 @@ GO
 
 		   	
 ---------VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS----------
-/*CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
+CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
 
-	SELECT	Usuarios.Username				AS Username,
-			Publicaciones.Cod_Publicacion	AS CodigoPublicacion,
-			Visibilidades.Cod_Visibilidad	AS CodigoVisibilidad,
-			Publicaciones.Stock_Inicial		AS StockInicial,
-			Operaciones.Fecha_Operacion		AS FechaOperacion
+	SELECT	Usuarios.Username					AS Username,
+			Publicaciones.Cod_Publicacion		AS [Codigo Publicacion],
+			Visibilidades.Jerarquia				AS Jerarquia,
+			Visibilidades.Descripcion			AS Descripcion,
+			Publicaciones.Stock					AS Stock,
+			MONTH(Publicaciones.Fecha_Inicial)	AS Mes,
+			YEAR(Publicaciones.Fecha_Inicial)	AS Año
+			
 	
 			FROM MERCADONEGRO.Usuarios		AS Usuarios
 			JOIN MERCADONEGRO.Publicaciones AS Publicaciones
 				ON Usuarios.ID_User = Publicaciones.ID_Vendedor
 			JOIN MERCADONEGRO.Visibilidades AS Visibilidades
 				ON Publicaciones.Cod_Visibilidad = Visibilidades.Cod_Visibilidad
-			JOIN MERCADONEGRO.Operaciones	AS Operaciones
-				ON Operaciones.Cod_Publicacion = Publicaciones.Cod_Publicacion
-			
 GO	
-
-*/
-
 
 -------------------------------VISTA DE LAS OPERACIONES QUE NO FUERON FACTURADAS------------------------
 CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS 
@@ -1415,6 +1365,8 @@ GO
 
 --Drops de vistas que SI tienen que estar en el sistema
 /*
+DROP VIEW MERCADONEGRO.MayorCantProductosNoVendidos
+GO
 DROP VIEW MERCADONEGRO.MayorFacturacionView
 GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
