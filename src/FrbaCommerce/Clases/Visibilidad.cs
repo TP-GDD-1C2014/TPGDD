@@ -66,6 +66,49 @@ namespace FrbaCommerce.Clases
             
         }
 
+        public static bool esLaNovenaVenta(int codPublicacion, int visibilidad)
+        {         
+            List<SqlParameter> parametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
+            BDSQL.agregarParametro(parametros, "@visibilidad", visibilidad);
+            
+            string commandText = "SELECT b.Cantidad FROM MERCADONEGRO.Bonificaciones b, MERCADONEGRO.Publicaciones p, MERCADONEGRO.Usuarios u " +
+                                 "WHERE p.Cod_Publicacion = @Cod_Publicacion AND u.ID_User = p.ID_Vendedor AND b.Visibilidad = @visibilidad";
+
+            SqlDataReader lector = BDSQL.ejecutarReader(commandText, BDSQL.iniciarConexion());
+
+            lector.Read();
+          
+            int cant = Convert.ToInt32(lector["Cantidad"]);
+
+            if (cant >= 9)
+            {
+                BDSQL.cerrarConexion();
+                return true;
+            }
+            else
+            {
+                BDSQL.cerrarConexion();
+                return false;
+            }
+            
+            
+        }
+
+        /*
+        public static void insertBonificacion(int idVendedor, int codVisibilidad)
+        {
+
+        }
+
+        public static void updateBonificacion()
+        {
+
+        }
+        */
+
+
 
      }
 }

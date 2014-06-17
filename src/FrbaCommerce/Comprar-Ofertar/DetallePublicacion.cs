@@ -109,10 +109,9 @@ namespace FrbaCommerce.Comprar_Ofertar
                     //inserto la compra a operaciones y updateo el campo ventas_sin_rendir al id_vendedor
                     Compra.insertarCompra(compra);
                     Usuario.updateVentasSinRendir(compra);
+                    //Visibilidad.insertBonificacion(publi.ID_Vendedor, publi.Cod_Visibilidad);
 
-                    bool puedeComprarLaProxPorCalific = Calificacion.verificarCantidadCalificaciones(Interfaz.usuarioActual().ID_User);
-
-                    
+                    bool puedeComprarLaProxPorCalific = Calificacion.verificarCantidadCalificaciones(Interfaz.usuarioActual().ID_User);             
 
                     if (!puedeComprarLaProxPorCalific)
                     {

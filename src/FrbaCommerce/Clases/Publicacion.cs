@@ -125,15 +125,16 @@ namespace FrbaCommerce.Clases
 
             decimal precio;
             decimal comisionPorVisibilidad;
+            int visibilidad;
 
             BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
 
             //obtengo el precio x unidad y la comision por la visibiliad
              
 
-            string commandText = "SELECT Precio, Porcentaje_Venta FROM MERCADONEGRO.Publicaciones "+
-                                "JOIN MERCADONEGRO.Visibilidades ON Publicaciones.Cod_Visibilidad = Visibilidades.Cod_Visibilidad " +
-                                "WHERE Cod_Publicacion = @codPublicacion";
+            string commandText = "SELECT p.Precio, v.Porcentaje_Venta, v.Cod_Visibilidad  FROM MERCADONEGRO.Publicaciones p"+
+                                "JOIN MERCADONEGRO.Visibilidades v ON p.Cod_Visibilidad = v.Cod_Visibilidad " +
+                                "WHERE p.Cod_Publicacion = @codPublicacion";
 
             SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
 
@@ -143,9 +144,21 @@ namespace FrbaCommerce.Clases
 
                 precio = Convert.ToDecimal(lector["Precio"]);
                 comisionPorVisibilidad = Convert.ToDecimal(lector["Porcentaje_Venta"]);
-
+                visibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
+             
+                if (Visibilidad.esLaNovenaVenta(codPublicacion, visibilidad))
+                {
+                    BDSQL.cerrarConexion();
+                    return 0;
+                }
+                else
+                {
+                 
                 BDSQL.cerrarConexion();
                 return precio * comisionPorVisibilidad;
+                }
+
+
             }
             else
             {
