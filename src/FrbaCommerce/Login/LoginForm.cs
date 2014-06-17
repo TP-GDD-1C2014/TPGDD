@@ -115,8 +115,8 @@ namespace FrbaCommerce.Login
 
                         if (ventasSinRendir >= 10)
                         {
-                            MessageBox.Show("Usted se encuentra inhabilitado debido a que llegó a 10 ventas sin haber las comisiones. " +
-                                              "Volverá a estar habilitado hasta que regularice su situación ", "Error");
+                            MessageBox.Show("Usted se encuentra inhabilitado debido a que llegó a 10 ventas sin haber las comisiones." +
+                                              "\nVolverá a estar habilitado cuando regularice su situación ", "Error");
                         }
                         else
                             MessageBox.Show("El usuario se encuentra inhabilitado.", "Error");
