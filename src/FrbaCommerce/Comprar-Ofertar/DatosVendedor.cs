@@ -19,6 +19,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         public DatosVendedor(int idVendedor)
         {      
             InitializeComponent();
+            this.CenterToScreen();
             SqlDataReader lector = Compra.clienteEmpresa(idVendedor);
             cargarDatos(lector);
             BDSQL.cerrarConexion();

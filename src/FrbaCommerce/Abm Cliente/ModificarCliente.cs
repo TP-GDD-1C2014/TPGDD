@@ -41,6 +41,7 @@ namespace FrbaCommerce.Abm_Cliente
             this.formAnterior = _formAnterior;
 
             InitializeComponent();
+            this.CenterToScreen();
 
             setearComboBoxes();
             cargarDatosUsuario();

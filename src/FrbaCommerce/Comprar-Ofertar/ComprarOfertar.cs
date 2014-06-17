@@ -26,6 +26,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         public ComprarOfertar()
         {
             InitializeComponent();
+            this.CenterToScreen();
             paginaActual = 0;
             filtro = "";
             filtroRubros = false;
@@ -245,6 +246,11 @@ namespace FrbaCommerce.Comprar_Ofertar
         {
             txtCantPublicaciones.Text = Convert.ToString(cantPublicacionesTotal );
             txtPaginaActual.Text = Convert.ToString(paginaActual + 1);
+        }
+
+        private void ComprarOfertar_Load(object sender, EventArgs e)
+        {
+
         }
 
 

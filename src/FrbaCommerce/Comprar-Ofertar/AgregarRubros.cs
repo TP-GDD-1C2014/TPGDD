@@ -17,9 +17,11 @@ namespace FrbaCommerce.Comprar_Ofertar
         private List<Rubro> rubros;
         public static List<Rubro> rubrosSeleccionados;
 
+
         public AgregarRubros(List<Rubro> rubrosFiltro)
         {
             InitializeComponent();
+            this.CenterToScreen();
             rubrosSeleccionados = rubrosFiltro;
             rubros = Rubro.obtenerRubros();
 

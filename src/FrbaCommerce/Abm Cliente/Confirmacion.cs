@@ -20,6 +20,7 @@ namespace FrbaCommerce.Abm_Cliente
             this.password = _password;
 
             InitializeComponent();
+            this.CenterToScreen();
 
             tUsername.Text = this.username;
             tPassword.Text = this.password;

@@ -20,6 +20,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         public OfertaDlg(Publicacion publi)
         {
             InitializeComponent();
+            this.CenterToScreen();
             publicacion = publi;
             ofertaMasGrande = Oferta.cargarOfertaMasAlta(publicacion.Cod_Publicacion);
 

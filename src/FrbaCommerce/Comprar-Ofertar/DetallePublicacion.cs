@@ -21,6 +21,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         public  DetallePublicacion(Publicacion unaPublicacion)
         {
             InitializeComponent();
+            this.CenterToScreen();
 
             publi = unaPublicacion;
 

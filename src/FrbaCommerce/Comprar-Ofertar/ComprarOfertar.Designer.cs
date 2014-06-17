@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Publicaciones_Datagrid = new System.Windows.Forms.DataGridView();
             this.btnAgregarRubros = new System.Windows.Forms.Button();
             this.btnAnteriorPag = new System.Windows.Forms.Button();
@@ -39,6 +39,7 @@
             this.btnAbrirPublicacion = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtRubros = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnBorrarDescripcion = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@
             this.txtCantPublicaciones = new System.Windows.Forms.TextBox();
             this.lblPaginaActual = new System.Windows.Forms.Label();
             this.lblCantPublicaciones = new System.Windows.Forms.Label();
-            this.txtRubros = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Publicaciones_Datagrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -61,29 +61,32 @@
             this.Publicaciones_Datagrid.AllowUserToDeleteRows = false;
             this.Publicaciones_Datagrid.AllowUserToResizeColumns = false;
             this.Publicaciones_Datagrid.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Publicaciones_Datagrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.Publicaciones_Datagrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.Publicaciones_Datagrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.Publicaciones_Datagrid.BackgroundColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Publicaciones_Datagrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.Publicaciones_Datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Publicaciones_Datagrid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Publicaciones_Datagrid.DefaultCellStyle = dataGridViewCellStyle4;
             this.Publicaciones_Datagrid.Location = new System.Drawing.Point(12, 96);
             this.Publicaciones_Datagrid.MultiSelect = false;
             this.Publicaciones_Datagrid.Name = "Publicaciones_Datagrid";
             this.Publicaciones_Datagrid.ReadOnly = true;
             this.Publicaciones_Datagrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Publicaciones_Datagrid.Size = new System.Drawing.Size(853, 422);
+            this.Publicaciones_Datagrid.Size = new System.Drawing.Size(853, 380);
             this.Publicaciones_Datagrid.TabIndex = 0;
             // 
             // btnAgregarRubros
@@ -98,7 +101,7 @@
             // 
             // btnAnteriorPag
             // 
-            this.btnAnteriorPag.Location = new System.Drawing.Point(368, 540);
+            this.btnAnteriorPag.Location = new System.Drawing.Point(368, 503);
             this.btnAnteriorPag.Name = "btnAnteriorPag";
             this.btnAnteriorPag.Size = new System.Drawing.Size(19, 23);
             this.btnAnteriorPag.TabIndex = 5;
@@ -108,7 +111,7 @@
             // 
             // btnSiguientePag
             // 
-            this.btnSiguientePag.Location = new System.Drawing.Point(393, 540);
+            this.btnSiguientePag.Location = new System.Drawing.Point(393, 503);
             this.btnSiguientePag.Name = "btnSiguientePag";
             this.btnSiguientePag.Size = new System.Drawing.Size(19, 23);
             this.btnSiguientePag.TabIndex = 6;
@@ -119,7 +122,7 @@
             // btnPrimerPag
             // 
             this.btnPrimerPag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrimerPag.Location = new System.Drawing.Point(287, 540);
+            this.btnPrimerPag.Location = new System.Drawing.Point(287, 503);
             this.btnPrimerPag.Name = "btnPrimerPag";
             this.btnPrimerPag.Size = new System.Drawing.Size(75, 23);
             this.btnPrimerPag.TabIndex = 7;
@@ -130,7 +133,7 @@
             // btnUltimaPag
             // 
             this.btnUltimaPag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUltimaPag.Location = new System.Drawing.Point(418, 540);
+            this.btnUltimaPag.Location = new System.Drawing.Point(418, 503);
             this.btnUltimaPag.Name = "btnUltimaPag";
             this.btnUltimaPag.Size = new System.Drawing.Size(75, 23);
             this.btnUltimaPag.TabIndex = 8;
@@ -141,7 +144,7 @@
             // btnAbrirPublicacion
             // 
             this.btnAbrirPublicacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbrirPublicacion.Location = new System.Drawing.Point(685, 532);
+            this.btnAbrirPublicacion.Location = new System.Drawing.Point(685, 495);
             this.btnAbrirPublicacion.Name = "btnAbrirPublicacion";
             this.btnAbrirPublicacion.Size = new System.Drawing.Size(180, 38);
             this.btnAbrirPublicacion.TabIndex = 9;
@@ -175,6 +178,14 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros:";
+            // 
+            // txtRubros
+            // 
+            this.txtRubros.Location = new System.Drawing.Point(95, 48);
+            this.txtRubros.Name = "txtRubros";
+            this.txtRubros.ReadOnly = true;
+            this.txtRubros.Size = new System.Drawing.Size(295, 20);
+            this.txtRubros.TabIndex = 17;
             // 
             // btnBuscar
             // 
@@ -274,19 +285,11 @@
             this.lblCantPublicaciones.TabIndex = 0;
             this.lblCantPublicaciones.Text = "Cantidad de publicaciones:";
             // 
-            // txtRubros
-            // 
-            this.txtRubros.Location = new System.Drawing.Point(95, 48);
-            this.txtRubros.Name = "txtRubros";
-            this.txtRubros.ReadOnly = true;
-            this.txtRubros.Size = new System.Drawing.Size(295, 20);
-            this.txtRubros.TabIndex = 17;
-            // 
             // ComprarOfertar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(877, 576);
+            this.ClientSize = new System.Drawing.Size(868, 538);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAbrirPublicacion);
@@ -298,6 +301,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ComprarOfertar";
             this.Text = "Comprar/Ofertar Publicaciones";
+            this.Load += new System.EventHandler(this.ComprarOfertar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Publicaciones_Datagrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

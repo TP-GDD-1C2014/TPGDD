@@ -41,6 +41,7 @@ namespace FrbaCommerce.Abm_Cliente
         {
             this.formAnterior = _formAnterior;
             InitializeComponent();
+            this.CenterToScreen();
 
             cbDia.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMes.DropDownStyle = ComboBoxStyle.DropDownList;
