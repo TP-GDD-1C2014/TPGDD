@@ -289,6 +289,19 @@ CREATE TABLE MERCADONEGRO.Subastas
 
 )
 GO
+
+CREATE TABLE MERCADONEGRO.Modificaciones
+(
+	ID_Modificacion	NUMERIC(18,0) IDENTITY, 
+	ID_User		    NUMERIC(18,0) NOT NULL,
+	Cantidad        NUMERIC(18,0) NOT NULL,
+	Visibilidad		NUMERIC(18,0) NOT NULL,
+	
+	
+	PRIMARY KEY (ID_Modificacion),
+	FOREIGN KEY(ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
+)
+
 -----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
 
 /* SP Agregar FUNCIONALIDAD al ROL */
