@@ -34,7 +34,7 @@ namespace FrbaCommerce.Clases
         public Publicacion()
         {
         }
-        
+
         public Publicacion(int cod_Publicacion, string visibilidad, int id_Vendedor, string descripcion, int stock, DateTime fecha_Fin, DateTime fecha_Inicio, decimal precio, string estado, string tipoPubli, bool permisoPreg, int stock_Inicial)
         {
             this.Cod_Publicacion = cod_Publicacion;
