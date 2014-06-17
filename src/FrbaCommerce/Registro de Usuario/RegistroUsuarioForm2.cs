@@ -85,12 +85,12 @@ namespace FrbaCommerce.Registro_de_Usuario
                 BDSQL.agregarParametro(listaParametros, "@Password", password);
                 BDSQL.agregarParametro(listaParametros, "@Intentos_Login", 0);
                 //BDSQL.agregarParametro(listaParametros, "@Habilitado", 1);
-                //BDSQL.agregarParametro(listaParametros, "@Primera_Vez", 0);
+                BDSQL.agregarParametro(listaParametros, "@Primera_Vez", 0);
                 BDSQL.agregarParametro(listaParametros, "@Cant_Publi_Gratuitas", 0);
                 BDSQL.agregarParametro(listaParametros, "@Reputacion", 0);
                 BDSQL.agregarParametro(listaParametros, "@Ventas_Sin_Rendir", 0);
                 //BDSQL.agregarParametro(listaParametros, "@Habilitado_Compra", 1);
-                BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios (Username, Password, Intentos_Login, Cant_Publi_Gratuitas, Reputacion, Ventas_Sin_Rendir) VALUES (@Username, @Password, @Intentos_Login, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir)", listaParametros, BDSQL.iniciarConexion());
+                BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Usuarios (Username, Password, Intentos_Login, Primera_Vez, Cant_Publi_Gratuitas, Reputacion, Ventas_Sin_Rendir) VALUES (@Username, @Password, @Intentos_Login, @Primera_Vez, @Cant_Publi_Gratuitas, @Reputacion, @Ventas_Sin_Rendir)", listaParametros, BDSQL.iniciarConexion());
                 BDSQL.cerrarConexion();
 
                 List<SqlParameter> listaParametros2 = new List<SqlParameter>();
