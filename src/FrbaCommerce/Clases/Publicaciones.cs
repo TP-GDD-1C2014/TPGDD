@@ -299,7 +299,7 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", unaPubli.Permiso_Preguntas);
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
 
-            int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones SET Cod_Visibilidad=@Cod_Visibilidad, ID_Vendedor=@ID_Vendedor, Descripcion=@Descripcion, Stock=@Stock, Fecha_Vencimiento=@Fecha_Vto, Fecha_Inicial=@Fecha_Inic, Precio=@Precio, Cod_EstadoPublicacion=@Estado_Publicacion, Cod_TipoPublicacion=@Tipo_Publicacion, Permisos_Preguntas=@Permiso_Preguntas, Stock_Inicial=@Stock_Inicial WHERE Cod_Publicacion=@Cod_Publicacion", listaParametros, BDSQL.iniciarConexion());
+            int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones SET Cod_Visibilidad=@Cod_Visibilidad, Descripcion=@Descripcion, Stock=@Stock, Fecha_Vencimiento=@Fecha_Vto, Fecha_Inicial=@Fecha_Inic, Precio=@Precio, Cod_EstadoPublicacion=@Estado_Publicacion, Cod_TipoPublicacion=@Tipo_Publicacion, Permisos_Preguntas=@Permiso_Preguntas, Stock_Inicial=@Stock_Inicial WHERE Cod_Publicacion=@Cod_Publicacion", listaParametros, BDSQL.iniciarConexion());
             if (resultado == -1)
                 MessageBox.Show("Falló al actualizar Publicación", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
@@ -308,7 +308,7 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public static void agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
+        public static int agregarPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
@@ -326,15 +326,16 @@ namespace FrbaCommerce.Clases
 
             int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones(Cod_visibilidad,ID_Vendedor,Descripcion,Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Cod_EstadoPublicacion,Cod_TipoPublicacion,Permisos_Preguntas,Stock_Inicial) VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock,@Fecha_Vto,@Fecha_Inic,@Precio,@Estado_Publicacion,@Tipo_Publicacion,@Permiso_Preguntas,@Stock_Inicial)", listaParametros, BDSQL.iniciarConexion());
             
-            if (resultado == -1)
+            /*if (resultado == -1)
             {
                 MessageBox.Show("Falló al generar Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 MessageBox.Show("Éxito al generar Publicacion", "Felicitaciones", MessageBoxButtons.OK);
-            }
+            }*/
             BDSQL.cerrarConexion();
+            return resultado;
         }
 
         public static int obtenerCodPublicacion(Publicacion unaPubli, int visibilidad, int estado, int tipoPubli)

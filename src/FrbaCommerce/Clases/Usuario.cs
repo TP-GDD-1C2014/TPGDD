@@ -266,6 +266,34 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
+        public void restarPubliGratuita()
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Cant_Publi_Gratuitas = (Cant_Publi_Gratuitas-1) WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+            BDSQL.cerrarConexion();
+        }
+
+        public static int obtenerPublisGratuitas(int ID_User)
+        {
+            int cantPublis = -1;
+
+            List<SqlParameter> listaParametros1 = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros1, "@ID_User", ID_User);
+            SqlConnection conexion = BDSQL.iniciarConexion();
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Cant_Publi_Gratuitas FROM MERCADONEGRO.Usuarios WHERE ID_User = @ID_User", listaParametros1, conexion);
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    cantPublis = Convert.ToInt32(lector["Cant_Publi_Gratuitas"]);
+                }
+                BDSQL.cerrarConexion();
+            }
+
+            return cantPublis;
+        }
+
         public static bool controlarRol(int idUser)
         {
             bool resultado = false;
