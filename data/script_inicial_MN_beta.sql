@@ -982,28 +982,6 @@ CREATE VIEW MERCADONEGRO.CalificacionView
 	
 	GROUP BY MERCADONEGRO.Usuarios.ID_User
 GO
---select * from MERCADONEGRO.CalificacionView
-/*
-UPDATE MERCADONEGRO.Usuarios
-	SET Reputacion = (
-		SELECT  TOP 1MERCADONEGRO.CalificacionView.promedio 
-		FROM MERCADONEGRO.CalificacionView
-			JOIN MERCADONEGRO.Usuarios on MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
-						)
-	FROM MERCADONEGRO.Usuarios,MERCADONEGRO.CalificacionView
-	WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
-GO*/
-
---select * from MERCADONEGRO.Usuarios
-/*UPDATE MERCADONEGRO.Usuarios
-	SET Reputacion = (
-		SELECT ALL MERCADONEGRO.CalificacionView.promedio 
-		FROM MERCADONEGRO.CalificacionView 
-			JOIN MERCADONEGRO.Usuarios on MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
-						)
-	FROM MERCADONEGRO.Usuarios,MERCADONEGRO.CalificacionView
-	WHERE MERCADONEGRO.Usuarios.ID_User = MERCADONEGRO.CalificacionView.iduser
-	*/
 
 -----------------
 
@@ -1132,7 +1110,7 @@ CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 		Publicacion_Fecha,
 		Publicacion_Fecha_Venc,
 		Publicacion_Precio, 
-		1 AS Publicacion_Estado, --Publicacion_estado(Todas estan publicadas => 1)
+		3 AS Publicacion_Estado, --Publicacion_estado(Todas estan publicadas => 1)
 		CASE Publicacion_Tipo WHEN 'Subasta' THEN 0
 							  WHEN 'Compra Inmediata' THEN 1
 		END AS Publicacion_Tipo, 
@@ -1152,7 +1130,7 @@ CREATE VIEW MERCADONEGRO.Vista_Publicaciones AS SELECT DISTINCT
 		Publicacion_Fecha,
 		Publicacion_Fecha_Venc,
 		Publicacion_Precio, 
-		1 AS Publicacion_Estado, --Publicacion_estado(Todas estan publicadas => 1)
+		3 AS Publicacion_Estado, --Publicacion_estado(Todas estan publicadas => 1)
 		CASE Publicacion_Tipo WHEN 'Subasta' THEN 0
 							  WHEN 'Compra Inmediata' THEN 1
 		END AS Publicacion_Tipo, 
