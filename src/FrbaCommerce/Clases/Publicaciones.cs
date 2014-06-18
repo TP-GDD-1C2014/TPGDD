@@ -18,8 +18,10 @@ namespace FrbaCommerce.Clases
             List<Publicacion> publicaciones = new List<Publicacion>();
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             listaParametros.Add(new SqlParameter("@idUser",idUser));
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones " +
-                                                        "WHERE ID_Vendedor=@idUser",
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones p" +
+                                                        "JOIN MERCADONEGRO.Estados_Publicacion ep ON p.Cod_EstadoPublicacion = ep.Cod_EstadoPublicacion " + 
+                                                        "WHERE ep.Descripcion != 'Finalizada' " +
+                                                        "AND p.ID_Vendedor=@idUser",
                                                         listaParametros , BDSQL.iniciarConexion());
             if (lector.HasRows)
             {

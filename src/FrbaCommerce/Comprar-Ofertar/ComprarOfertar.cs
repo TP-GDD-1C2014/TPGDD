@@ -15,7 +15,7 @@ namespace FrbaCommerce.Comprar_Ofertar
     public partial class ComprarOfertar : Form
     {
         int paginaActual;
-        int cantPublicacionesPorPagina = 2; //because of reasons
+        int cantPublicacionesPorPagina = 18; //because of reasons
         int cantPublicacionesTotal;
         int ultimaPagina;
         string filtro;
@@ -36,8 +36,7 @@ namespace FrbaCommerce.Comprar_Ofertar
         
         public void cargarPublicaciones()
         {         
-            actualizarDisplay();
-
+           
             int desde;
             int hasta;
 
@@ -242,11 +241,7 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         }
 
-        private void actualizarDisplay()
-        {
-            txtCantPublicaciones.Text = Convert.ToString(cantPublicacionesTotal );
-            txtPaginaActual.Text = Convert.ToString(paginaActual + 1);
-        }
+    
 
     }
     

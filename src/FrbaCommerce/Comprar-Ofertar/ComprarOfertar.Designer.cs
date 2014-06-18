@@ -45,14 +45,8 @@
             this.btnBorrarDescripcion = new System.Windows.Forms.Button();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtPaginaActual = new System.Windows.Forms.TextBox();
-            this.txtCantPublicaciones = new System.Windows.Forms.TextBox();
-            this.lblPaginaActual = new System.Windows.Forms.Label();
-            this.lblCantPublicaciones = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Publicaciones_Datagrid)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // Publicaciones_Datagrid
@@ -176,7 +170,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(619, 78);
+            this.groupBox1.Size = new System.Drawing.Size(853, 78);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros:";
@@ -191,10 +185,10 @@
             // 
             // btnBuscar
             // 
-            this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.Location = new System.Drawing.Point(505, 46);
+            this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.Location = new System.Drawing.Point(522, 27);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(103, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(180, 38);
             this.btnBuscar.TabIndex = 5;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
@@ -202,10 +196,10 @@
             // 
             // btnReset
             // 
-            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReset.Location = new System.Drawing.Point(505, 17);
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.Location = new System.Drawing.Point(741, 27);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(103, 23);
+            this.btnReset.Size = new System.Drawing.Size(103, 38);
             this.btnReset.TabIndex = 4;
             this.btnReset.Text = "Sin filtros!";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -239,62 +233,11 @@
             this.txtDescripcion.Size = new System.Drawing.Size(295, 20);
             this.txtDescripcion.TabIndex = 1;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtPaginaActual);
-            this.groupBox2.Controls.Add(this.txtCantPublicaciones);
-            this.groupBox2.Controls.Add(this.lblPaginaActual);
-            this.groupBox2.Controls.Add(this.lblCantPublicaciones);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(637, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(228, 78);
-            this.groupBox2.TabIndex = 12;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Resultados:";
-            // 
-            // txtPaginaActual
-            // 
-            this.txtPaginaActual.Enabled = false;
-            this.txtPaginaActual.Location = new System.Drawing.Point(147, 48);
-            this.txtPaginaActual.Name = "txtPaginaActual";
-            this.txtPaginaActual.Size = new System.Drawing.Size(68, 20);
-            this.txtPaginaActual.TabIndex = 3;
-            // 
-            // txtCantPublicaciones
-            // 
-            this.txtCantPublicaciones.Enabled = false;
-            this.txtCantPublicaciones.Location = new System.Drawing.Point(147, 19);
-            this.txtCantPublicaciones.Name = "txtCantPublicaciones";
-            this.txtCantPublicaciones.Size = new System.Drawing.Size(68, 20);
-            this.txtCantPublicaciones.TabIndex = 2;
-            // 
-            // lblPaginaActual
-            // 
-            this.lblPaginaActual.AutoSize = true;
-            this.lblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaginaActual.Location = new System.Drawing.Point(6, 51);
-            this.lblPaginaActual.Name = "lblPaginaActual";
-            this.lblPaginaActual.Size = new System.Drawing.Size(75, 13);
-            this.lblPaginaActual.TabIndex = 1;
-            this.lblPaginaActual.Text = "Página actual:";
-            // 
-            // lblCantPublicaciones
-            // 
-            this.lblCantPublicaciones.AutoSize = true;
-            this.lblCantPublicaciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantPublicaciones.Location = new System.Drawing.Point(6, 22);
-            this.lblCantPublicaciones.Name = "lblCantPublicaciones";
-            this.lblCantPublicaciones.Size = new System.Drawing.Size(135, 13);
-            this.lblCantPublicaciones.TabIndex = 0;
-            this.lblCantPublicaciones.Text = "Cantidad de publicaciones:";
-            // 
             // ComprarOfertar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 538);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnAbrirPublicacion);
             this.Controls.Add(this.btnUltimaPag);
@@ -310,8 +253,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Publicaciones_Datagrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -332,11 +273,6 @@
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnBorrarDescripcion;
         private System.Windows.Forms.Label lblDescripcion;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtCantPublicaciones;
-        private System.Windows.Forms.Label lblPaginaActual;
-        private System.Windows.Forms.Label lblCantPublicaciones;
-        private System.Windows.Forms.TextBox txtPaginaActual;
         private System.Windows.Forms.TextBox txtRubros;
     }
 }
