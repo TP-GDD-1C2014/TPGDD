@@ -14,8 +14,6 @@ namespace FrbaCommerce.Listado_Estadistico
     public partial class ListadoEstadisticoForm : Form
     {
 
-   
-
         public ListadoEstadisticoForm()
         {
             InitializeComponent();
@@ -52,16 +50,6 @@ namespace FrbaCommerce.Listado_Estadistico
             }
         }
 
-        private void anioLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ListadoEstadistico_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void tipoListadoCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tipoListadoCombo.SelectedIndex == 0)
@@ -78,16 +66,6 @@ namespace FrbaCommerce.Listado_Estadistico
                 this.mesLabel.Hide();
                 this.mesTextBox.Hide();
             }
-
-        }
-
-        private void anioTextbox_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-        
-        private void trimestreCombo_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -130,12 +108,7 @@ namespace FrbaCommerce.Listado_Estadistico
                     this.top5DataGriedView.Refresh();
                 }
 
-                    
-
-
-                    this.top5DataGriedView = Interfaz.bloquearDataGridView(this.top5DataGriedView);
-                
-
+                this.top5DataGriedView = Interfaz.bloquearDataGridView(this.top5DataGriedView);
             }
         }
 
@@ -152,16 +125,8 @@ namespace FrbaCommerce.Listado_Estadistico
             }
         }
 
-        private void top5DataGriedView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-       
         private bool verificarCampos(Control control)
-        {
-            
-
+        {       
             foreach(Control c in control.Controls)
             {
                 var anioYTrimestre = c as TextBox;
@@ -181,31 +146,16 @@ namespace FrbaCommerce.Listado_Estadistico
                 {
                     string str = "Los campos obligatorios no pueden estar vacios";
                     DialogResult result = MessageBox.Show(str, "Alerta!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                    
+                    return false;               
                 }
-
-              
-
             }
 
             return true;
-
         }
 
         private void volverButton_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void visibilidadComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-          
         }
 
         private void limpiarBoton_Click(object sender, EventArgs e)
@@ -215,11 +165,7 @@ namespace FrbaCommerce.Listado_Estadistico
 
         }
 
-        private void limpiarButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
 
     }
 }
