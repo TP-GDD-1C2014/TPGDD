@@ -40,7 +40,7 @@ namespace FrbaCommerce.Registro_de_Usuario
         public void llenarCbDia()
         {
             int i;
-            for (i = 0; i <= 31; i++)
+            for (i = 1; i <= 31; i++)
             {
                 this.cbDia.Items.Add(i.ToString());
             }
@@ -49,7 +49,7 @@ namespace FrbaCommerce.Registro_de_Usuario
         public void llenarCbMes()
         {
             int i;
-            for (i = 0; i <= 12; i++)
+            for (i = 1; i <= 12; i++)
             {
                 this.cbMes.Items.Add(i.ToString());
             }
