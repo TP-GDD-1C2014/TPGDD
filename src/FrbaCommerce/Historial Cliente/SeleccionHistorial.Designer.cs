@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.bCompras = new System.Windows.Forms.Button();
-            this.bSubastas = new System.Windows.Forms.Button();
             this.bOfertas = new System.Windows.Forms.Button();
+            this.bSubastas = new System.Windows.Forms.Button();
+            this.bCompras = new System.Windows.Forms.Button();
             this.bBack = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -48,15 +48,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Operaciones";
             // 
-            // bCompras
+            // bOfertas
             // 
-            this.bCompras.Location = new System.Drawing.Point(7, 20);
-            this.bCompras.Name = "bCompras";
-            this.bCompras.Size = new System.Drawing.Size(100, 30);
-            this.bCompras.TabIndex = 0;
-            this.bCompras.Text = "Compras";
-            this.bCompras.UseVisualStyleBackColor = true;
-            this.bCompras.Click += new System.EventHandler(this.bCompras_Click);
+            this.bOfertas.Location = new System.Drawing.Point(7, 92);
+            this.bOfertas.Name = "bOfertas";
+            this.bOfertas.Size = new System.Drawing.Size(100, 30);
+            this.bOfertas.TabIndex = 2;
+            this.bOfertas.Text = "Ofertas";
+            this.bOfertas.UseVisualStyleBackColor = true;
+            this.bOfertas.Click += new System.EventHandler(this.bOfertas_Click);
             // 
             // bSubastas
             // 
@@ -68,15 +68,15 @@
             this.bSubastas.UseVisualStyleBackColor = true;
             this.bSubastas.Click += new System.EventHandler(this.bSubastas_Click);
             // 
-            // bOfertas
+            // bCompras
             // 
-            this.bOfertas.Location = new System.Drawing.Point(7, 92);
-            this.bOfertas.Name = "bOfertas";
-            this.bOfertas.Size = new System.Drawing.Size(100, 30);
-            this.bOfertas.TabIndex = 2;
-            this.bOfertas.Text = "Ofertas";
-            this.bOfertas.UseVisualStyleBackColor = true;
-            this.bOfertas.Click += new System.EventHandler(this.bOfertas_Click);
+            this.bCompras.Location = new System.Drawing.Point(7, 20);
+            this.bCompras.Name = "bCompras";
+            this.bCompras.Size = new System.Drawing.Size(100, 30);
+            this.bCompras.TabIndex = 0;
+            this.bCompras.Text = "Compras";
+            this.bCompras.UseVisualStyleBackColor = true;
+            this.bCompras.Click += new System.EventHandler(this.bCompras_Click);
             // 
             // bBack
             // 
@@ -95,6 +95,8 @@
             this.ClientSize = new System.Drawing.Size(135, 188);
             this.Controls.Add(this.bBack);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "SeleccionHistorial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial de operaciones - MercadoNegro";

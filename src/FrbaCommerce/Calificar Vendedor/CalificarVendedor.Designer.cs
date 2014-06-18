@@ -98,6 +98,8 @@
             this.ClientSize = new System.Drawing.Size(524, 425);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MinimizeBox = false;
             this.Name = "CalificarVendedor";
             this.Text = "Calificar al Vendedor";
             ((System.ComponentModel.ISupportInitialize)(this.calificacionesDataGrid)).EndInit();

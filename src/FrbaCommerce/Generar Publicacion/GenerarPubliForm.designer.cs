@@ -47,8 +47,8 @@
             this.PermitirPreg_label = new System.Windows.Forms.Label();
             this.PermitirPreguntas_Checkbox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.Rubro_checkedListBox = new System.Windows.Forms.CheckedListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -243,15 +243,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creación o Modificación de Publicación";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 195);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "Rubro";
-            // 
             // Rubro_checkedListBox
             // 
             this.Rubro_checkedListBox.FormattingEnabled = true;
@@ -261,12 +252,23 @@
             this.Rubro_checkedListBox.TabIndex = 26;
             this.Rubro_checkedListBox.SelectedIndexChanged += new System.EventHandler(this.Rubro_checkedListBox_SelectedIndexChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 195);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Rubro";
+            // 
             // GenerarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 453);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "GenerarPubliForm";
             this.Text = "Administrar Publicaciones - Mercado Negro";
             this.Load += new System.EventHandler(this.GenerarPubliForm_Load);

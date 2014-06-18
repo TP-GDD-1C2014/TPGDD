@@ -129,6 +129,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Limpiar_Button);
             this.Controls.Add(this.Registrar_Button);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "RegistroUsuarioForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Usuario - MercadoNegro";

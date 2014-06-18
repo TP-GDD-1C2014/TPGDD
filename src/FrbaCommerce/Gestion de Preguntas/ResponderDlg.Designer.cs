@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnBorrar = new System.Windows.Forms.Button();
+            this.txtRespuesta = new System.Windows.Forms.TextBox();
+            this.txtPregunta = new System.Windows.Forms.TextBox();
+            this.lblRespuesta = new System.Windows.Forms.Label();
+            this.lblPregunta = new System.Windows.Forms.Label();
             this.btnResponder = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lblPregunta = new System.Windows.Forms.Label();
-            this.lblRespuesta = new System.Windows.Forms.Label();
-            this.txtPregunta = new System.Windows.Forms.TextBox();
-            this.txtRespuesta = new System.Windows.Forms.TextBox();
-            this.btnBorrar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +52,53 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Responda la pregunta, máximo 255 caracteres:";
+            // 
+            // btnBorrar
+            // 
+            this.btnBorrar.Location = new System.Drawing.Point(201, 161);
+            this.btnBorrar.Name = "btnBorrar";
+            this.btnBorrar.Size = new System.Drawing.Size(47, 23);
+            this.btnBorrar.TabIndex = 6;
+            this.btnBorrar.Text = "Borrar";
+            this.btnBorrar.UseVisualStyleBackColor = true;
+            this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
+            // 
+            // txtRespuesta
+            // 
+            this.txtRespuesta.Location = new System.Drawing.Point(73, 96);
+            this.txtRespuesta.Multiline = true;
+            this.txtRespuesta.Name = "txtRespuesta";
+            this.txtRespuesta.Size = new System.Drawing.Size(175, 59);
+            this.txtRespuesta.TabIndex = 5;
+            // 
+            // txtPregunta
+            // 
+            this.txtPregunta.Location = new System.Drawing.Point(73, 31);
+            this.txtPregunta.Multiline = true;
+            this.txtPregunta.Name = "txtPregunta";
+            this.txtPregunta.ReadOnly = true;
+            this.txtPregunta.Size = new System.Drawing.Size(175, 59);
+            this.txtPregunta.TabIndex = 4;
+            // 
+            // lblRespuesta
+            // 
+            this.lblRespuesta.AutoSize = true;
+            this.lblRespuesta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRespuesta.Location = new System.Drawing.Point(6, 99);
+            this.lblRespuesta.Name = "lblRespuesta";
+            this.lblRespuesta.Size = new System.Drawing.Size(61, 13);
+            this.lblRespuesta.TabIndex = 3;
+            this.lblRespuesta.Text = "Respuesta:";
+            // 
+            // lblPregunta
+            // 
+            this.lblPregunta.AutoSize = true;
+            this.lblPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPregunta.Location = new System.Drawing.Point(6, 34);
+            this.lblPregunta.Name = "lblPregunta";
+            this.lblPregunta.Size = new System.Drawing.Size(53, 13);
+            this.lblPregunta.TabIndex = 2;
+            this.lblPregunta.Text = "Pregunta:";
             // 
             // btnResponder
             // 
@@ -73,53 +120,6 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // lblPregunta
-            // 
-            this.lblPregunta.AutoSize = true;
-            this.lblPregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPregunta.Location = new System.Drawing.Point(6, 34);
-            this.lblPregunta.Name = "lblPregunta";
-            this.lblPregunta.Size = new System.Drawing.Size(53, 13);
-            this.lblPregunta.TabIndex = 2;
-            this.lblPregunta.Text = "Pregunta:";
-            // 
-            // lblRespuesta
-            // 
-            this.lblRespuesta.AutoSize = true;
-            this.lblRespuesta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRespuesta.Location = new System.Drawing.Point(6, 99);
-            this.lblRespuesta.Name = "lblRespuesta";
-            this.lblRespuesta.Size = new System.Drawing.Size(61, 13);
-            this.lblRespuesta.TabIndex = 3;
-            this.lblRespuesta.Text = "Respuesta:";
-            // 
-            // txtPregunta
-            // 
-            this.txtPregunta.Location = new System.Drawing.Point(73, 31);
-            this.txtPregunta.Multiline = true;
-            this.txtPregunta.Name = "txtPregunta";
-            this.txtPregunta.ReadOnly = true;
-            this.txtPregunta.Size = new System.Drawing.Size(175, 59);
-            this.txtPregunta.TabIndex = 4;
-            // 
-            // txtRespuesta
-            // 
-            this.txtRespuesta.Location = new System.Drawing.Point(73, 96);
-            this.txtRespuesta.Multiline = true;
-            this.txtRespuesta.Name = "txtRespuesta";
-            this.txtRespuesta.Size = new System.Drawing.Size(175, 59);
-            this.txtRespuesta.TabIndex = 5;
-            // 
-            // btnBorrar
-            // 
-            this.btnBorrar.Location = new System.Drawing.Point(201, 161);
-            this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(47, 23);
-            this.btnBorrar.TabIndex = 6;
-            this.btnBorrar.Text = "Borrar";
-            this.btnBorrar.UseVisualStyleBackColor = true;
-            this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
-            // 
             // ResponderDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -128,6 +128,8 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnResponder);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ResponderDlg";
             this.Text = "Responder Pregunta";
             this.groupBox1.ResumeLayout(false);

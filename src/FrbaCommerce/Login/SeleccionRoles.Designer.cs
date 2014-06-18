@@ -82,6 +82,8 @@
             this.ClientSize = new System.Drawing.Size(289, 109);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "SeleccionRoles";
             this.Text = "Ingreso - MercadoNegro";
             this.Load += new System.EventHandler(this.SeleccionRoles_Load);

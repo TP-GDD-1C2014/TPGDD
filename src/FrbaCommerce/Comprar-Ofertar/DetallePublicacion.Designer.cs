@@ -30,6 +30,8 @@
         {
             this.lblCodPublicacion = new System.Windows.Forms.Label();
             this.GBDetalle = new System.Windows.Forms.GroupBox();
+            this.lblRubro = new System.Windows.Forms.Label();
+            this.txtRubros = new System.Windows.Forms.TextBox();
             this.txtTipoPublicacion = new System.Windows.Forms.TextBox();
             this.txtFechaFinalizacion = new System.Windows.Forms.TextBox();
             this.txtStockInicial = new System.Windows.Forms.TextBox();
@@ -57,8 +59,6 @@
             this.lblVisibilidad = new System.Windows.Forms.Label();
             this.btnComprar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.txtRubros = new System.Windows.Forms.TextBox();
-            this.lblRubro = new System.Windows.Forms.Label();
             this.GBDetalle.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,6 +107,23 @@
             this.GBDetalle.TabIndex = 1;
             this.GBDetalle.TabStop = false;
             this.GBDetalle.Text = "Detalle de la publicación";
+            // 
+            // lblRubro
+            // 
+            this.lblRubro.AutoSize = true;
+            this.lblRubro.Location = new System.Drawing.Point(6, 186);
+            this.lblRubro.Name = "lblRubro";
+            this.lblRubro.Size = new System.Drawing.Size(49, 13);
+            this.lblRubro.TabIndex = 25;
+            this.lblRubro.Text = "Rubro/s:";
+            // 
+            // txtRubros
+            // 
+            this.txtRubros.Location = new System.Drawing.Point(135, 183);
+            this.txtRubros.Name = "txtRubros";
+            this.txtRubros.ReadOnly = true;
+            this.txtRubros.Size = new System.Drawing.Size(312, 20);
+            this.txtRubros.TabIndex = 4;
             // 
             // txtTipoPublicacion
             // 
@@ -345,23 +362,6 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
-            // txtRubros
-            // 
-            this.txtRubros.Location = new System.Drawing.Point(135, 183);
-            this.txtRubros.Name = "txtRubros";
-            this.txtRubros.ReadOnly = true;
-            this.txtRubros.Size = new System.Drawing.Size(312, 20);
-            this.txtRubros.TabIndex = 4;
-            // 
-            // lblRubro
-            // 
-            this.lblRubro.AutoSize = true;
-            this.lblRubro.Location = new System.Drawing.Point(6, 186);
-            this.lblRubro.Name = "lblRubro";
-            this.lblRubro.Size = new System.Drawing.Size(49, 13);
-            this.lblRubro.TabIndex = 25;
-            this.lblRubro.Text = "Rubro/s:";
-            // 
             // DetallePublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -370,6 +370,8 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.GBDetalle);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "DetallePublicacion";
             this.Text = "Detalle de la Publicacion";
             this.GBDetalle.ResumeLayout(false);

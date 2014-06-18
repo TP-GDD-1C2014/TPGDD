@@ -239,6 +239,8 @@
             this.ClientSize = new System.Drawing.Size(254, 343);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.GBDatosVendedor);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "DatosVendedor";
             this.Text = "Datos del Vendedor";
             this.GBDatosVendedor.ResumeLayout(false);

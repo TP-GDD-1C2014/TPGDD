@@ -340,6 +340,8 @@
             this.Controls.Add(this.borrar_button);
             this.Controls.Add(this.modificar_button);
             this.Controls.Add(this.dataGridView1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "BuscarPubliForm";
             this.Text = "Administrar Publicaciones - Mercado Negro";
             this.Load += new System.EventHandler(this.BuscarPubliForm_Load);

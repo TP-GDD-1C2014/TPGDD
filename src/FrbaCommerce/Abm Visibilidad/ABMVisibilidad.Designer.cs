@@ -89,6 +89,8 @@
             this.Controls.Add(this.dgvVisibilidades);
             this.Controls.Add(this.modificarButton);
             this.Controls.Add(this.nuevaButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ABMVisibilidad";
             this.Text = "ABM Visiblidades - MercadoNegro";
             this.Load += new System.EventHandler(this.ABMVisibilidad_Load);

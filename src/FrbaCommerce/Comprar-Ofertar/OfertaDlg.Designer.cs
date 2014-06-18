@@ -124,6 +124,8 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtAceptar);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "OfertaDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Subasta - Ofertar";
