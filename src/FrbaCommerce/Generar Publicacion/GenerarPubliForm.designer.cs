@@ -42,13 +42,13 @@
             this.FechaFin_DateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.Precio_textBox = new System.Windows.Forms.TextBox();
             this.Precio_Label = new System.Windows.Forms.Label();
+            this.Limpiar_button = new System.Windows.Forms.Button();
+            this.Guardar_button = new System.Windows.Forms.Button();
             this.PermitirPreg_label = new System.Windows.Forms.Label();
             this.PermitirPreguntas_Checkbox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Rubro_checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.Guardar_button = new System.Windows.Forms.Button();
-            this.Limpiar_button = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,22 +65,21 @@
             this.Visibilidad_Label.AutoSize = true;
             this.Visibilidad_Label.Location = new System.Drawing.Point(16, 35);
             this.Visibilidad_Label.Name = "Visibilidad_Label";
-            this.Visibilidad_Label.Size = new System.Drawing.Size(56, 13);
+            this.Visibilidad_Label.Size = new System.Drawing.Size(53, 13);
             this.Visibilidad_Label.TabIndex = 1;
-            this.Visibilidad_Label.Text = "Visibilidad:";
+            this.Visibilidad_Label.Text = "Visibilidad";
             // 
             // Descripcion_Label
             // 
             this.Descripcion_Label.AutoSize = true;
             this.Descripcion_Label.Location = new System.Drawing.Point(16, 62);
             this.Descripcion_Label.Name = "Descripcion_Label";
-            this.Descripcion_Label.Size = new System.Drawing.Size(66, 13);
+            this.Descripcion_Label.Size = new System.Drawing.Size(63, 13);
             this.Descripcion_Label.TabIndex = 2;
-            this.Descripcion_Label.Text = "Descripción:";
+            this.Descripcion_Label.Text = "Descripción";
             // 
             // Visibilidad_ComboBox
             // 
-            this.Visibilidad_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Visibilidad_ComboBox.FormattingEnabled = true;
             this.Visibilidad_ComboBox.Location = new System.Drawing.Point(156, 32);
             this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
@@ -93,9 +92,9 @@
             this.Stock_Label.AutoSize = true;
             this.Stock_Label.Location = new System.Drawing.Point(16, 88);
             this.Stock_Label.Name = "Stock_Label";
-            this.Stock_Label.Size = new System.Drawing.Size(38, 13);
+            this.Stock_Label.Size = new System.Drawing.Size(35, 13);
             this.Stock_Label.TabIndex = 4;
-            this.Stock_Label.Text = "Stock:";
+            this.Stock_Label.Text = "Stock";
             // 
             // Stock_TextBox
             // 
@@ -111,22 +110,21 @@
             this.FechaFin_Label.AutoSize = true;
             this.FechaFin_Label.Location = new System.Drawing.Point(16, 115);
             this.FechaFin_Label.Name = "FechaFin_Label";
-            this.FechaFin_Label.Size = new System.Drawing.Size(113, 13);
+            this.FechaFin_Label.Size = new System.Drawing.Size(110, 13);
             this.FechaFin_Label.TabIndex = 6;
-            this.FechaFin_Label.Text = "Fecha de Finalización:";
+            this.FechaFin_Label.Text = "Fecha de Finalización";
             // 
             // Estado_Label
             // 
             this.Estado_Label.AutoSize = true;
             this.Estado_Label.Location = new System.Drawing.Point(16, 140);
             this.Estado_Label.Name = "Estado_Label";
-            this.Estado_Label.Size = new System.Drawing.Size(43, 13);
+            this.Estado_Label.Size = new System.Drawing.Size(40, 13);
             this.Estado_Label.TabIndex = 8;
-            this.Estado_Label.Text = "Estado:";
+            this.Estado_Label.Text = "Estado";
             // 
             // Estado_ComboBox
             // 
-            this.Estado_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Estado_ComboBox.FormattingEnabled = true;
             this.Estado_ComboBox.Location = new System.Drawing.Point(156, 137);
             this.Estado_ComboBox.Name = "Estado_ComboBox";
@@ -139,13 +137,12 @@
             this.Tipo_Label.AutoSize = true;
             this.Tipo_Label.Location = new System.Drawing.Point(16, 167);
             this.Tipo_Label.Name = "Tipo_Label";
-            this.Tipo_Label.Size = new System.Drawing.Size(31, 13);
+            this.Tipo_Label.Size = new System.Drawing.Size(28, 13);
             this.Tipo_Label.TabIndex = 11;
-            this.Tipo_Label.Text = "Tipo:";
+            this.Tipo_Label.Text = "Tipo";
             // 
             // TipoPubli_ComboBox
             // 
-            this.TipoPubli_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TipoPubli_ComboBox.FormattingEnabled = true;
             this.TipoPubli_ComboBox.Location = new System.Drawing.Point(156, 164);
             this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
@@ -175,18 +172,38 @@
             this.Precio_Label.AutoSize = true;
             this.Precio_Label.Location = new System.Drawing.Point(16, 310);
             this.Precio_Label.Name = "Precio_Label";
-            this.Precio_Label.Size = new System.Drawing.Size(40, 13);
+            this.Precio_Label.Size = new System.Drawing.Size(37, 13);
             this.Precio_Label.TabIndex = 15;
-            this.Precio_Label.Text = "Precio:";
+            this.Precio_Label.Text = "Precio";
+            // 
+            // Limpiar_button
+            // 
+            this.Limpiar_button.Location = new System.Drawing.Point(216, 368);
+            this.Limpiar_button.Name = "Limpiar_button";
+            this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
+            this.Limpiar_button.TabIndex = 19;
+            this.Limpiar_button.Text = "Limpiar";
+            this.Limpiar_button.UseVisualStyleBackColor = true;
+            this.Limpiar_button.Click += new System.EventHandler(this.Limpiar_button_Click);
+            // 
+            // Guardar_button
+            // 
+            this.Guardar_button.Location = new System.Drawing.Point(65, 368);
+            this.Guardar_button.Name = "Guardar_button";
+            this.Guardar_button.Size = new System.Drawing.Size(105, 38);
+            this.Guardar_button.TabIndex = 20;
+            this.Guardar_button.Text = "Guardar";
+            this.Guardar_button.UseVisualStyleBackColor = true;
+            this.Guardar_button.Click += new System.EventHandler(this.Guardar_button_Click);
             // 
             // PermitirPreg_label
             // 
             this.PermitirPreg_label.AutoSize = true;
             this.PermitirPreg_label.Location = new System.Drawing.Point(16, 333);
             this.PermitirPreg_label.Name = "PermitirPreg_label";
-            this.PermitirPreg_label.Size = new System.Drawing.Size(95, 13);
+            this.PermitirPreg_label.Size = new System.Drawing.Size(92, 13);
             this.PermitirPreg_label.TabIndex = 21;
-            this.PermitirPreg_label.Text = "Permitir Preguntas:";
+            this.PermitirPreg_label.Text = "Permitir Preguntas";
             // 
             // PermitirPreguntas_Checkbox
             // 
@@ -203,6 +220,8 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.PermitirPreguntas_Checkbox);
             this.groupBox1.Controls.Add(this.PermitirPreg_label);
+            this.groupBox1.Controls.Add(this.Guardar_button);
+            this.groupBox1.Controls.Add(this.Limpiar_button);
             this.groupBox1.Controls.Add(this.Precio_Label);
             this.groupBox1.Controls.Add(this.Precio_textBox);
             this.groupBox1.Controls.Add(this.FechaFin_DateTimePicker);
@@ -219,7 +238,7 @@
             this.groupBox1.Controls.Add(this.Descrip_TextBox);
             this.groupBox1.Location = new System.Drawing.Point(17, 14);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(378, 361);
+            this.groupBox1.Size = new System.Drawing.Size(393, 427);
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creación o Modificación de Publicación";
@@ -238,38 +257,16 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 195);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 25;
-            this.label1.Text = "Rubro:";
-            // 
-            // Guardar_button
-            // 
-            this.Guardar_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Guardar_button.Location = new System.Drawing.Point(293, 381);
-            this.Guardar_button.Name = "Guardar_button";
-            this.Guardar_button.Size = new System.Drawing.Size(105, 38);
-            this.Guardar_button.TabIndex = 28;
-            this.Guardar_button.Text = "Guardar";
-            this.Guardar_button.UseVisualStyleBackColor = true;
-            // 
-            // Limpiar_button
-            // 
-            this.Limpiar_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Limpiar_button.Location = new System.Drawing.Point(17, 381);
-            this.Limpiar_button.Name = "Limpiar_button";
-            this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
-            this.Limpiar_button.TabIndex = 27;
-            this.Limpiar_button.Text = "Limpiar";
-            this.Limpiar_button.UseVisualStyleBackColor = true;
+            this.label1.Text = "Rubro";
             // 
             // GenerarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(410, 431);
-            this.Controls.Add(this.Guardar_button);
+            this.ClientSize = new System.Drawing.Size(434, 453);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Limpiar_button);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "GenerarPubliForm";
@@ -297,12 +294,12 @@
         private System.Windows.Forms.DateTimePicker FechaFin_DateTimePicker;
         private System.Windows.Forms.TextBox Precio_textBox;
         private System.Windows.Forms.Label Precio_Label;
+        private System.Windows.Forms.Button Limpiar_button;
+        private System.Windows.Forms.Button Guardar_button;
         private System.Windows.Forms.Label PermitirPreg_label;
         private System.Windows.Forms.CheckBox PermitirPreguntas_Checkbox;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckedListBox Rubro_checkedListBox;
-        private System.Windows.Forms.Button Guardar_button;
-        private System.Windows.Forms.Button Limpiar_button;
     }
 }

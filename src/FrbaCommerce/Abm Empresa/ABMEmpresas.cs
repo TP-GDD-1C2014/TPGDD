@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Data.SqlClient;
 using FrbaCommerce.Common;
+using FrbaCommerce.Clases;
 
 namespace FrbaCommerce.Abm_Empresa
 {
@@ -250,6 +251,11 @@ namespace FrbaCommerce.Abm_Empresa
             BDSQL.agregarParametro(listaParametros, "@Fecha_Creacion", this.fechaCreacion);
             BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Empresas VALUES (@ID_User, @Razon_Social, @CUIT, @Telefono, @Direccion, @Codigo_Postal, @Ciudad, @Mail, @Nombre_Contacto, @Fecha_Creacion)", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
+
+            //Obteniendo la ID_Rol del cliente
+            int idRol = Rol.obtenerID("Empresa");
+
+            Roles.AgregarRolEnUsuario(idUser, idRol);
         }
 
         private void registrar_Click(object sender, EventArgs e)
@@ -340,6 +346,11 @@ namespace FrbaCommerce.Abm_Empresa
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Interfaz.limpiarInterfaz(this);
         }
     }
 }

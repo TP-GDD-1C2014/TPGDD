@@ -83,6 +83,11 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         }
 
+        private void nuevaButton_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
         
 
     
