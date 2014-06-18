@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using FrbaCommerce.Common;
+using FrbaCommerce.Clases;
 
 namespace FrbaCommerce.Abm_Cliente
 {
@@ -307,6 +308,14 @@ namespace FrbaCommerce.Abm_Cliente
             BDSQL.agregarParametro(listaParametros, "@Fecha_Nacimiento", this.fechaNacimiento);
             BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Clientes VALUES (@ID_User, @Tipo_Doc, @Num_Doc, @Nombre, @Apellido, @Mail, @Telefono, @Direccion, @Codigo_Postal, @Fecha_Nacimiento)", listaParametros, BDSQL.iniciarConexion());
             BDSQL.cerrarConexion();
+
+
+            //Obteniendo la ID_Rol del cliente
+            int idRol = Rol.obtenerID("Cliente");
+
+            Roles.AgregarRolEnUsuario(idUser, idRol);
+
+
         }
 
         private void registrar_Click(object sender, EventArgs e)

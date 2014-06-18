@@ -38,6 +38,32 @@ namespace FrbaCommerce.Clases
             }
         }
 
+        public static int obtenerID(string nombreRol)
+        {
+            int idRol;
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            listaParametros.Clear();
+
+            BDSQL.agregarParametro(listaParametros, "@nombre", "Cliente");
+
+            string commandText = "SELECT ID_Rol FROM MERCADONEGRO.Roles WHERE Nombre = @nombre";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+
+            if (lector.HasRows)
+            {
+                lector.Read();
+                idRol = Convert.ToInt32(lector["ID_Rol"]);
+
+            }
+            else
+                idRol = -1;
+
+            BDSQL.cerrarConexion();
+            return idRol;
+        }
+
        
         
     }
