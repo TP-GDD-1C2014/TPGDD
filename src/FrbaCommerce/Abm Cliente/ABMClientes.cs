@@ -430,7 +430,7 @@ namespace FrbaCommerce.Abm_Cliente
 
         private void textboxNoNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsControl(e.KeyChar))
+            if (Char.IsControl(e.KeyChar) || e.KeyChar == ' ')
             {
                 e.Handled = false;
             }
