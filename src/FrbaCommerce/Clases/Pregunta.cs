@@ -48,7 +48,7 @@ namespace FrbaCommerce.Clases
             ListaParametros.Add(new SqlParameter("@codPublicacion", codPublicacion));
             ListaParametros.Add(new SqlParameter("@idPregunta", idPregunta));
 
-            BDSQL.ExecStoredProcedure("MERCADONEGRO.InsertarPreguntaPorPublicacion", ListaParametros);
+            BDSQL.ExecStoredProcedureSinRet("MERCADONEGRO.InsertarPreguntaPorPublicacion", ListaParametros);
 
             BDSQL.cerrarConexion();
         }
