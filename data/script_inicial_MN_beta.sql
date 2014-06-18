@@ -154,8 +154,8 @@ CREATE TABLE MERCADONEGRO.Usuarios
 	Habilitado			 BIT DEFAULT 1	   NOT NULL,
 	Primera_Vez			 TINYINT DEFAULT 2 NOT NULL,
 	Cant_Publi_Gratuitas TINYINT		   NULL,
-	Reputacion			 FLOAT			   NULL, /*Solo vendedores*/
-	Ventas_Sin_Rendir	 TINYINT		   NULL, /*Solo vendedores*/
+	Reputacion			 FLOAT			   NULL, 
+	Ventas_Sin_Rendir	 TINYINT		   NULL, 
 	Habilitado_Compra	 BIT DEFAULT 1	   NOT NULL,
 	
 	UNIQUE (Username),
@@ -176,7 +176,7 @@ CREATE TABLE MERCADONEGRO.Empresas
 	Nombre_Contacto NVARCHAR(50)  NULL,
 	Fecha_Creacion  DATETIME	  NOT NULL,
 
-	UNIQUE		(Razon_Social), /* aca separé la razon y el cuit porque no pueden repetirse en ningun momento */
+	UNIQUE		(Razon_Social), 
 	UNIQUE		(CUIT),
 	PRIMARY KEY (ID_User),
 	FOREIGN KEY (ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
@@ -194,15 +194,14 @@ CREATE TABLE MERCADONEGRO.Clientes
 	Direccion		 NVARCHAR(255) NOT NULL,
 	Codigo_Postal	 NVARCHAR(50)  NOT NULL,
 	Fecha_Nacimiento DATETIME	   NOT NULL,
-	--CUIL			 NVARCHAR(50)  NULL,
 	
-	--UNIQUE (Telefono),
 	UNIQUE (Tipo_Doc,Num_Doc),
 	
 	PRIMARY KEY (ID_User),
 	FOREIGN KEY (ID_User) REFERENCES MERCADONEGRO.Usuarios(ID_User)
 )
 
+--Indice para permitir NULL insetados en migracion
 CREATE UNIQUE NONCLUSTERED INDEX idx_telefono_notnull
 ON MERCADONEGRO.Clientes(Telefono)
 WHERE Telefono IS NOT NULL;
@@ -279,7 +278,6 @@ CREATE TABLE MERCADONEGRO.Subastas
 	Tipo_Operacion		BIT DEFAULT 1 NOT NULL,
 	Fecha_Oferta		DATETIME	  NOT NULL,
 	Monto_Oferta		NUMERIC(18,2) NOT NULL, 
-	--Gano_Subasta		BIT			  NOT NULL,
 	
 	PRIMARY KEY (ID_Subasta),
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
@@ -305,6 +303,7 @@ GO
 -----------------------------------------------Funciones, Stored Procedures y Triggers------------------------------------------------
 
 /* SP Agregar FUNCIONALIDAD al ROL */
+
 CREATE PROCEDURE MERCADONEGRO.AgregarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
 BEGIN
 	INSERT INTO MERCADONEGRO.Funcionalidad_Rol (ID_Rol, ID_Funcionalidad)
@@ -314,6 +313,7 @@ END
 GO
 
 /* SP Quitar FUNCIONALIDAD al ROL */
+
 CREATE PROCEDURE MERCADONEGRO.QuitarFuncionalidad(@rol nvarchar(255), @func nvarchar(255)) AS
 BEGIN
 	DELETE FROM MERCADONEGRO.Funcionalidad_Rol
@@ -323,10 +323,8 @@ BEGIN
 			AND
 			(SELECT ID_Funcionalidad FROM MERCADONEGRO.Funcionalidades WHERE Nombre = @func )
 			 = MERCADONEGRO.Funcionalidad_Rol.ID_Funcionalidad
-			 
 END
 GO
-
 
 /* SP agregar ROL a la base */
 
@@ -338,6 +336,7 @@ END
 GO
 
 /* SP agregar ROL al USUARIO */
+
 CREATE PROCEDURE MERCADONEGRO.AgregarRol(@iduser numeric(18,0), @idrol numeric(18,0)) AS
 BEGIN
 	INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
@@ -398,7 +397,8 @@ GO
 
 CREATE PROCEDURE MERCADONEGRO.ObtenerOperacionesSinFacturar(@username nvarchar(255))
 AS BEGIN
-		SELECT [Fecha de la Operacion], Venta AS [Venta Nro], Publicacion AS [Publicacion Nro], Descripcion  FROM MERCADONEGRO.OperacionesSinFacturar
+		SELECT [Fecha de la Operacion], Venta AS [Venta Nro], Publicacion AS [Publicacion Nro], Descripcion  
+			FROM MERCADONEGRO.OperacionesSinFacturar
 			WHERE @username = Username
 			ORDER BY [Fecha de la Operacion]
 END
@@ -437,7 +437,8 @@ GO
 
 /* Agregar Visibilidad */
 
-CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit, @ret numeric(18,0) output)
+CREATE PROCEDURE MERCADONEGRO.AgregarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), 
+												 @porcentajeVenta numeric(18,2), @habilitada bit, @ret numeric(18,0) output)
 AS BEGIN
 	INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaje_Venta, Habilitada)
 	VALUES (@descripcion, @costoPublicacion, @porcentajeVenta, @habilitada)
@@ -447,7 +448,8 @@ GO
 
 /* SP Editar Visibilidad */
 
-CREATE PROCEDURE MERCADONEGRO.EditarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), @porcentajeVenta numeric(18,2), @habilitada bit,@descripcionVieja nvarchar(255))
+CREATE PROCEDURE MERCADONEGRO.EditarVisibilidad(@descripcion nvarchar(255), @costoPublicacion numeric(18,2), 
+												@porcentajeVenta numeric(18,2), @habilitada bit,@descripcionVieja nvarchar(255))
 AS BEGIN
 	UPDATE MERCADONEGRO.Visibilidades 
 		SET Descripcion = @descripcion, Costo_Publicacion = @costoPublicacion, Porcentaje_Venta = @porcentajeVenta,
@@ -466,16 +468,13 @@ AS BEGIN
 END
 GO
 
-
-
 /* Trigger para insertar la jerarquia a la visibilidad */
+
 CREATE TRIGGER MERCADONEGRO.Trigger_MigracionVisibilidades
 ON MERCADONEGRO.Visibilidades
 AFTER INSERT
  AS BEGIN
 
-	
-	-- Declare the variables to store the values returned by FETCH.
 	DECLARE @idInsertada numeric(18,0);
 
 	DECLARE trigger_cursor CURSOR FOR
@@ -483,15 +482,13 @@ AFTER INSERT
 	ORDER BY Cod_Visibilidad;
 
 	OPEN trigger_cursor;
-
-	-- Perform the first fetch.
+	
 	FETCH NEXT FROM trigger_cursor
 	INTO @idInsertada
 
-	-- Check @@FETCH_STATUS to see if there are any more rows to fetch.
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-	-- This is executed as long as the previous fetch succeeds.
+	
 	UPDATE MERCADONEGRO.Visibilidades   
 		SET Jerarquia = @idInsertada
 		WHERE MERCADONEGRO.Visibilidades.Cod_Visibilidad = @idInsertada	
@@ -505,6 +502,7 @@ END
 GO
 
 /* SP Crear Factura */
+
 CREATE PROCEDURE MERCADONEGRO.crearFactura(@codPublicacion numeric(18,0), @formaDePago nvarchar(255),
 											@fechaFactura datetime, @ret numeric(18,0) output)
 AS BEGIN
@@ -513,6 +511,8 @@ AS BEGIN
 		SET @ret = SCOPE_IDENTITY()
 END
 GO
+
+/* SP para obtener historiales paginados*/
 
 CREATE PROCEDURE MERCADONEGRO.pObtenerCompras
 	@pagina INT,
@@ -558,22 +558,27 @@ AS
 	ORDER BY Fecha_Oferta
 GO
 
+/* SP varios*/
+
 CREATE PROCEDURE MERCADONEGRO.obtenerCompras
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 0
+	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion 
+	FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 0
 GO
 
 CREATE PROCEDURE MERCADONEGRO.obtenerOfertasGanadas
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 1
+	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion 
+	FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 1
 GO
 
 CREATE PROCEDURE MERCADONEGRO.obtenerOfertas
 	@ID_User NUMERIC(18,0)
 AS
-	SELECT ID_Vendedor, Cod_Publicacion, Fecha_Oferta, Monto_Oferta FROM MERCADONEGRO.Subastas WHERE ID_Comprador = @ID_User
+	SELECT ID_Vendedor, Cod_Publicacion, Fecha_Oferta, Monto_Oferta 
+	FROM MERCADONEGRO.Subastas WHERE ID_Comprador = @ID_User
 GO
 
 CREATE PROCEDURE MERCADONEGRO.eliminarRubro
@@ -600,6 +605,8 @@ CREATE PROCEDURE MERCADONEGRO.obtenerCalificacion
 AS
 	SELECT Puntaje, Descripcion FROM MERCADONEGRO.Calificaciones WHERE Cod_Calificacion = @Cod_Calificacion
 GO
+
+/* Insert Item */
 
 CREATE PROCEDURE MERCADONEGRO.InsertarItem (@idFactura numeric(18,0), @cantidadVendida numeric(18,0),
 												@descripcion nvarchar(255), @precioItem numeric(18,0))
@@ -635,8 +642,9 @@ GO
 
 PRINT 'Creando valores por defecto...'
 
--- ///// Agregar las que sean necesarias /////
+
 /* FUNCIONALIDADES */
+
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarClientes');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarEmpresas');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('AdministrarRoles');
@@ -652,13 +660,16 @@ INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('Facturar');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('ListadoEstadistico');
 
 /* ROLES */
+
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Administrador General', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Cliente', 1);
 INSERT INTO MERCADONEGRO.Roles (Nombre, Habilitado) VALUES ('Empresa', 1);
 
 
 PRINT 'Agregando func ADMIN'
+
 -------------------/* Asignacion de Funcionalidades */-------------------
+
 /* ADMIN */ 
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Administrador General', @func = 'AdministrarRoles';
@@ -688,6 +699,7 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Administrador General', @func = 'ListadoEstadistico';				
 		
 /* Cliente */
+
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Cliente', @func = 'GenerarPublicacion';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -706,6 +718,7 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Cliente', @func = 'ListadoEstadistico';
 		
 /* Empresas */
+
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'GenerarPublicacion';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -725,9 +738,10 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 		
 
 ----------------- /*AGREGANDO USUARIOS INICIALES*/ ------------------------
+
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
 INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Intentos_Login,Habilitado,Primera_Vez,Cant_Publi_Gratuitas,Reputacion,Ventas_Sin_Rendir) 
-	VALUES (0,'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',0,1,0,0,0,0);--TODO ver si ultimas tres columnas podrian ir NULL
+	VALUES (0,'admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7',0,1,0,0,0,0);
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
 
 EXEC MERCADONEGRO.AgregarRol
@@ -759,8 +773,8 @@ GO
 
 ------------------------MIGRACION-----------------------------
 
-
 -------------------MIGRANDO TABLA DE RUBROS---------------------
+
 PRINT 'MIGRANDO TABLA DE RUBROS'
 
 INSERT INTO MERCADONEGRO.Rubros(Descripcion)
@@ -805,9 +819,7 @@ INSERT INTO MERCADONEGRO.Visibilidades(Descripcion, Costo_Publicacion, Porcentaj
 	ORDER BY Publicacion_Visibilidad_Precio DESC
 GO	
 
-
 --------------------------Vistas Y Tablas Temporales-----------------------------
-
 
 CREATE TABLE #UsuariosTemp
 (
@@ -819,8 +831,6 @@ CREATE TABLE #UsuariosTemp
 	
 )
 GO
---select * from #UsuariosTemp
-
 
 INSERT INTO  #UsuariosTemp 
 	SELECT DISTINCT	
@@ -847,6 +857,7 @@ GO
 -----------------VISTAS LISTADO ESTADISTICO TOP 5-----------------------------
 
 -----VENDEDORES CON MAYOR FACTURACION------
+
 CREATE VIEW  MERCADONEGRO.MayorFacturacionView		 AS
 	SELECT  Usuarios.Username						 AS Vendedor,
 			SUM(Facturaciones.Total_Facturacion)	 AS Facturacion_Total, 
@@ -864,10 +875,8 @@ CREATE VIEW  MERCADONEGRO.MayorFacturacionView		 AS
 	      			
 GO	
 
---SELECT * FROM MERCADONEGRO.MayorFacturacionView
-
-
 ------VENDEDORES CON MAYOR REPUTACION---------
+
 CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 	
 	SELECT Usuarios.Username							AS Vendedor,
@@ -881,10 +890,9 @@ CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 		JOIN MERCADONEGRO.Calificaciones			AS Calificaciones
 			ON Calificaciones.Cod_Calificacion = Operaciones.Cod_Calificacion
 GO
---SELECT * FROM MERCADONEGRO.MayorReputacionView ORDER BY Vendedor, MES, AÑO
-
 
 --------CLIENTES CON MAYOR CANTIDAD DE PUBLICACIONES SIN CALIFICAR-------------
+
 CREATE VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView AS
 	
 	SELECT Usuarios.Username					AS Cliente,
@@ -902,9 +910,9 @@ CREATE VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView AS
 		WHERE Calificaciones.Puntaje IS NULL
 		GROUP BY Usuarios.Username, MONTH(Operaciones.Fecha_Operacion), YEAR(Operaciones.Fecha_Operacion)
 GO
-
 		   	
 ---------VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS----------
+
 CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
 
 	SELECT	Usuarios.Username					AS Username,
@@ -924,6 +932,7 @@ CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
 GO	
 
 -------------------------------VISTA DE LAS OPERACIONES QUE NO FUERON FACTURADAS------------------------
+
 CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS 
 	SELECT  Username						 AS Username,
 			ID_Operacion					 AS Venta,
@@ -939,6 +948,7 @@ CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS
 GO
 
 -------------------------------VISTA PARA VER LAS RESPUESTA A PRGUNTAS DEL USUARIO-----------------------
+
 CREATE VIEW MERCADONEGRO.VerRespuestasView AS 
 
 	SELECT  u.ID_User						  AS ID_User,
@@ -958,9 +968,8 @@ CREATE VIEW MERCADONEGRO.VerRespuestasView AS
 	
 GO
 
-
-
 ---------------------------USUARIOS------------------------------
+
 PRINT 'MIGRANDO TABLAS USUARIOS'
 
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios ON
@@ -970,9 +979,8 @@ INSERT INTO MERCADONEGRO.Usuarios(ID_User,Username,Password,Cant_Publi_Gratuitas
 	FROM #UsuariosTemp
 	
 SET IDENTITY_INSERT MERCADONEGRO.Usuarios OFF
---select * from MERCADONEGRO.Usuarios order by ID_User	
-GO
 
+GO
 
 CREATE VIEW MERCADONEGRO.CalificacionView
 	AS SELECT 
@@ -987,9 +995,8 @@ CREATE VIEW MERCADONEGRO.CalificacionView
 	GROUP BY MERCADONEGRO.Usuarios.ID_User
 GO
 
------------------
+-----------------UPDATE DE REPUTACION------------------------------
 
--- Declare the variables to store the values returned by FETCH.
 DECLARE @Iduser numeric(18,0), @Promedio float;
 
 DECLARE contact_cursor CURSOR FOR
@@ -998,14 +1005,12 @@ ORDER BY iduser;
 
 OPEN contact_cursor;
 
--- Perform the first fetch.
 FETCH NEXT FROM contact_cursor
 INTO @Iduser, @Promedio;
 
--- Check @@FETCH_STATUS to see if there are any more rows to fetch.
 WHILE @@FETCH_STATUS = 0
 BEGIN
-   -- This is executed as long as the previous fetch succeeds.
+   
    UPDATE MERCADONEGRO.Usuarios
    SET Reputacion = @Promedio
 		WHERE MERCADONEGRO.Usuarios.ID_User = @Iduser	
@@ -1033,11 +1038,9 @@ INSERT INTO MERCADONEGRO.Roles_Usuarios (ID_User,ID_Rol)
 				THEN (2)
 		   END
 	FROM #UsuariosTemp
---SELECT * FROM MERCADONEGRO.Roles_Usuarios
+
 	
 -----------------------MIGRANDO TABLA CLIENTES-------------------------
---select * from MERCADONEGRO.Clientes
-
 
 PRINT 'MIGRANDO TABLA CLIENTES'
 GO
@@ -1068,8 +1071,6 @@ INSERT INTO MERCADONEGRO.Clientes (ID_User,
 	FROM #UsuariosTemp, gd_esquema.Maestra
 	WHERE Publ_Cli_Dni IS NOT NULL AND (#UsuariosTemp.username = gd_esquema.Maestra.Publ_Cli_Apeliido+gd_esquema.Maestra.Publ_Cli_Nombre)
 
---select * from MERCADONEGRO.Empresas
-
 
 PRINT 'MIGRANDO TABLA EMPRESAS'
 GO
@@ -1096,8 +1097,6 @@ INSERT INTO MERCADONEGRO.Empresas (ID_User,
 	FROM #UsuariosTemp,gd_esquema.Maestra
 	WHERE Publ_Empresa_Cuit  IS NOT NULL AND (#UsuariosTemp.username = 'RazonSocialNro'+ SUBSTRING(Publ_Empresa_Razon_Social,17,2))
 	
-
-
 
 -------------------------------MIGRANDO TABLA PUBLICACIONES---------------------------------------
 
@@ -1170,6 +1169,7 @@ INSERT INTO MERCADONEGRO.Publicaciones(Cod_Publicacion,
 SET IDENTITY_INSERT MERCADONEGRO.Publicaciones OFF
 
 -----------------------MIGRANDO PUBLICACIONES_RUBROS------------------------
+
 PRINT 'MIGRANDO RUBRO_PUBLICACION'
 
 INSERT INTO MERCADONEGRO.Rubro_Publicacion(Cod_Publicacion, ID_Rubro)
@@ -1181,6 +1181,7 @@ INSERT INTO MERCADONEGRO.Rubro_Publicacion(Cod_Publicacion, ID_Rubro)
 			  AND MERCADONEGRO.Rubros.Descripcion = gd_esquema.Maestra.Publicacion_Rubro_Descripcion
 
 ------------------------FACTURACIONES-------------------------------
+
 PRINT 'MIGRANDO LA TABLA FACTURACIONES'
 GO
 
@@ -1201,6 +1202,7 @@ SET IDENTITY_INSERT MERCADONEGRO.Facturaciones OFF
 GO
 
 -----------------------ITEMS-------------------------------------
+
 PRINT 'MIGRANDO LA TABLA ITEMS'
 GO
 
@@ -1215,7 +1217,8 @@ INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Preci
 			WHERE MERCADONEGRO.Facturaciones.Nro_Factura = gd_esquema.Maestra.Factura_Nro
 GO
 
--------------------------OPERACIONES---------------------------------------------------------------
+-------------------------OPERACIONES-------------------------------------------------
+
 PRINT 'MIGRANDO LAS COMPRAS'
 GO
 
@@ -1240,7 +1243,6 @@ INSERT INTO MERCADONEGRO.Operaciones
 	AND MERCADONEGRO.Usuarios.Password = convert(nvarchar(255),Cli_Dni)
 	
 GO
-
 
 CREATE VIEW MERCADONEGRO.SubastasView AS
 
@@ -1269,17 +1271,10 @@ CREATE VIEW MERCADONEGRO.SubastasView AS
 	
 GO	
 	
---select * from MERCADONEGRO.SubastasView
---	ORDER BY codpublic, fechaOferta
---DROP VIEW MERCADONEGRO.SubastasView
-
---DROP VIEW MERCADONEGRO.OperacionesOfertas
-
-
 ---------------MIGRANDO SUBASTAS---------------------------
+
 PRINT 'MIGRANDO LA TABLA SUBASTAS'
 GO
-
 
 INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor, ID_Comprador, Cod_Publicacion, Tipo_Operacion,
 									Fecha_Oferta, Monto_Oferta)
@@ -1289,7 +1284,6 @@ INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor, ID_Comprador, Cod_Publicacion, Ti
 
 GO
 
----Subastas ganadas
 INSERT INTO MERCADONEGRO.Operaciones(ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion,
 									Cod_Calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
 	 
@@ -1305,6 +1299,7 @@ INSERT INTO MERCADONEGRO.Operaciones(ID_Vendedor, ID_Comprador, Cod_Publicacion,
 
 
 -----------------------------DROPS-----------------------------
+
 DROP TABLE #UsuariosTemp
 GO
 DROP VIEW MERCADONEGRO.Vista_Publicaciones
@@ -1313,7 +1308,9 @@ DROP VIEW MERCADONEGRO.SubastasView
 GO
 DROP VIEW MERCADONEGRO.CalificacionView
 GO
+
 ---------------------TRIGGERS POST MIGRACION-----------------
+
 /* TRIGGER para las compras: inserta calificacion vacia, recibe su cod_calific, con eso inserta una nueva compra en Operaciones
 con fecha actual, y luego updatea el stock de la publicacion corespondiente */
 
@@ -1372,8 +1369,6 @@ CREATE TRIGGER Trigger_UpdateCalificacion
 			
 	END 
 GO
-/* Trigger para updatear de forma secuencial las jerarquias de la visibilidad */
-
 
 
 -----------------------------FIN SCRIPT INICIAL---------------------------------
