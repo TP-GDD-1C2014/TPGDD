@@ -259,10 +259,7 @@ namespace FrbaCommerce.Clases
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@desde", desde);
             BDSQL.agregarParametro(listaParametros, "@hasta", hasta);
-            //if (filtro != "")
-            //    BDSQL.agregarParametro(listaParametros, "@filtro", filtro);
-
-
+         
             String commandtext = "WITH tablaNumerada AS "
             + "(SELECT p.Cod_Publicacion, p.Cod_Visibilidad, ID_Vendedor,p.Descripcion, "
             + "Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Cod_EstadoPublicacion, "
