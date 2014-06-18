@@ -543,7 +543,7 @@ namespace FrbaCommerce.Generar_Publicacion
 
         private void volverButton_Click(object sender, EventArgs e)
         {
-            Interfaz.limpiarInterfaz(this);
+            this.Close();
         }
 
 
