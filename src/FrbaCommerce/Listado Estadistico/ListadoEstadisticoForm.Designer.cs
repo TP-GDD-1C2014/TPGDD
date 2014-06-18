@@ -195,6 +195,7 @@
             this.top5DataGriedView.AllowUserToResizeRows = false;
             this.top5DataGriedView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.top5DataGriedView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.top5DataGriedView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.top5DataGriedView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.top5DataGriedView.GridColor = System.Drawing.SystemColors.Window;
             this.top5DataGriedView.Location = new System.Drawing.Point(6, 48);

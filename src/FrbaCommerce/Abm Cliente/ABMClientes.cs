@@ -435,5 +435,10 @@ namespace FrbaCommerce.Abm_Cliente
                 e.Handled = true;
             }
         }
+
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+            Interfaz.limpiarInterfaz(this);
+        }
     }
 }

@@ -58,6 +58,7 @@
             this.cbFiltro = new System.Windows.Forms.ComboBox();
             this.tBusqueda = new System.Windows.Forms.TextBox();
             this.back = new System.Windows.Forms.Button();
+            this.limpiarButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -237,9 +238,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 170);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Teléfono";
+            this.label6.Text = "Teléfono (*)";
             // 
             // label5
             // 
@@ -355,11 +356,22 @@
             this.back.UseVisualStyleBackColor = true;
             this.back.Click += new System.EventHandler(this.back_Click_1);
             // 
+            // limpiarButton
+            // 
+            this.limpiarButton.Location = new System.Drawing.Point(222, 425);
+            this.limpiarButton.Name = "limpiarButton";
+            this.limpiarButton.Size = new System.Drawing.Size(85, 30);
+            this.limpiarButton.TabIndex = 2;
+            this.limpiarButton.Text = "Limpiar";
+            this.limpiarButton.UseVisualStyleBackColor = true;
+            this.limpiarButton.Click += new System.EventHandler(this.limpiarButton_Click);
+            // 
             // ABMClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(319, 464);
+            this.Controls.Add(this.limpiarButton);
             this.Controls.Add(this.back);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -409,5 +421,6 @@
         private System.Windows.Forms.Button back;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cbFiltroTipoDocumento;
+        private System.Windows.Forms.Button limpiarButton;
     }
 }
