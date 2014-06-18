@@ -205,28 +205,55 @@ namespace FrbaCommerce.Generar_Publicacion
                 //Nueva
                 if ((esNueva == true))
                 {
-                    //Nueva + (Stock<=0)
-                    if (stock < 1)
+                    if (fechaFin > Interfaz.obtenerFecha())
                     {
-                        MessageBox.Show("El Stock no puede ser menor a 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
 
-                    else
-                    {
-                        //Nueva + Gratis + Publicada
-                        if ((visibilidad == "Gratis") && (estadoIndex == 1))
+                        //Nueva + (Stock<=0)
+                        if (stock < 1)
                         {
-                            //Obtiene la cantidad de publicaciones gratuitas del usuario
-                            int idUser = Convert.ToInt32(usuario.ID_User);
-                            int cantidadPubliGratuitas = Usuario.obtenerPublisGratuitas(idUser);
+                            MessageBox.Show("El Stock no puede ser menor a 1", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
 
-
-                            //Nueva + Gratis + Publicada + (CantGratis<3)
-                            if (cantidadPubliGratuitas < 3)
+                        else
+                        {
+                            //Nueva + Gratis + Publicada
+                            if ((visibilidad == "Gratis") && (estadoIndex == 1))
                             {
-                                //Sumar 1 a Cant_Publi_Gratuitas
-                                usuario.sumarPubliGratuita();
+                                //Obtiene la cantidad de publicaciones gratuitas del usuario
+                                int idUser = Convert.ToInt32(usuario.ID_User);
+                                int cantidadPubliGratuitas = Usuario.obtenerPublisGratuitas(idUser);
 
+
+                                //Nueva + Gratis + Publicada + (CantGratis<3)
+                                if (cantidadPubliGratuitas < 3)
+                                {
+                                    //Sumar 1 a Cant_Publi_Gratuitas
+                                    usuario.sumarPubliGratuita();
+
+                                    //Inserta publicacion en la tabla Publicaciones
+                                    int publiExitosa = Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                                    if (publiExitosa == -1)
+                                    {
+                                        MessageBox.Show("Falló al generar Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                    else
+                                    {
+                                        int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
+                                        MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK);
+                                        Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
+                                    }
+
+                                }
+                                //Nueva + Gratis + Publicada + (CantGratis>=3)
+                                else
+                                {
+                                    MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                }
+                            }
+
+                            //Nueva + No (Gratis + Publicada) + No (Subasta + Publicada)
+                            else
+                            {
                                 //Inserta publicacion en la tabla Publicaciones
                                 int publiExitosa = Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
                                 if (publiExitosa == -1)
@@ -239,33 +266,14 @@ namespace FrbaCommerce.Generar_Publicacion
                                     MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK);
                                     Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
                                 }
+                            }
 
-                            }
-                            //Nueva + Gratis + Publicada + (CantGratis>=3)
-                            else
-                            {
-                                MessageBox.Show("Ya posee 3 publicaciones gratuitas publicadas", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            }
+                            this.Close();
                         }
-
-                        //Nueva + No (Gratis + Publicada) + No (Subasta + Publicada)
-                        else
-                        {
-                            //Inserta publicacion en la tabla Publicaciones
-                            int publiExitosa = Publicaciones.agregarPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                            if (publiExitosa == -1)
-                            {
-                                MessageBox.Show("Falló al generar Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                int nuevoCodPbli = Publicaciones.obtenerCodPublicacion(publi, visibilidadIndex, estadoIndex, tipoPubliIndex);
-                                MessageBox.Show(string.Format("La publicación creada tendrá el Código {0}", nuevoCodPbli), "Codigo de Publicación", MessageBoxButtons.OK);
-                                Rubro.agregarRubroPublicacion(listaRubrosSeleccionados, nuevoCodPbli);
-                            }
-                        }
-
-                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("La fecha de vencimiento no puede ser menor a la actual", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
 
                 }
@@ -531,6 +539,11 @@ namespace FrbaCommerce.Generar_Publicacion
                 }
             }
             return rubrosSeleccionados;
+        }
+
+        private void volverButton_Click(object sender, EventArgs e)
+        {
+            Interfaz.limpiarInterfaz(this);
         }
 
 

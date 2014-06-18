@@ -49,6 +49,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Rubro_checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.volverButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@
             this.Descrip_TextBox.Location = new System.Drawing.Point(156, 59);
             this.Descrip_TextBox.Name = "Descrip_TextBox";
             this.Descrip_TextBox.Size = new System.Drawing.Size(200, 20);
-            this.Descrip_TextBox.TabIndex = 0;
+            this.Descrip_TextBox.TabIndex = 2;
             this.Descrip_TextBox.TextChanged += new System.EventHandler(this.Descrip_TextBox_TextChanged);
             // 
             // Visibilidad_Label
@@ -84,7 +85,7 @@
             this.Visibilidad_ComboBox.Location = new System.Drawing.Point(156, 32);
             this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
             this.Visibilidad_ComboBox.Size = new System.Drawing.Size(200, 21);
-            this.Visibilidad_ComboBox.TabIndex = 3;
+            this.Visibilidad_ComboBox.TabIndex = 1;
             this.Visibilidad_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Visibilidad_ComboBox_SelectedIndexChanged);
             // 
             // Stock_Label
@@ -101,7 +102,7 @@
             this.Stock_TextBox.Location = new System.Drawing.Point(156, 85);
             this.Stock_TextBox.Name = "Stock_TextBox";
             this.Stock_TextBox.Size = new System.Drawing.Size(200, 20);
-            this.Stock_TextBox.TabIndex = 5;
+            this.Stock_TextBox.TabIndex = 3;
             this.Stock_TextBox.TextChanged += new System.EventHandler(this.Stock_TextBox_TextChanged);
             this.Stock_TextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Stock_TextBox_KeyPress);
             // 
@@ -129,7 +130,7 @@
             this.Estado_ComboBox.Location = new System.Drawing.Point(156, 137);
             this.Estado_ComboBox.Name = "Estado_ComboBox";
             this.Estado_ComboBox.Size = new System.Drawing.Size(200, 21);
-            this.Estado_ComboBox.TabIndex = 9;
+            this.Estado_ComboBox.TabIndex = 5;
             this.Estado_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Estado_ComboBox_SelectedIndexChanged);
             // 
             // Tipo_Label
@@ -147,7 +148,7 @@
             this.TipoPubli_ComboBox.Location = new System.Drawing.Point(156, 164);
             this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
             this.TipoPubli_ComboBox.Size = new System.Drawing.Size(200, 21);
-            this.TipoPubli_ComboBox.TabIndex = 12;
+            this.TipoPubli_ComboBox.TabIndex = 6;
             this.TipoPubli_ComboBox.SelectedIndexChanged += new System.EventHandler(this.TipoPubli_ComboBox_SelectedIndexChanged);
             // 
             // FechaFin_DateTimePicker
@@ -155,7 +156,7 @@
             this.FechaFin_DateTimePicker.Location = new System.Drawing.Point(156, 111);
             this.FechaFin_DateTimePicker.Name = "FechaFin_DateTimePicker";
             this.FechaFin_DateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.FechaFin_DateTimePicker.TabIndex = 13;
+            this.FechaFin_DateTimePicker.TabIndex = 4;
             this.FechaFin_DateTimePicker.ValueChanged += new System.EventHandler(this.FechaFin_DateTimePicker_ValueChanged);
             // 
             // Precio_textBox
@@ -163,7 +164,7 @@
             this.Precio_textBox.Location = new System.Drawing.Point(156, 307);
             this.Precio_textBox.Name = "Precio_textBox";
             this.Precio_textBox.Size = new System.Drawing.Size(200, 20);
-            this.Precio_textBox.TabIndex = 14;
+            this.Precio_textBox.TabIndex = 8;
             this.Precio_textBox.TextChanged += new System.EventHandler(this.Precio_textBox_TextChanged);
             this.Precio_textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Precio_textBox_KeyPress);
             // 
@@ -178,20 +179,20 @@
             // 
             // Limpiar_button
             // 
-            this.Limpiar_button.Location = new System.Drawing.Point(216, 368);
+            this.Limpiar_button.Location = new System.Drawing.Point(156, 368);
             this.Limpiar_button.Name = "Limpiar_button";
             this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
-            this.Limpiar_button.TabIndex = 19;
+            this.Limpiar_button.TabIndex = 11;
             this.Limpiar_button.Text = "Limpiar";
             this.Limpiar_button.UseVisualStyleBackColor = true;
             this.Limpiar_button.Click += new System.EventHandler(this.Limpiar_button_Click);
             // 
             // Guardar_button
             // 
-            this.Guardar_button.Location = new System.Drawing.Point(65, 368);
+            this.Guardar_button.Location = new System.Drawing.Point(267, 368);
             this.Guardar_button.Name = "Guardar_button";
             this.Guardar_button.Size = new System.Drawing.Size(105, 38);
-            this.Guardar_button.TabIndex = 20;
+            this.Guardar_button.TabIndex = 10;
             this.Guardar_button.Text = "Guardar";
             this.Guardar_button.UseVisualStyleBackColor = true;
             this.Guardar_button.Click += new System.EventHandler(this.Guardar_button_Click);
@@ -211,11 +212,12 @@
             this.PermitirPreguntas_Checkbox.Location = new System.Drawing.Point(156, 332);
             this.PermitirPreguntas_Checkbox.Name = "PermitirPreguntas_Checkbox";
             this.PermitirPreguntas_Checkbox.Size = new System.Drawing.Size(15, 14);
-            this.PermitirPreguntas_Checkbox.TabIndex = 23;
+            this.PermitirPreguntas_Checkbox.TabIndex = 9;
             this.PermitirPreguntas_Checkbox.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.volverButton);
             this.groupBox1.Controls.Add(this.Rubro_checkedListBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.PermitirPreguntas_Checkbox);
@@ -239,7 +241,7 @@
             this.groupBox1.Location = new System.Drawing.Point(17, 14);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(393, 427);
-            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creación o Modificación de Publicación";
             // 
@@ -249,7 +251,7 @@
             this.Rubro_checkedListBox.Location = new System.Drawing.Point(156, 192);
             this.Rubro_checkedListBox.Name = "Rubro_checkedListBox";
             this.Rubro_checkedListBox.Size = new System.Drawing.Size(200, 109);
-            this.Rubro_checkedListBox.TabIndex = 26;
+            this.Rubro_checkedListBox.TabIndex = 7;
             this.Rubro_checkedListBox.SelectedIndexChanged += new System.EventHandler(this.Rubro_checkedListBox_SelectedIndexChanged);
             // 
             // label1
@@ -260,6 +262,16 @@
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 25;
             this.label1.Text = "Rubro";
+            // 
+            // volverButton
+            // 
+            this.volverButton.Location = new System.Drawing.Point(38, 365);
+            this.volverButton.Name = "volverButton";
+            this.volverButton.Size = new System.Drawing.Size(112, 41);
+            this.volverButton.TabIndex = 26;
+            this.volverButton.Text = "<< Volver";
+            this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // GenerarPubliForm
             // 
@@ -301,5 +313,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckedListBox Rubro_checkedListBox;
+        private System.Windows.Forms.Button volverButton;
     }
 }
