@@ -691,7 +691,9 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Cliente', @func = 'GenerarPublicacion';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Cliente', @func = 'EditarPublicacion';		
+	@rol = 'Cliente', @func = 'EditarPublicacion';	
+EXEC MERCADONEGRO.AgregarFuncionalidad
+	@rol = 'Cliente', @func = 'GestionarPreguntas';	
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Cliente', @func = 'ComprarOfertar';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -707,7 +709,9 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'GenerarPublicacion';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Empresa', @func = 'EditarPublicacion';		
+	@rol = 'Empresa', @func = 'EditarPublicacion';
+EXEC MERCADONEGRO.AgregarFuncionalidad
+	@rol = 'Empresa', @func = 'GestionarPreguntas';			
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'ComprarOfertar';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
