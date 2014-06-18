@@ -91,7 +91,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ResponderPreguntas";
-            this.Text = "Listado de preguntas";
+            this.Text = "Listado de preguntas - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.preguntasDataGrid)).EndInit();
             this.ResumeLayout(false);

@@ -52,7 +52,7 @@
             this.btnVerDetalle.Location = new System.Drawing.Point(391, 19);
             this.btnVerDetalle.Name = "btnVerDetalle";
             this.btnVerDetalle.Size = new System.Drawing.Size(114, 23);
-            this.btnVerDetalle.TabIndex = 2;
+            this.btnVerDetalle.TabIndex = 1;
             this.btnVerDetalle.Text = "Ver en detalle";
             this.btnVerDetalle.UseVisualStyleBackColor = true;
             this.btnVerDetalle.Click += new System.EventHandler(this.btnVerDetalle_Click);
@@ -91,7 +91,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "VerRespuestas";
-            this.Text = "Ver Respuestas ";
+            this.Text = "Ver Respuestas  - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.respuestasDataGrid)).EndInit();
             this.ResumeLayout(false);

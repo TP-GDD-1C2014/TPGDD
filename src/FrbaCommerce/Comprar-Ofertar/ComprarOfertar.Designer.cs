@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Publicaciones_Datagrid = new System.Windows.Forms.DataGridView();
             this.btnAgregarRubros = new System.Windows.Forms.Button();
             this.btnAnteriorPag = new System.Windows.Forms.Button();
@@ -64,23 +64,23 @@
             this.Publicaciones_Datagrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Publicaciones_Datagrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.Publicaciones_Datagrid.BackgroundColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Publicaciones_Datagrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Publicaciones_Datagrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.Publicaciones_Datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Publicaciones_Datagrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Publicaciones_Datagrid.DefaultCellStyle = dataGridViewCellStyle6;
             this.Publicaciones_Datagrid.Location = new System.Drawing.Point(12, 96);
             this.Publicaciones_Datagrid.MultiSelect = false;
             this.Publicaciones_Datagrid.Name = "Publicaciones_Datagrid";
@@ -91,6 +91,7 @@
             // 
             // btnAgregarRubros
             // 
+            this.btnAgregarRubros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarRubros.Location = new System.Drawing.Point(396, 46);
             this.btnAgregarRubros.Name = "btnAgregarRubros";
             this.btnAgregarRubros.Size = new System.Drawing.Size(103, 23);
@@ -104,7 +105,7 @@
             this.btnAnteriorPag.Location = new System.Drawing.Point(368, 503);
             this.btnAnteriorPag.Name = "btnAnteriorPag";
             this.btnAnteriorPag.Size = new System.Drawing.Size(19, 23);
-            this.btnAnteriorPag.TabIndex = 5;
+            this.btnAnteriorPag.TabIndex = 7;
             this.btnAnteriorPag.Text = "<";
             this.btnAnteriorPag.UseVisualStyleBackColor = true;
             this.btnAnteriorPag.Click += new System.EventHandler(this.btnAnteriorPag_Click);
@@ -114,7 +115,7 @@
             this.btnSiguientePag.Location = new System.Drawing.Point(393, 503);
             this.btnSiguientePag.Name = "btnSiguientePag";
             this.btnSiguientePag.Size = new System.Drawing.Size(19, 23);
-            this.btnSiguientePag.TabIndex = 6;
+            this.btnSiguientePag.TabIndex = 8;
             this.btnSiguientePag.Text = ">";
             this.btnSiguientePag.UseVisualStyleBackColor = true;
             this.btnSiguientePag.Click += new System.EventHandler(this.btnSiguientePag_Click);
@@ -125,7 +126,7 @@
             this.btnPrimerPag.Location = new System.Drawing.Point(287, 503);
             this.btnPrimerPag.Name = "btnPrimerPag";
             this.btnPrimerPag.Size = new System.Drawing.Size(75, 23);
-            this.btnPrimerPag.TabIndex = 7;
+            this.btnPrimerPag.TabIndex = 6;
             this.btnPrimerPag.Text = "Primera";
             this.btnPrimerPag.UseVisualStyleBackColor = true;
             this.btnPrimerPag.Click += new System.EventHandler(this.btnPrimerPag_Click);
@@ -136,7 +137,7 @@
             this.btnUltimaPag.Location = new System.Drawing.Point(418, 503);
             this.btnUltimaPag.Name = "btnUltimaPag";
             this.btnUltimaPag.Size = new System.Drawing.Size(75, 23);
-            this.btnUltimaPag.TabIndex = 8;
+            this.btnUltimaPag.TabIndex = 9;
             this.btnUltimaPag.Text = "Ultima";
             this.btnUltimaPag.UseVisualStyleBackColor = true;
             this.btnUltimaPag.Click += new System.EventHandler(this.btnUltimaPag_Click);
@@ -147,7 +148,7 @@
             this.btnAbrirPublicacion.Location = new System.Drawing.Point(685, 495);
             this.btnAbrirPublicacion.Name = "btnAbrirPublicacion";
             this.btnAbrirPublicacion.Size = new System.Drawing.Size(180, 38);
-            this.btnAbrirPublicacion.TabIndex = 9;
+            this.btnAbrirPublicacion.TabIndex = 10;
             this.btnAbrirPublicacion.Text = "Abrir Publicacion";
             this.btnAbrirPublicacion.UseVisualStyleBackColor = true;
             this.btnAbrirPublicacion.Click += new System.EventHandler(this.btnAbrirPublicacion_Click);
@@ -172,6 +173,7 @@
             this.groupBox1.Controls.Add(this.txtDescripcion);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnAgregarRubros);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(619, 78);
@@ -193,7 +195,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(505, 46);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(103, 23);
-            this.btnBuscar.TabIndex = 12;
+            this.btnBuscar.TabIndex = 5;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -204,17 +206,18 @@
             this.btnReset.Location = new System.Drawing.Point(505, 17);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(103, 23);
-            this.btnReset.TabIndex = 16;
+            this.btnReset.TabIndex = 4;
             this.btnReset.Text = "Sin filtros!";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnBorrarDescripcion
             // 
+            this.btnBorrarDescripcion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrarDescripcion.Location = new System.Drawing.Point(396, 17);
             this.btnBorrarDescripcion.Name = "btnBorrarDescripcion";
             this.btnBorrarDescripcion.Size = new System.Drawing.Size(103, 23);
-            this.btnBorrarDescripcion.TabIndex = 15;
+            this.btnBorrarDescripcion.TabIndex = 2;
             this.btnBorrarDescripcion.Text = "Borrar descripción";
             this.btnBorrarDescripcion.UseVisualStyleBackColor = true;
             this.btnBorrarDescripcion.Click += new System.EventHandler(this.btnBorrarDescripcion_Click);
@@ -234,7 +237,7 @@
             this.txtDescripcion.Location = new System.Drawing.Point(95, 19);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(295, 20);
-            this.txtDescripcion.TabIndex = 13;
+            this.txtDescripcion.TabIndex = 1;
             // 
             // groupBox2
             // 
@@ -242,6 +245,7 @@
             this.groupBox2.Controls.Add(this.txtCantPublicaciones);
             this.groupBox2.Controls.Add(this.lblPaginaActual);
             this.groupBox2.Controls.Add(this.lblCantPublicaciones);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(637, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(228, 78);
@@ -302,8 +306,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ComprarOfertar";
-            this.Text = "Comprar/Ofertar Publicaciones";
-            this.Load += new System.EventHandler(this.ComprarOfertar_Load);
+            this.Text = "Comprar/Ofertar Publicaciones - MercadoNegro";
             ((System.ComponentModel.ISupportInitialize)(this.Publicaciones_Datagrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

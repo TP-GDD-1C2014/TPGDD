@@ -46,6 +46,7 @@
             this.groupBox1.Controls.Add(this.txtOfertaActual);
             this.groupBox1.Controls.Add(this.lblOferta);
             this.groupBox1.Controls.Add(this.lblOfertaActual);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(268, 107);
@@ -81,6 +82,7 @@
             // lblOferta
             // 
             this.lblOferta.AutoSize = true;
+            this.lblOferta.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOferta.Location = new System.Drawing.Point(6, 62);
             this.lblOferta.Name = "lblOferta";
             this.lblOferta.Size = new System.Drawing.Size(39, 13);
@@ -90,6 +92,7 @@
             // lblOfertaActual
             // 
             this.lblOfertaActual.AutoSize = true;
+            this.lblOfertaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOfertaActual.Location = new System.Drawing.Point(6, 34);
             this.lblOfertaActual.Name = "lblOfertaActual";
             this.lblOfertaActual.Size = new System.Drawing.Size(71, 13);
@@ -128,7 +131,7 @@
             this.MaximizeBox = false;
             this.Name = "OfertaDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Subasta - Ofertar";
+            this.Text = "Ofertar subasta - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

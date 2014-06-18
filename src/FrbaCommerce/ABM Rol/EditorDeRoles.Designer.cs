@@ -88,7 +88,7 @@
             this.Habilitado_Checkbox.Location = new System.Drawing.Point(95, 204);
             this.Habilitado_Checkbox.Name = "Habilitado_Checkbox";
             this.Habilitado_Checkbox.Size = new System.Drawing.Size(15, 14);
-            this.Habilitado_Checkbox.TabIndex = 5;
+            this.Habilitado_Checkbox.TabIndex = 3;
             this.Habilitado_Checkbox.UseVisualStyleBackColor = true;
             // 
             // Cancelar_Button
@@ -97,7 +97,7 @@
             this.Cancelar_Button.Location = new System.Drawing.Point(149, 262);
             this.Cancelar_Button.Name = "Cancelar_Button";
             this.Cancelar_Button.Size = new System.Drawing.Size(75, 23);
-            this.Cancelar_Button.TabIndex = 6;
+            this.Cancelar_Button.TabIndex = 4;
             this.Cancelar_Button.Text = "Cancelar";
             this.Cancelar_Button.UseVisualStyleBackColor = true;
             // 
@@ -106,7 +106,7 @@
             this.Guardar_Button.Location = new System.Drawing.Point(230, 262);
             this.Guardar_Button.Name = "Guardar_Button";
             this.Guardar_Button.Size = new System.Drawing.Size(75, 23);
-            this.Guardar_Button.TabIndex = 7;
+            this.Guardar_Button.TabIndex = 5;
             this.Guardar_Button.Text = "Guardar";
             this.Guardar_Button.UseVisualStyleBackColor = true;
             this.Guardar_Button.Click += new System.EventHandler(this.Guardar_Button_Click);
@@ -137,7 +137,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "EditorDeRoles";
-            this.Text = "Editor de Roles";
+            this.Text = "Editor de Roles - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

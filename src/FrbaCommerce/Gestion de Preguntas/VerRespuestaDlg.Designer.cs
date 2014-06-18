@@ -116,7 +116,7 @@
             this.btnVolver.Location = new System.Drawing.Point(205, 244);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 0;
+            this.btnVolver.TabIndex = 1;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             // 
@@ -130,7 +130,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "VerRespuestaDlg";
-            this.Text = "Ver Respuesta";
+            this.Text = "Ver Respuesta - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

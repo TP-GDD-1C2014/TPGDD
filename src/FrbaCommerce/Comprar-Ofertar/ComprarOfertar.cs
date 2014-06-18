@@ -15,7 +15,7 @@ namespace FrbaCommerce.Comprar_Ofertar
     public partial class ComprarOfertar : Form
     {
         int paginaActual;
-        int cantPublicacionesPorPagina = 18;
+        int cantPublicacionesPorPagina = 2; //because of reasons
         int cantPublicacionesTotal;
         int ultimaPagina;
         string filtro;
@@ -33,22 +33,6 @@ namespace FrbaCommerce.Comprar_Ofertar
             contarPublicaciones();
             cargarPublicaciones();
         }
-
-        public class itemComboBox
-        {
-            public string Nombre_Rubro { get; set; }
-            public int ID_Rubro { get; set; }
-
-            public itemComboBox(string nombre, int id)
-            {
-                Nombre_Rubro = nombre;
-                ID_Rubro = id;
-            }
-            public override string ToString()
-            {
-                return Nombre_Rubro;
-            }
-        }
         
         public void cargarPublicaciones()
         {         
@@ -62,10 +46,20 @@ namespace FrbaCommerce.Comprar_Ofertar
                 desde = 0;
                 hasta = cantPublicacionesPorPagina;
 
-                btnAnteriorPag.Enabled = false;
-                btnPrimerPag.Enabled = false;
-                btnSiguientePag.Enabled = true;
-                btnUltimaPag.Enabled = true;
+                if (ultimaPagina != 0)
+                {
+                    btnAnteriorPag.Enabled = false;
+                    btnPrimerPag.Enabled = false;
+                    btnSiguientePag.Enabled = true;
+                    btnUltimaPag.Enabled = true;
+                }
+                else
+                {
+                    btnAnteriorPag.Enabled = false;
+                    btnPrimerPag.Enabled = false;
+                    btnSiguientePag.Enabled = false;
+                    btnUltimaPag.Enabled = false;
+                }
             }
             else if (paginaActual == ultimaPagina)
             {
@@ -128,11 +122,16 @@ namespace FrbaCommerce.Comprar_Ofertar
 
         private void contarPublicaciones ()
         {
-            string commandtext = "select COUNT (*) AS cant from MERCADONEGRO.Publicaciones as p JOIN MERCADONEGRO.Rubro_Publicacion rp ON p.Cod_Publicacion=rp.Cod_Publicacion ";
+            string commandtext = "SELECT COUNT (*) AS cant from MERCADONEGRO.Publicaciones AS p " +
+                                 "JOIN MERCADONEGRO.Estados_Publicacion ep ON ep.Cod_EstadoPublicacion = p.Cod_EstadoPublicacion ";
+            if (filtroRubros)
+                commandtext += "JOIN MERCADONEGRO.Rubro_Publicacion rp ON p.Cod_Publicacion = rp.Cod_Publicacion ";
 
-            if (filtro != "")
-                commandtext += " WHERE " + filtro;
+            commandtext += "WHERE ep.Descripcion != 'Finalizada' ";
             
+            if (filtro != "")
+                commandtext += " AND " + filtro;
+                    
             SqlDataReader reader = BDSQL.ejecutarReader(commandtext, BDSQL.iniciarConexion());
 
             if (reader.HasRows)
@@ -140,6 +139,9 @@ namespace FrbaCommerce.Comprar_Ofertar
                 reader.Read();
                 cantPublicacionesTotal = Convert.ToInt32(reader["cant"]);
                 ultimaPagina = cantPublicacionesTotal / cantPublicacionesPorPagina;
+
+                if (ultimaPagina < 1)
+                    ultimaPagina = 0;
             }
 
             BDSQL.cerrarConexion();
@@ -157,8 +159,6 @@ namespace FrbaCommerce.Comprar_Ofertar
                 cargarPublicaciones();
             }
             
-
-            //cargarTodosLosRoles(); actualizar
         }
 
         private void btnAgregarRubros_Click(object sender, EventArgs e)
@@ -247,12 +247,6 @@ namespace FrbaCommerce.Comprar_Ofertar
             txtCantPublicaciones.Text = Convert.ToString(cantPublicacionesTotal );
             txtPaginaActual.Text = Convert.ToString(paginaActual + 1);
         }
-
-        private void ComprarOfertar_Load(object sender, EventArgs e)
-        {
-
-        }
-
 
     }
     

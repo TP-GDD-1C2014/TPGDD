@@ -97,7 +97,7 @@
             this.cblRoles.Location = new System.Drawing.Point(70, 90);
             this.cblRoles.Name = "cblRoles";
             this.cblRoles.Size = new System.Drawing.Size(182, 109);
-            this.cblRoles.TabIndex = 6;
+            this.cblRoles.TabIndex = 1;
             // 
             // lblRoles
             // 
@@ -114,7 +114,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(201, 233);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 0;
+            this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.button1_Click);
@@ -125,7 +125,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(120, 233);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.TabIndex = 2;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -140,7 +140,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "RolesUsuarioDlg";
-            this.Text = "Asignar roles a Usuarios";
+            this.Text = "Asignar roles a Usuarios - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

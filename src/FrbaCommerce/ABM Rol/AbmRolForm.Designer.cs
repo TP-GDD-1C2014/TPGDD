@@ -44,7 +44,7 @@
             this.Nuevo_Button.Location = new System.Drawing.Point(6, 19);
             this.Nuevo_Button.Name = "Nuevo_Button";
             this.Nuevo_Button.Size = new System.Drawing.Size(75, 23);
-            this.Nuevo_Button.TabIndex = 0;
+            this.Nuevo_Button.TabIndex = 1;
             this.Nuevo_Button.Text = "Nuevo";
             this.Nuevo_Button.UseVisualStyleBackColor = true;
             this.Nuevo_Button.Click += new System.EventHandler(this.Nuevo_Button_Click);
@@ -54,7 +54,7 @@
             this.Modificar_Button.Location = new System.Drawing.Point(87, 19);
             this.Modificar_Button.Name = "Modificar_Button";
             this.Modificar_Button.Size = new System.Drawing.Size(75, 23);
-            this.Modificar_Button.TabIndex = 1;
+            this.Modificar_Button.TabIndex = 2;
             this.Modificar_Button.Text = "Modificar";
             this.Modificar_Button.UseVisualStyleBackColor = true;
             this.Modificar_Button.Click += new System.EventHandler(this.Modificar_Button_Click);
@@ -64,7 +64,7 @@
             this.Eliminar_Button.Location = new System.Drawing.Point(168, 19);
             this.Eliminar_Button.Name = "Eliminar_Button";
             this.Eliminar_Button.Size = new System.Drawing.Size(75, 23);
-            this.Eliminar_Button.TabIndex = 2;
+            this.Eliminar_Button.TabIndex = 3;
             this.Eliminar_Button.Text = "Eliminar";
             this.Eliminar_Button.UseVisualStyleBackColor = true;
             this.Eliminar_Button.Click += new System.EventHandler(this.Eliminar_Button_Click);
@@ -75,7 +75,7 @@
             this.Volver_Button.Location = new System.Drawing.Point(347, 294);
             this.Volver_Button.Name = "Volver_Button";
             this.Volver_Button.Size = new System.Drawing.Size(75, 23);
-            this.Volver_Button.TabIndex = 3;
+            this.Volver_Button.TabIndex = 5;
             this.Volver_Button.Text = "Volver";
             this.Volver_Button.UseVisualStyleBackColor = true;
             // 
@@ -116,7 +116,7 @@
             this.btnAsignarRoles.Location = new System.Drawing.Point(308, 19);
             this.btnAsignarRoles.Name = "btnAsignarRoles";
             this.btnAsignarRoles.Size = new System.Drawing.Size(96, 23);
-            this.btnAsignarRoles.TabIndex = 5;
+            this.btnAsignarRoles.TabIndex = 4;
             this.btnAsignarRoles.Text = "Asignar roles";
             this.btnAsignarRoles.UseVisualStyleBackColor = true;
             this.btnAsignarRoles.Click += new System.EventHandler(this.btnAsignarRoles_Click);
@@ -131,7 +131,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "AbmRolForm";
-            this.Text = "Gestionar Roles";
+            this.Text = "Gestionar Roles - MercadoNegro";
             ((System.ComponentModel.ISupportInitialize)(this.Roles_Datagrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

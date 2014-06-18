@@ -64,7 +64,7 @@
             this.btnBorrar.Location = new System.Drawing.Point(6, 260);
             this.btnBorrar.Name = "btnBorrar";
             this.btnBorrar.Size = new System.Drawing.Size(75, 23);
-            this.btnBorrar.TabIndex = 2;
+            this.btnBorrar.TabIndex = 6;
             this.btnBorrar.Text = "Borrar";
             this.btnBorrar.UseVisualStyleBackColor = true;
             this.btnBorrar.Click += new System.EventHandler(this.btnBorrar_Click);
@@ -76,7 +76,7 @@
             this.cmbOpciones.Location = new System.Drawing.Point(147, 111);
             this.cmbOpciones.Name = "cmbOpciones";
             this.cmbOpciones.Size = new System.Drawing.Size(121, 21);
-            this.cmbOpciones.TabIndex = 9;
+            this.cmbOpciones.TabIndex = 3;
             // 
             // rbOpciones
             // 
@@ -85,7 +85,7 @@
             this.rbOpciones.Location = new System.Drawing.Point(6, 111);
             this.rbOpciones.Name = "rbOpciones";
             this.rbOpciones.Size = new System.Drawing.Size(137, 17);
-            this.rbOpciones.TabIndex = 8;
+            this.rbOpciones.TabIndex = 2;
             this.rbOpciones.TabStop = true;
             this.rbOpciones.Text = "Seleccione una opción:";
             this.rbOpciones.UseVisualStyleBackColor = true;
@@ -98,7 +98,7 @@
             this.rbTextoLibre.Location = new System.Drawing.Point(6, 155);
             this.rbTextoLibre.Name = "rbTextoLibre";
             this.rbTextoLibre.Size = new System.Drawing.Size(77, 17);
-            this.rbTextoLibre.TabIndex = 7;
+            this.rbTextoLibre.TabIndex = 4;
             this.rbTextoLibre.TabStop = true;
             this.rbTextoLibre.Text = "Texto libre:";
             this.rbTextoLibre.UseVisualStyleBackColor = true;
@@ -129,7 +129,7 @@
             this.cmbEstrellas.Location = new System.Drawing.Point(61, 28);
             this.cmbEstrellas.Name = "cmbEstrellas";
             this.cmbEstrellas.Size = new System.Drawing.Size(121, 21);
-            this.cmbEstrellas.TabIndex = 3;
+            this.cmbEstrellas.TabIndex = 1;
             // 
             // lblEstrellas
             // 
@@ -145,7 +145,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(246, 307);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
-            this.btnAceptar.TabIndex = 0;
+            this.btnAceptar.TabIndex = 8;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -156,7 +156,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(165, 307);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelar.TabIndex = 1;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             // 
@@ -171,7 +171,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "CalificarDlg";
-            this.Text = "Calificación de la compra";
+            this.Text = "Calificación de la compra - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

@@ -66,7 +66,7 @@
             this.btnVerPublicacion.Location = new System.Drawing.Point(303, 19);
             this.btnVerPublicacion.Name = "btnVerPublicacion";
             this.btnVerPublicacion.Size = new System.Drawing.Size(113, 23);
-            this.btnVerPublicacion.TabIndex = 2;
+            this.btnVerPublicacion.TabIndex = 1;
             this.btnVerPublicacion.Text = "Ver publicación";
             this.btnVerPublicacion.UseVisualStyleBackColor = true;
             this.btnVerPublicacion.Click += new System.EventHandler(this.btnVerPublicacion_Click);
@@ -76,7 +76,7 @@
             this.btnCalificar.Location = new System.Drawing.Point(422, 19);
             this.btnCalificar.Name = "btnCalificar";
             this.btnCalificar.Size = new System.Drawing.Size(75, 23);
-            this.btnCalificar.TabIndex = 1;
+            this.btnCalificar.TabIndex = 2;
             this.btnCalificar.Text = "Calificar";
             this.btnCalificar.UseVisualStyleBackColor = true;
             this.btnCalificar.Click += new System.EventHandler(this.btnCalificar_Click);
@@ -87,7 +87,7 @@
             this.btnVolver.Location = new System.Drawing.Point(440, 394);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 2;
+            this.btnVolver.TabIndex = 3;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             // 
@@ -101,7 +101,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MinimizeBox = false;
             this.Name = "CalificarVendedor";
-            this.Text = "Calificar al Vendedor";
+            this.Text = "Calificar al Vendedor - MercadoNegro";
             ((System.ComponentModel.ISupportInitialize)(this.calificacionesDataGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);

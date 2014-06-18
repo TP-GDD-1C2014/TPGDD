@@ -57,7 +57,7 @@
             this.btnRespuestas.Location = new System.Drawing.Point(112, 109);
             this.btnRespuestas.Name = "btnRespuestas";
             this.btnRespuestas.Size = new System.Drawing.Size(77, 40);
-            this.btnRespuestas.TabIndex = 4;
+            this.btnRespuestas.TabIndex = 2;
             this.btnRespuestas.Text = "Ver respuestas";
             this.btnRespuestas.UseVisualStyleBackColor = true;
             this.btnRespuestas.Click += new System.EventHandler(this.btnRespuestas_Click);
@@ -67,7 +67,7 @@
             this.btnResponder.Location = new System.Drawing.Point(18, 109);
             this.btnResponder.Name = "btnResponder";
             this.btnResponder.Size = new System.Drawing.Size(77, 40);
-            this.btnResponder.TabIndex = 3;
+            this.btnResponder.TabIndex = 1;
             this.btnResponder.Text = "Responder preguntas";
             this.btnResponder.UseVisualStyleBackColor = true;
             this.btnResponder.Click += new System.EventHandler(this.btnResponder_Click);
@@ -89,6 +89,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(82, 20);
             this.txtUsuario.TabIndex = 1;
+            this.txtUsuario.TabStop = false;
             // 
             // lblBienvenido
             // 
@@ -105,7 +106,7 @@
             this.btnVolver.Location = new System.Drawing.Point(151, 194);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 1;
+            this.btnVolver.TabIndex = 3;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             // 
@@ -119,7 +120,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "GestionPreguntas";
-            this.Text = "Gestión de Preguntas";
+            this.Text = "Gestión de Preguntas - MercadoNegro";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
