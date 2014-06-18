@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.limpiarButton = new System.Windows.Forms.Button();
             this.buscarButton = new System.Windows.Forms.Button();
             this.tipoListadoCombo = new System.Windows.Forms.ComboBox();
             this.TipoListadoLabel = new System.Windows.Forms.Label();
@@ -52,7 +51,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.limpiarButton);
             this.groupBox1.Controls.Add(this.buscarButton);
             this.groupBox1.Controls.Add(this.tipoListadoCombo);
             this.groupBox1.Controls.Add(this.TipoListadoLabel);
@@ -67,15 +65,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Búsqueda";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // limpiarButton
-            // 
-            this.limpiarButton.Location = new System.Drawing.Point(43, 139);
-            this.limpiarButton.Name = "limpiarButton";
-            this.limpiarButton.Size = new System.Drawing.Size(75, 23);
-            this.limpiarButton.TabIndex = 4;
-            this.limpiarButton.Text = "Limpiar";
-            this.limpiarButton.UseVisualStyleBackColor = true;
             // 
             // buscarButton
             // 
@@ -272,7 +261,6 @@
         private System.Windows.Forms.DataGridView top5DataGriedView;
         private System.Windows.Forms.Label top5Label;
         private System.Windows.Forms.Button buscarButton;
-        private System.Windows.Forms.Button limpiarButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button volverButton;
         private System.Windows.Forms.Label visibilidadLabel;

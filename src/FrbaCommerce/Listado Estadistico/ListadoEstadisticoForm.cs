@@ -215,6 +215,11 @@ namespace FrbaCommerce.Listado_Estadistico
 
         }
 
+        private void limpiarButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }
