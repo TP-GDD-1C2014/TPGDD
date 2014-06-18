@@ -47,9 +47,9 @@
             this.PermitirPreg_label = new System.Windows.Forms.Label();
             this.PermitirPreguntas_Checkbox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.volverButton = new System.Windows.Forms.Button();
             this.Rubro_checkedListBox = new System.Windows.Forms.CheckedListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.volverButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -179,7 +179,7 @@
             // 
             // Limpiar_button
             // 
-            this.Limpiar_button.Location = new System.Drawing.Point(156, 368);
+            this.Limpiar_button.Location = new System.Drawing.Point(142, 368);
             this.Limpiar_button.Name = "Limpiar_button";
             this.Limpiar_button.Size = new System.Drawing.Size(105, 38);
             this.Limpiar_button.TabIndex = 11;
@@ -189,7 +189,7 @@
             // 
             // Guardar_button
             // 
-            this.Guardar_button.Location = new System.Drawing.Point(267, 368);
+            this.Guardar_button.Location = new System.Drawing.Point(263, 368);
             this.Guardar_button.Name = "Guardar_button";
             this.Guardar_button.Size = new System.Drawing.Size(105, 38);
             this.Guardar_button.TabIndex = 10;
@@ -245,6 +245,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Creación o Modificación de Publicación";
             // 
+            // volverButton
+            // 
+            this.volverButton.Location = new System.Drawing.Point(19, 368);
+            this.volverButton.Name = "volverButton";
+            this.volverButton.Size = new System.Drawing.Size(105, 38);
+            this.volverButton.TabIndex = 26;
+            this.volverButton.Text = "<< Volver";
+            this.volverButton.UseVisualStyleBackColor = true;
+            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
+            // 
             // Rubro_checkedListBox
             // 
             this.Rubro_checkedListBox.FormattingEnabled = true;
@@ -262,16 +272,6 @@
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 25;
             this.label1.Text = "Rubro";
-            // 
-            // volverButton
-            // 
-            this.volverButton.Location = new System.Drawing.Point(38, 365);
-            this.volverButton.Name = "volverButton";
-            this.volverButton.Size = new System.Drawing.Size(112, 41);
-            this.volverButton.TabIndex = 26;
-            this.volverButton.Text = "<< Volver";
-            this.volverButton.UseVisualStyleBackColor = true;
-            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
             // 
             // GenerarPubliForm
             // 

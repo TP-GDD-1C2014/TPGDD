@@ -78,6 +78,7 @@ namespace FrbaCommerce.Generar_Publicacion
                         TipoPubli_ComboBox.Enabled = false;
                         Precio_textBox.Enabled = false;
                         PermitirPreguntas_Checkbox.Enabled = false;
+                        Rubro_checkedListBox.Enabled = false;
                 }
 
                 //Comprueba si el usuario es administrador o no
