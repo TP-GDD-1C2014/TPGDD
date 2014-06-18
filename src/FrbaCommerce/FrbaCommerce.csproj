@@ -213,12 +213,6 @@
     <Compile Include="Editar Publicacion\BuscarPubliForm.Designer.cs">
       <DependentUpon>BuscarPubliForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editar Publicacion\EditarPubliForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editar Publicacion\EditarPubliForm.Designer.cs">
-      <DependentUpon>EditarPubliForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Facturar Publicaciones\FacturarForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -397,9 +391,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editar Publicacion\BuscarPubliForm.resx">
       <DependentUpon>BuscarPubliForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editar Publicacion\EditarPubliForm.resx">
-      <DependentUpon>EditarPubliForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturar Publicaciones\FacturarForm.resx">
       <DependentUpon>FacturarForm.cs</DependentUpon>

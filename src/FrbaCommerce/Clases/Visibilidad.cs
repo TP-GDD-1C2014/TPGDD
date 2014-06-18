@@ -34,7 +34,7 @@ namespace FrbaCommerce.Clases
         {
             List<Visibilidad> visibilidades = new List<Visibilidad>();
 
-            string commandText = "SELECT * FROM MERCADONEGRO.VISIBILIDADES ORDER BY JERARQUIA";
+            string commandText = "SELECT * FROM MERCADONEGRO.VISIBILIDADES WHERE HABILITADA = 1 ORDER BY JERARQUIA";
 
             SqlDataReader lector = BDSQL.ejecutarReader(commandText, BDSQL.iniciarConexion());
 
@@ -56,6 +56,36 @@ namespace FrbaCommerce.Clases
 
             
         }
+
+        public static List<Visibilidad> ObtenerTodasLasVisibilidades()
+        {
+            List<Visibilidad> visibilidades = new List<Visibilidad>();
+
+            string commandText = "SELECT * FROM MERCADONEGRO.VISIBILIDADES ORDER BY JERARQUIA";
+
+            SqlDataReader lector = BDSQL.ejecutarReader(commandText, BDSQL.iniciarConexion());
+
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    Visibilidad unaVisibilidad = new Visibilidad((int)(decimal)lector["Jerarquia"],
+                                                                   (string)lector["Descripcion"],
+                                                                   (decimal)lector["Costo_Publicacion"],
+                                                                   Convert.ToInt32(((decimal)lector["Porcentaje_Venta"]) * 100),
+                                                                   (bool)lector["Habilitada"]);
+                    visibilidades.Add(unaVisibilidad);
+                }
+            }
+            BDSQL.cerrarConexion();
+            return visibilidades;
+
+
+        }
+
+
+
 
         public bool hayQueCambiarLaJerarquia(Visibilidad visibilidadVieja)
         {

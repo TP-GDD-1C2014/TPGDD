@@ -215,37 +215,43 @@ namespace FrbaCommerce.Editar_Publicacion
         //BOTON BORRAR
         private void borrar_button_Click(object sender, EventArgs e)
         {
-            //Obtiene la publicacion seleccionada
-            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-
-            string mensaje = string.Format("¿Desea confirmar la eliminacion de la publicación?");
-            DialogResult resultado = MessageBox.Show(mensaje, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (resultado == DialogResult.Yes)
+            if (this.dataGridView1.SelectedRows.Count > 0)
             {
-                //Elimina publicacion de la BD y vuelve a cargar el datagrid
-                List<int> listaRubrosDePublicacion = Rubro.obtenerRubrosDePublicacion(unaPubli.Cod_Publicacion);
-                Rubro.eliminarRubroPublicacion(listaRubrosDePublicacion, unaPubli.Cod_Publicacion);
-                Publicaciones.eliminarPublicacion(unaPubli);
 
-                string codVis = unaPubli.Cod_Visibilidad;
-                string estado = unaPubli.Estado_Publicacion;
-                if ((codVis == "Gratis") && (estado == "Publicada"))
+                //Obtiene la publicacion seleccionada
+                Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
+
+                string mensaje = string.Format("¿Desea confirmar la eliminacion de la publicación?");
+                DialogResult resultado = MessageBox.Show(mensaje, "Alerta!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (resultado == DialogResult.Yes)
                 {
-                    usuario.restarPubliGratuita();
+                    //Elimina publicacion de la BD y vuelve a cargar el datagrid
+                    List<int> listaRubrosDePublicacion = Rubro.obtenerRubrosDePublicacion(unaPubli.Cod_Publicacion);
+                    Rubro.eliminarRubroPublicacion(listaRubrosDePublicacion, unaPubli.Cod_Publicacion);
+                    Publicaciones.eliminarPublicacion(unaPubli);
+
+                    string codVis = unaPubli.Cod_Visibilidad;
+                    string estado = unaPubli.Estado_Publicacion;
+                    if ((codVis == "Gratis") && (estado == "Publicada"))
+                    {
+                        usuario.restarPubliGratuita();
+                    }
+
+                    //Re-checkea si el usuario es admin o no, para saber cómo completar el datagridview
+                    if (esAdmin == true)
+                    {
+                        dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
+                    }
+                    else
+                    {
+                        dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+                    }
                 }
-                
-                //Re-checkea si el usuario es admin o no, para saber cómo completar el datagridview
-                if (esAdmin == true)
-                {
-                    dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
-                }
-                else
-                {
-                    dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
-                }
+            }else
+            {
+                MessageBox.Show("Por favor, seleccione alguna publicación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-
 
         }
 
@@ -263,35 +269,42 @@ namespace FrbaCommerce.Editar_Publicacion
         //BOTON MODIFICAR
         private void modificar_button_Click_1(object sender, EventArgs e)
         {
-            //Al elegir una fila, dirigir a la form EditarPubliForm
-            Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
-
-            //Dependiendo el estado seleccionado, permite o no su modificación
-            if ((unaPubli.Estado_Publicacion == "Borrador") || (unaPubli.Estado_Publicacion == "Publicada"))
+            if (this.dataGridView1.SelectedRows.Count > 0)
             {
-                //Invoca la form de Generar Publicación
-                Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
-                
-                this.Hide(); 
-                editForm.ShowDialog();
-                this.Show();
+                //Al elegir una fila, dirigir a la form EditarPubliForm
+                Publicacion unaPubli = dataGridView1.CurrentRow.DataBoundItem as Publicacion;
+
+                //Dependiendo el estado seleccionado, permite o no su modificación
+                if ((unaPubli.Estado_Publicacion == "Borrador") || (unaPubli.Estado_Publicacion == "Publicada"))
+                {
+                    //Invoca la form de Generar Publicación
+                    Generar_Publicacion.GenerarPubliForm editForm = new Generar_Publicacion.GenerarPubliForm("Modificar", unaPubli);
+
+                    this.Hide();
+                    editForm.ShowDialog();
+                    this.Show();
+                }
+                else
+                {
+                    MessageBox.Show("El estado o tipo de la publicación no permite modificación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                //Averigua si el usuario es o no Admin
+                bool esAdmin = Usuario.controlarRol(usuario.ID_User);
+
+                //Cargar DataGridView con las publicaciones dependiendo si es Admin o no
+                if (esAdmin == true)
+                {
+                    dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
+                }
+                else
+                {
+                    dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+                }
             }
             else
             {
-                MessageBox.Show("El estado o tipo de la publicación no permite modificación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            //Averigua si el usuario es o no Admin
-            bool esAdmin = Usuario.controlarRol(usuario.ID_User);
-
-            //Cargar DataGridView con las publicaciones dependiendo si es Admin o no
-            if (esAdmin == true)
-            {
-                dataGridView1.DataSource = Publicaciones.obtenerTodaPublicacion();
-            }
-            else
-            {
-                dataGridView1.DataSource = Publicaciones.obtenerPublicaciones(usuario.ID_User);
+                MessageBox.Show("Por favor, seleccione alguna publicación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
         }

@@ -25,7 +25,7 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private void cargarVisibilidades()
         {
-            this.dgvVisibilidades.DataSource = Visibilidad.ObtenerVisibilidades();
+            this.dgvVisibilidades.DataSource = Visibilidad.ObtenerTodasLasVisibilidades();
 
             //cambiando nombre de las columnas...
 

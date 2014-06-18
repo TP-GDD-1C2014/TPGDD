@@ -61,7 +61,7 @@ namespace FrbaCommerce.Abm_Visibilidad
 
         private List<Visibilidad> generarVisibilidadesBD(DataGridView dgv)
         {
-            List<Visibilidad> listaVisibilidades = Visibilidad.ObtenerVisibilidades();
+            List<Visibilidad> listaVisibilidades = Visibilidad.ObtenerTodasLasVisibilidades();
 
 
             return listaVisibilidades;
@@ -165,8 +165,8 @@ namespace FrbaCommerce.Abm_Visibilidad
                         this.Close();
 
 
-
                         Interfaz.diccionarioVisibilidades.Add(idInsertada, this.nombreTextBox.Text);
+                        
                     }
                     else
                         MessageBox.Show("Ya existe una visibilidad con ese nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
