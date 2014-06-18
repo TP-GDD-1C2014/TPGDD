@@ -18,7 +18,9 @@ namespace FrbaCommerce.Clases
             List<Publicacion> publicaciones = new List<Publicacion>();
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             listaParametros.Add(new SqlParameter("@idUser",idUser));
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE ID_Vendedor=@idUser",listaParametros , BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones " +
+                                                        "WHERE ID_Vendedor=@idUser",
+                                                        listaParametros , BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -31,7 +33,19 @@ namespace FrbaCommerce.Clases
                     int cod_tipo = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
                     string desc_tipo = Interfaz.getDescripcion(cod_tipo, "tipoPublicacion");
 
-                    Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                    Publicacion unaPublicacion = new Publicacion(
+                                                                 (int)(decimal)lector["Cod_Publicacion"],
+                                                                 desc_visibilidad, 
+                                                                 (int)(decimal)lector["ID_Vendedor"], 
+                                                                 (string)lector["Descripcion"], 
+                                                                 (int)(decimal)lector["Stock"], 
+                                                                 (DateTime)lector["Fecha_Vencimiento"], 
+                                                                 (DateTime)lector["Fecha_Inicial"], 
+                                                                 (decimal)lector["Precio"], 
+                                                                 desc_estado, desc_tipo, 
+                                                                 (bool)lector["Permisos_Preguntas"], 
+                                                                 (int)(decimal)lector["Stock_Inicial"]
+                                                                );
 
                     publicaciones.Add(unaPublicacion);
                 }
@@ -46,7 +60,9 @@ namespace FrbaCommerce.Clases
         public static List<Publicacion> obtenerTodaPublicacion()
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones", BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones p " + 
+                                                        "JOIN MERCADONEGRO.Estados_Publicacion ep ON p.Cod_EstadoPublicacion = ep.Cod_EstadoPublicacion " + 
+                                                        "WHERE ep.Descripcion != 'Finalizada' ", BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -59,8 +75,19 @@ namespace FrbaCommerce.Clases
                     int cod_tipo = Convert.ToInt32(lector["Cod_TipoPublicacion"]);
                     string desc_tipo = Interfaz.getDescripcion(cod_tipo, "tipoPublicacion");
 
-                    //Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], (string)lector["Cod_Visibilidad"], (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], (String)lector["Estado_Publicacion"], (String)lector["Tipo_Publicacion"], (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
-                    Publicacion unaPublicacion = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                     Publicacion unaPublicacion = new Publicacion(
+                                                                 (int)(decimal)lector["Cod_Publicacion"], 
+                                                                 desc_visibilidad, 
+                                                                 (int)(decimal)lector["ID_Vendedor"], 
+                                                                 (string)lector["Descripcion"], 
+                                                                 (int)(decimal)lector["Stock"],
+                                                                 (DateTime)lector["Fecha_Vencimiento"], 
+                                                                 (DateTime)lector["Fecha_Inicial"], 
+                                                                 (decimal)lector["Precio"], 
+                                                                 desc_estado, desc_tipo, 
+                                                                 (bool)lector["Permisos_Preguntas"], 
+                                                                 (int)(decimal)lector["Stock_Inicial"]
+                                                                 );
                     publicaciones.Add(unaPublicacion);
                 }
             }
@@ -70,7 +97,8 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion, int indexVis, int indexEstado, int indexTipo, bool fechaFinNula, bool fechaInicNula, bool esAdmin)
+        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion, int indexVis, int indexEstado, int indexTipo, 
+                                                             bool fechaFinNula, bool fechaInicNula, bool esAdmin)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
             List<SqlParameter> listaParametros = new List<SqlParameter>();
@@ -149,11 +177,31 @@ namespace FrbaCommerce.Clases
             SqlDataReader lector;
             if (esAdmin == false)
             {
-                lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE (ID_Vendedor=@idUser) AND ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND ((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%') AND ((@stock is NULL) OR (Stock = @stock))) AND ((@fechaVto is NULL) OR (Fecha_Vencimiento = @fechaVto)) AND ((@fechaInic is NULL) OR (Fecha_Inicial = @fechaInic)) AND ((@precio is NULL) OR (Precio = @precio)) AND ((@estado is NULL) OR (Cod_EstadoPublicacion = @estado)) AND ((@tipo is NULL) OR (Cod_TipoPublicacion = @tipo))", listaParametros, BDSQL.iniciarConexion());
+                lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE (ID_Vendedor=@idUser) AND " + 
+                                              "((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND " +
+                                              "((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND " +
+                                              "((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%') AND " +
+                                              "((@stock is NULL) OR (Stock = @stock))) AND " + 
+                                              "((@fechaVto is NULL) OR (Fecha_Vencimiento = @fechaVto)) AND " +
+                                              "((@fechaInic is NULL) OR (Fecha_Inicial = @fechaInic)) AND " +
+                                              "((@precio is NULL) OR (Precio = @precio)) AND " +
+                                              "((@estado is NULL) OR (Cod_EstadoPublicacion = @estado)) AND " +
+                                              "((@tipo is NULL) OR (Cod_TipoPublicacion = @tipo))", 
+                                              listaParametros, BDSQL.iniciarConexion());
             }
             else
             {
-                lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND ((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND ((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%') AND ((@stock is NULL) OR (Stock = @stock))) AND ((@fechaVto is NULL) OR (Fecha_Vencimiento = @fechaVto)) AND ((@fechaInic is NULL) OR (Fecha_Inicial = @fechaInic)) AND ((@precio is NULL) OR (Precio = @precio)) AND ((@estado is NULL) OR (Cod_EstadoPublicacion = @estado)) AND ((@tipo is NULL) OR (Cod_TipoPublicacion = @tipo))", listaParametros, BDSQL.iniciarConexion());
+                lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones " + 
+                                              "WHERE ((@codVisib is NULL) OR (Cod_Visibilidad = @codVisib)) AND " +
+                                              "((@codPubli is NULL) OR (Cod_Publicacion = @codPubli)) AND " +
+                                              "((@descrip is NULL) OR (Descripcion LIKE '%' + @descrip + '%') AND " +
+                                              "((@stock is NULL) OR (Stock = @stock))) AND " + 
+                                              "((@fechaVto is NULL) OR (Fecha_Vencimiento = @fechaVto)) AND " +
+                                              "((@fechaInic is NULL) OR (Fecha_Inicial = @fechaInic)) AND " +
+                                              "((@precio is NULL) OR (Precio = @precio)) AND " + 
+                                              "((@estado is NULL) OR (Cod_EstadoPublicacion = @estado)) AND " +
+                                              "((@tipo is NULL) OR (Cod_TipoPublicacion = @tipo))", 
+                                              listaParametros, BDSQL.iniciarConexion());
             }
 
             if (lector.HasRows)
@@ -169,7 +217,18 @@ namespace FrbaCommerce.Clases
                     string desc_tipo = Interfaz.getDescripcion(cod_tipo, "tipoPublicacion");
 
                     //Se obtiene la publicacion de la BD y se agrega a la lista de Publicaciones
-                    Publicacion unaPubli = new Publicacion((int)(decimal)lector["Cod_Publicacion"], desc_visibilidad, (int)(decimal)lector["ID_Vendedor"], (string)lector["Descripcion"], (int)(decimal)lector["Stock"], (DateTime)lector["Fecha_Vencimiento"], (DateTime)lector["Fecha_Inicial"], (decimal)lector["Precio"], desc_estado, desc_tipo, (bool)lector["Permisos_Preguntas"], (int)(decimal)lector["Stock_Inicial"]);
+                    Publicacion unaPubli = new Publicacion(
+                                                           (int)(decimal)lector["Cod_Publicacion"], 
+                                                           desc_visibilidad, 
+                                                           (int)(decimal)lector["ID_Vendedor"], 
+                                                           (string)lector["Descripcion"], 
+                                                           (int)(decimal)lector["Stock"], 
+                                                           (DateTime)lector["Fecha_Vencimiento"], 
+                                                           (DateTime)lector["Fecha_Inicial"], 
+                                                           (decimal)lector["Precio"], 
+                                                           desc_estado, desc_tipo, 
+                                                           (bool)lector["Permisos_Preguntas"], 
+                                                           (int)(decimal)lector["Stock_Inicial"]);
                     publicaciones.Add(unaPubli);
                 }
             }
@@ -183,7 +242,10 @@ namespace FrbaCommerce.Clases
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             listaParametros.Add(new SqlParameter("@idUser", unaPubli.ID_Vendedor));
             listaParametros.Add(new SqlParameter("@Cod_Publi", unaPubli.Cod_Publicacion));
-            int resultado = BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Publicaciones WHERE ID_Vendedor=@idUser AND Cod_Publicacion=@Cod_Publi", listaParametros, BDSQL.iniciarConexion());
+
+            int resultado = BDSQL.ejecutarQuery("DELETE FROM MERCADONEGRO.Publicaciones " + 
+                                                "WHERE ID_Vendedor=@idUser AND Cod_Publicacion=@Cod_Publi",
+                                                listaParametros, BDSQL.iniciarConexion());
 
             if (resultado == -1)
                 MessageBox.Show("Falló al eliminar Publicacion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -272,7 +334,13 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", unaPubli.Permiso_Preguntas);
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
 
-            int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones SET Cod_Visibilidad=@Cod_Visibilidad, Descripcion=@Descripcion, Stock=@Stock, Fecha_Vencimiento=@Fecha_Vto, Fecha_Inicial=@Fecha_Inic, Precio=@Precio, Cod_EstadoPublicacion=@Estado_Publicacion, Cod_TipoPublicacion=@Tipo_Publicacion, Permisos_Preguntas=@Permiso_Preguntas, Stock_Inicial=@Stock_Inicial WHERE Cod_Publicacion=@Cod_Publicacion", listaParametros, BDSQL.iniciarConexion());
+            int resultado = BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones " + 
+                                                "SET Cod_Visibilidad=@Cod_Visibilidad, Descripcion=@Descripcion, " +
+                                                "Stock=@Stock, Fecha_Vencimiento=@Fecha_Vto, Fecha_Inicial=@Fecha_Inic, " +
+                                                "Precio=@Precio, Cod_EstadoPublicacion=@Estado_Publicacion, " + 
+                                                "Cod_TipoPublicacion=@Tipo_Publicacion, Permisos_Preguntas=@Permiso_Preguntas, " + 
+                                                "Stock_Inicial=@Stock_Inicial WHERE Cod_Publicacion=@Cod_Publicacion",
+                                                listaParametros, BDSQL.iniciarConexion());
             if (resultado == -1)
                 MessageBox.Show("Falló al actualizar Publicación", "Fail!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
@@ -297,7 +365,15 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Permiso_Preguntas", unaPubli.Permiso_Preguntas);
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
 
-            int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones(Cod_visibilidad,ID_Vendedor,Descripcion,Stock,Fecha_Vencimiento,Fecha_Inicial,Precio,Cod_EstadoPublicacion,Cod_TipoPublicacion,Permisos_Preguntas,Stock_Inicial) VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock,@Fecha_Vto,@Fecha_Inic,@Precio,@Estado_Publicacion,@Tipo_Publicacion,@Permiso_Preguntas,@Stock_Inicial)", listaParametros, BDSQL.iniciarConexion());
+            int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Publicaciones " +
+                                                "(Cod_visibilidad,ID_Vendedor, Descripcion, " +
+                                                "Stock,Fecha_Vencimiento,Fecha_Inicial,Precio, " +
+                                                "Cod_EstadoPublicacion,Cod_TipoPublicacion, " +
+                                                "Permisos_Preguntas,Stock_Inicial) " +
+                                                "VALUES(@Cod_visibilidad,@ID_Vendedor,@Descripcion,@Stock, " +
+                                                "@Fecha_Vto,@Fecha_Inic,@Precio,@Estado_Publicacion, " +
+                                                "@Tipo_Publicacion,@Permiso_Preguntas,@Stock_Inicial)", 
+                                                listaParametros, BDSQL.iniciarConexion());
             
             /*if (resultado == -1)
             {
@@ -328,7 +404,15 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Stock_Inicial", unaPubli.Stock_Inicial);
 
             int codPubli=0;
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones WHERE Cod_visibilidad=@Cod_visibilidad AND ID_Vendedor=@ID_Vendedor AND Descripcion=@Descripcion AND Stock=@Stock AND Fecha_Vencimiento=@Fecha_Vto AND Fecha_Inicial=@Fecha_Inic AND Precio=@Precio AND Cod_EstadoPublicacion=@Estado_Publicacion AND Cod_TipoPublicacion=@Tipo_Publicacion AND Permisos_Preguntas=@Permiso_Preguntas AND Stock_Inicial=@Stock_Inicial", listaParametros, BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT * FROM MERCADONEGRO.Publicaciones " +
+                                                        "WHERE Cod_visibilidad=@Cod_visibilidad AND " +
+                                                        "ID_Vendedor=@ID_Vendedor AND Descripcion=@Descripcion AND " + 
+                                                        "Stock=@Stock AND Fecha_Vencimiento=@Fecha_Vto AND " +
+                                                        "Fecha_Inicial=@Fecha_Inic AND Precio=@Precio AND " +
+                                                        "Cod_EstadoPublicacion=@Estado_Publicacion AND " +
+                                                        "Cod_TipoPublicacion=@Tipo_Publicacion AND " + 
+                                                        "Permisos_Preguntas=@Permiso_Preguntas AND Stock_Inicial=@Stock_Inicial",
+                                                        listaParametros, BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
                 while (lector.Read())
@@ -347,7 +431,9 @@ namespace FrbaCommerce.Clases
             BDSQL.agregarParametro(listaParametros, "@Cod_Publicacion", codPubli);
             BDSQL.agregarParametro(listaParametros, "@ID_Rubro", rubroIndex);
 
-            int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Rubro_Publicacion(Cod_Publicacion,ID_Rubro) VALUES(@Cod_Publicacion,@ID_Rubro)", listaParametros, BDSQL.iniciarConexion());
+            int resultado = BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Rubro_Publicacion(Cod_Publicacion,ID_Rubro) " +
+                                                "VALUES(@Cod_Publicacion,@ID_Rubro)", 
+                                                listaParametros, BDSQL.iniciarConexion());
 
 
             if (resultado == -1)
