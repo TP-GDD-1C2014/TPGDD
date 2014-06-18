@@ -88,6 +88,8 @@
             this.ClientSize = new System.Drawing.Size(462, 394);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AsignarRolesUsuario";
             this.Text = "Listado de Usuarios";
             this.groupBox1.ResumeLayout(false);

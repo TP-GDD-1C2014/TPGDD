@@ -88,6 +88,8 @@
             this.ClientSize = new System.Drawing.Size(535, 418);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "VerRespuestas";
             this.Text = "Ver Respuestas ";
             this.groupBox1.ResumeLayout(false);

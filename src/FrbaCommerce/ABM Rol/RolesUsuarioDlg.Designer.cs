@@ -137,6 +137,8 @@
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "RolesUsuarioDlg";
             this.Text = "Asignar roles a Usuarios";
             this.groupBox1.ResumeLayout(false);

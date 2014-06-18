@@ -156,6 +156,8 @@
             this.Controls.Add(this.rendirButton);
             this.Controls.Add(this.dgvOperaciones);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "FacturarForm";
             this.Text = "Facturar Publicaciones - MercadoNegro";
             ((System.ComponentModel.ISupportInitialize)(this.dgvOperaciones)).EndInit();

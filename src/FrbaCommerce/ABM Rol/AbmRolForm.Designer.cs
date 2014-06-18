@@ -128,6 +128,8 @@
             this.ClientSize = new System.Drawing.Size(436, 323);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Volver_Button);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AbmRolForm";
             this.Text = "Gestionar Roles";
             ((System.ComponentModel.ISupportInitialize)(this.Roles_Datagrid)).EndInit();

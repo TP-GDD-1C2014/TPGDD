@@ -231,6 +231,8 @@
             this.Controls.Add(this.Descrip_TextBox);
             this.Controls.Add(this.Visibilidad_ComboBox);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "EditarPubliForm";
             this.Text = "Editar Publicación";
             this.ResumeLayout(false);

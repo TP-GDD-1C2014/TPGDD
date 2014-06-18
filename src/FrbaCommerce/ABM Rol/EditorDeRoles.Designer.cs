@@ -134,6 +134,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.Guardar_Button);
             this.Controls.Add(this.Cancelar_Button);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "EditorDeRoles";
             this.Text = "Editor de Roles";
             this.groupBox1.ResumeLayout(false);

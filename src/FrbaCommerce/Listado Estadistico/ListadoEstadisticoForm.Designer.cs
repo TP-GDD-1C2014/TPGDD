@@ -249,6 +249,8 @@
             this.Controls.Add(this.top5Label);
             this.Controls.Add(this.top5DataGriedView);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ListadoEstadisticoForm";
             this.Text = "Listado Estadístico - MercadoNegro";
             this.Load += new System.EventHandler(this.ListadoEstadistico_Load);
