@@ -342,10 +342,19 @@ namespace FrbaCommerce.Abm_Empresa
 
         private void textboxNoNumerico_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar < 65 || e.KeyChar > 122)
+            if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar < 65 || e.KeyChar > 122)
             {
                 e.Handled = true;
             }
+
+            /*if (e.KeyChar < 65 || e.KeyChar > 122)
+            {
+                e.Handled = true;
+            }*/
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
