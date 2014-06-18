@@ -28,32 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nuevaButton = new System.Windows.Forms.Button();
-            this.modificarButton = new System.Windows.Forms.Button();
-            this.dgvVisibilidades = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.volverButton = new System.Windows.Forms.Button();
+            this.dgvVisibilidades = new System.Windows.Forms.DataGridView();
+            this.modificarButton = new System.Windows.Forms.Button();
+            this.nuevaButton = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidades)).BeginInit();
             this.SuspendLayout();
             // 
-            // nuevaButton
+            // groupBox1
             // 
-            this.nuevaButton.Location = new System.Drawing.Point(34, 28);
-            this.nuevaButton.Name = "nuevaButton";
-            this.nuevaButton.Size = new System.Drawing.Size(75, 23);
-            this.nuevaButton.TabIndex = 0;
-            this.nuevaButton.Text = "Nueva";
-            this.nuevaButton.UseVisualStyleBackColor = true;
-            this.nuevaButton.Click += new System.EventHandler(this.nuevaButton_Click);
+            this.groupBox1.Controls.Add(this.dgvVisibilidades);
+            this.groupBox1.Controls.Add(this.modificarButton);
+            this.groupBox1.Controls.Add(this.nuevaButton);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(647, 214);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Gestión de visibilidades";
             // 
-            // modificarButton
+            // volverButton
             // 
-            this.modificarButton.Location = new System.Drawing.Point(115, 28);
-            this.modificarButton.Name = "modificarButton";
-            this.modificarButton.Size = new System.Drawing.Size(75, 23);
-            this.modificarButton.TabIndex = 1;
-            this.modificarButton.Text = "Modificar";
-            this.modificarButton.UseVisualStyleBackColor = true;
-            this.modificarButton.Click += new System.EventHandler(this.modificarButton_Click);
+            this.volverButton.Location = new System.Drawing.Point(584, 232);
+            this.volverButton.Name = "volverButton";
+            this.volverButton.Size = new System.Drawing.Size(75, 38);
+            this.volverButton.TabIndex = 8;
+            this.volverButton.Text = "< < Volver";
+            this.volverButton.UseVisualStyleBackColor = true;
             // 
             // dgvVisibilidades
             // 
@@ -61,39 +64,45 @@
             this.dgvVisibilidades.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvVisibilidades.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVisibilidades.GridColor = System.Drawing.SystemColors.Window;
-            this.dgvVisibilidades.Location = new System.Drawing.Point(34, 66);
+            this.dgvVisibilidades.Location = new System.Drawing.Point(6, 55);
             this.dgvVisibilidades.MultiSelect = false;
             this.dgvVisibilidades.Name = "dgvVisibilidades";
             this.dgvVisibilidades.ReadOnly = true;
             this.dgvVisibilidades.RowHeadersVisible = false;
-            this.dgvVisibilidades.Size = new System.Drawing.Size(617, 121);
-            this.dgvVisibilidades.TabIndex = 3;
-            this.dgvVisibilidades.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvVisibilidades_CellContentClick);
+            this.dgvVisibilidades.Size = new System.Drawing.Size(635, 153);
+            this.dgvVisibilidades.TabIndex = 7;
             // 
-            // volverButton
+            // modificarButton
             // 
-            this.volverButton.Location = new System.Drawing.Point(576, 213);
-            this.volverButton.Name = "volverButton";
-            this.volverButton.Size = new System.Drawing.Size(75, 38);
-            this.volverButton.TabIndex = 4;
-            this.volverButton.Text = "< < Volver";
-            this.volverButton.UseVisualStyleBackColor = true;
-            this.volverButton.Click += new System.EventHandler(this.volverButton_Click);
+            this.modificarButton.Location = new System.Drawing.Point(87, 26);
+            this.modificarButton.Name = "modificarButton";
+            this.modificarButton.Size = new System.Drawing.Size(75, 23);
+            this.modificarButton.TabIndex = 6;
+            this.modificarButton.Text = "Modificar";
+            this.modificarButton.UseVisualStyleBackColor = true;
+            // 
+            // nuevaButton
+            // 
+            this.nuevaButton.Location = new System.Drawing.Point(6, 26);
+            this.nuevaButton.Name = "nuevaButton";
+            this.nuevaButton.Size = new System.Drawing.Size(75, 23);
+            this.nuevaButton.TabIndex = 5;
+            this.nuevaButton.Text = "Nueva";
+            this.nuevaButton.UseVisualStyleBackColor = true;
             // 
             // ABMVisibilidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(671, 281);
+            this.ClientSize = new System.Drawing.Size(667, 281);
             this.Controls.Add(this.volverButton);
-            this.Controls.Add(this.dgvVisibilidades);
-            this.Controls.Add(this.modificarButton);
-            this.Controls.Add(this.nuevaButton);
+            this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "ABMVisibilidad";
             this.Text = "ABM Visiblidades - MercadoNegro";
             this.Load += new System.EventHandler(this.ABMVisibilidad_Load);
+            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvVisibilidades)).EndInit();
             this.ResumeLayout(false);
 
@@ -101,9 +110,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button nuevaButton;
-        private System.Windows.Forms.Button modificarButton;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvVisibilidades;
+        private System.Windows.Forms.Button modificarButton;
+        private System.Windows.Forms.Button nuevaButton;
         private System.Windows.Forms.Button volverButton;
+
     }
 }

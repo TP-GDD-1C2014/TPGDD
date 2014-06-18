@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.modificar_button = new System.Windows.Forms.Button();
             this.borrar_button = new System.Windows.Forms.Button();
             this.volver_button = new System.Windows.Forms.Button();
@@ -55,25 +54,17 @@
             this.fechaVenc_checkBox = new System.Windows.Forms.CheckBox();
             this.fechaInic_checkBox = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(27, 218);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(722, 265);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
             // modificar_button
             // 
-            this.modificar_button.Location = new System.Drawing.Point(27, 498);
+            this.modificar_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modificar_button.Location = new System.Drawing.Point(618, 498);
             this.modificar_button.Name = "modificar_button";
             this.modificar_button.Size = new System.Drawing.Size(125, 45);
             this.modificar_button.TabIndex = 22;
@@ -83,7 +74,8 @@
             // 
             // borrar_button
             // 
-            this.borrar_button.Location = new System.Drawing.Point(303, 498);
+            this.borrar_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.borrar_button.Location = new System.Drawing.Point(27, 498);
             this.borrar_button.Name = "borrar_button";
             this.borrar_button.Size = new System.Drawing.Size(125, 45);
             this.borrar_button.TabIndex = 35;
@@ -93,7 +85,8 @@
             // 
             // volver_button
             // 
-            this.volver_button.Location = new System.Drawing.Point(586, 498);
+            this.volver_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.volver_button.Location = new System.Drawing.Point(477, 498);
             this.volver_button.Name = "volver_button";
             this.volver_button.Size = new System.Drawing.Size(125, 45);
             this.volver_button.TabIndex = 36;
@@ -163,6 +156,7 @@
             // 
             // Estado_ComboBox
             // 
+            this.Estado_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Estado_ComboBox.FormattingEnabled = true;
             this.Estado_ComboBox.Location = new System.Drawing.Point(450, 73);
             this.Estado_ComboBox.Name = "Estado_ComboBox";
@@ -172,6 +166,7 @@
             // 
             // TipoPubli_ComboBox
             // 
+            this.TipoPubli_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TipoPubli_ComboBox.FormattingEnabled = true;
             this.TipoPubli_ComboBox.Location = new System.Drawing.Point(450, 100);
             this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";
@@ -190,6 +185,7 @@
             // 
             // limpiar_button
             // 
+            this.limpiar_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.limpiar_button.Location = new System.Drawing.Point(521, 145);
             this.limpiar_button.Name = "limpiar_button";
             this.limpiar_button.Size = new System.Drawing.Size(150, 30);
@@ -201,6 +197,7 @@
             // filtrar_button
             // 
             this.filtrar_button.BackColor = System.Drawing.SystemColors.Control;
+            this.filtrar_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.filtrar_button.Location = new System.Drawing.Point(337, 145);
             this.filtrar_button.Name = "filtrar_button";
             this.filtrar_button.Size = new System.Drawing.Size(150, 30);
@@ -220,6 +217,7 @@
             // 
             // Visibilidad_ComboBox
             // 
+            this.Visibilidad_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Visibilidad_ComboBox.FormattingEnabled = true;
             this.Visibilidad_ComboBox.Location = new System.Drawing.Point(119, 48);
             this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
@@ -330,31 +328,52 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buscar Publicación";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Location = new System.Drawing.Point(27, 208);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(722, 284);
+            this.groupBox2.TabIndex = 39;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Publicaciones:";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(6, 19);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(710, 259);
+            this.dataGridView1.TabIndex = 1;
+            // 
             // BuscarPubliForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(778, 555);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.volver_button);
             this.Controls.Add(this.borrar_button);
             this.Controls.Add(this.modificar_button);
-            this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "BuscarPubliForm";
             this.Text = "Administrar Publicaciones - Mercado Negro";
             this.Load += new System.EventHandler(this.BuscarPubliForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button modificar_button;
         private System.Windows.Forms.Button borrar_button;
         private System.Windows.Forms.Button volver_button;
@@ -381,6 +400,8 @@
         private System.Windows.Forms.CheckBox fechaVenc_checkBox;
         private System.Windows.Forms.CheckBox fechaInic_checkBox;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView dataGridView1;
 
     }
 }
