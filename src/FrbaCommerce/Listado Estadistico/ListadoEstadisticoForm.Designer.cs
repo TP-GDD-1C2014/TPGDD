@@ -66,7 +66,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de Búsqueda";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // label1
             // 
@@ -114,7 +113,6 @@
             this.trimestreCombo.Name = "trimestreCombo";
             this.trimestreCombo.Size = new System.Drawing.Size(147, 21);
             this.trimestreCombo.TabIndex = 2;
-            this.trimestreCombo.SelectedIndexChanged += new System.EventHandler(this.trimestreCombo_SelectedIndexChanged);
             // 
             // TrimestreLabel
             // 
@@ -131,7 +129,6 @@
             this.anioTextbox.Name = "anioTextbox";
             this.anioTextbox.Size = new System.Drawing.Size(100, 20);
             this.anioTextbox.TabIndex = 1;
-            this.anioTextbox.TextChanged += new System.EventHandler(this.anioTextbox_TextChanged);
             this.anioTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.anioTextbox_KeyPress);
             // 
             // anioLabel
@@ -142,7 +139,6 @@
             this.anioLabel.Size = new System.Drawing.Size(42, 13);
             this.anioLabel.TabIndex = 0;
             this.anioLabel.Text = "Año (*):";
-            this.anioLabel.Click += new System.EventHandler(this.anioLabel_Click);
             // 
             // groupBox2
             // 
@@ -216,7 +212,7 @@
             this.limpiarBoton.TabIndex = 18;
             this.limpiarBoton.Text = "Limpiar";
             this.limpiarBoton.UseVisualStyleBackColor = true;
-            this.limpiarBoton.Click += new System.EventHandler(this.limpiarBoton_Click_1);
+            this.limpiarBoton.Click += new System.EventHandler(this.limpiarBoton_Click);
             // 
             // volverButton
             // 
@@ -242,7 +238,6 @@
             this.MaximizeBox = false;
             this.Name = "ListadoEstadisticoForm";
             this.Text = "Listado Estadístico - MercadoNegro";
-            this.Load += new System.EventHandler(this.ListadoEstadistico_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

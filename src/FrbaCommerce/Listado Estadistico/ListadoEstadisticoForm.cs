@@ -164,7 +164,6 @@ namespace FrbaCommerce.Listado_Estadistico
             Interfaz.limpiarInterfaz(this);
 
         }
-
        
 
     }
