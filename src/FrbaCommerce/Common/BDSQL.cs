@@ -55,6 +55,20 @@ namespace FrbaCommerce.Common
             return res;
         }
 
+        public static Boolean existeFactura(int idFactura, int codPublicacion)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            agregarParametro(listaParametros, "@idFactura", idFactura);
+            agregarParametro(listaParametros, "@codPublicacion", codPublicacion);
+
+            SqlDataReader lector = ejecutarReader("SELECT Nro_Factura FROM MERCADONEGRO.Factura_Publicacion "+
+                                                "WHERE Nro_Factura = @idFactura AND Cod_Publicacion = @codPublicacion", 
+                                                listaParametros, iniciarConexion());
+            Boolean res = lector.HasRows;
+            cerrarConexion();
+            return res;
+        }
+
         //---------------------------------------------------------------------------------------------------------------------------------------------- 
 
         public static Boolean existenSimultaneamente(string valor1, string valor2, string nombreTabla, string nombreColumna1, string nombreColumna2)

@@ -9,6 +9,7 @@ namespace FrbaCommerce.Clases
 {
     class Item
     {
+        public int Cod_Publicacion { get; set; }
         public int ID_Facturacion { get; set; }
         public int Cantidad_Vendida { get; set; }
         public string Descripcion { get; set; }
@@ -18,6 +19,7 @@ namespace FrbaCommerce.Clases
     {
         List<SqlParameter> parametros = new List<SqlParameter>();
 
+        BDSQL.agregarParametro(parametros, "@codPublicacion", this.Cod_Publicacion);
         BDSQL.agregarParametro(parametros, "@idFactura", idFactura);
         BDSQL.agregarParametro(parametros, "@cantidadVendida", this.Cantidad_Vendida);
         BDSQL.agregarParametro(parametros, "@descripcion", this.Descripcion);

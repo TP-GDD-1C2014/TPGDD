@@ -10,13 +10,12 @@ namespace FrbaCommerce.Clases
 {
     class Facturacion
     {
-        public int Cod_Publicacion { get; set; }
+        
         public string forma_Pago { get; set; }
         public float Total_Facturacion { get; set; }
 
-        public Facturacion(int codPublicacion, string formaPago)
+        public Facturacion(string formaPago)
         {
-            this.Cod_Publicacion = codPublicacion;
             this.forma_Pago = formaPago;
 
         }
@@ -52,7 +51,7 @@ namespace FrbaCommerce.Clases
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
-            BDSQL.agregarParametro(listaParametros, "@codPublicacion", this.Cod_Publicacion);
+
             BDSQL.agregarParametro(listaParametros, "@formaDePago", this.forma_Pago);
             BDSQL.agregarParametro(listaParametros, "@fechaFactura", Interfaz.obtenerFecha());
             SqlParameter paramRet = new SqlParameter("@ret", System.Data.SqlDbType.Decimal);
@@ -66,6 +65,33 @@ namespace FrbaCommerce.Clases
 
             return idInsertada;
         }
+
+        public bool noExiste(int idFactura, int codigoPublicacion)
+        {
+            bool existe = false;
+
+            existe = BDSQL.existeFactura(idFactura, codigoPublicacion);
+
+            return existe;
+        }
+
+        public void insertarAsociativa(int idFactura, int codigoPublicacion)
+        {
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@idFactura", idFactura);
+            BDSQL.agregarParametro(listaParametros, "@codPublicacion", codigoPublicacion);
+
+            string commandText = "INSERT INTO MERCADONEGRO.Factura_Publicacion(Nro_Factura, Cod_Publicacion) " +
+                                    "VALUES(@idFactura, @codPublicacion)";
+
+            BDSQL.ejecutarQuery(commandText, listaParametros, BDSQL.iniciarConexion());
+
+            BDSQL.cerrarConexion();
+                
+
+        }
+
+
 
     }
 }

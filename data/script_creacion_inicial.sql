@@ -103,20 +103,28 @@ CREATE TABLE MERCADONEGRO.Publicaciones
 CREATE TABLE MERCADONEGRO.Facturaciones
 (
 	Nro_Factura		  NUMERIC(18,0) IDENTITY,
-	Cod_Publicacion	  NUMERIC(18,0) NOT NULL,
 	Forma_Pago		  NVARCHAR(255) NOT NULL,
 	Total_Facturacion NUMERIC(18,2) NOT NULL,
 	Factura_Fecha	  DATETIME,
 	
-	PRIMARY KEY (Nro_Factura),
-	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
+	PRIMARY KEY (Nro_Factura)
 )
 
+CREATE TABLE MERCADONEGRO.Factura_Publicacion
+(
+	Cod_Publicacion	NUMERIC(18,0) NOT NULL,
+	Nro_Factura		NUMERIC(18,0) NOT NULL
+	
+	PRIMARY KEY(Cod_Publicacion, Nro_Factura),
+	FOREIGN KEY(Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
+	FOREIGN KEY(Nro_Factura)	 REFERENCES MERCADONEGRO.Facturaciones(Nro_Factura)
+)
 
 CREATE TABLE MERCADONEGRO.Items
 (
 	ID_Item			 NUMERIC(18,0) IDENTITY, 
 	Nro_Factura		 NUMERIC(18,0) NOT NULL,
+	Cod_Publicacion  NUMERIC(18,0) NOT NULL,
 	Cantidad_Vendida NUMERIC(18,0) NOT NULL,
 	Descripcion		 NVARCHAR(255) NOT NULL,
 	Precio_Item		 NUMERIC(18,2) NOT NULL,
@@ -503,11 +511,11 @@ GO
 
 /* SP Crear Factura */
 
-CREATE PROCEDURE MERCADONEGRO.crearFactura(@codPublicacion numeric(18,0), @formaDePago nvarchar(255),
-											@fechaFactura datetime, @ret numeric(18,0) output)
+CREATE PROCEDURE MERCADONEGRO.crearFactura(@formaDePago nvarchar(255), @fechaFactura datetime,
+											 @ret numeric(18,0) output)
 AS BEGIN
-	INSERT INTO MERCADONEGRO.Facturaciones(Cod_Publicacion, Forma_Pago, Factura_Fecha, Total_Facturacion)
-		VALUES(@codPublicacion, @formaDePago, @fechaFactura, 0)
+	INSERT INTO MERCADONEGRO.Facturaciones(Forma_Pago, Factura_Fecha, Total_Facturacion)
+		VALUES(@formaDePago, @fechaFactura, 0)
 		SET @ret = SCOPE_IDENTITY()
 END
 GO
@@ -608,13 +616,15 @@ GO
 
 /* Insert Item */
 
-CREATE PROCEDURE MERCADONEGRO.InsertarItem (@idFactura numeric(18,0), @cantidadVendida numeric(18,0),
-												@descripcion nvarchar(255), @precioItem numeric(18,0))
+CREATE PROCEDURE MERCADONEGRO.InsertarItem (@codPublicacion numeric(18,0), @idFactura numeric(18,0),
+											@cantidadVendida numeric(18,0), @descripcion nvarchar(255), 
+											@precioItem numeric(18,0))
 AS BEGIN
-	INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Precio_Item)
-		VALUES(@idFactura, @cantidadVendida, @descripcion, @precioItem)
+	INSERT INTO MERCADONEGRO.Items(Cod_Publicacion, Nro_Factura, Cantidad_Vendida, Descripcion, Precio_Item)
+		VALUES(@codPublicacion, @idFactura, @cantidadVendida, @descripcion, @precioItem)
 		
 	UPDATE MERCADONEGRO.Facturaciones SET Total_Facturacion = Total_Facturacion + @precioItem
+	
 END
 GO
 
@@ -868,8 +878,10 @@ CREATE VIEW  MERCADONEGRO.MayorFacturacionView		 AS
 		FROM  MERCADONEGRO.Usuarios AS Usuarios
 			INNER JOIN MERCADONEGRO.Publicaciones AS Publicaciones
 					ON Usuarios.ID_User = Publicaciones.ID_Vendedor
+			INNER JOIN MERCADONEGRO.Factura_Publicacion AS Asociativa
+					ON Publicaciones.Cod_Publicacion = Asociativa.Cod_Publicacion
 			INNER JOIN MERCADONEGRO.Facturaciones AS Facturaciones 
-					ON Publicaciones.Cod_Publicacion = Facturaciones.Cod_Publicacion
+					ON Asociativa.Nro_Factura = Facturaciones.Nro_Factura
 	      WHERE Facturaciones.Total_Facturacion != 0
 			GROUP BY Usuarios.Username, MONTH(Facturaciones.Factura_Fecha), YEAR(Facturaciones.Factura_Fecha)
 	      			
@@ -1187,15 +1199,14 @@ GO
 
 SET IDENTITY_INSERT MERCADONEGRO.Facturaciones ON
 
-INSERT INTO MERCADONEGRO.Facturaciones(Nro_Factura, Cod_Publicacion, Forma_Pago, Total_Facturacion, Factura_Fecha)
+INSERT INTO MERCADONEGRO.Facturaciones(Nro_Factura, Forma_Pago, Total_Facturacion, Factura_Fecha)
 	SELECT DISTINCT Factura_Nro, 
-					MERCADONEGRO.Publicaciones.Cod_Publicacion, 
 					Forma_Pago_Desc, 
 					Factura_Total,
 					Factura_Fecha
 				
-	FROM gd_esquema.Maestra, MERCADONEGRO.Publicaciones
-		WHERE gd_esquema.Maestra.Factura_Nro IS NOT NULL AND gd_esquema.Maestra.Publicacion_Cod = MERCADONEGRO.Publicaciones.Cod_Publicacion
+	FROM gd_esquema.Maestra
+		WHERE gd_esquema.Maestra.Factura_Nro IS NOT NULL
 	
 
 SET IDENTITY_INSERT MERCADONEGRO.Facturaciones OFF
@@ -1206,8 +1217,9 @@ GO
 PRINT 'MIGRANDO LA TABLA ITEMS'
 GO
 
-INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Precio_Item)
+INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cod_Publicacion, Cantidad_Vendida, Descripcion, Precio_Item)
 		SELECT Nro_Factura, 
+			   Publicacion_Cod,
 			   Item_Factura_Cantidad, 
 			   Publicacion_Descripcion,
 			   Item_Factura_Monto
@@ -1216,6 +1228,15 @@ INSERT INTO MERCADONEGRO.Items(Nro_Factura, Cantidad_Vendida, Descripcion, Preci
 		 FROM MERCADONEGRO.Facturaciones, gd_esquema.Maestra
 			WHERE MERCADONEGRO.Facturaciones.Nro_Factura = gd_esquema.Maestra.Factura_Nro
 GO
+
+PRINT 'MIGRANDO LA TABLA Facturacion_Publicacion'
+GO
+
+INSERT INTO MERCADONEGRO.Factura_Publicacion(Nro_Factura, Cod_Publicacion)
+	 SELECT DISTINCT Nro_Factura, Cod_Publicacion
+	  FROM MERCADONEGRO.Items
+GO
+	
 
 -------------------------OPERACIONES-------------------------------------------------
 
