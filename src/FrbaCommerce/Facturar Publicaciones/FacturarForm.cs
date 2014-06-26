@@ -163,6 +163,11 @@ namespace FrbaCommerce.Facturar_Publicaciones
                     MessageBox.Show("Por favor, complete los datos obligatorios.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
                 }
+                else if (Interfaz.usuarioActual().esAdmin() && this.usernameTextBox.Text == "")
+                {
+                    MessageBox.Show("Por favor, filtre por algun usuario", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
                 else
                     return true;
             }
