@@ -596,5 +596,13 @@ namespace FrbaCommerce.Abm_Empresa
                 e.Handled = true;
             }
         }
+
+        private void textboxCUIT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar)&& !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

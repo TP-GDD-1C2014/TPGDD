@@ -17,6 +17,7 @@ namespace FrbaCommerce.Listado_Estadistico
         public ListadoEstadisticoForm()
         {
             InitializeComponent();
+            CenterToScreen();
 
             this.visibilidadLabel.Hide();
             this.visibilidadComboBox.Hide();
