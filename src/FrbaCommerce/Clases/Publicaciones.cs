@@ -448,5 +448,20 @@ namespace FrbaCommerce.Clases
             BDSQL.cerrarConexion();
         }
 
+        public static void updateEstado(int codPublicacion, string estado)
+        {
+            if ( estado == "Finalizada" )
+            {
+            
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+            BDSQL.agregarParametro(listaParametros, "@codPublicacion", codPublicacion);
+            BDSQL.agregarParametro(listaParametros, "@estado", 3);
+
+            BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Publicaciones SET Cod_EstadoPublicacion = @estado WHERE Cod_Publicacion = @codPUblicacion", listaParametros, BDSQL.iniciarConexion());
+
+            BDSQL.cerrarConexion();
+            }
+        }
+
     }
 }

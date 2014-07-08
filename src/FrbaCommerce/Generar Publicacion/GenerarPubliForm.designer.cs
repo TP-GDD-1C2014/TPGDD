@@ -81,6 +81,7 @@
             // 
             // Visibilidad_ComboBox
             // 
+            this.Visibilidad_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Visibilidad_ComboBox.FormattingEnabled = true;
             this.Visibilidad_ComboBox.Location = new System.Drawing.Point(156, 32);
             this.Visibilidad_ComboBox.Name = "Visibilidad_ComboBox";
@@ -126,6 +127,7 @@
             // 
             // Estado_ComboBox
             // 
+            this.Estado_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Estado_ComboBox.FormattingEnabled = true;
             this.Estado_ComboBox.Location = new System.Drawing.Point(156, 137);
             this.Estado_ComboBox.Name = "Estado_ComboBox";
@@ -144,6 +146,7 @@
             // 
             // TipoPubli_ComboBox
             // 
+            this.TipoPubli_ComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TipoPubli_ComboBox.FormattingEnabled = true;
             this.TipoPubli_ComboBox.Location = new System.Drawing.Point(156, 164);
             this.TipoPubli_ComboBox.Name = "TipoPubli_ComboBox";

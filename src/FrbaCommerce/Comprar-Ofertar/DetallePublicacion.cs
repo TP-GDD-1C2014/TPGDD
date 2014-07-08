@@ -33,7 +33,15 @@ namespace FrbaCommerce.Comprar_Ofertar
             txtEstadoPublicacion.Text = publi.Estado_Publicacion;
             txtFechaFinalizacion.Text = Convert.ToString(publi.Fecha_Vto);
             txtFechaInicio.Text = Convert.ToString(publi.Fecha_Inicio);
-            txtPrecio.Text = Convert.ToString(publi.Precio);
+
+            if (publi.Tipo_Publicacion == "Subasta")
+            {
+                actualizarOfertaDetallePublicacion();
+                lblPrecio.Text = "Oferta actual";
+            }
+            else
+             txtPrecio.Text = Convert.ToString(publi.Precio);
+
             txtStockDisponible.Text = Convert.ToString(publi.Stock);
             txtStockInicial.Text = Convert.ToString(publi.Stock_Inicial);
             txtTipoPublicacion.Text = publi.Tipo_Publicacion;
@@ -59,6 +67,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                 txtPregunta.Text = "No puede realizar preguntas o comprarse a si mismo.";
                 txtPregunta.Enabled = false;
             }
+
 
         }
 
@@ -138,6 +147,8 @@ namespace FrbaCommerce.Comprar_Ofertar
             {
                 OfertaDlg ofertaDlg = new OfertaDlg(publi);
                 ofertaDlg.ShowDialog();
+
+                actualizarOfertaDetallePublicacion();
             }
         }
 
@@ -146,6 +157,14 @@ namespace FrbaCommerce.Comprar_Ofertar
             string rubros = Rubro.obtenerStringRubros(publi.Cod_Publicacion);
             txtRubros.Text = rubros;
         }
+
+        private void actualizarOfertaDetallePublicacion()
+        {
+            txtPrecio.Text = Convert.ToString(Oferta.cargarOfertaMasAlta(publi.Cod_Publicacion));       
+        }
+
+        
+
 
       
     }

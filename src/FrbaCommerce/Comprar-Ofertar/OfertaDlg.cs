@@ -52,7 +52,7 @@ namespace FrbaCommerce.Comprar_Ofertar
                     MessageBox.Show("Oferta realizada con éxito! Actualmente usted tiene la oferta mas alta.", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.None);
                     ofertaMasGrande = valor;
                     txtOfertaActual.Text = Convert.ToString(valor);
-
+                  
                 }
                 else MessageBox.Show("Por favor ingrese un valor numerico entero, mayor que la oferta actual.", "ATENCIÓN!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

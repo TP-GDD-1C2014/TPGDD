@@ -299,18 +299,45 @@ namespace FrbaCommerce.Generar_Publicacion
                         else if ((tipoPubli == "Subasta") && (esBorrador == false) && (estado == "Finalizada"))
                         {
                             
+                            
                             //Incluir última Subasta en Operaciones
                             decimal montoOferta = Oferta.cargarOfertaMasAlta(codPubli);
                             int idGanador = Oferta.getIdGanador(codPubli, montoOferta);
 
-                            Compra compra = new Compra(idVendedor, idGanador, codPubli, 0, montoOferta, false);
-                            //inserto la compra a operaciones y 
-                            Compra.insertarCompra(compra);
+                            if (idGanador == -1)
+                            {
+                                DialogResult dlg = MessageBox.Show("Nadie ofertó por esta subasta, ¿Desea cerrarla de todos modos?", "Atención!", MessageBoxButtons.YesNo);
 
-                            //updateo el campo ventas_sin_rendir al id_vendedor
-                            Usuario.updateVentasSinRendir(compra);
-                      
+                                if (dlg == DialogResult.No)
+                                {
+                                    return;
+                                }
+                                else
+                                {   
+                                    //updateo el estado de la publicacion
+                                    Publicaciones.updateEstado(publi.Cod_Publicacion, "Finalizada");
 
+                                    MessageBox.Show("Subasta finalizada, no hubo ofertas.", "Atención!", MessageBoxButtons.OK);
+
+                                    this.Close();
+                                }
+                            }
+                            else
+                            {
+                                Compra compra = new Compra(idVendedor, idGanador, codPubli, 0, montoOferta, false);
+                                //inserto la compra a operaciones y 
+                                Compra.insertarCompra(compra);
+
+                                //updateo el campo ventas_sin_rendir al id_vendedor
+                                Usuario.updateVentasSinRendir(compra);
+
+                                //updateo el estado de la publicacion
+                                Publicaciones.updateEstado(publi.Cod_Publicacion, "Finalizada");
+
+                                MessageBox.Show("Subasta finalizada! Avisar al ganador.", "Succes!", MessageBoxButtons.OK);
+
+                                this.Close();
+                            }
                         }
                         else
                         {
