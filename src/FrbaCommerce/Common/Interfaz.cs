@@ -125,7 +125,7 @@ namespace FrbaCommerce.Common
         public static void generarDiccionarios()
         {
             //Visibilidades
-            SqlDataReader lector = BDSQL.ObtenerDataReader("SELECT COD_VISIBILIDAD, DESCRIPCION FROM MERCADONEGRO.VISIBILIDADES WHERE HABILITADA = 1 ORDER BY COD_VISIBILIDAD",
+            SqlDataReader lector = BDSQL.ObtenerDataReader("SELECT COD_VISIBILIDAD, DESCRIPCION FROM MERCADONEGRO.VISIBILIDADES ORDER BY COD_VISIBILIDAD",
                                                             "T");
 
             if (lector.HasRows)

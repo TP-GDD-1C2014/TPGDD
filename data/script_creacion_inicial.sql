@@ -9,6 +9,23 @@ GO
 
 ---------------------------------------------Tablas iniciales-------------------------------------------
 
+CREATE TABLE MERCADONEGRO.Usuarios
+(
+	ID_User				 NUMERIC(18,0) IDENTITY(1,1),
+	Username			 NVARCHAR(255)	   NOT NULL,
+	Password			 NVARCHAR(255)	   NOT NULL,
+	Intentos_Login		 TINYINT DEFAULT 0 NOT NULL, 
+	Habilitado			 BIT DEFAULT 1	   NOT NULL,
+	Primera_Vez			 TINYINT DEFAULT 2 NOT NULL,
+	Cant_Publi_Gratuitas TINYINT		   NULL,
+	Reputacion			 FLOAT			   NULL, 
+	Ventas_Sin_Rendir	 TINYINT		   NULL, 
+	Habilitado_Compra	 BIT DEFAULT 1	   NOT NULL,
+	
+	UNIQUE (Username),
+	PRIMARY KEY(ID_User)
+)
+
 CREATE TABLE MERCADONEGRO.Rubros 
 (
 	ID_Rubro	NUMERIC(18,0) IDENTITY,
@@ -97,7 +114,8 @@ CREATE TABLE MERCADONEGRO.Publicaciones
 	PRIMARY KEY (Cod_Publicacion),
 	FOREIGN KEY (Cod_Visibilidad) REFERENCES MERCADONEGRO.Visibilidades(Cod_Visibilidad),
 	FOREIGN KEY	(Cod_EstadoPublicacion) REFERENCES MERCADONEGRO.Estados_Publicacion(Cod_EstadoPublicacion),
-	FOREIGN KEY (Cod_TipoPublicacion) REFERENCES MERCADONEGRO.Tipos_Publicacion(Cod_TipoPublicacion)
+	FOREIGN KEY (Cod_TipoPublicacion) REFERENCES MERCADONEGRO.Tipos_Publicacion(Cod_TipoPublicacion),
+	FOREIGN KEY	(ID_Vendedor) REFERENCES MERCADONEGRO.Usuarios(ID_User),
 )
 
 CREATE TABLE MERCADONEGRO.Facturaciones
@@ -152,24 +170,6 @@ CREATE TABLE MERCADONEGRO.Rubro_Publicacion
 	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
 	FOREIGN KEY (ID_Rubro)		  REFERENCES MERCADONEGRO.Rubros(ID_Rubro)
 )
-
-CREATE TABLE MERCADONEGRO.Usuarios
-(
-	ID_User				 NUMERIC(18,0) IDENTITY(1,1),
-	Username			 NVARCHAR(255)	   NOT NULL,
-	Password			 NVARCHAR(255)	   NOT NULL,
-	Intentos_Login		 TINYINT DEFAULT 0 NOT NULL, 
-	Habilitado			 BIT DEFAULT 1	   NOT NULL,
-	Primera_Vez			 TINYINT DEFAULT 2 NOT NULL,
-	Cant_Publi_Gratuitas TINYINT		   NULL,
-	Reputacion			 FLOAT			   NULL, 
-	Ventas_Sin_Rendir	 TINYINT		   NULL, 
-	Habilitado_Compra	 BIT DEFAULT 1	   NOT NULL,
-	
-	UNIQUE (Username),
-	PRIMARY KEY(ID_User)
-)
-
 
 CREATE TABLE MERCADONEGRO.Empresas
 (
