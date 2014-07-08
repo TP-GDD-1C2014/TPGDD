@@ -215,7 +215,7 @@ namespace FrbaCommerce.Common
             
         }
 
-
+        /*
         public static void actualizarDiccionarioVisibilidades(string descripcionNueva, string descripcionVieja)
         {
             for (int i = 0; i < diccionarioVisibilidades.Count; i++)
@@ -224,6 +224,6 @@ namespace FrbaCommerce.Common
                     diccionarioVisibilidades[i] = descripcionNueva;
             }
         }
-
+        */
     }
 }

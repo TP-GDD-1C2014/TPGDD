@@ -165,7 +165,7 @@ namespace FrbaCommerce.Abm_Visibilidad
                         this.Close();
 
 
-                        Interfaz.diccionarioVisibilidades.Add(idInsertada, this.nombreTextBox.Text);
+                        //Interfaz.diccionarioVisibilidades.Add(idInsertada, this.nombreTextBox.Text);
                         
                     }
                     else
@@ -257,7 +257,7 @@ namespace FrbaCommerce.Abm_Visibilidad
                     }
 
                     //updateando diccionario visibilidades
-                    Interfaz.actualizarDiccionarioVisibilidades(visibilidadNueva.Descripcion, this.visibilidadVieja.Descripcion);
+                    //Interfaz.actualizarDiccionarioVisibilidades(visibilidadNueva.Descripcion, this.visibilidadVieja.Descripcion);
 
                 }
 
