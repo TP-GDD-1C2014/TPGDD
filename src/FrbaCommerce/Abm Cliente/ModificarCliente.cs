@@ -373,7 +373,17 @@ namespace FrbaCommerce.Abm_Cliente
 
             if (cambioString(this.vPassword, tPassword.Text))
             {
-                cambiarStringUsuarios("Password", hashear(tPassword.Text));
+                UTF8Encoding encoderHash = new UTF8Encoding();
+                SHA256Managed hasher = new SHA256Managed();
+                byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(tPassword.Text));
+                string password = bytesDeHasheoToString(bytesDeHasheo);
+
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+                BDSQL.agregarParametro(listaParametros, "@Password", password);
+                BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Password = @Password, Primera_Vez = 0 WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+                BDSQL.cerrarConexion();
+
                 resumenModificaciones = resumenModificaciones + "\nContraseña";
                 modificacion = true;
             }
@@ -525,9 +535,17 @@ namespace FrbaCommerce.Abm_Cliente
                     }
                     else
                     {
-                        cambiarLongIntClientes("Telefono", Convert.ToInt64(tTelefono.Text));
-                        resumenModificaciones = resumenModificaciones + "\nTeléfono";
-                        modificacion = true;
+                        if (!BDSQL.existeString(tTelefono.Text, "MERCADONEGRO.Clientes", "Telefono"))
+                        {
+                            cambiarLongIntClientes("Telefono", Convert.ToInt64(tTelefono.Text));
+                            resumenModificaciones = resumenModificaciones + "\nTeléfono";
+                            modificacion = true;
+                        }
+                        else
+                        {
+                            resumenErrores = resumenErrores + "\nTeléfono (ya existente)";
+                            error = true;
+                        }
                     }
                 }
                 else
