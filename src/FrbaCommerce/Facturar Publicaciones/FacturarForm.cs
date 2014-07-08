@@ -107,7 +107,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                             }
 
                             //4. Sumar 1 en bonificaciones, y obtener el Precio unitario (si esta bonificada devuelve 0)
-                            item.Precio_Unitario = Publicacion.sumarObtenerPrecio(item.Cod_Publicacion);
+                            item.Precio_Unitario = Publicacion.sumarObtenerPrecio(item.Cod_Publicacion, tipoPublicacion);
 
                             //5. Descripcion
                             item.Descripcion = Convert.ToString(this.dgvOperaciones.SelectedRows[i].Cells[3].Value);

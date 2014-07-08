@@ -119,7 +119,7 @@ namespace FrbaCommerce.Clases
             }
         }
 
-        public static decimal sumarObtenerPrecio(int codPublicacion)
+        public static decimal sumarObtenerPrecio(int codPublicacion, string tipoPublicacion)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
 
@@ -127,15 +127,25 @@ namespace FrbaCommerce.Clases
             decimal comisionPorVisibilidad;
             int visibilidad;
             int idVendedor;
+            string commandText = "";
 
             BDSQL.agregarParametro(parametros, "@codPublicacion", codPublicacion);
 
             //obtengo el precio x unidad y la comision por la visibiliad
-             
 
-            string commandText = "SELECT p.ID_Vendedor, p.Precio, v.Porcentaje_Venta, v.Cod_Visibilidad  FROM MERCADONEGRO.Publicaciones p "+
-                                "JOIN MERCADONEGRO.Visibilidades v ON p.Cod_Visibilidad = v.Cod_Visibilidad " +
-                                "WHERE p.Cod_Publicacion = @codPublicacion";
+            if (tipoPublicacion == "Compra Inmediata")
+            {
+                commandText = "SELECT p.ID_Vendedor, p.Precio, v.Porcentaje_Venta, v.Cod_Visibilidad  FROM MERCADONEGRO.Publicaciones p " +
+                                   "JOIN MERCADONEGRO.Visibilidades v ON p.Cod_Visibilidad = v.Cod_Visibilidad " +
+                                   "WHERE p.Cod_Publicacion = @codPublicacion";
+            }
+            else if (tipoPublicacion == "Subasta")
+            {
+                commandText = "SELECT p.ID_Vendedor, c.Monto_Compra AS Precio, v.Porcentaje_Venta, v.Cod_Visibilidad  FROM MERCADONEGRO.Publicaciones p " +
+                                   "JOIN MERCADONEGRO.Visibilidades v ON p.Cod_Visibilidad = v.Cod_Visibilidad " +
+                                   "JOIN MERCADONEGRO.Compras c ON p.ID_Vendedor = c.ID_Vendedor " +
+                                   "WHERE p.Cod_Publicacion = @codPublicacion";
+            }
 
             SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", parametros);
 
