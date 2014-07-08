@@ -347,7 +347,20 @@ namespace FrbaCommerce.Abm_Empresa
 
             if (cambioString(this.vPassword, tPassword.Text))
             {
-                cambiarStringUsuarios("Password", hashear(tPassword.Text));
+                UTF8Encoding encoderHash = new UTF8Encoding();
+                SHA256Managed hasher = new SHA256Managed();
+                byte[] bytesDeHasheo = hasher.ComputeHash(encoderHash.GetBytes(tPassword.Text));
+                string password = bytesDeHasheoToString(bytesDeHasheo);
+
+                List<SqlParameter> listaParametros = new List<SqlParameter>();
+                BDSQL.agregarParametro(listaParametros, "@ID_User", this.ID_User);
+                BDSQL.agregarParametro(listaParametros, "@Password", password);
+
+                MessageBox.Show("ID_USER: " + this.ID_User + "\nPASSWORD: " + tPassword.Text + "\nHASH: " + password);
+
+                BDSQL.ejecutarQuery("UPDATE MERCADONEGRO.Usuarios SET Password = @Password, Primera_Vez = 0 WHERE ID_User = @ID_User", listaParametros, BDSQL.iniciarConexion());
+                BDSQL.cerrarConexion();
+
                 resumenModificaciones = resumenModificaciones + "\nContraseña";
                 modificacion = true;
             }
@@ -426,9 +439,17 @@ namespace FrbaCommerce.Abm_Empresa
                     }
                     else
                     {
-                        cambiarLongIntEmpresas("Telefono", Convert.ToInt64(tTelefono.Text));
-                        resumenModificaciones = resumenModificaciones + "\nTeléfono";
-                        modificacion = true;
+                        if (!BDSQL.existeString(tTelefono.Text, "MERCADONEGRO.Empresas", "Telefono"))
+                        {
+                            cambiarLongIntEmpresas("Telefono", Convert.ToInt64(tTelefono.Text));
+                            resumenModificaciones = resumenModificaciones + "\nTeléfono";
+                            modificacion = true;
+                        }
+                        else
+                        {
+                            resumenErrores = resumenErrores + "\nTeléfono (ya existente)";
+                            error = true;
+                        }
                     }
                 }
                 else
