@@ -19,7 +19,7 @@ namespace FrbaCommerce.Clases
         public string Descripcion { get; set; }
         public DateTime? Fecha_Calificacion { get; set; }
 
-        public Calificacion(int? punt, string desc)
+        public Calificacion(int punt, string desc)
         {
             
             Puntaje = punt;
@@ -43,7 +43,7 @@ namespace FrbaCommerce.Clases
 
             SqlDataReader lector = BDSQL.ejecutarReader("SELECT c.Cod_Calificacion, c.Puntaje, c.Descripcion, c.Fecha_Calificacion " +
                                                         "FROM MERCADONEGRO.Calificaciones c " +
-                                                        "JOIN MERCADONEGRO.Operaciones o ON o.Cod_Calificacion = c.Cod_Calificacion "+
+                                                        "JOIN MERCADONEGRO.Compras o ON o.Cod_Calificacion = c.Cod_Calificacion "+
                                                         "WHERE o.ID_Comprador = @idUser AND c.Puntaje IS NULL", ListaParametros, BDSQL.iniciarConexion());
             if (lector.HasRows)
             {
@@ -107,7 +107,7 @@ namespace FrbaCommerce.Clases
             List<SqlParameter> ListaParametros = new List<SqlParameter>();
             ListaParametros.Add(new SqlParameter("@codCalificacion", codCalific));
 
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Cod_Publicacion FROM MERCADONEGRO.Operaciones WHERE Cod_Calificacion = @codCalificacion",ListaParametros,BDSQL.iniciarConexion());
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT Cod_Publicacion FROM MERCADONEGRO.Compras WHERE Cod_Calificacion = @codCalificacion",ListaParametros,BDSQL.iniciarConexion());
 
             lector.Read();
 
@@ -125,7 +125,7 @@ namespace FrbaCommerce.Clases
             List<SqlParameter> ListaParametros = new List<SqlParameter>();
             ListaParametros.Add(new SqlParameter("@idUser", idUser));
 
-            SqlDataReader lector = BDSQL.ejecutarReader("SELECT COUNT(ID_Operacion) AS cant FROM MERCADONEGRO.Operaciones o " +
+            SqlDataReader lector = BDSQL.ejecutarReader("SELECT COUNT(ID_Compra) AS cant FROM MERCADONEGRO.Compras o " +
                                                         "JOIN MERCADONEGRO.Calificaciones c ON o.Cod_Calificacion = c.Cod_Calificacion " +
                                                         "WHERE o.ID_Comprador = @idUser AND c.Puntaje is NULL", 
                                                         ListaParametros, BDSQL.iniciarConexion());

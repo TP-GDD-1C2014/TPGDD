@@ -78,11 +78,19 @@ namespace FrbaCommerce.Historial_Cliente
 
         public Clases.Calificacion obtenerCalificacion(int codCalificacion)
         {
+            Clases.Calificacion calificacion;
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "@Cod_Calificacion", codCalificacion);
             SqlDataReader lector = BDSQL.ejecutarReader("EXEC MERCADONEGRO.obtenerCalificacion @Cod_Calificacion", listaParametros, this.conexion);
             lector.Read();
-            Clases.Calificacion calificacion = new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
+            if (lector["Puntaje"] is DBNull)
+            {
+                calificacion = new Clases.Calificacion(0, Convert.ToString(lector["Descripcion"]));
+            }
+            else
+            {
+                calificacion = new Clases.Calificacion(Convert.ToInt32(lector["Puntaje"]), Convert.ToString(lector["Descripcion"]));
+            }
             return calificacion;
         }
 

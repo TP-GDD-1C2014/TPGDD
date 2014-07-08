@@ -47,7 +47,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
         {
             Facturacion factura = new Facturacion();
 
-            this.dgvOperaciones.DataSource = factura.obtenerOperaciones(usuario);
+            this.dgvOperaciones.DataSource = factura.obtenerCompras(usuario);
             this.dgvOperaciones.Refresh();
             
         }
@@ -118,7 +118,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
                             //Actualizo la operacion a facturada
                             int idOperacion = Convert.ToInt32(this.dgvOperaciones.SelectedRows[i].Cells[1].Value);
 
-                            Operacion.facturarOperacion(idOperacion);
+                            Operacion.facturarCompra(idOperacion);
 
                             Usuario.restarVentaSinRendir(idOperacion);
                     

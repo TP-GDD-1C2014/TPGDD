@@ -256,9 +256,9 @@ CREATE TABLE MERCADONEGRO.Tipos_Operacion
 )
 
 
-CREATE TABLE MERCADONEGRO.Operaciones
+CREATE TABLE MERCADONEGRO.Compras
 (
-	ID_Operacion		NUMERIC(18,0) IDENTITY,
+	ID_Compra		NUMERIC(18,0) IDENTITY,
 	ID_Vendedor			NUMERIC(18,0) NOT NULL,
 	ID_Comprador		NUMERIC(18,0) NOT NULL,
 	Cod_Publicacion		NUMERIC(18,0) NOT NULL,
@@ -268,7 +268,7 @@ CREATE TABLE MERCADONEGRO.Operaciones
 	Monto_Compra		NUMERIC(18,2) NOT NULL,
 	Operacion_Facturada BIT DEFAULT 0 NOT NULL, 
 	
-	PRIMARY KEY (ID_Operacion),
+	PRIMARY KEY (ID_Compra),
 	FOREIGN KEY (ID_Vendedor)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (ID_Comprador)	  REFERENCES MERCADONEGRO.Usuarios(ID_User),
 	FOREIGN KEY (Cod_Publicacion) REFERENCES MERCADONEGRO.Publicaciones(Cod_Publicacion),
@@ -401,12 +401,12 @@ AS BEGIN
 END
 GO
 
-/* Obtener Vista de las operaciones sin facturar order by fecha de operacion */
+/* Obtener Vista de las Compras sin facturar order by fecha de operacion */
 
-CREATE PROCEDURE MERCADONEGRO.ObtenerOperacionesSinFacturar(@username nvarchar(255))
+CREATE PROCEDURE MERCADONEGRO.ObtenerComprasSinFacturar(@username nvarchar(255))
 AS BEGIN
 		SELECT [Fecha de la Operacion], Venta AS [Venta Nro], Publicacion AS [Publicacion Nro], Descripcion  
-			FROM MERCADONEGRO.OperacionesSinFacturar
+			FROM MERCADONEGRO.ComprasSinFacturar
 			WHERE @username = Username
 			ORDER BY [Fecha de la Operacion]
 END
@@ -528,7 +528,7 @@ CREATE PROCEDURE MERCADONEGRO.pObtenerCompras
 AS
 	SELECT * FROM (
 		SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion, ROW_NUMBER() OVER(ORDER BY Fecha_Operacion ASC) AS ROW_NUMBER
-		FROM MERCADONEGRO.Operaciones
+		FROM MERCADONEGRO.Compras
 		WHERE ID_Comprador = @ID_User
 		AND Cod_TipoOperacion = 0
 	) AS T
@@ -543,7 +543,7 @@ CREATE PROCEDURE MERCADONEGRO.pObtenerOfertasGanadas
 AS
 	SELECT * FROM (
 		SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion, ROW_NUMBER() OVER(ORDER BY Fecha_Operacion ASC) AS ROW_NUMBER
-		FROM MERCADONEGRO.Operaciones
+		FROM MERCADONEGRO.Compras
 		WHERE ID_Comprador = @ID_User
 		AND Cod_TipoOperacion = 1
 	) AS T
@@ -572,14 +572,14 @@ CREATE PROCEDURE MERCADONEGRO.obtenerCompras
 	@ID_User NUMERIC(18,0)
 AS
 	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion 
-	FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 0
+	FROM MERCADONEGRO.Compras WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 0
 GO
 
 CREATE PROCEDURE MERCADONEGRO.obtenerOfertasGanadas
 	@ID_User NUMERIC(18,0)
 AS
 	SELECT ID_Vendedor, Cod_Publicacion, Cod_Calificacion, Fecha_Operacion 
-	FROM MERCADONEGRO.Operaciones WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 1
+	FROM MERCADONEGRO.Compras WHERE ID_Comprador = @ID_User AND Cod_TipoOperacion = 1
 GO
 
 CREATE PROCEDURE MERCADONEGRO.obtenerOfertas
@@ -665,7 +665,7 @@ INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('EditarPublicacion');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('GestionarPreguntas');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('ComprarOfertar');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('Calificar');
-INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('HistorialOperaciones');
+INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('HistorialCompras');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('Facturar');
 INSERT INTO MERCADONEGRO.Funcionalidades (Nombre) VALUES ('ListadoEstadistico');
 
@@ -702,7 +702,7 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Administrador General', @func = 'Calificar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Administrador General', @func = 'HistorialOperaciones';	
+	@rol = 'Administrador General', @func = 'HistorialCompras';	
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Administrador General', @func = 'Facturar';		
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -721,7 +721,7 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Cliente', @func = 'Calificar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Cliente', @func = 'HistorialOperaciones';
+	@rol = 'Cliente', @func = 'HistorialCompras';
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Cliente', @func = 'Facturar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -740,7 +740,7 @@ EXEC MERCADONEGRO.AgregarFuncionalidad
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'Calificar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
-	@rol = 'Empresa', @func = 'HistorialOperaciones';
+	@rol = 'Empresa', @func = 'HistorialCompras';
 EXEC MERCADONEGRO.AgregarFuncionalidad
 	@rol = 'Empresa', @func = 'Facturar';
 EXEC MERCADONEGRO.AgregarFuncionalidad
@@ -897,10 +897,10 @@ CREATE VIEW MERCADONEGRO.MayorReputacionView AS
 		   YEAR(Calificaciones.Fecha_Calificacion)		AS Año	   
 			
 		FROM MERCADONEGRO.Usuarios					AS Usuarios
-		JOIN MERCADONEGRO.Operaciones				AS Operaciones
-			ON Operaciones.ID_Vendedor = Usuarios.ID_User
+		JOIN MERCADONEGRO.Compras				AS Compras
+			ON Compras.ID_Vendedor = Usuarios.ID_User
 		JOIN MERCADONEGRO.Calificaciones			AS Calificaciones
-			ON Calificaciones.Cod_Calificacion = Operaciones.Cod_Calificacion
+			ON Calificaciones.Cod_Calificacion = Compras.Cod_Calificacion
 GO
 
 --------CLIENTES CON MAYOR CANTIDAD DE PUBLICACIONES SIN CALIFICAR-------------
@@ -908,19 +908,19 @@ GO
 CREATE VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView AS
 	
 	SELECT Usuarios.Username					AS Cliente,
-		   COUNT(Calificaciones.Puntaje)		AS [Publicaciones sin calificar],
-		   MONTH(Operaciones.Fecha_Operacion)   AS Mes,
-		   YEAR(Operaciones.Fecha_Operacion)	AS Año
+		   COUNT(*)		AS [Publicaciones sin calificar],
+		   MONTH(Compras.Fecha_Operacion)   AS Mes,
+		   YEAR(Compras.Fecha_Operacion)	AS Año
 		   
 		FROM MERCADONEGRO.Clientes
 		JOIN MERCADONEGRO.Usuarios 
 			ON Clientes.ID_User = Usuarios.ID_User
-		JOIN MERCADONEGRO.Operaciones 
-			ON Operaciones.ID_Comprador = Usuarios.ID_User
+		JOIN MERCADONEGRO.Compras 
+			ON Compras.ID_Comprador = Usuarios.ID_User
 		JOIN MERCADONEGRO.Calificaciones 
-			ON Operaciones.Cod_Calificacion = Calificaciones.Cod_Calificacion
+			ON Compras.Cod_Calificacion = Calificaciones.Cod_Calificacion
 		WHERE Calificaciones.Puntaje IS NULL
-		GROUP BY Usuarios.Username, MONTH(Operaciones.Fecha_Operacion), YEAR(Operaciones.Fecha_Operacion)
+		GROUP BY Usuarios.Username, MONTH(Compras.Fecha_Operacion), YEAR(Compras.Fecha_Operacion)
 GO
 		   	
 ---------VENDEDORES CON MAYOR CANTIDAD DE PRODUCTOS NO VENDIDOS----------
@@ -943,19 +943,19 @@ CREATE VIEW MERCADONEGRO.MayorCantProductosNoVendidos AS
 				ON Publicaciones.Cod_Visibilidad = Visibilidades.Cod_Visibilidad
 GO	
 
--------------------------------VISTA DE LAS OPERACIONES QUE NO FUERON FACTURADAS------------------------
+-------------------------------VISTA DE LAS Compras QUE NO FUERON FACTURADAS------------------------
 
-CREATE VIEW MERCADONEGRO.OperacionesSinFacturar AS 
+CREATE VIEW MERCADONEGRO.ComprasSinFacturar AS 
 	SELECT  Username						 AS Username,
-			ID_Operacion					 AS Venta,
+			ID_Compra					 AS Venta,
 			Publicaciones.Cod_Publicacion	 AS Publicacion,
 			Descripcion						 AS Descripcion,
 			Fecha_Operacion					 AS [Fecha de la Operacion]
 			
-	FROM MERCADONEGRO.Operaciones
-	JOIN MERCADONEGRO.Publicaciones ON Publicaciones.Cod_Publicacion = Operaciones.Cod_Publicacion
-	JOIN MERCADONEGRO.Usuarios ON Usuarios.ID_User = Operaciones.ID_Vendedor
-	WHERE Operaciones.Operacion_Facturada = 0
+	FROM MERCADONEGRO.Compras
+	JOIN MERCADONEGRO.Publicaciones ON Publicaciones.Cod_Publicacion = Compras.Cod_Publicacion
+	JOIN MERCADONEGRO.Usuarios ON Usuarios.ID_User = Compras.ID_Vendedor
+	WHERE Compras.Operacion_Facturada = 0
 	
 GO
 
@@ -1238,12 +1238,12 @@ INSERT INTO MERCADONEGRO.Factura_Publicacion(Nro_Factura, Cod_Publicacion)
 GO
 	
 
--------------------------OPERACIONES-------------------------------------------------
+-------------------------Compras-------------------------------------------------
 
 PRINT 'MIGRANDO LAS COMPRAS'
 GO
 
-INSERT INTO MERCADONEGRO.Operaciones
+INSERT INTO MERCADONEGRO.Compras
 
 	SELECT DISTINCT MERCADONEGRO.Publicaciones.ID_Vendedor,	
 					MERCADONEGRO.Usuarios.ID_User,			
@@ -1305,7 +1305,7 @@ INSERT INTO MERCADONEGRO.Subastas(ID_Vendedor, ID_Comprador, Cod_Publicacion, Ti
 
 GO
 
-INSERT INTO MERCADONEGRO.Operaciones(ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion,
+INSERT INTO MERCADONEGRO.Compras(ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion,
 									Cod_Calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
 	 
 	SELECT S1.vendedor, S1.ofertador, S1.codpublic, S1.tipo, Calificacion_Codigo, S1.fechaOferta, MAX(s1.monto), 1
@@ -1332,11 +1332,11 @@ GO
 
 ---------------------TRIGGERS POST MIGRACION-----------------
 
-/* TRIGGER para las compras: inserta calificacion vacia, recibe su cod_calific, con eso inserta una nueva compra en Operaciones
+/* TRIGGER para las compras: inserta calificacion vacia, recibe su cod_calific, con eso inserta una nueva compra en Compras
 con fecha actual, y luego updatea el stock de la publicacion corespondiente */
 
 CREATE TRIGGER Trigger_InsertarCompra
-	ON MERCADONEGRO.Operaciones
+	ON MERCADONEGRO.Compras
 	INSTEAD OF INSERT
 	AS BEGIN
 	
@@ -1350,7 +1350,7 @@ CREATE TRIGGER Trigger_InsertarCompra
 		   @tipoOperacion = i.Cod_TipoOperacion, @montoCompra = i.Monto_Compra, @operacionFacturada = i.Operacion_Facturada, @fechaCompra = i.Fecha_Operacion
 	from inserted i
 	
-	INSERT INTO MERCADONEGRO.Operaciones (ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion,
+	INSERT INTO MERCADONEGRO.Compras (ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion,
 											Cod_calificacion, Fecha_Operacion, Monto_Compra, Operacion_Facturada)
 	VALUES ( @idVendedor , @idComprador , @codPublicacion , @tipoOperacion , @codCalificacion ,
 			 @fechaCompra, @montoCompra , @operacionFacturada )
@@ -1371,7 +1371,7 @@ CREATE TRIGGER Trigger_UpdateCalificacion
 	SELECT @codCalificacion = Cod_Calificacion, @puntaje = Puntaje, @descripcion = Descripcion , @fecha = Fecha_Calificacion
 	FROM inserted
 		
-	DECLARE @idUser numeric (18,0) = (SELECT ID_Vendedor FROM MERCADONEGRO.Operaciones WHERE Cod_Calificacion = @codCalificacion)
+	DECLARE @idUser numeric (18,0) = (SELECT ID_Vendedor FROM MERCADONEGRO.Compras WHERE Cod_Calificacion = @codCalificacion)
 	
 	DECLARE @promedio float = 
 	(
@@ -1379,7 +1379,7 @@ CREATE TRIGGER Trigger_UpdateCalificacion
 			AVG(c.Puntaje)		
 			
 	FROM MERCADONEGRO.Usuarios u     
-	JOIN MERCADONEGRO.Operaciones o    ON o.ID_Vendedor = u.ID_User 
+	JOIN MERCADONEGRO.Compras o    ON o.ID_Vendedor = u.ID_User 
 	JOIN MERCADONEGRO.Calificaciones c ON c.Cod_Calificacion = o.Cod_Calificacion
 	
 	WHERE u.ID_User = @idUser
@@ -1402,7 +1402,7 @@ DROP VIEW MERCADONEGRO.MayorFacturacionView
 GO
 DROP VIEW MERCADONEGRO.MayorReputacionView
 GO
-DROP VIEW MERCADONEGRO.OperacionesSinFacturar
+DROP VIEW MERCADONEGRO.ComprasSinFacturar
 GO
 DROP VIEW MERCADONEGRO.MayorPublicacionesSinCalificarView
 GO

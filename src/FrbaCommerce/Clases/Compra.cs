@@ -126,7 +126,7 @@ namespace FrbaCommerce.Clases
             ListaParametros.Add(new SqlParameter("@operacionFacturada", compra.Operacion_Facturada));
             ListaParametros.Add(new SqlParameter("@fechaCompra", Interfaz.obtenerFecha()));
 
-            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Operaciones (ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion, " +
+            BDSQL.ejecutarQuery("INSERT INTO MERCADONEGRO.Compras (ID_Vendedor, ID_Comprador, Cod_Publicacion, Cod_TipoOperacion, " +
                                 "Fecha_Operacion, Monto_Compra, Operacion_Facturada) " +
 	                            "VALUES ( @idVendedor , @idComprador , @codPublicacion , @tipoOperacion , " +
                                 "@fechaCompra, @montoCompra , @operacionFacturada )", ListaParametros, BDSQL.iniciarConexion());

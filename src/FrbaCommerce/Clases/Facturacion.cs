@@ -25,14 +25,14 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public DataTable obtenerOperaciones(Usuario usuario)
+        public DataTable obtenerCompras(Usuario usuario)
         {
             List<SqlParameter> listaParametros = new List<SqlParameter>();
 
             if (usuario.esAdmin())
             {
                 //buscar todas las ventas sin rendir, tal que los users esten inhabilitados y las ventas_sin_Rendir > 10
-                string commandText = "SELECT * FROM MERCADONEGRO.OperacionesSinFacturar";
+                string commandText = "SELECT * FROM MERCADONEGRO.ComprasSinFacturar";
 
                 return BDSQL.obtenerDataTable(commandText, "T");
 
@@ -42,7 +42,7 @@ namespace FrbaCommerce.Clases
 
                 BDSQL.agregarParametro(listaParametros, "@username", usuario.Username);
 
-                return BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerOperacionesSinFacturar", "SP", listaParametros);
+                return BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerComprasSinFacturar", "SP", listaParametros);
             }
 
         }

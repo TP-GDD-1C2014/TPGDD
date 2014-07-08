@@ -425,7 +425,7 @@ namespace FrbaCommerce.Clases
             List<SqlParameter> listaParametros = new List<SqlParameter>();
             BDSQL.agregarParametro(listaParametros, "idOperacion", idOperacion);
 
-            string commandText = "SELECT ID_Vendedor FROM MERCADONEGRO.Operaciones WHERE ID_Operacion = @idOperacion";
+            string commandText = "SELECT ID_Vendedor FROM MERCADONEGRO.Compras WHERE ID_Compra = @idOperacion";
             SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
 
             if (lector.HasRows)
