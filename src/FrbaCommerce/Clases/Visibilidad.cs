@@ -151,19 +151,31 @@ namespace FrbaCommerce.Clases
             
         }
 
-        /*
-        public static void insertBonificacion(int idVendedor, int codVisibilidad)
+        public static string obtenerDescripcionVisibilidad(int codVisibilidad)
         {
+            string descripcion = "";
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@codVisibilidad", codVisibilidad);
+
+            string commandText = "SELECT Descripcion FROM MERCADONEGRO.Visibilidades WHERE Cod_Visibilidad = @codVisibilidad";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    descripcion = Convert.ToString(lector["Descripcion"]);
+
+                }
+            }
+            BDSQL.cerrarConexion();
+
+            return descripcion;
 
         }
-
-        public static void updateBonificacion()
-        {
-
-        }
-        */
-
-
 
      }
 }

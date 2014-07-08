@@ -112,6 +112,7 @@
             this.tPublicacionesGratuitas.Name = "tPublicacionesGratuitas";
             this.tPublicacionesGratuitas.Size = new System.Drawing.Size(165, 20);
             this.tPublicacionesGratuitas.TabIndex = 3;
+            this.tPublicacionesGratuitas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxNumerico_KeyPress);
             // 
             // label5
             // 
@@ -260,6 +261,7 @@
             this.tCUIT.Name = "tCUIT";
             this.tCUIT.Size = new System.Drawing.Size(165, 20);
             this.tCUIT.TabIndex = 1;
+            this.tCUIT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textboxCUIT_KeyPress);
             // 
             // tRazonSocial
             // 
