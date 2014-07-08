@@ -226,7 +226,7 @@ namespace FrbaCommerce.Facturar_Publicaciones
 
                 BDSQL.agregarParametro(listaParametros, "@username", username);
 
-                this.dgvOperaciones.DataSource = BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerOperacionesSinFacturar", "SP", listaParametros);
+                this.dgvOperaciones.DataSource = BDSQL.obtenerDataTable("MERCADONEGRO.ObtenerComprasSinFacturar", "SP", listaParametros);
             }
         }
 
