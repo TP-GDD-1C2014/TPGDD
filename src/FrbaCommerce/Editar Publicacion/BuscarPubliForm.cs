@@ -188,7 +188,7 @@ namespace FrbaCommerce.Editar_Publicacion
             else
             {
                 //Filtrar Publicaciones y mostrar en dataGridView1
-                dataGridView1.DataSource = Publicaciones.filtrarPublicaciones(publi, visibilidadIndex, estadoIndex, tipoPubliIndex, fechaFinNula, fechaInicNula, esAdmin);
+                dataGridView1.DataSource = Publicaciones.filtrarPublicaciones(publi, visibilidad, estadoIndex, tipoPubliIndex, fechaFinNula, fechaInicNula, esAdmin);
             }
         }
 

@@ -99,7 +99,7 @@ namespace FrbaCommerce.Clases
         }
 
 
-        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion, int indexVis, int indexEstado, int indexTipo, 
+        public static List<Publicacion> filtrarPublicaciones(Publicacion unaPublicacion, string visibilidad, int indexEstado, int indexTipo, 
                                                              bool fechaFinNula, bool fechaInicNula, bool esAdmin)
         {
             List<Publicacion> publicaciones = new List<Publicacion>();
@@ -113,13 +113,14 @@ namespace FrbaCommerce.Clases
                 listaParametros.Add(new SqlParameter("@codPubli", unaPublicacion.Cod_Publicacion));
             }
 
-            if (indexVis == -1)
+            if (visibilidad == "")
             {
                 listaParametros.Add(new SqlParameter("@codVisib", DBNull.Value));
             }
             else
             {
-                listaParametros.Add(new SqlParameter("@codVisib", indexVis));
+                int idVisibilidad = Visibilidad.obtenerIDVisibilidad(visibilidad);
+                listaParametros.Add(new SqlParameter("@codVisib", idVisibilidad));
             }
             
             listaParametros.Add(new SqlParameter("@idUser", unaPublicacion.ID_Vendedor));

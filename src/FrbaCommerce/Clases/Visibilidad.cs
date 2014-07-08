@@ -27,7 +27,31 @@ namespace FrbaCommerce.Clases
 
         }
 
-    
+        public static int obtenerIDVisibilidad(string descripcion)
+        {
+            int idVisibilidad = -1;
+
+            List<SqlParameter> listaParametros = new List<SqlParameter>();
+
+            BDSQL.agregarParametro(listaParametros, "@descripcion", descripcion);
+
+            string commandText = "SELECT Cod_Visibilidad FROM MERCADONEGRO.Visibilidades WHERE Descripcion = @descripcion";
+
+            SqlDataReader lector = BDSQL.ObtenerDataReader(commandText, "T", listaParametros);
+
+            if (lector.HasRows)
+            {
+                while (lector.Read())
+                {
+                    idVisibilidad = Convert.ToInt32(lector["Cod_Visibilidad"]);
+
+                }
+            }
+            BDSQL.cerrarConexion();
+
+            return idVisibilidad;
+
+        }
             
 
         public static List<Visibilidad> ObtenerVisibilidades()
