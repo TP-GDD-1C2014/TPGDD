@@ -4,4 +4,4 @@ Repositorio del grupo MercadoNegro
 
 1C2014
 
-<del> Bienvenido a nuestro ~~rústico~~ querido TP</del>
+<del> Bienvenido a nuestro ~~rústico querido TP</del>
